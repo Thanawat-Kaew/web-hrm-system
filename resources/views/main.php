@@ -55,7 +55,7 @@
 				<div class="links">
 					<label class="text-center">
 						<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-						<h5 style="font-size: 18px;">HUMAN RESOURCE MANAGEMENT SYSTEM</a>
+						<h5 style="font-size: 18px;">HUMAN RESOURCE MANAGEMENT SYSTEMV2</a>
 							<hr>
 							<h5 style="font-size: 16px; ">ระบบบริหารจัดการทรัพยากรบุคคล</h5>
 						</label>
