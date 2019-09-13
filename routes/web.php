@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('layouts.template');
+    return view('auth.login');
+    // return view('layouts.template');
 });
 
 
@@ -23,4 +24,6 @@ Route::get('/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/main', 'Main\MainController@main')->name('main');
+
