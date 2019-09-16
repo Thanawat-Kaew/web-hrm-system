@@ -12,14 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    // return view('auth.login');
     // return view('layouts.template');
+    return view('main');
 });
 
 
 
 Route::get('/main', 'Main\MainController@main')->name('main');
-Route::get('/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
+
+Route::get('/index', 'TimeStamp\TimeStampController@index')->name('index');
+Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
+
+Route::get('/leave', 'Leave\LeaveController@leave')->name('leave');
+
+Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info');
 
 
 Auth::routes();

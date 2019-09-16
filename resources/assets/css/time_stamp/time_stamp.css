@@ -1,9 +1,9 @@
 body{
-	 background:#202020;
+	 /*background:#202020;*/
 	 font:bold 12px Kanit, sans-serif;
 	 margin:0;
 	 padding:0;
-	 min-width:960px;
+	 /*min-width:960px;*/
 	 color:red; 
 	 font-family: Kanit ; 
 }
@@ -17,7 +17,7 @@ body{
 }*/
 
 .name_user{
-	margin-top: 30px;
+	margin-top: 10px;
 }
 
 @font-face {
@@ -34,4 +34,12 @@ body{
 
 .cancel{
 	margin : 2px;
+}
+
+table{
+	color: black;
+}
+
+tr>th{
+	color: red;
 }

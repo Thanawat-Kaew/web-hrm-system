@@ -1,39 +1,32 @@
-img{
-	margin : 10px;
-}
-
-label{
-	margin-top: 130px;
-}
-
 .user-image{
 	border-radius: 30px;
 	border : 1px solid;
 	border-color: aqua;
 }
 
-.links>a:hover{
+.image_menu:hover{
 	filter: brightness(1.55);
 }
 
-.links>a>img{
+.image_menu{
 	border-radius: 17px;
 }
 
 .image_menu{
-	width: 160px;
-	height: 160px;
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px; 
 }
 
 @font-face {
 	font-family: Kanit; 
 }
 
-*,h1,h2,h3,h4,h5,p,div,span,label,input,textarea,select,option,li,{
-	font-family: "Kanit"  ;
+*,h1,h2,h3,h4,h5,p,div,span,label,input,textarea,select,option,li{
+	font-family: "Kanit" ;
 }
 
-h5{
+h5,button{
 	font-family: Kanit !important; 
 
 }

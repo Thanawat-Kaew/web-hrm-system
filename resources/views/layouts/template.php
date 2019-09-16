@@ -17,63 +17,83 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="/resources/assets/css/main.css">
+   folder instead of downloading all of them to reduce the load. -->
+   <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
+   <link rel="stylesheet" href="/resources/assets/css/main.css">
+   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
+   <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
+   <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css">
+   <!-- iCheck -->
+   <link rel="stylesheet" href="/resources/assets/theme/adminlte/plugins/iCheck/all.css">
+   <!-- Date Picker -->
+   <link rel="stylesheet" href="/resources/assets/theme/adminlte/plugins/timepicker/bootstrap-timepicker.min.css">
+   <!-- Daterange picker -->
+   <!-- Daterange picker -->
+   <link rel="stylesheet" href="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+   <link rel="stylesheet" type="text/css" href="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css" />
+   <link rel="stylesheet" href="/resources/assets/theme/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
 
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+  
 
-<?php echo view('layouts.topbar') ?>
-  <!-- Left side column. contains the logo and sidebar -->
-<?php echo view('layouts.sidebar') ?>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- <?php /*echo view($page, $data)*/ ?> -->
-  </div>
-  <!-- /.content-wrapper -->
+   <!-- Google Font -->
+   <link href="https://fonts.googleapis.com/css?family=Kanit:300&display=swap" rel="stylesheet">
 
- <!--footer-->
- <?php echo view('layouts.footer')?>
+ </head>
+ <body class="hold-transition skin-blue sidebar-mini">
+  <div class="wrapper">
 
-  <!-- /.control-sidebar -->
+    <?php echo view('layouts.topbar') ?>
+    <!-- Left side column. contains the logo and sidebar -->
+    <?php echo view('layouts.sidebar') ?>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <?php echo view($page, $data) ?>
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!--footer-->
+    <?php echo view('layouts.footer')?>
+
+    <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+   immediately after the control sidebar -->
+   <div class="control-sidebar-bg"></div>
 
-</div>
-<!-- ./wrapper -->
+ </div>
+ <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="/resources/assets/theme/adminlte/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
-<!-- Sparkline -->
-<script src="/resources/assets/theme/adminlte/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-<!-- jvectormap  -->
-<script src="/resources/assets/theme/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="/resources/assets/theme/adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- SlimScroll -->
-<script src="/resources/assets/theme/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS -->
-<script src="/resources/assets/theme/adminlte/bower_components/chart.js/Chart.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/resources/assets/theme/adminlte/dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/resources/assets/theme/adminlte/dist/js/demo.js"></script>
-<!-- Site-->
-<script src="/resources/assets/js/site.js"></script>
-
-
+ <!-- jQuery 3 -->
+ <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+ <!-- Bootstrap 3.3.7 -->
+ <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+ <!-- FastClick -->
+ <script src="/resources/assets/theme/adminlte/bower_components/fastclick/lib/fastclick.js"></script>
+ <!-- AdminLTE App -->
+ <script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
+ <!-- Sparkline -->
+ <script src="/resources/assets/theme/adminlte/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+ <!-- jvectormap  -->
+ <script src="/resources/assets/theme/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+ <script src="/resources/assets/theme/adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+ <!-- SlimScroll -->
+ <script src="/resources/assets/theme/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+ <!-- ChartJS -->
+ <script src="/resources/assets/theme/adminlte/bower_components/chart.js/Chart.js"></script>
+ <!-- AdminLTE for demo purposes -->
+ <script src="/resources/assets/theme/adminlte/dist/js/demo.js"></script>
+ <!-- Site-->
+ <script src="/resources/assets/js/site.js"></script>
+ <script src="/resources/assets/js/main.js"></script>
+ <!-- Time Picker -->
+ <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/moment.min.js"></script>
+ <!-- bootbox -->
+ <script src="/resources/assets/js/core/bootbox/bootbox.min.js"></script>
+ <script src="/resources/assets/js/leave/leave.js"></script>
+ <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+ <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
 
 </body>
 </html>
