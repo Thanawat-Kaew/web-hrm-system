@@ -28,9 +28,12 @@ Route::get('/leave', 'Leave\LeaveController@leave')->name('leave');
 
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info');
 
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+
 
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/main', 'Main\MainController@main')->name('main');
+
 
