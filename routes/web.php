@@ -21,9 +21,12 @@ Route::get('/', function () {
 Route::get('/main', 'Main\MainController@main')->name('main');
 Route::get('/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
 
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+
 
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/main', 'Main\MainController@main')->name('main');
+
 
