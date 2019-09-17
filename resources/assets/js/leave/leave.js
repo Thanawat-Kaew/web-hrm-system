@@ -29,7 +29,7 @@ $('.dropup').on('click', '.sick-form', function(){
         '</div><br>'+
         '<label>เหตุผลการลา</label><br>'+
         '<textarea class="form-control textarea g-disable-input" name="live-preview" placeholder="Enter..." rows="5"></textarea>',
-        size: 'xlarge',
+        size: 'large',
         onEscape: true,
         backdrop: true,
         buttons: {
@@ -96,7 +96,7 @@ $('.dropup').on('click', '.errand-form', function(){
         '</div><br>'+
         '<label>เหตุผลการลา</label><br>'+
         '<textarea class="form-control textarea g-disable-input" name="live-preview" placeholder="Enter..." rows="5"></textarea>',
-        size: 'xlarge',
+        size: 'large',
         onEscape: true,
         backdrop: true,
         buttons: {

@@ -16,12 +16,10 @@
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/bower_components/jvectormap/jquery-jvectormap.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-    folder instead of downloading all of them to reduce the load. -->
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead downloading all them to reduce the load. -->
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
     <!--Clock-->
     <link rel="stylesheet" href="/resources/assets/css/time_stamp/time_stamp.css">
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
 
@@ -62,10 +60,10 @@
                         <div class="form-group">
                             <label>รูปแบบ</label>
                             <select class="form-control select2" style="width: 100%;">
-                                <option selected="selected">ลงเวลาเข้า</option>
-                                <option>ลงเวลาออก</option>
-                                <option>ออกพักกลางวัน</option>
-                                <option>เข้าพักกลางวัน</option>
+                                <option selected="selected">ลงเวลาเข้า  (Time In)</option>
+                                <option>ลงเวลาออก  (Time Out)</option>
+                                <option>ออกพักกลางวัน  (Break Out)</option>
+                                <option>เข้าพักกลางวัน  (Break In)</option>
                             </select>
                         </div>
                         <div class="form-group text-center">
