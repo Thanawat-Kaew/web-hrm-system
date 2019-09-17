@@ -48,7 +48,7 @@ class LoginController extends Controller
         if(count($checkLogin) > 0){
             if($checkLogin->where(['id_position'] == 1) && ['id_department'] == 'en0001'||'fa0001'||'pm0001'||'ss0001'){
                 echo "1 en";
-                //return redirect()->route('main');
+                return redirect()->route('main');
             }
             else if($checkLogin->where(['id_position'] == 2) && ['id_department'] == 'en0001'||'fa0001'||'pm0001'||'ss0001'){
                 echo "2 en";

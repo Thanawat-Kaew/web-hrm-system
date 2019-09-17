@@ -1,0 +1,18 @@
+.about-employee{
+	margin-top: 5px;
+	font-size: 12px;
+}
+
+img{
+	height: 120px; 
+	width: 120px; 
+	border-radius: 50%
+
+}
+hr{
+	border: 2px solid #0E96D7;
+}
+
+li.manage-employee{
+	cursor: pointer;
+}

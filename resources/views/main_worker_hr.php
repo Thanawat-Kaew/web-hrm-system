@@ -68,11 +68,6 @@
   								</a>
   							</div>
   							<div class="col-sm-6 col-xs-6">
-  								<a href="">
-  									<img class="image_menu" src="/resources/image/report.png">
-  								</a>
-  							</div>
-  							<div class="col-sm-6 col-xs-6">
   								<a href="<?php echo route('index_data')?>">
   									<img class="image_menu" src="/resources/image/data_management.png">
   								</a>

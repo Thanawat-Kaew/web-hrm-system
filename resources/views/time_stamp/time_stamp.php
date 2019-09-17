@@ -70,9 +70,6 @@
                             <a href="">
                                 <button class="btn btn-info pull-center" type="submit">SUBMIT</button>
                             </a>
-                            <a href="<?php echo route('index')?>">
-                                <button class="btn btn-warning pull-center " type="submit">CANCEL</button>
-                            </a>
                         </div>
                     </div>
                 </div>

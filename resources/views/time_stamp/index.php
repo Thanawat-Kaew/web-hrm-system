@@ -15,9 +15,9 @@
 					</button>
 				</div>
 				<div class="btn-group pull-right time-clock">
-					<a href="<?php echo route('time_stamp')?>" >
-					<button type="button" name="time_stamp" class='btn btn-info'><i class="fa fa-clock-o"></i> Time Clock
-					</button></a>
+					
+					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
+					</button>
 				</div>
 			</div>
 			<div class="box box-info">

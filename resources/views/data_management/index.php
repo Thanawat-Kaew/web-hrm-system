@@ -1,0 +1,87 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        พนักงาน | 
+        <small> Employee</small>
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row form-group">
+
+
+        <div class="col-sm-3 col-xs-12 pull-right">
+            <div class="input-group input-group-sm">
+                <input id="text-search" type="text" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button id="btn-search-device" type="button" class="btn btn-success btn-flat"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+        <button type="button" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus"></i> พนักงาน</button>
+    </div>
+
+    <h4 class="box-title">หัวหน้าแผนก</h4>
+    <hr>
+    <div class="box-body">
+        <div class="row" id="group-employee">
+            <div class="col-md-2 col-sm-2 ">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header">
+                        <!-- /.widget-user-image -->
+                        <div class="group-image" align="center" valign="center">
+                            <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">
+                        </div>
+                        <div class="about-employee">
+                            <p>รหัส  :<span> 5951001063</span></p>
+                            <p>ชื่อ   :<span> ธนวัฒน์  แก้วล้อมวัง</span></p>
+                        </div>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li class="manage-employee">
+                                <a style="margin: 5px border: 1px; color : #F76608;">
+                                    <center>
+                                        <i class="fa fa-cog"></i> Manage Data
+                                    </center>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="box-title">พนักงาน</h4>
+    <hr>
+    <div class="box-body">
+        <div class="row" id="group-employee">
+            <div class="col-md-2 col-sm-2 ">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header">
+                        <!-- /.widget-user-image -->
+                        <div class="group-image" align="center" valign="center">
+                            <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">
+                        </div>
+                        <div class="about-employee">
+                            <p>รหัส  :<span> 5951001063</span></p>
+                            <p>ชื่อ   :<span> ธนวัฒน์  แก้วล้อมวัง</span></p>
+                        </div>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li class="manage-employee">
+                                <a style="margin: 5px border: 1px; color : #F76608;">
+                                    <center>
+                                        <i class="fa fa-cog"></i> Manage Data
+                                    </center>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

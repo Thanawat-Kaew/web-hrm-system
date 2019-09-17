@@ -23,6 +23,7 @@
    <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
    <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
    <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css">
+   <link rel="stylesheet" href="/resources/assets/css/data_management/index.css">
    <!-- iCheck -->
    <link rel="stylesheet" href="/resources/assets/theme/adminlte/plugins/iCheck/all.css">
    <!-- Date Picker -->
@@ -85,8 +86,8 @@
  <!-- AdminLTE for demo purposes -->
  <script src="/resources/assets/theme/adminlte/dist/js/demo.js"></script>
  <!-- Site-->
- <script src="/resources/assets/js/site.js"></script>
  <script src="/resources/assets/js/main.js"></script>
+ <script src="/resources/assets/js/time_stamp/index.js"></script>
  <!-- Time Picker -->
  <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/moment.min.js"></script>
  <!-- bootbox -->

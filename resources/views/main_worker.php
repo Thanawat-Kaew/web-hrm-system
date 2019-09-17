@@ -18,11 +18,11 @@
 	<link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
   	folder instead of downloading all of them to reduce the load. -->
-  	<link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
-  	<link rel="stylesheet" href="/resources/assets/css/main.css">
+  <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/resources/assets/css/main.css">
 
-  	<!-- Google Font -->
-  	<link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
   </head>
 
   <body>
@@ -60,21 +60,6 @@
   							<div class="col-sm-6 col-xs-6 personal_info">
   								<a href="<?php echo route('personal_info')?>">
   									<img class="image_menu" src="/resources/image/personal_information.png">
-  								</a>
-  							</div>
-  							<div class="col-sm-6 col-xs-6">
-  								<a href="">
-  									<img class="image_menu" src="/resources/image/evaluation.png">
-  								</a>
-  							</div>
-  							<div class="col-sm-6 col-xs-6">
-  								<a href="">
-  									<img class="image_menu" src="/resources/image/report.png">
-  								</a>
-  							</div>
-  							<div class="col-sm-6 col-xs-6">
-  								<a href="<?php echo route('index_data')?>">
-  									<img class="image_menu" src="/resources/image/data_management.png">
   								</a>
   							</div>
   						</div>

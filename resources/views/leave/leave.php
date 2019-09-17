@@ -75,6 +75,8 @@
 							<th>วันที่ลา</th>
 							<th>เหตุผลการลา</th>
 							<th>สถานะ</th>
+							<th>แก้ไข</th>
+							<th>ลบ</th>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
@@ -82,6 +84,8 @@
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
 							<td><span class="label label-success">Approved</span></td>
+							<td><a><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
+							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button></td>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
@@ -89,13 +93,17 @@
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
 							<td><span class="label label-info">Waiting</span></td>
+							<td><span class="btn btn-warning form-control"><i class="fa fa-pencil btn"></i></span></td>
+							<td><span class="btn btn-danger form-control"><i class="fa fa-trash btn"></i></span></td>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
 							<td>ลากิจ</td>
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-							<td><span class="label label-warning">Pending</span></td>
+							<td><span class="label label-info">Waiting</span></td>
+							<td><button class="btn btn-warning form-control"><i class="fa fa-pencil btn"></i></button></td>
+							<td><button class="btn btn-danger form-control"><i class="fa fa-trash btn"></i></button></td>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
@@ -103,6 +111,8 @@
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
 							<td><span class="label label-danger">Cancel</span></td>
+							<td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
+							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button></td>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
@@ -110,6 +120,8 @@
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
 							<td><span class="label label-danger">Cancel</span></td>
+							<td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
+							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button></td>
 						</tr>
 					</table>
 				</div>
