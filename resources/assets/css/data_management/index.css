@@ -16,3 +16,11 @@ hr{
 li.manage-employee{
 	cursor: pointer;
 }
+
+.input-group-sm{
+	margin-bottom: 3px;
+}
+
+img{
+	size: auto;
+}

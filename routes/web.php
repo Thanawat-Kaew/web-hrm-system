@@ -29,22 +29,6 @@ Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->n
 
 
 
-/*test route main'...*/
-
-Route::get('/main_head', 'Main\MainController@main_head')->name('main_head');
-Route::get('/main_head_hr', 'Main\MainController@main_head_hr')->name('main_head_hr');
-Route::get('/main_worker', 'Main\MainController@main_worker')->name('main_worker');
-Route::get('/main_worker_hr', 'Main\MainController@main_worker_hr')->name('main_worker_hr');
-/*end test route*/
-
-
-
-
-
-
-
-
-
 
 
 

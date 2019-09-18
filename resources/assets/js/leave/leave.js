@@ -131,7 +131,3 @@ $('.dropup').on('click', '.errand-form', function(){
             }
     })
 });
-
-
-
-

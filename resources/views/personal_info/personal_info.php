@@ -31,74 +31,23 @@
             <h3>ข้อมูลส่วนตัว <small>| Personal Information</small></h3>
             <div class="row">
                 <div class="box box-info">
+
                     <div class="box-body">
                         <div class="text-center">
                             <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
                         </div>
-                        รหัสพนักงาน
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-key"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" 5951001063">
-                        </div>
-                        ชื่อ - นามสกุล
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-user-secret"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" ธนวัฒน์  แก้วล้อมวัง">
-                        </div>
-                        ตำแหน่ง
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" Web Developer">
-                        </div>
-                        แผนก
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-sitemap"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" Information Technology">
-                        </div>
-                        อัตราเงินเดือน
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-money"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" 50,000">
-                        </div>
-                        การศึกษา
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" ปริญญาตรี">
-                        </div>
-                        อายุ
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa  fa-circle-o"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" 22">
-                        </div>
-                        ที่อยู่
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-map-marker"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" กรุงเทพมหานคร  ประเทศไทย">
-                        </div>
-                        อีเมล์
-                        <div class="input-group name_user">
-                            <div class="input-group-addon">
-                                <i class="fa fa-envelope"></i>
-                            </div>
-                            <input class="form-control" type="text" readonly value=" tanawat@example.com">
-                        </div><br>
 
+                        <div class="personal-data">
+                            <h4>รหัสพนักงาน : 5951001063</h4>
+                            <h4>ชื่อ - สกุล : ธนวัฒน์  แก้วล้อมวัง</h4>
+                            <h4>ตำแหน่ง : Web Programmer</h4>
+                            <h4>แผนก : Information Technology</h4>
+                            <h4>อัตราเงินเดือน : 50,000</h4>
+                            <h4>การศึกษา : ปริญญาตรี</h4>
+                            <h4>อายุ : 22</h4>
+                            <h4>ที่อยู่ : ยานนาวา ประเทศไทย</h4>
+                            <h4>อีเมล์ : tanawat@example.com</h4>
+                        </div>
                         <div class="form-group text-center">
                             <a href="<?php echo route('main')?>">
                                 <button class="btn btn-info pull-center" type="submit">BACK</button>

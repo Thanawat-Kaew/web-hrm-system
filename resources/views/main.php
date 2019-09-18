@@ -57,7 +57,7 @@
   									<img class="image_menu" src="/resources/image/leave.png">
   								</a>
   							</div>
-  							<div class="col-sm-6 col-xs-6 personal_info">
+  							<div class="col-sm-6 col-xs-6">
   								<a href="<?php echo route('personal_info')?>">
   									<img class="image_menu" src="/resources/image/personal_information.png">
   								</a>
