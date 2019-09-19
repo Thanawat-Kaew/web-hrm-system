@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 
-Route::post('/login', 'Auth\LoginController@login')->name('login');
+// Route::post('/login', 'Auth\LoginController@login')->name('login');
 // Route::get('/main', 'Main\MainController@main')->name('main');
 Route::get('/index', 'TimeStamp\TimeStampController@index')->name('index');
 Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
