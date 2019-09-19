@@ -88,8 +88,13 @@
  <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/moment.min.js"></script>
  <!-- bootbox -->
  <script src="/resources/assets/js/core/bootbox/bootbox.min.js"></script>
+
+
  <script src="/resources/assets/js/leave/leave.js"></script>
  <script src="/resources/assets/js/data_management/index.js"></script>
+
+
+ 
  <script src="/resources/assets/js/main.js"></script>
  <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
  <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>

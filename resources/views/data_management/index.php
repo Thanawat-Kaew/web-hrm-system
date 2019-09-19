@@ -13,7 +13,6 @@
         </div>
     </h1>
 </section>
-
 <section class="content">
     <div class="form-group">
         <div class="col-sm-3 col-xs-12 pull-right input-group-sm">
@@ -97,6 +96,9 @@
         </div>
     </div>
 </section>
+<!-- data -->
+<div id="ajax-center-url" data-url="<?php echo route('data_manage.ajax_center')?>"></div>
+<?php echo csrf_field()?>
 
 
 <!-- <div class="modal-body modal-center">

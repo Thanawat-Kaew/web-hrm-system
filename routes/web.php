@@ -12,9 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    // return view('auth.login');
     // return view('layouts.template');
-    // return view('main');
+    return view('main');
 });
 
 
@@ -27,7 +27,8 @@ Route::get('/leave', 'Leave\LeaveController@leave')->name('leave');
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info');
 Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->name('index_data');
 
-
+Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@ajaxCenter')->name('data_manage.ajax_center');
+Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center');
 
 
 

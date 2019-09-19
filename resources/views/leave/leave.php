@@ -4,7 +4,6 @@
 		<small> Leave</small>
 	</h1>
 </section>
-
 <section class="content">
 	<!-- Info boxes -->
 	<div class="row">
@@ -42,12 +41,8 @@
 		<div class="col-xs-12">
 			<div class="row">
 				<div class="btn-group dropup pull-right ">
-					<button href="" type="button" name="add-leave" class='btn btn-success dropdown-toggle' data-toggle="dropdown"><i class="fa fa-plus"></i> New Record
+					<button href="" type="button" name="add-leave" class='btn btn-success dropdown-toggle add-leave'><i class="fa fa-plus"></i> New Record
 					</button>
-					<ul class="dropdown-menu add-leave">
-						<li class="sick-form"><a>+ ลาป่วย</a></li>
-						<li class="errand-form"><a>+ ลากิจ</a></li>
-					</ul>
 				</div>
 			</div>
 			<div class="box box-info">
@@ -134,3 +129,7 @@
 		</div>
 	</div>
 </section>
+
+<!-- data -->
+<div id="ajax-center-url" data-url="<?php echo route('leave.ajax_center')?>"></div>
+<?php echo csrf_field()?>
