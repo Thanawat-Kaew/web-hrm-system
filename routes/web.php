@@ -12,15 +12,15 @@
 */
 
 Route::get('/', function () {
-    // return view('auth.login');
+    return view('auth.login');
     // return view('layouts.template');
-    return view('main');
+    // return view('main');
 });
 
 
 
 Route::post('/login', 'Auth\LoginController@login')->name('login');
-Route::get('/main', 'Main\MainController@main')->name('main');
+// Route::get('/main', 'Main\MainController@main')->name('main');
 Route::get('/index', 'TimeStamp\TimeStampController@index')->name('index');
 Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave');
@@ -29,6 +29,9 @@ Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->n
 
 Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@ajaxCenter')->name('data_manage.ajax_center');
 Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center');
+
+//Route::get('/main', 'Main\MainController@main')->name('main');
+Route::get('/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
 
 
 
