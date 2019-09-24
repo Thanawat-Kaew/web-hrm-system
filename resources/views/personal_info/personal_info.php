@@ -60,6 +60,11 @@
     </section>
 </div>
 
+<!-- data -->
+<div id="ajax-center-url" data-url="<?php echo route('')?>"></div>
+<?php echo csrf_field()?>
+
+
 <!-- jQuery 3 -->
 <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

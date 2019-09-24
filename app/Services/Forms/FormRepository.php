@@ -4,7 +4,6 @@ namespace App\Services\Forms;
 class FormRepository 
 {
 	public static function getFormEmployee(){
-
 		$form_add_emp = '<div class="row">
         <div class="col-md-8 col-md-offset-2" >
         <div class="box-body">
@@ -116,7 +115,6 @@ class FormRepository
 	}
 
     public static function getFormLeave(){
-        
         $form_leave = '<div class="box-body"> 
         ประเภท
         <div class="input-group name_user">
@@ -141,25 +139,30 @@ class FormRepository
         <div class="form-group">
         <div class="col-sm-9">
         <label class="group-display">
-        <input type="checkbox" name="repeatday[]" value="sunday" class="flat-red"> ลาเต็มวัน
+        <input type="radio" name="repeatday[]" value="sunday" class="flat-red"> ลาเต็มวัน
         </label>&nbsp&nbsp
         <label class="group-display">
-        <input type="checkbox" name="repeatday[]" value="monday" class="flat-red"> ลาครึ่งเช้า
+        <input type="radio" name="repeatday[]" value="monday" class="flat-red"> ลาครึ่งเช้า
         </label>&nbsp&nbsp
         <label class="group-display"> 
-        <input type="checkbox" name="repeatday[]" value="tuesday" class="flat-red"> ลาครึ่งบ่าย
+        <input type="radio" name="repeatday[]" value="tuesday" class="flat-red"> ลาครึ่งบ่าย
         </label>&nbsp&nbsp
         </div>
         </div><br>
-        ว/ด/ป
-        <div class="form-group"> 
-        <div class="input-group">
+        เริ่มวันที่
+        <div class="input-group col-md-12">
         <div class="input-group-addon">
         <i class="fa fa-calendar"></i>
         </div>
-        <input type="text" name="daterangepicker" class="form-control pull-right" id="daterangepicker">
-        </div>
+        <input type="text" value="" readonly class="form_datetime form-control">
         </div><br>
+        ถึงวันที่
+        <div class="input-group col-md-12">
+        <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+        </div>
+        <input type="text" value="" readonly class="form_datetime form-control">
+        </div>
         รวมจำนวน <i style="font-size: 30px; color: red"> 3 </i> วัน<br><hr>
         เหตุผลการลา<br>
         <textarea class="form-control textarea g-disable-input" name="live-preview" placeholder="Type..." rows="5"></textarea>';
@@ -168,3 +171,13 @@ class FormRepository
     }
 
 }
+
+// ว/ด/ป
+//         <div class="form-group"> 
+//         <div class="input-group">
+//         <div class="input-group-addon">
+//         <i class="fa fa-calendar"></i>
+//         </div>
+//         <input type="text" readonly name="daterangepicker" class="form-control pull-right" id="daterangepicker">
+//         </div>
+//         </div><br>

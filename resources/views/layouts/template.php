@@ -19,11 +19,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
    folder instead of downloading all of them to reduce the load. -->
    <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
-   <link rel="stylesheet" href="/resources/assets/css/main.css">
-   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
-   <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
-   <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css">
-   <link rel="stylesheet" href="/resources/assets/css/data_management/index.css">
+
    <!-- iCheck -->
    <link rel="stylesheet" href="/resources/assets/theme/adminlte/plugins/iCheck/all.css">
    <!-- Date Picker -->
@@ -33,9 +29,15 @@
    <link rel="stylesheet" href="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
    <link rel="stylesheet" type="text/css" href="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css" />
    <link rel="stylesheet" href="/resources/assets/theme/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-
+   <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min.css">
    <!-- Google Font -->
    <link href="https://fonts.googleapis.com/css?family=Kanit:300&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" href="/resources/assets/css/main.css">
+   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
+   <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
+   <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css">
+   <link rel="stylesheet" href="/resources/assets/css/data_management/index.css">
 
  </head>
  <body class="hold-transition skin-blue sidebar-mini">
@@ -81,6 +83,9 @@
  <script src="/resources/assets/theme/adminlte/bower_components/chart.js/Chart.js"></script>
  <!-- AdminLTE for demo purposes -->
  <script src="/resources/assets/theme/adminlte/dist/js/demo.js"></script>
+ <!-- bootstrap-datetimepickrt -->
+ <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+ <script type="text/javascript" src="/resources/assets/js/core/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
  <!-- Site-->
  <script src="/resources/assets/js/personal_info/personal_info.js"></script>
  <script src="/resources/assets/js/time_stamp/index.js"></script>
@@ -88,16 +93,17 @@
  <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/moment.min.js"></script>
  <!-- bootbox -->
  <script src="/resources/assets/js/core/bootbox/bootbox.min.js"></script>
-
-
- <script src="/resources/assets/js/leave/leave.js"></script>
  <script src="/resources/assets/js/data_management/index.js"></script>
 
 
+ <script src="/resources/assets/js/leave/leave.js"></script>
+
+
+ <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
  
  <script src="/resources/assets/js/main.js"></script>
- <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
- <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
+
+
 
 </body>
 </html>

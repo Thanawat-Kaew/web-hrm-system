@@ -25,17 +25,17 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
   </head>
   <body>
-    <?php
-        if(Session::has('employee_general')){
-            echo '<div>employee_general</div>';
-        }else if(Session::has('header_general')){
-            echo '<div>header_general</div>';
-        }else if(Session::has('employee_hr')){
-            echo '<div>employee_hr</div>';
-        }else if(Session::has('header_hr')){
-            echo '<div>header_hr</div>';
-        }
-    ?>
+    <!-- <?php
+    if(Session::has('employee_general')){
+      echo '<div>employee_general</div>';
+    }else if(Session::has('header_general')){
+      echo '<div>header_general</div>';
+    }else if(Session::has('employee_hr')){
+      echo '<div>employee_hr</div>';
+    }else if(Session::has('header_hr')){
+      echo '<div>header_hr</div>';
+    }
+    ?> -->
     <!-- Main content -->
     <section class="content">
       <!-- Main row -->
@@ -44,7 +44,7 @@
         <div class="col-md-6 hidden-md hidden-sm hidden-lg">
           <div class="lockscreen-wrapper">
             <div class="text-center">
-              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+              <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-image img-circle" alt="User Image">
               <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
               <hr>
               <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
@@ -59,8 +59,78 @@
           <div class="lockscreen-wrapper">
             <div class="links">
               <div class="col-sm-12 col-xs-12">
-                        <?php if(Session::has('employee_general')) {?>    
-                <div class="col-sm-6 col-xs-6">
+                <?php if(Session::has('employee_general')) {?>    
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('index')?>">
+                      <img class="image_menu" src="/resources/image/time_stamp.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('leave')?>">
+                      <img class="image_menu" src="/resources/image/leave.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('personal_info')?>">
+                      <img class="image_menu" src="/resources/image/personal_information.png">
+                    </a>
+                  </div>
+
+                <?php }else if(Session::has('header_general')) { ?>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('index')?>">
+                      <img class="image_menu" src="/resources/image/time_stamp.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('leave')?>">
+                      <img class="image_menu" src="/resources/image/leave.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('personal_info')?>">
+                      <img class="image_menu" src="/resources/image/personal_information.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="#">
+                      <img class="image_menu" src="/resources/image/evaluation.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="#">
+                      <img class="image_menu" src="/resources/image/report.png">
+                    </a>
+                  </div>
+
+                <?php }else if(Session::has('employee_hr')) {?>    
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('index')?>">
+                      <img class="image_menu" src="/resources/image/time_stamp.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('leave')?>">
+                      <img class="image_menu" src="/resources/image/leave.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('personal_info')?>">
+                      <img class="image_menu" src="/resources/image/personal_information.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="#">
+                      <img class="image_menu" src="/resources/image/evaluation.png">
+                    </a>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
+                    <a href="<?php echo route('index_data')?>">
+                      <img class="image_menu" src="/resources/image/data_management.png">
+                    </a>
+                  </div>
+                <?php }else if(Session::has('header_hr')){ ?>
+                 <div class="col-sm-6 col-xs-6">
                   <a href="<?php echo route('index')?>">
                     <img class="image_menu" src="/resources/image/time_stamp.png">
                   </a>
@@ -75,23 +145,6 @@
                     <img class="image_menu" src="/resources/image/personal_information.png">
                   </a>
                 </div>
-
-                        <?php }else if(Session::has('header_general')) { ?>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('index')?>">
-                                    <img class="image_menu" src="/resources/image/time_stamp.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('leave')?>">
-                                    <img class="image_menu" src="/resources/image/leave.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('personal_info')?>">
-                                    <img class="image_menu" src="/resources/image/personal_information.png">
-                                </a>
-                            </div>
                 <div class="col-sm-6 col-xs-6">
                   <a href="#">
                     <img class="image_menu" src="/resources/image/evaluation.png">
@@ -102,90 +155,37 @@
                     <img class="image_menu" src="/resources/image/report.png">
                   </a>
                 </div>
-
-                        <?php }else if(Session::has('employee_hr')) {?>    
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('index')?>">
-                                    <img class="image_menu" src="/resources/image/time_stamp.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('leave')?>">
-                                    <img class="image_menu" src="/resources/image/leave.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('personal_info')?>">
-                                    <img class="image_menu" src="/resources/image/personal_information.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="#">
-                                    <img class="image_menu" src="/resources/image/evaluation.png">
-                                </a>
-                            </div>
                 <div class="col-sm-6 col-xs-6">
                   <a href="<?php echo route('index_data')?>">
                     <img class="image_menu" src="/resources/image/data_management.png">
                   </a>
                 </div>
-                        <?php }else if(Session::has('header_hr')){ ?>
-                             <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('index')?>">
-                                    <img class="image_menu" src="/resources/image/time_stamp.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('leave')?>">
-                                    <img class="image_menu" src="/resources/image/leave.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('personal_info')?>">
-                                    <img class="image_menu" src="/resources/image/personal_information.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="#">
-                                    <img class="image_menu" src="/resources/image/evaluation.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="#">
-                                    <img class="image_menu" src="/resources/image/report.png">
-                                </a>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <a href="<?php echo route('index_data')?>">
-                                    <img class="image_menu" src="/resources/image/data_management.png">
-                                </a>
-                            </div>
-                        <?php }?>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="lockscreen-wrapper pull-left hidden-xs">
-            <div class="text-center" style="margin-top: 130px;">
-              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-              <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
-              <hr>
-              <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-              <a href="">
-                <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
-              </a>
+              <?php }?>
             </div>
           </div>
         </div>
       </div>
-      <!-- /.col -->
-    </section>
-    <!-- /.content -->
+      <div class="col-md-6">
+        <div class="lockscreen-wrapper pull-left hidden-xs">
+          <div class="text-center" style="margin-top: 130px;">
+            <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-image img-circle" alt="User Image">
+            <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
+            <hr>
+            <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
+            <a href="">
+              <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.col -->
+  </section>
+  <!-- /.content -->
 
-    <!-- jQuery 3 -->
-    <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  </body>
-  </html>
+  <!-- jQuery 3 -->
+  <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

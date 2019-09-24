@@ -91,16 +91,17 @@ $('.dropup').on('click', '.add-leave', function(){
         url: $('#ajax-center-url').data('url'),
         data: {method : 'getFormLeave'},
         success: function (result) {
-            bootbox.alert(result.data);
-                var title = "<h4 style='color: red;'>แบบฟอร์มลา <small> | Leave Form</small></h4>"
-                showDialog(result.data,title)
-            },
-            error : function(errors)
-            {
-                console.log(errors);
-            }
-        })
-    });
+            // bootbox.alert(result.data);
+            var title = "<h4 style='color: red;'>แบบฟอร์มลา <small> | Leave Form</small></h4>"
+            showDialog(result.data,title)
+        },
+        error : function(errors)
+        {
+            console.log(errors);
+        }
+    })
+
+})
 
 function showDialog(form,title){
     bootbox.dialog({ 
@@ -125,7 +126,7 @@ function showDialog(form,title){
             }
         }
     })
-      $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+ $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
         checkboxClass: 'icheckbox_flat-green',
         radioClass   : 'iradio_flat-green'
     })
@@ -133,15 +134,25 @@ function showDialog(form,title){
     $('input[name="daterangepicker"]').daterangepicker({
         timePicker: true,
         startDate: moment().startOf('hour'),
-            locale: {
-                format: 'M/DD hh:mm A'
-            }
+        locale: {
+            format: 'M/DD hh:mm A'
+        }
     })
-
+$(".form_datetime").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
 
 };
 
 
+
+
+  // $('input[name="datetimes"]').daterangepicker({
+  //   timePicker: true,
+  //   startDate: moment().startOf('hour'),
+  //   endDate: moment().startOf('hour').add(32, 'hour'),
+  //   locale: {
+  //     format: 'M/DD hh:mm A'
+  //   }
+  // });
 
 
     // bootbox.dialog({ 
@@ -169,4 +180,3 @@ function showDialog(form,title){
     //     }
 
     // })
-  

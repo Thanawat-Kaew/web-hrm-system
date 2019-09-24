@@ -7,33 +7,149 @@
 <section class="content">
 	<!-- Info boxes -->
 	<div class="row">
-		<div class="col-md-4 col-sm-6 col-xs-12">
-			<div class="info-box">
-				<span class="info-box-icon bg-yellow"><i class="">20</i></span>
-
-				<div class="info-box-content">
-					<span class="info-box-text">คงเหลือ</span>
-					<span class="info-box-number">ลากิจ</span>
+		<div class="col-md-12">
+			<div class="box box-danger">
+				<div class="box-header">
+					<h3 class="box-title">ตารางการลาประจำปี</h3>
 				</div>
-				<!-- /.info-box-content -->
-			</div>
-			<!-- /.info-box -->
-		</div>
-		<!-- /.col -->
-		<div class="col-md-4 col-sm-6 col-xs-12">
-			<div class="info-box">
-				<span class="info-box-icon bg-green"><i class="">15</i></span>
-				<div class="info-box-content">
-					<span class="info-box-text">คงเหลือ</span>
-					<span class="info-box-number">ลาป่วย</span>
+				<!-- /.box-header -->
+				<div class="box-body no-padding">
+					<table class="table table-condensed">
+						<tbody>
+							<tr>
+								<th style="width: 10px">#</th>
+								<th>ประเภทการลา</th>
+								<th>ทั้งหมด</th>
+								<th >คงเหลือ</th>
+								<th class="hidden-xs">Progress</th>
+								<th class="hidden-xs"></th>
+							</tr>
+							<tr>
+								<td>1.</td>
+								<td>ลากิจส่วนตัว</td>
+								<td><span class="badge bg-red">20</span></td>
+								<td><span class="badge bg-red">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-red" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-red">90%</span></td>
+							</tr>
+							<tr>
+								<td>2.</td>
+								<td>ลาป่วย</td>
+								<td><span class="badge bg-yellow">20</span></td>
+								<td><span class="badge bg-yellow">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-yellow" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-yellow">90%</span></td>
+							</tr>
+							<tr>
+								<td>3.</td>
+								<td>ลาคลอดบุตร</td>
+								<td><span class="badge bg-green">20</span></td>
+								<td><span class="badge bg-green">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-green" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-green">90%</span></td>
+							</tr>
+							<tr>
+								<td>4.</td>
+								<td>ลาไปช่วยภรรยาหลังคลอด</td>
+								<td><span class="badge bg-gray">20</span></td>
+								<td><span class="badge bg-gray">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-gray">90%</span></td>
+							</tr>
+							<tr>
+								<td>5.</td>
+								<td>ลาพักผ่อน</td>
+								<td><span class="badge bg-blue">20</span></td>
+								<td><span class="badge bg-blue">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-blue" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-blue">90%</span></td>
+							</tr>
+							<tr>
+								<td>6.</td>
+								<td>ลาอุปสมบท</td>
+								<td><span class="badge bg-aqua">20</span></td>
+								<td><span class="badge bg-aqua">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-aqua" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-aqua">90%</span></td>
+							</tr>
+							<tr>
+								<td>7.</td>
+								<td>ลาไปประกอบพิธีฮัจญ์</td>
+								<td><span class="badge bg-orange">20</span></td>
+								<td><span class="badge bg-orange">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-warning" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-orange">90%</span></td>
+							</tr>
+							<tr>
+								<td>8.</td>
+								<td>ลาเกี่ยวกับราชการทหาร</td>
+								<td><span class="badge bg-black">20</span></td>
+								<td><span class="badge bg-black">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-black" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-black">90%</span></td>
+							</tr>
+							<tr>
+								<td>9.</td>
+								<td>ลาติดตามคู่สมรส</td>
+								<td><span class="badge bg-maroon">20</span></td>
+								<td><span class="badge bg-maroon">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-danger" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-maroon">90%</span></td>
+							</tr>
+							<tr>
+								<td>10.</td>
+								<td>ลาไปถือศีลปฏิบัติธรรม</td>
+								<td><span class="badge bg-teal">20</span></td>
+								<td><span class="badge bg-teal">7</span></td>
+								<td class="hidden-xs">
+									<div class="progress progress-xs progress-striped active">
+										<div class="progress-bar progress-bar-info" style="width: 90%"></div>
+									</div>
+								</td>
+								<td class="hidden-xs"><span class="badge bg-teal">90%</span></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<!-- /.info-box-content -->
+				<!-- /.box-body -->
 			</div>
-			<!-- /.info-box -->
-		</div>
-		<!-- /.col -->
-		<div class="col-md-4 col-sm-6 col-xs-12 pull-right">
-			
+			<!-- /.box -->
 		</div>
 	</div>
 	<!-- /.row -->
@@ -59,8 +175,6 @@
 						</div>
 					</div>
 				</div>
-
-
 				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
 					<table class="table table-hover">
@@ -79,8 +193,9 @@
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
 							<td><span class="label label-success">Approved</span></td>
-							<td><a><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
-							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button></td>
+							<td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
+							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button>
+							</td>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
@@ -121,9 +236,6 @@
 					</table>
 				</div>
 				<!-- /.box-body -->
-
-				
-
 			</div>
 			<!-- /.box -->
 		</div>
