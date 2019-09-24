@@ -45,19 +45,19 @@
                                 <li id="sec"> </li>
                             </ul>
                         </div> 
-                        <div class="input-group name_user">
+                        <div class="input-group name_employee">
                             <div class="input-group-addon">
                                 <i class="fa fa-user-secret"></i>
                             </div>
                             <input class="form-control" type="text" readonly value=" ธนวัฒน์  แก้วล้อมวัง">
                         </div><br>
-                        <div class="input-group">
+                        <div class="input-group password_employee">
                             <div class="input-group-addon">
                                 <i class="fa fa-unlock"></i>
                             </div>
                             <input class="form-control" placeholder="Enter your password..." value="">
                         </div><br>
-                        <div class="form-group">
+                        <div class="form-group ">
                             <label>รูปแบบ</label>
                             <select class="form-control select2" style="width: 100%;">
                                 <option selected="selected">ลงเวลาเข้า  (Time In)</option>

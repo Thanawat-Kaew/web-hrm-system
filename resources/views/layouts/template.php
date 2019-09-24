@@ -85,7 +85,7 @@
  <script src="/resources/assets/theme/adminlte/dist/js/demo.js"></script>
  <!-- bootstrap-datetimepickrt -->
  <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
- <script type="text/javascript" src="/resources/assets/js/core/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+ <script type="text/javascript" src="/resources/assets/js/core/bootstrap_datetimepicker/js/bootstrap-datetimepicker.js"></script>
  <!-- Site-->
  <script src="/resources/assets/js/personal_info/personal_info.js"></script>
  <script src="/resources/assets/js/time_stamp/index.js"></script>

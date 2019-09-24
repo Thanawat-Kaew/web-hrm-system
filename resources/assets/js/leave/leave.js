@@ -138,7 +138,7 @@ function showDialog(form,title){
             format: 'M/DD hh:mm A'
         }
     })
-$(".form_datetime").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+$(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
 
 };
 
