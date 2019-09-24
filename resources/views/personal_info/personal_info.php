@@ -38,15 +38,15 @@
                         </div>
 
                         <div class="personal-data">
-                            <h4>รหัสพนักงาน : 5951001063</h4>
-                            <h4>ชื่อ - สกุล : ธนวัฒน์  แก้วล้อมวัง</h4>
-                            <h4>ตำแหน่ง : Web Programmer</h4>
-                            <h4>แผนก : Information Technology</h4>
-                            <h4>อัตราเงินเดือน : 50,000</h4>
-                            <h4>การศึกษา : ปริญญาตรี</h4>
-                            <h4>อายุ : 22</h4>
-                            <h4>ที่อยู่ : ยานนาวา ประเทศไทย</h4>
-                            <h4>อีเมล์ : tanawat@example.com</h4>
+                            <h4>รหัสพนักงาน : <?php echo $current_id->id_employee ?> </h4>
+                            <h4>ชื่อ - สกุล : <?php echo $current_id->first_name?> <?php echo $current_id->last_name?> </h4>
+                            <h4>ตำแหน่ง : <?php echo $current_id->position->name ?> </h4>
+                            <h4>แผนก : <?php echo $current_id->department->name ?> </h4>
+                            <h4>อัตราเงินเดือน : <?php echo $current_id->salary ?> </h4>
+                            <h4>การศึกษา : <?php echo $current_id->education ?> </h4>
+                            <h4>อายุ : <?php echo $current_id->age ?> </h4>
+                            <h4>ที่อยู่ : <?php echo $current_id->address ?> </h4>
+                            <h4>อีเมล์ : <?php echo $current_id->email ?> </h4>
                         </div>
                         <div class="form-group text-center">
                             <a href="<?php echo route('main')?>">

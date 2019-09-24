@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::get('/index', 'TimeStamp\TimeStampController@index')->name('index');
 Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave');
-Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info');
+Route::get('/personal_info/{id}', 'Employee\EmployeeController@personal_info')->name('personal_info');
 Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->name('index_data');
 
 Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@ajaxCenter')->name('data_manage.ajax_center');
