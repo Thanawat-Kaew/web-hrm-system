@@ -1,3 +1,56 @@
+$('.dropup').on('click', '.add-leave', function(){
+    $.ajax({
+        headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+        type: 'POST',
+        url: $('#ajax-center-url').data('url'),
+        data: {method : 'getFormLeave'},
+        success: function (result) {
+            var title = "<h4 style='color: red;'>แบบฟอร์มลา <small> | Leave Form</small></h4>"
+            showDialog(result.data,title)
+        },
+        error : function(errors)
+        {
+            console.log(errors);
+        }
+    })
+})
+
+function showDialog(form,title){
+    var box = bootbox.dialog({ 
+        title: title,
+        message: form,
+        size: 'large',
+        onEscape: true,
+        backdrop: true,
+        buttons: {
+            fi: {
+                label: 'บันทึก',
+                className: 'btn-info',
+                callback: function(){
+
+                }
+            },
+            fum: {
+                label: 'ยกเลิก',
+                className: 'btn-warning',
+                callback: function(){
+                }
+            }
+        }
+    })
+
+    box.on("shown.bs.modal", function() {
+        // checkbox
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass   : 'iradio_flat-green'
+        })
+
+        // date time picker
+        $(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+    });
+};
+
 // $('.dropup').on('click', '.add-leave', function(){
 //     bootbox.dialog({ 
 //         title: 'แบบฟอร์มลา | Leave Form',
@@ -84,63 +137,7 @@
 // });
 
 
-$('.dropup').on('click', '.add-leave', function(){
-    $.ajax({
-        headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-        type: 'POST',
-        url: $('#ajax-center-url').data('url'),
-        data: {method : 'getFormLeave'},
-        success: function (result) {
-            // bootbox.alert(result.data);
-            var title = "<h4 style='color: red;'>แบบฟอร์มลา <small> | Leave Form</small></h4>"
-            showDialog(result.data,title)
-        },
-        error : function(errors)
-        {
-            console.log(errors);
-        }
-    })
 
-})
-
-function showDialog(form,title){
-    bootbox.dialog({ 
-        title: title,
-        message: form,
-        size: 'large',
-        onEscape: true,
-        backdrop: true,
-        buttons: {
-            fi: {
-                label: 'บันทึก',
-                className: 'btn-info',
-                callback: function(){
-
-                }
-            },
-            fum: {
-                label: 'ยกเลิก',
-                className: 'btn-warning',
-                callback: function(){
-                }
-            }
-        }
-    })
- $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-        checkboxClass: 'icheckbox_flat-green',
-        radioClass   : 'iradio_flat-green'
-    })
-
-    $('input[name="daterangepicker"]').daterangepicker({
-        timePicker: true,
-        startDate: moment().startOf('hour'),
-        locale: {
-            format: 'M/DD hh:mm A'
-        }
-    })
-$(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
-
-};
 
 
 

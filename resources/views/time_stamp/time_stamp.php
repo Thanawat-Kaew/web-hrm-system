@@ -55,7 +55,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-unlock"></i>
                             </div>
-                            <input class="form-control" placeholder="Enter your password..." value="">
+                            <input class="form-control" type="password" placeholder="Enter your password..." value="">
                         </div><br>
                         <div class="form-group ">
                             <label>รูปแบบ</label>

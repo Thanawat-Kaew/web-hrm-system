@@ -4,18 +4,16 @@
 		<small> Time Stamp</small>
 	</h1>
 </section>
-
 <section class="content">
 	
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row add-leave-time-clock">
-				<div class="btn-group dropup pull-right ">
-					<button href="" type="button" name="add-leave" class='btn btn-danger dropdown-toggle' data-toggle="dropdown"><i class="fa fa-plus"></i> New Record
+				<div class="btn-group dropup-new-record pull-right ">
+					<button href="" type="button" class='btn btn-danger dropdown-toggle add-new-record' data-toggle="dropdown"><i class="fa fa-plus"></i> New Record
 					</button>
 				</div>
 				<div class="btn-group pull-right time-clock">
-					
 					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
 					</button>
 				</div>
@@ -64,3 +62,8 @@
 		</div>
 	</div>
 </section>
+
+<!-- data -->
+<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center')?>"></div>
+<?php echo csrf_field()?>
+

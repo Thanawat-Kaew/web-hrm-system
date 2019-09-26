@@ -7,7 +7,7 @@ class FormRepository
 		$form_add_emp = '<div class="row">
         <div class="col-md-8 col-md-offset-2" >
         <div class="box-body">
-       <div class="profile-picture">
+        <div class="profile-picture">
         <div class="form-group">
         <label for="exampleInputFile">Profile Picture</label>
         <input type="file" id="exampleInputFile">
@@ -130,7 +130,7 @@ class FormRepository
         </div>';
 
         return $form_add_emp;
-	}
+    }
 
     public static function getFormLeave(){
         $form_leave = '<div class="box-body"> 
@@ -188,4 +188,53 @@ class FormRepository
         return $form_leave;
     }
 
+    public static function getFormNewTimeClock(){
+        $form_new_time_clock = '<div class="box-body"> 
+        วันที่ขอลงเวลาย้อนหลัง
+        <div class="input-group col-md-12">
+        <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+        </div>
+        <input readonly value="" class="form-control datepicker" id="date-history">
+        </div><br>
+        เวลาเข้างาน
+        <div class="input-group col-md-12">
+        <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+        </div>
+        <input readonly value="" class="form-control timepicker" id="time-in-history">
+        </div><br>
+        เวลาออก(พัก)กลางวัน
+        <div class="input-group col-md-12">
+        <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+        </div>
+        <input readonly value="" class="form-control timepicker" id="break-out-history">
+        </div><br>
+        เวลาเข้า(พัก)กลางวัน
+        <div class="input-group col-md-12">
+        <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+        </div>
+        <input readonly value="" class="form-control timepicker" id="break-in-history">
+        </div><br>
+        เวลาเลิกงาน
+        <div class="input-group col-md-12">
+        <div class="input-group-addon">
+        <i class="fa fa-clock-o"></i>
+        </div>
+        <input readonly value="" class="form-control timepicker" id="time-out-history">
+        </div><br>
+        เหตุผลการลา<br>
+        <textarea class="form-control textarea g-disable-input" placeholder="Type..." rows="5" id="reason"></textarea><br>
+        ผู้อนุมัติ
+        <div class="input-group col-md-12">
+        <div class="input-group-addon">
+        <i class="fa fa-user"></i>
+        </div>
+        <input value="" readonly class="form-control" id="approved">
+        </div><br>
+        </div>';
+        return $form_new_time_clock;
+    }
 }
