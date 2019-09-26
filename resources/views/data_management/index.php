@@ -97,7 +97,7 @@
     </div>
 </section>
 <!-- data -->
-<div id="ajax-center-url" data-url="<?php echo route('data_manage.ajax_center')?>"></div>
+<div id="ajax-center-url" data-url="<?php echo route('data_manage.ajax_center.post')?>"></div>
 <?php echo csrf_field()?>
 
 
@@ -224,10 +224,10 @@
                     </div><br>
 
                     <div class="form-group text-center">
-                        <a href="<?php echo route('main')?>">
+                        <a href="">
                             <button class="btn btn-info pull-center" type="submit">บันทึก</button>
                         </a>
-                        <a href="<?php echo route('main')?>">
+                        <a href="">
                             <button class="btn btn-danger pull-center" type="submit">ยกเลิก</button>
                         </a>
                     </div>

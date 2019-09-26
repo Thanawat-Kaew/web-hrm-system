@@ -64,6 +64,6 @@
 </section>
 
 <!-- data -->
-<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center')?>"></div>
+<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
 <?php echo csrf_field()?>
 

@@ -243,5 +243,5 @@
 </section>
 
 <!-- data -->
-<div id="ajax-center-url" data-url="<?php echo route('leave.ajax_center')?>"></div>
+<div id="ajax-center-url" data-url="<?php echo route('leave.ajax_center.post')?>"></div>
 <?php echo csrf_field()?>

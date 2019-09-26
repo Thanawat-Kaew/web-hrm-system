@@ -1,7 +1,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="<?php echo route('main')?>" class="logo">
+    <a href="<?php echo route('main.get')?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>HR</b>M</span>
       <!-- logo for regular state and mobile devices -->

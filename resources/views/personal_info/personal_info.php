@@ -51,7 +51,7 @@
                             <h4>เบอร์โทรศัพท์ : <?php echo $current_id->tel ?> </h4>
                         </div>
                         <div class="form-group text-center">
-                            <a href="<?php echo route('main')?>">
+                            <a href="<?php echo route('main.get')?>">
                                 <button class="btn btn-info pull-center" type="submit">BACK</button>
                             </a>
                         </div>

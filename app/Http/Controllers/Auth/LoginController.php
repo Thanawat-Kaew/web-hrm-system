@@ -57,28 +57,28 @@ class LoginController extends Controller
             \Session::forget('header_general');   
             \Session::forget('employee_hr');   
             \Session::forget('header_hr');   
-            return redirect()->route('main');
+            return redirect()->route('main.get');
         }else if($checkLogin['id_role'] == 2){
             \Session::put('header_general', $id);
 
             \Session::forget('employee_general');
             \Session::forget('employee_hr');
             \Session::forget('header_hr');
-            return redirect()->route('main');          
+            return redirect()->route('main.get');          
         }else if($checkLogin['id_role'] == 3){
             \Session::put('employee_hr', $id);
 
             \Session::forget('employee_general');
             \Session::forget('header_general');
             \Session::forget('header_hr');
-            return redirect()->route('main');
+            return redirect()->route('main.get');
         }else if($checkLogin['id_role'] == 4){
             \Session::put('header_hr', $id);
 
             \Session::forget('employee_general');
             \Session::forget('header_general');
             \Session::forget('employee_hr');
-            return redirect()->route('main');
+            return redirect()->route('main.get');
         }
         
     }

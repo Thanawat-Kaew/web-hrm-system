@@ -21,21 +21,21 @@ Route::get('/', function () {
 
 // Route::post('/login', 'Auth\LoginController@login')->name('login');
 // Route::get('/main', 'Main\MainController@main')->name('main');
-Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.index');
+Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.index.get');
 
-Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp');
+Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.get');
 
-Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave');
-Route::get('/personal_info/{id}', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info');
-Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->name('data_management.index');
+Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
+Route::get('/personal_info/{id}', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
+Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->name('data_management.index.get');
 
-Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@ajaxCenter')->name('data_manage.ajax_center');
-Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center');
-Route::post('/time_stamp/ajax_center', 'TimeStamp\TimeStampController@ajaxCenter')->name('time_stamp.ajax_center');
+Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@ajaxCenter')->name('data_manage.ajax_center.post');
+Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center.post');
+Route::post('/time_stamp/ajax_center', 'TimeStamp\TimeStampController@ajaxCenter')->name('time_stamp.ajax_center.post');
 
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/main', 'Main\MainController@main')->name('main');
+Route::get('/main', 'Main\MainController@main')->name('main.get');
 
 

@@ -72,34 +72,34 @@
                             <?php if(Session::has('employee_general')) {
                                 $id = Session::get('employee_general');  ?>  
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index')?>">
+                                    <a href="<?php echo route('time_stamp.index.get')?>">
                                         <img class="image_menu" src="/resources/image/time_stamp.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave')?>">
+                                    <a href="<?php echo route('leave.leave.get')?>">
                                         <img class="image_menu" src="/resources/image/leave.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info', $id)?>">
+                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
                                         <img class="image_menu" src="/resources/image/personal_information.png">
                                     </a>
                                 </div>
                             <?php }else if(Session::has('header_general')) {
                                 $id = Session::get('header_general');  ?>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index')?>">
+                                    <a href="<?php echo route('time_stamp.index.get')?>">
                                         <img class="image_menu" src="/resources/image/time_stamp.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave')?>">
+                                    <a href="<?php echo route('leave.leave.get')?>">
                                         <img class="image_menu" src="/resources/image/leave.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info', $id)?>">
+                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
                                         <img class="image_menu" src="/resources/image/personal_information.png">
                                     </a>
                                 </div>
@@ -117,17 +117,17 @@
                             <?php }else if(Session::has('employee_hr')) { 
                                 $id = Session::get('employee_hr');  ?>   
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index')?>">
+                                    <a href="<?php echo route('time_stamp.index.get')?>">
                                         <img class="image_menu" src="/resources/image/time_stamp.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave')?>">
+                                    <a href="<?php echo route('leave.leave.get')?>">
                                         <img class="image_menu" src="/resources/image/leave.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info', $id)?>">
+                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
                                         <img class="image_menu" src="/resources/image/personal_information.png">
                                     </a>
                                 </div>
@@ -137,24 +137,24 @@
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('data_management.index')?>">
+                                    <a href="<?php echo route('data_management.index.get')?>">
                                         <img class="image_menu" src="/resources/image/data_management.png">
                                     </a>
                                 </div>
                             <?php }else if(Session::has('header_hr')){
                                 $id = Session::get('header_hr');  ?>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index')?>">
+                                    <a href="<?php echo route('time_stamp.index.get')?>">
                                         <img class="image_menu" src="/resources/image/time_stamp.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave')?>">
+                                    <a href="<?php echo route('leave.leave.get')?>">
                                         <img class="image_menu" src="/resources/image/leave.png">
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info', $id)?>">
+                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
                                         <img class="image_menu" src="/resources/image/personal_information.png">
                                     </a>
                                 </div>
@@ -169,7 +169,7 @@
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('data_management.index')?>">
+                                    <a href="<?php echo route('data_management.index.get')?>">
                                         <img class="image_menu" src="/resources/image/data_management.png">
                                     </a>
                                 </div>
