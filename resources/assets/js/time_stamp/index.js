@@ -14,7 +14,7 @@ $('.dropup-new-record').on('click', '.add-new-record', function(){
 	})
 })
 
-function showDialogNewRecord(form,title){
+function showDialog(form,title){
 	var box = bootbox.dialog({ 
 		title: title,
 		message: form,
