@@ -45,5 +45,5 @@ function showDialog(form,title){
 };
 
 $('.time-clock').on('click', '.time_stamp', function(){
-	window.open('/index/timestamp');
+	window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
 });
