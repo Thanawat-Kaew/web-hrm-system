@@ -39,7 +39,12 @@ function showDialog(form,title){
 	})
 
 	box.on("shown.bs.modal", function() {
-		$('.timepicker').timepicker({format: 'hh:ii'})
+		$('.timepicker').timepicker(
+		{
+			format: 'HH:mm',
+			use24hours: true,
+			showMeridian: false
+		})
 		$('.datepicker').datepicker({autoclose: true,format: 'dd-mm-yyyy'})
 	});
 };
