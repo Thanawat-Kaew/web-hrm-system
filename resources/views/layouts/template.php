@@ -28,6 +28,7 @@
   <link rel="stylesheet" type="text/css" href="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="/resources/assets/theme/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
   <link href="/resources/assets/theme/adminlte/plugins/timepicker/bootstrap-timepicker.min.css" type="text/css" rel="stylesheet">
   <link href="/resources/assets/theme/adminlte/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" type="text/css" rel="stylesheet">
   <!-- Google Font -->
@@ -99,6 +100,7 @@
 <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/moment.min.js"></script>
 <!-- bootbox -->
 <script src="/resources/assets/js/core/bootbox/bootbox.min.js"></script>
+<script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
 <!-- icheck -->
 <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
 <!-- main function -->

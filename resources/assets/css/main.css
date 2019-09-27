@@ -15,11 +15,11 @@
 .image_menu{
 	width: 100%;
 	height: auto;
-	margin-bottom: 20px; 
+	margin-bottom: 20px;
 }
 
 @font-face {
-	font-family: Kanit; 
+	font-family: Kanit;
 }
 
 *,h1,h2,h3,h4,h5,p,div,span,label,input,textarea,select,option,li{
@@ -27,6 +27,13 @@
 }
 
 h5,button{
-	font-family: Kanit !important; 
+	font-family: Kanit !important;
 
+}
+.text-error{
+	color: red;
+	font-style: italic;
+	display: none;
+	width: 100%;
+	border-top: 2px solid red;
 }

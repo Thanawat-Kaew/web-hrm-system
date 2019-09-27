@@ -1,7 +1,7 @@
-<?php 
+<?php
 namespace App\Services\Forms;
 
-class FormRepository 
+class FormRepository
 {
 	public static function getFormEmployee($department, $position){
 		$form = '<div class="row">
@@ -20,6 +20,7 @@ class FormRepository
         </div>
         <input class="form-control" type="text" value="" readonly placeholder="Auto Generate" id="id_employee">
         </div>
+        <label class="text-error" id="text-error"></label>
         ชื่อ
         <div class="input-group fname_employee">
         <div class="input-group-addon">
@@ -27,6 +28,7 @@ class FormRepository
         </div>
         <input class="form-control required " type="text" value="" placeholder="สมหมาย" id="fname">
         </div>
+        <label class="text-error" id="fname-text-error"></label>
         นามสกุล
         <div class="input-group lname_employee">
         <div class="input-group-addon">
@@ -34,18 +36,20 @@ class FormRepository
         </div>
         <input class="form-control required" type="text" value="" placeholder="แสนดี" id="lname">
         </div>
+        <label class="text-error" id="lname-text-error"></label>
         ตำแหน่ง
         <div class="input-group position_employee">
         <div class="input-group-addon">
         <i class="fa fa-briefcase"></i>
         </div>
         <select class="form-control required select2" style="width: 100%;" id="position">
-        <option selected="selected">เลือกตำแหน่ง...</option>';
+        <option selected="selected" value="">เลือกตำแหน่ง...</option>';
         foreach ($position as $value) {
-        $form .='<option value="'.$value->id.'">'.$value->name.'</option>';
+        $form .='<option value="'.$value->id_position.'">'.$value->name.'</option>';
         }
         $form .='</select>
         </div>
+        <label class="text-error" id="position-text-error"></label>
         แผนก
         <div class="input-group department_employee">
         <div class="input-group-addon">
@@ -53,13 +57,14 @@ class FormRepository
         </div>
         <select class="form-control required select2" style="width: 100%;" id="department">
 
-        <option selected="selected">เลือกแผนก...</option>';
+        <option selected="selected" value="">เลือกแผนก...</option>';
         foreach ($department as $value) {
-        $form .='<option value="'.$value->id.'">'.$value->name.'</option>';
+        $form .='<option value="'.$value->id_department.'">'.$value->name.'</option>';
         }
         $form .='
         </select>
         </div>
+        <label class="text-error" id="department-text-error"></label>
         อัตราเงินเดือน
         <div class="input-group salary_employee">
         <div class="input-group-addon">
@@ -67,6 +72,7 @@ class FormRepository
         </div>
         <input class="form-control required" type="number" value="" placeholder="15,000..." id="salary">
         </div>
+        <label class="text-error" id="salary-text-error"></label>
         การศึกษา
         <div class="input-group education_employee">
         <div class="input-group-addon">
@@ -74,24 +80,27 @@ class FormRepository
         </div>
         <input class="form-control required" type="text" value="" placeholder=" ปริญญาตรี..." id="education">
         </div>
+        <label class="text-error" id="education-text-error"></label>
         เพศ
         <div class="input-group gender_employee">
         <div class="input-group-addon">
         <i class="fa fa-venus-mars"></i>
         </div>
         <select class="form-control required select2" style="width: 100%;" id="gender">
-        <option selected="selected">เลือกเพศ...</option>
+        <option selected="selected" value="">เลือกเพศ...</option>
         <option>หญิง</option>
         <option>ชาย</option>
         </select>
         </div>
+        <label class="text-error" id="gender-text-error"></label>
         อายุ
         <div class="input-group old_employee">
         <div class="input-group-addon">
         <i class="fa  fa-circle-o"></i>
         </div>
-        <input class="form-control required" type="number" value="" placeholder="25..." id="old">
+        <input class="form-control required" type="number" value="" placeholder="25..." id="age">
         </div>
+        <label class="text-error" id="age-text-error"></label>
         ที่อยู่
         <div class="input-group address_employee">
         <div class="input-group-addon">
@@ -99,6 +108,7 @@ class FormRepository
         </div>
         <input class="form-control required" type="text" value="" placeholder="ยานนาวา สาทร กรุงเทพฯ" id="address">
         </div>
+        <label class="text-error" id="address-text-error"></label>
         อีเมล์
         <div class="input-group email_employee">
         <div class="input-group-addon">
@@ -106,6 +116,7 @@ class FormRepository
         </div>
         <input class="form-control required" type="text" value="" placeholder="email@example.com" id="email">
         </div>
+        <label class="text-error" id="email-text-error"></label>
         เบอร์โทรศัพท์
         <div class="input-group tel_employee">
         <div class="input-group-addon">
@@ -113,20 +124,23 @@ class FormRepository
         </div>
         <input class="form-control required" type="number" value="" placeholder="023456789..." id="tel">
         </div>
+        <label class="text-error" id="tel-text-error"></label>
         ตั้งรหัสผ่านเข้าสู่ระบบ
         <div class="input-group password_employee">
         <div class="input-group-addon">
         <i class="fa fa-lock"></i>
         </div>
-        <input class="form-control required" style="border-color: red;" type="text" value="" placeholder="Password..." id="password">
+        <input class="form-control required"  type="text" value="" placeholder="Password..." id="password">
         </div>
+        <label class="text-error" id="password-text-error"></label>
         ยืนยันรหัสผ่านอีกครั้ง
         <div class="input-group confirm_password">
         <div class="input-group-addon">
         <i class="fa fa-lock"></i>
         </div>
-        <input class="form-control" style="border-color: red;" type="text" value="" id="confirm_password" placeholder="Confirm Password...">
+        <input class="form-control"  type="text" value="" id="confirm_password" placeholder="Confirm Password...">
         </div><br>
+        <label class="text-error" id="confirm_password-text-error"></label>
         </div>
         </div>
         </div>';
@@ -135,7 +149,7 @@ class FormRepository
     }
 
     public static function getFormLeave(){
-        $form_leave = '<div class="box-body"> 
+        $form_leave = '<div class="box-body">
         ประเภท
         <div class="input-group name_user">
         <div class="input-group-addon">
@@ -164,7 +178,7 @@ class FormRepository
         <label class="group-display">
         <input type="radio" name="repeatday[]" value="monday" class="flat-red"> ลาครึ่งเช้า
         </label>&nbsp&nbsp
-        <label class="group-display"> 
+        <label class="group-display">
         <input type="radio" name="repeatday[]" value="tuesday" class="flat-red"> ลาครึ่งบ่าย
         </label>&nbsp&nbsp
         </div>
@@ -191,7 +205,7 @@ class FormRepository
     }
 
     public static function getFormNewTimeClock(){
-        $form_new_time_clock = '<div class="box-body"> 
+        $form_new_time_clock = '<div class="box-body">
         วันที่ขอลงเวลาย้อนหลัง
         <div class="input-group col-md-12">
         <div class="input-group-addon">
