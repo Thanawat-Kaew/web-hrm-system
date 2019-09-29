@@ -78,7 +78,16 @@ class FormRepository
         <div class="input-group-addon">
         <i class="fa fa-graduation-cap"></i>
         </div>
-        <input class="form-control required" type="text" value="" placeholder=" ปริญญาตรี..." id="education">
+        <select class="form-control required select2" style="width: 100%;" id="education">
+        <option selected="selected" value="">เลือกระดับการศึกษา</option>
+        <option value="มัธยมต้น">มัธยมต้น</option>
+        <option value="มัธยมปลาย">มัธยมปลาย</option>
+        <option value="ประกาศนียบัตรวิชาชีพ (ปวช)">ประกาศนียบัตรวิชาชีพ (ปวช)</option>
+        <option value="ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)</option>
+        <option value="ปริญญาตรี">ปริญญาตรี</option>
+        <option value="ปริญญาโท">ปริญญาโท</option>
+        <option value="ปริญญาเอก">ปริญญาเอก</option>
+        </select>
         </div>
         <label class="text-error" id="education-text-error"></label>
         เพศ
@@ -88,8 +97,8 @@ class FormRepository
         </div>
         <select class="form-control required select2" style="width: 100%;" id="gender">
         <option selected="selected" value="">เลือกเพศ...</option>
-        <option>หญิง</option>
-        <option>ชาย</option>
+        <option value="หญิง">หญิง</option>
+        <option value="ชาย">ชาย</option>
         </select>
         </div>
         <label class="text-error" id="gender-text-error"></label>
@@ -138,7 +147,7 @@ class FormRepository
         <div class="input-group-addon">
         <i class="fa fa-lock"></i>
         </div>
-        <input class="form-control"  type="text" value="" id="confirm_password" placeholder="Confirm Password...">
+        <input class="form-control "  type="text" value="" id="confirm_password" placeholder="Confirm Password...">
         </div><br>
         <label class="text-error" id="confirm_password-text-error"></label>
         </div>

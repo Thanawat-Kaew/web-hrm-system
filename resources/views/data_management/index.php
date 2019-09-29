@@ -98,6 +98,7 @@
 </section>
 <!-- data -->
 <div id="ajax-center-url" data-url="<?php echo route('data_manage.ajax_center.post')?>"></div>
+<div id="add-employee-url" data-url="<?php echo route('data_manage.add_employee.post')?>"></div>
 <?php echo csrf_field()?>
 
 

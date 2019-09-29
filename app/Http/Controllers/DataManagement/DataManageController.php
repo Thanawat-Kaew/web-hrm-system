@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Forms\FormRepository;
 use App\Services\Auth\Department;
 use App\Services\Auth\Position;
+use App\Services\Auth\Employee;
 
 class DataManageController extends Controller
 {
@@ -34,6 +35,55 @@ class DataManageController extends Controller
                 # code...
                 break;
         }
-       
+    }
+
+    public function addEmployee(Request $request)
+    {
+        //dd($request);
+
+
+
+        $id_department      = $request->get('department');
+        $id_position        = $request->get('position');
+        $first_name         = $request->get('fname');
+        $last_name          = $request->get('lname');
+        $email              = $request->get('email');
+        $password           = $request->get('password');
+        $address            = $request->get('address');
+        $gender             = $request->get('gender');
+        $tel                = $request->get('tel');
+        $age                = $request->get('age');
+        $education          = $request->get('education');
+        $salary             = $request->get('salary');
+
+        $employee = new Employee();
+
+        $employee->id_department = $id_department;
+        $employee->id_position   = $id_position ;
+        $employee->first_name    = $first_name;
+        $employee->last_name     = $last_name;
+        $employee->email         = $email;
+        $employee->password      = $password;
+        $employee->address       = $address;
+        $employee->gender        = $gender;
+        $employee->tel           = $tel;
+        $employee->age           = $age;
+        $employee->education     = $education;
+        $employee->salary        =  $salary;
+
+        if($employee->id_department == 'en0001' || 'fa0001' || 'pm0001' || 'ss0001' && $employee->id_position == 1){
+            $employee->id_role = 1;
+        }else if($employee->id_department == 'en0001' || 'fa0001' || 'pm0001' || 'ss0001' && $employee->id_position == 2){
+            $employee->id_role = 2;
+        }else if($employee->id_department == 'hr0001' && $employee->id_position == 1){
+            $employee->id_role = 3;
+        }else if($employee->id_department == 'hr0001' && $employee->id_position == 4){
+            $employee->id_role = 4;
+        }
+
+        //echo $employee;
+        //dd($employee->id_department);
+        //dd($employee->id_position);
+        $employee->save();
     }
 }
