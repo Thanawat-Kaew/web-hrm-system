@@ -48,7 +48,7 @@ $(function(){
 });
 
 
-function showDialog(form,title, oldValue='', not_match){
+function showDialog(form,title, oldValue='',not_match){
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
@@ -61,7 +61,6 @@ function showDialog(form,title, oldValue='', not_match){
 				className: 'btn-info',
 				callback: function(){
 					addEmployee(form, title);
-					//saveAddEmployee();
 				}
 			},
 			fum: {
@@ -75,9 +74,8 @@ function showDialog(form,title, oldValue='', not_match){
 	//console.log(confirm_password);
 	box.on('shown.bs.modal', function(){
 		msg_close();
-		$('body').addClass('modal-open'); //ถ้าไม่ใส่จะ scroll mouse ไม่ได้
+		$('body').addClass('modal-open'); //scroll mouse
 		if(oldValue !== ""){  
-			//console.log(oldValue); 
 			$.each(oldValue, function(key, value) {
 				$('#'+key).val(value);
 				if(value == "") {
@@ -88,26 +86,23 @@ function showDialog(form,title, oldValue='', not_match){
 			});	
 		}
 		if(not_match){
-			$('#confirm_password-text-error').html("Password not match").show();
+			$('#confirm_password-text-error').html("Please try password again").show();
 		}else{
-			$('#confirm_password-text-error').html("Password not match").hide();
+			$('#confirm_password-text-error').html("Please try password again").hide();
 		}
 	})
 };
 
 
 function addEmployee(form, title){
-	msg_waiting();
+	// msg_waiting();
 	var count 			 = 0;
-	var oldValue 		 = {}; // json
+	var oldValue 		 = {};
 	var password         = $('#password').val();
 	var confirm_password = $('#confirm_password').val();
 	jQuery.each($('.required'),function(){
-		var name = $(this).attr('id'); // fname, lname
-		//console.log(name); 
-		oldValue[name]= $(this).val(); // 12, 11
-		//console.log(oldValue[name]);
-		//console.log(oldValue);
+		var name = $(this).attr('id');
+		oldValue[name]= $(this).val();
 		if ($(this).val() =="") {
 			count++
 			$(this).css({"border" : "1px solid red"});
@@ -115,39 +110,23 @@ function addEmployee(form, title){
 			$(this).css({"border" : "1px solid lightgray"});
 		}
 	})
-	/*if(password != confirm_password){
-		var not_match = true;
-		if(count > 0) {
-			showDialog(form, title, oldValue, not_match);
-		}
-		//saveAddEmployee(form);
-	}else if(password == confirm_password){
-		if(count > 0) {
-			showDialog(form, title, oldValue);
-		}
-		//saveAddEmployee(form);
-	}else{
-		saveAddEmployee(form);
-	}*/
-	if(password != confirm_password){
-		var not_match = true;
-		if(count > 0) {
-			showDialog(form, title, oldValue, not_match);
-		}
-		saveAddEmployee(oldValue);
+	// check match password
+	var not_match = true;
+	if(password != confirm_password) {
+		showDialog(form, title, oldValue,not_match);
 	}else{
 		if(count > 0) {
-			showDialog(form, title, oldValue);
-		}
-		saveAddEmployee(oldValue);
-	}
+			showDialog(form, title, oldValue,not_match);
+		}else{
+			if(password == confirm_password) {
 
+				saveAddEmployee(oldValue);
+			}
+		}
+	}
 }
 
 function saveAddEmployee(oldValue){
-	//console.log(form)
-	//console.log(oldValue[name]);
-	//console.log(oldValue);
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
@@ -167,11 +146,9 @@ function saveAddEmployee(oldValue){
 			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-			console.log(response)
 			alert('Data save');
 		},
 		error: function(error){
-			//console.log(error)
 			alert('Data not save');
 		}
 	});

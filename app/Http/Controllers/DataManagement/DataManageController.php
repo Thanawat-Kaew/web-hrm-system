@@ -39,10 +39,7 @@ class DataManageController extends Controller
 
     public function addEmployee(Request $request)
     {
-        //dd($request);
-
-
-
+        // get value from ajax function saveAddEmployee(oldValue)
         $id_department      = $request->get('department');
         $id_position        = $request->get('position');
         $first_name         = $request->get('fname');
@@ -56,8 +53,8 @@ class DataManageController extends Controller
         $education          = $request->get('education');
         $salary             = $request->get('salary');
 
+        // save data to database
         $employee = new Employee();
-
         $employee->id_department = $id_department;
         $employee->id_position   = $id_position ;
         $employee->first_name    = $first_name;
@@ -81,9 +78,6 @@ class DataManageController extends Controller
             $employee->id_role = 4;
         }
 
-        //echo $employee;
-        //dd($employee->id_department);
-        //dd($employee->id_position);
         $employee->save();
     }
 }
