@@ -104,7 +104,7 @@
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="#">
+                                    <a href="<?php echo route('evaluation.index.get')?>">
                                         <img class="image_menu" src="/resources/image/evaluation.png">
                                     </a>
                                 </div>
@@ -132,7 +132,7 @@
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="#">
+                                    <a href="<?php echo route('evaluation.index.get')?>">
                                         <img class="image_menu" src="/resources/image/evaluation.png">
                                     </a>
                                 </div>
@@ -159,7 +159,7 @@
                                     </a>
                                 </div>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="#">
+                                    <a href="<?php echo route('evaluation.index.get')?>">
                                         <img class="image_menu" src="/resources/image/evaluation.png">
                                     </a>
                                 </div>
@@ -185,7 +185,7 @@
                         <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
                         <hr>
                         <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-                        <a href="">
+                        <a href="#">
                             <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
                         </a>
                     </div>

@@ -47,7 +47,6 @@ $(function(){
 
 });
 
-
 function showDialog(form,title, oldValue='',not_match){
 	var box = bootbox.dialog({
 		title: title,
@@ -93,7 +92,6 @@ function showDialog(form,title, oldValue='',not_match){
 	})
 };
 
-
 function addEmployee(form, title){
 	// msg_waiting();
 	var count 			 = 0;
@@ -119,7 +117,6 @@ function addEmployee(form, title){
 			showDialog(form, title, oldValue,not_match);
 		}else{
 			if(password == confirm_password) {
-
 				saveAddEmployee(oldValue);
 			}
 		}
@@ -146,7 +143,7 @@ function saveAddEmployee(oldValue){
 			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-			alert('Data save');
+			msg_success();
 		},
 		error: function(error){
 			alert('Data not save');

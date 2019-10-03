@@ -45,7 +45,7 @@ class FormRepository
         <select class="form-control required select2" style="width: 100%;" id="position">
         <option selected="selected" value="">เลือกตำแหน่ง...</option>';
         foreach ($position as $value) {
-        $form .='<option value="'.$value->id_position.'">'.$value->name.'</option>';
+            $form .='<option value="'.$value->id_position.'">'.$value->name.'</option>';
         }
         $form .='</select>
         </div>
@@ -59,7 +59,7 @@ class FormRepository
 
         <option selected="selected" value="">เลือกแผนก...</option>';
         foreach ($department as $value) {
-        $form .='<option value="'.$value->id_department.'">'.$value->name.'</option>';
+            $form .='<option value="'.$value->id_department.'">'.$value->name.'</option>';
         }
         $form .='
         </select>
@@ -220,7 +220,7 @@ class FormRepository
         <div class="input-group-addon">
         <i class="fa fa-calendar"></i>
         </div>
-        <input readonly value="" class="form-control datepicker" id="date-history">
+        <input readonly value="" placeholder="เลือกวันที่..."  class="form-control datepicker" id="date-history">
         </div><br>
         เวลาเข้างาน
         <div class="input-group col-md-12">
@@ -261,5 +261,52 @@ class FormRepository
         </div><br>
         </div>';
         return $form_new_time_clock;
+    }
+
+    public static function getFormEvaluation(){
+        $form = '<div class="col-md-12 new-part">';
+                 $form .= '<div class="panel panel-default">';
+                     $form .= '<div class="panel-body">';
+                        
+                         $form .= '<label>ชื่อตอน </label>';
+                         $form .= '<input type="text" name="add-name" class="form-control" placeholder="ชื่อตอน..."><br>';
+                         $form .= '<label>คำถาม</label>';
+                         $form .= '<button class="btn btn-success pull-right add-more btn-sm" type="button"><i class="glyphicon glyphicon-plus"></i> เพิ่ม</button>';
+
+                         $form .= '<div class="control-group input-group" style="margin-top:10px">';
+                             $form .= '<input type="text" name="addmore[]" class="form-control" placeholder="คำถาม">';
+                             $form .= '<div class="input-group-btn"> ';
+                                 $form .= '<button class="btn btn-warning remove" type="button"><i class="glyphicon glyphicon-remove"></i> ลบ</button>';
+                             $form .= '</div>';
+                         $form .= '</div>';
+                         $form .= '<div class="selected-question"></div>';
+
+                         $form .= '<div class="copy hide">';
+                             $form .= '<div class="control-group input-group" style="margin-top:10px">';
+                                 $form .= '<input type="text" name="addmore[]" class="form-control" placeholder="คำถาม">';
+                                 $form .= '<div class="input-group-btn"> ';
+                                     $form .= '<button class="btn btn-warning remove" type="button"><i class="glyphicon glyphicon-remove"></i> ลบ</button>';
+                                 $form .= '</div>';
+                             $form .= '</div>';
+                         $form .= '</div><br>';
+                         $form .= '<div class="col-md-6">';
+                             $form .= '<label>เลือกรูปแบบคำตอบ</label>';
+                             $form .= '<select class="form-control" style="width: 100%;">';
+                                 $form .= '<option selected="selected">เลือกรูปแบบ...</option>';
+                                 $form .= '<option>รูปแบบ 1</option>';
+                                 $form .= '<option>รูปแบบ 2</option>';
+                                 $form .= '<option>รูปแบบ 3</option>';
+                             $form .= '</select>';
+                             $form .= '<br>';
+                         $form .= '</div>';
+                         $form .= '<div class="col-md-6">';
+                             $form .= '<label>เปอร์เซนต์ (%)</label>';
+                             $form .= '<input type="number" name="percen" class="form-control" placeholder="30">';
+                         $form .= '</div>';
+                     $form .= '</div>';
+                 $form .= '</div>';
+             $form .= '</div>';
+
+        return $form;
     }
 }

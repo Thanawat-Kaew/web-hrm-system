@@ -10,3 +10,12 @@ function msg_waiting(){
 function msg_close(){
 	Swal.close();
 }
+
+function msg_success(){
+	Swal.fire({
+		type: 'success',
+		title: 'Data has been saved',
+		showConfirmButton: false,
+		timer: 1500
+	})
+}

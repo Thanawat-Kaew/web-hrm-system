@@ -14,8 +14,7 @@ class DataManageController extends Controller
 {
 	public function index()
 	{
-		
-		return $this->useTemplate('data_management.index'/*,compact('form_add_emp')*/);
+		return $this->useTemplate('data_management.index');
 	}  
 
 	 public function ajaxCenter(Request $request)

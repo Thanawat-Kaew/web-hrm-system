@@ -29,7 +29,6 @@
             </div>
         </div>
     </div>
-
     <h4 class="box-title">หัวหน้าแผนก</h4>
     <hr>
     <div class="box-body" id="group-employee">
@@ -42,7 +41,7 @@
                             <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">
                         </div>
                         <div class="about-employee">
-                            <p>รหัส  :<span> 5951001063</span></p>
+                            <p>รหัส  :<span>5951001063</span></p>
                             <p>ชื่อ   :<span> ธนวัฒน์  แก้วล้อมวัง</span></p>
                         </div>
                     </div>

@@ -31,15 +31,13 @@
             <h3>ข้อมูลส่วนตัว <small>| Personal Information</small></h3>
             <div class="row">
                 <div class="box box-info">
-
                     <div class="box-body">
                         <div class="text-center">
                             <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
                         </div>
-
                         <div class="personal-data">
-                            <h4>รหัสพนักงาน : <?php echo $current_id->id_employee ?> </h4>
-                            <h4>ชื่อ - สกุล : <?php echo $current_id->first_name?> <?php echo $current_id->last_name?> </h4>
+                            <h4>รหัสพนักงาน :   <?php echo $current_id->id_employee ?> </h4>
+                            <h4>ชื่อ - สกุล :   <?php echo $current_id->first_name?> <?php echo $current_id->last_name?> </h4>
                             <h4>ตำแหน่ง : <?php echo $current_id->position->name ?> </h4>
                             <h4>แผนก : <?php echo $current_id->department->name ?> </h4>
                             <h4>อัตราเงินเดือน : <?php echo $current_id->salary ?> </h4>
@@ -52,21 +50,21 @@
                         </div>
                         <div class="form-group text-center">
                             <a href="<?php echo route('main.get')?>">
-                                <button class="btn btn-info pull-center" type="submit">BACK</button>
+                                <button class="btn btn-info pull-center" type="submit">กลับสู่หน้าหลัก</button>
+                            </a>
+                            <a href="">
+                                <button class="btn btn-warning pull-center" type="submit">แจ้งแก้ไขข้อมูล</button>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
-
-
+        </section>
+    </div>
+</body>
 
 <!-- jQuery 3 -->
 <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-</body>
 </html>
