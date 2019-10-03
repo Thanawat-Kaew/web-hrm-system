@@ -36,19 +36,21 @@
                         <div class="text-center">
                             <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
                         </div>
-
                         <div class="personal-data">
-                            <h4>รหัสพนักงาน : <?php echo $current_id->id_employee ?> </h4>
-                            <h4>ชื่อ - สกุล : <?php echo $current_id->first_name?> <?php echo $current_id->last_name?> </h4>
-                            <h4>ตำแหน่ง : <?php echo $current_id->position->name ?> </h4>
-                            <h4>แผนก : <?php echo $current_id->department->name ?> </h4>
-                            <h4>อัตราเงินเดือน : <?php echo $current_id->salary ?> </h4>
-                            <h4>การศึกษา : <?php echo $current_id->education ?> </h4>
-                            <h4>เพศ : <?php echo $current_id->gender ?> </h4>
-                            <h4>อายุ : <?php echo $current_id->age ?> </h4>
-                            <h4>ที่อยู่ : <?php echo $current_id->address ?> </h4>
-                            <h4>อีเมล์ : <?php echo $current_id->email ?> </h4>
-                            <h4>เบอร์โทรศัพท์ : <?php echo $current_id->tel ?> </h4>
+                            <?php if(\Session::has('current_employee')) :
+                            $current_employee = \Session::get('current_employee') ?>
+                            <h4>รหัสพนักงาน :  <?php echo $current_employee['id_employee'] ?> </h4>
+                            <h4>ชื่อ - สกุล :   <?php echo $current_employee['first_name'] ?> </h4>
+                            <h4>ตำแหน่ง :    <?php echo $name_position['name'] ?></h4>
+                            <h4>แผนก :  <?php echo $name_department['name'] ?></h4>
+                            <h4>อัตราเงินเดือน : <?php echo $current_employee['salary'] ?> </h4>
+                            <h4>การศึกษา :  <?php echo $current_employee['education'] ?> </h4>
+                            <h4>เพศ :  <?php echo $current_employee['gender'] ?> </h4>
+                            <h4>อายุ :  <?php echo $current_employee['age'] ?> </h4>
+                            <h4>ที่อยู่ :  <?php echo $current_employee['address'] ?> </h4>
+                            <h4>อีเมล์ :  <?php echo $current_employee['email'] ?> </h4>
+                            <h4>เบอร์โทรศัพท์ : <?php echo $current_employee['tel'] ?> </h4>
+                            <?php endif ?>
                         </div>
                         <div class="form-group text-center">
                             <a href="<?php echo route('main.get')?>">

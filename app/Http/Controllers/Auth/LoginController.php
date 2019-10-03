@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use DB;
-use App\Services\Auth\Employee;
+use App\Services\Employee\Employee;
+use App\Services\Employee\EmployeeObject;
 use Illuminate\Support\Facades\Session;
 
 
@@ -50,36 +51,14 @@ class LoginController extends Controller
         $password = $req->input('password');
 
         $checkLogin   = Employee::where('email',$email)->where('password',$password)->first(); // first() เป็นการ get ข้อมูลrecord เดียว
-        $id = $checkLogin['id_employee'];
-        if($checkLogin['id_role'] == 1){
-            \Session::put('employee_general', $id);
 
-            \Session::forget('header_general');
-            \Session::forget('employee_hr');
-            \Session::forget('header_hr');
+        if(!empty($checkLogin)){
+            $employee_object = new EmployeeObject;
+            $employee_object->setUp($checkLogin);
+            $employee_object->setupMenu();
             return redirect()->route('main.get');
-        }else if($checkLogin['id_role'] == 2){
-            \Session::put('header_general', $id);
-
-            \Session::forget('employee_general');
-            \Session::forget('employee_hr');
-            \Session::forget('header_hr');
-            return redirect()->route('main.get');
-        }else if($checkLogin['id_role'] == 3){
-            \Session::put('employee_hr', $id);
-
-            \Session::forget('employee_general');
-            \Session::forget('header_general');
-            \Session::forget('header_hr');
-            return redirect()->route('main.get');
-        }else if($checkLogin['id_role'] == 4){
-            \Session::put('header_hr', $id);
-
-            \Session::forget('employee_general');
-            \Session::forget('header_general');
-            \Session::forget('employee_hr');
-            return redirect()->route('main.get');
+        }else{
+            return view('auth.login'/*, compact('success' ,'กรุณากรอกข้อมูลใหม่')*/);
         }
-
     }
 }

@@ -22,13 +22,19 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
+
+    @if(\Session::has('success'))
+    <div class="alert alert-success">
+        <p>{{ \Session::get('success') }}</p>
+    </div>
+    @endif
+  
   <div class="login-logo">
     <a href="/resources/assets/theme/adminlte/index2.html"><b>HR-</b>MANAGEMENT</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
-
     <form action="{{ route('login') }}" method="post">
       {{ csrf_field() }}
       <div class="form-group has-feedback">
