@@ -19,13 +19,34 @@ $(function(){
 			'<i class="fa fa-trash-o"></i> ลบข้อมูล'+
 			'</center>'+
 			'</button>'+
-			'</ul>'+
 			'</div>',
 			size: 'xlarge',
 			onEscape: true,
-			backdrop: true,
+			backdrop: true
 		})
 	});
+
+	// $('.group-employeee').on('click', '.manage-employee', function(){
+	// 	$.ajax({
+	// 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+	// 		type: 'POST',
+	// 		url: $('#ajax-center-url').data('url'),
+	// 		data: {method : 'getManageData'},
+	// 		success: function (result) {
+	// 			bootbox.dialog({
+	// 				title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
+	// 				message: '',
+	// 				size: 'xlarge',
+	// 				onEscape: true,
+	// 				backdrop: true,
+	// 			})
+	// 		},
+	// 		error : function(errors)
+	// 		{
+	// 			console.log(errors);
+	// 		}
+	// 	})
+	// })
 
 	$('.add-employee').on('click', '.add-employee-form', function(){
 		msg_waiting();
@@ -33,7 +54,7 @@ $(function(){
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
-			data: {method : 'getFormAddEmpolyee'},
+			data: {method : 'getFormAddEmployee'},
 			success: function (result) {
 				var title = "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>"
 				showDialog(result.data,title)
@@ -46,33 +67,21 @@ $(function(){
 	})
 
 	$('#department').on('change', function(){
-		var department_id = $(this).val();
-		//console.log(department_id);
-		/*if(department){*/
-			$.ajax({
-				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-				type : 'POST',
-				url  : $('#change-department').data('url'),
-				data : {'department': department_id},
-				success:function(result){
-					console.log(result);
-					//$('#header').remove();
-					//$('#header_name').remove();
-					//$('#header').add(result);
-					/*$(result).each(function(){
-						//alert(result.val());
-						//alert(result['id_position']);
-						//console.log($(this)).value();
-						//$('#header').html(result);
-					});*/
-					//alert(result[0]['id_position']);
+		var department = $(this).val();
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type : 'POST',
+			url  : $('#change-department').data('url'),
+			data : {'department': department},
+			success:function(result){
+					//$('#'+department).html(result)
+					//$('.show-data').html("result");
+					// $('.show').remove();
+					$('.show').html(result);
+					//console.log(result);
 				}
 			});
-/*		}else{
-			$('#employee').html('<option value="">เลือกแผนก...</option>');
-		}*/
 	});
-
 });
 
 function showDialog(form,title, oldValue='',not_match){
@@ -173,7 +182,7 @@ function saveAddEmployee(oldValue){
 			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-// success alert
+			// success alert
 			msg_success()
 			// alert('Data save');
 			// msg_close();

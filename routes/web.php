@@ -32,7 +32,6 @@ Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->n
 Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@ajaxCenter')->name('data_manage.ajax_center.post');
 
 Route::post('/data_manage/add_employee', 'DataManagement\DataManageController@addEmployee')->name('data_manage.add_employee.post');
-
 Route::post('/data_manage/change_department', 'DataManagement\DataManageController@changeDepartment')->name('data_manage.change_department.post');
 
 Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center.post');

@@ -21,7 +21,7 @@ function showDialog(form,title){
         message: form,
         size: 'large',
         onEscape: true,
-        backdrop: true,
+        backdrop: 'static',
         buttons: {
             fi: {
                 label: 'บันทึก',
