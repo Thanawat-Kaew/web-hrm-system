@@ -55,10 +55,17 @@ class LoginController extends Controller
         if(!empty($checkLogin)){
             $employee_object = new EmployeeObject;
             $employee_object->setUp($checkLogin);
-            $employee_object->setupMenu();
+            $employee_object->setupMenu($checkLogin->id_employee);
             return redirect()->route('main.get');
         }else{
             return view('auth.login'/*, compact('success' ,'กรุณากรอกข้อมูลใหม่')*/);
         }
+    }
+
+    public function logout(){
+            \Session::forget('current_employee');
+            \Session::forget('current_menu');
+            return view('auth.login');
+
     }
 }

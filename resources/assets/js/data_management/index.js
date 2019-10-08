@@ -32,8 +32,8 @@ $(function(){
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
-			url: $('.ajax-center-url').data('url'),
-			data: {method : 'getFormAddEmpolyee'},
+			url: $('#ajax-center-url').data('url'),
+			data: {method : 'getFormAddEmployee'},
 			success: function (result) {
 				var title = "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>"
 				showDialog(result.data,title)
@@ -46,18 +46,27 @@ $(function(){
 	})
 
 	$('#department').on('change', function(){
+		msg_waiting();
 		var department = $(this).val();
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 				type : 'POST',
-				url  : $('#change-department').data('url'),
-				data : {'department': department},
+				url  : $('#ajax-center-url').data('url'),
+				data : {
+					'method' : 'getFormEmployeeWithDepartment',
+					'department': department
+				},
 				success:function(result){
-					//$('#'+department).html(result)
-					//$('.show-data').html("result");
-					$('.show').remove();
-					$('.change').html(result);
-					//console.log(result);
+					 if(result.data !== ""){
+					 	$('#employee').html(result.data.form_emp);
+					 	$('#header').html(result.data.form_head);
+						msg_close();
+					 }
+
+				},
+				error : function(errors){
+					msg_close();
+					console.log(errors);
 				}
 			});
 	});

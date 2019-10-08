@@ -64,24 +64,32 @@ class DataManageController extends Controller
 
         }
         return $this->useTemplate('data_management.index', compact('department', 'employee'));
-	}
+    }
 
-	 public function ajaxCenter(Request $request)
+    public function ajaxCenter(Request $request)
     {
 
     	$method = $request->get('method');
         switch ($method) {
-            case 'getFormAddEmpolyee':
+            case 'getFormAddEmployee':
                 $department     = Department::all();
                 $position       = Position::all();
-               	$form_repo      = new FormRepository;
-				$form_add_emp   = $form_repo->getFormEmployee($department,$position);
+                $form_repo      = new FormRepository;
+                $form_add_emp   = $form_repo->getFormEmployee($department,$position);
                 return response()->json(['status'=> 'success','data'=> $form_add_emp]);
-                break;
+            break;
+            case 'getFormEmployeeWithDepartment':
+                    $department = $request->get('department');
+                    $employee   = Employee::where('id_department', $department)->get();
+
+                    $form_repo      = new FormRepository;
+                    $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
+                     return response()->json(['status'=> 'success','data'=> $get_form_emp]);
+            break;
 
             default:
                 # code...
-                break;
+            break;
         }
     }
 
@@ -132,194 +140,5 @@ class DataManageController extends Controller
         //return redirect()->route('data_management.index.get');
     }
 
-    public function changeDepartment(Request $request)
-    {
-        /*$department = $request->get('department');
-        switch ($department) {
-            case 'department':
-                $employee                    = Employee::where('id_department', $departmentr)->get();
-                $department                  = Department::all();
-                $form_repo                   = new FormRepository;
-                $form_change_department      = $form_repo->getFormChangeDepartment($employee);
-                return response()->json(['status'=> 'success','data'=> $form_change_department]);
-                break;
 
-            default:
-                # code...
-                break;
-        }*/
-
-
-        $department = $request->get('department');
-        $employee   = Employee::where('id_department', $department)->get();
-        //sd($employee->toArray());
-        $form ='<div class="box-body" id="group-employee" >
-                <div class="row" id="header">';
-        foreach ($employee as $key => $value) {
-           if($value['id_position'] == 2) {
-                $form .='<div class="col-md-2 col-sm-2 ">';
-                    $form .='<div class="box box-widget widget-user-2">';
-                        $form .='<div class="widget-user-header">';
-                            $form .='<!-- /.widget-user-image -->';
-                                $form .='<div class="group-image" align="center" valign="center">';
-                                    $form .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
-                                $form .='</div>';
-                            $form .='<div class="about-employee" id="header">';
-                                $form .='<p id="header_id">รหัส  :<span>'.$value["id_employee"].'</span></p>';
-                                $form .='<p id="header_name">ชื่อ :<span>'.$value["first_name"].' '.$value["last_name"].'</span></p>';
-                            $form .='</div>';
-                        $form .='</div>';
-                        $form .='<div class="box-footer no-padding">';
-                            $form .='<ul class="nav nav-stacked">';
-                                $form .='<li class="manage-employee">';
-                                    $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                        $form .='<center>';
-                                            $form .='<i class="fa fa-cog"></i> Manage Data';
-                                        $form .='</center>';
-                                    $form .='</a>';
-                                $form .='</li>';
-                            $form .='</ul>';
-                        $form .='</div>';
-                    $form .='</div>';
-                $form .='</div>';
-            }
-        }
-        $form .= '</div>';
-        $form .='<h4 class="box-title">พนักงาน</h4>
-                <hr>
-                <div class="box-body" id="group-employee">
-                <div class="row" id="employee">';
-        foreach($employee as $key => $value) {
-            if($value['id_position'] == 1) {
-                $form .='<div class="col-md-2 col-sm-2 ">';
-                    $form .='<div class="box box-widget widget-user-2">';
-                         $form .='<div class="widget-user-header">';
-                            $form .='<!-- /.widget-user-image -->';
-                                $form .='<div class="group-image" align="center" valign="center">';
-                                    $form .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
-                                $form .='</div>';
-                                $form .='<div class="about-employee" id="employee">';
-                                    $form .='<p>รหัส  :<span>'.$value['id_employee'].'</span></p>';
-                                    $form .='<p>ชื่อ   :<span>'.$value['first_name'].$value['last_name'].'</span></p>';
-                                $form .='</div>';
-                        $form .='</div>';
-                        $form .='<div class="box-footer no-padding">';
-                            $form .='<ul class="nav nav-stacked">';
-                                $form .='<li class="manage-employee">';
-                                    $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                        $form .='<center>';
-                                            $form .='<i class="fa fa-cog"></i> Manage Data';
-                                        $form .='</center>';
-                                    $form .='</a>';
-                                $form .='</li>';
-                            $form .='</ul>';
-                        $form .='</div>';
-                    $form .='</div>';
-                $form .='</div>';
-            }
-        }
-        $form .='</div>';
-        $form .='</div>';
-        $form .='</div>';
-        echo $form;
-        //sd($header);
-
-
-    //return array($department, $header);
-    //sd($header);
-
-
-        /*foreach($employee as $key => $value) {
-            if($value['id_position'] == 1) {
-            $employee .='<div class="col-md-2 col-sm-2 ">';
-                $employee .='<div class="box box-widget widget-user-2">';
-                    $employee .='<div class="widget-user-header">';
-                        $employee .='<!-- /.widget-user-image -->';
-                            $employee .='<div class="group-image" align="center" valign="center">';
-                                $employee .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
-                            $employee .='</div>';
-                            $employee .='<div class="about-employee" id="employee">';
-                                $employee .='<p>รหัส  :<span>'.$value['id_employee'].'</span></p>';
-                                $employee .='<p>ชื่อ   :<span>'.$value['first_name'].$value['last_name'].'</span></p>';
-                            $employee .='</div>';
-                    $employee .='</div>';
-                    $employee .='<div class="box-footer no-padding">';
-                        $employee .='<ul class="nav nav-stacked">';
-                            $employee .='<li class="manage-employee">';
-                                $employee .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                    $employee .='<center>';
-                                        $employee .='<i class="fa fa-cog"></i> Manage Data';
-                                    $employee .='</center>';
-                                $employee .='</a>';
-                            $employee .='</li>';
-                        $employee .='</ul>';
-                    $employee .='</div>';
-                $employee .='</div>';
-            $employee .='</div>';
-            }
-        }
-        /*foreach($employee  as $key => $value){
-            if($value['id_position'] == 2) {
-                $header .='<div class="col-md-2 col-sm-2 ">';
-                    $header .='<div class="box box-widget widget-user-2">';
-                        $header .='<div class="widget-user-header">';
-                            $header .='<!-- /.widget-user-image -->';
-                                $header .='<div class="group-image" align="center" valign="center">';
-                                    $header .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
-                                $header .='</div>';
-                            $header .='<div class="about-employee" id="header">';
-                                $header .='<p id="header_id">รหัส  :<span>'.$value["id_employee"].'</span></p>';
-                                $header .='<p id="header_name">ชื่อ :<span>'.$value["first_name"].$value["last_name"].'</span></p>';
-                            $header .='</div>';
-                        $header .='</div>';
-                        $header .='<div class="box-footer no-padding">';
-                            $header .='<ul class="nav nav-stacked">';
-                                $header .='<li class="manage-employee">';
-                                    $header .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                        $header .='<center>';
-                                            $header .='<i class="fa fa-cog"></i> Manage Data';
-                                        $header .='</center>';
-                                    $header .='</a>';
-                                $header .='</li>';
-                            $header .='</ul>';
-                        $header .='</div>';
-                    $header .='</div>';
-            }
-        }*/
-
-
-    //return array($department, $header);
-    //sd($header);
-
-
-        /*foreach($employee as $key => $value) {
-            if($value['id_position'] == 1) {
-            $employee .='<div class="col-md-2 col-sm-2 ">';
-                $employee .='<div class="box box-widget widget-user-2">';
-                    $employee .='<div class="widget-user-header">';
-                        $employee .='<!-- /.widget-user-image -->';
-                            $employee .='<div class="group-image" align="center" valign="center">';
-                                $employee .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
-                            $employee .='</div>';
-                            $employee .='<div class="about-employee" id="employee">';
-                                $employee .='<p>รหัส  :<span>'.$value['id_employee'].'</span></p>';
-                                $employee .='<p>ชื่อ   :<span>'.$value['first_name'].$value['last_name'].'</span></p>';
-                            $employee .='</div>';
-                    $employee .='</div>';
-                    $employee .='<div class="box-footer no-padding">';
-                        $employee .='<ul class="nav nav-stacked">';
-                            $employee .='<li class="manage-employee">';
-                                $employee .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                    $employee .='<center>';
-                                        $employee .='<i class="fa fa-cog"></i> Manage Data';
-                                    $employee .='</center>';
-                                $employee .='</a>';
-                            $employee .='</li>';
-                        $employee .='</ul>';
-                    $employee .='</div>';
-                $employee .='</div>';
-            $employee .='</div>';
-            }
-        }*/
-    }
 }

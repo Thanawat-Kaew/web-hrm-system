@@ -6,6 +6,7 @@ use App\Services\Department\Department; // floder\file name
 class EmployeeObject{
 	protected $id_department;
     protected $id_position;
+    protected $id_employee;
     protected $first_name;
     protected $last_name;
     protected $email;
@@ -46,10 +47,10 @@ class EmployeeObject{
         \Session::put('current_employee', $checkLogin);
     }
 
-    public function setupMenu()
+    public function setupMenu($id_employee)
     {
-    	$current_menu = Employee::with('employeemenu', 'employeemenu.menu')->where('id_employee', $this->id_employee)->first();
-    	//sd($current_menu->toArray());
+    	$current_menu = Employee::with('employeemenu', 'employeemenu.menu')->where('id_employee', $id_employee)->first();
+    	// sd($this->id_employee);
     	$menu = []; //array
     	if(!empty($current_menu->employeemenu)){
     		foreach ($current_menu->employeemenu as $key => $value) {
@@ -70,7 +71,7 @@ class EmployeeObject{
 
     	\Session::put('current_menu', (object)$menu);
         //$curr_emp =
-        //sd((object)$menu);
+        // sd((object)$menu);
     }
 
     public function getIdEmployee()
