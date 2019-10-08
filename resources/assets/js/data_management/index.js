@@ -32,7 +32,7 @@ $(function(){
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
-			url: $('#ajax-center-url').data('url'),
+			url: $('.ajax-center-url').data('url'),
 			data: {method : 'getFormAddEmpolyee'},
 			success: function (result) {
 				var title = "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>"
@@ -46,31 +46,20 @@ $(function(){
 	})
 
 	$('#department').on('change', function(){
-		var department_id = $(this).val();
-		//console.log(department_id);
-		/*if(department){*/
+		var department = $(this).val();
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 				type : 'POST',
 				url  : $('#change-department').data('url'),
-				data : {'department': department_id},
+				data : {'department': department},
 				success:function(result){
-					console.log(result);
-					//$('#header').remove();
-					//$('#header_name').remove();
-					//$('#header').add(result);
-					/*$(result).each(function(){
-						//alert(result.val());
-						//alert(result['id_position']);
-						//console.log($(this)).value();
-						//$('#header').html(result);
-					});*/
-					//alert(result[0]['id_position']);
+					//$('#'+department).html(result)
+					//$('.show-data').html("result");
+					$('.show').remove();
+					$('.change').html(result);
+					//console.log(result);
 				}
 			});
-/*		}else{
-			$('#employee').html('<option value="">เลือกแผนก...</option>');
-		}*/
 	});
 
 });

@@ -16,11 +16,11 @@
 <section class="content">
     <div class="form-group">
         <div class="col-sm-3 col-xs-12 pull-right input-group-sm">
-            <select class="form-control select2" style="width: 100%;" id="department">
+            <select class="form-control select2" style="width: 100%;" id="department" data-dependent="header">
                 <?php if(\Session::has('current_employee')) :
                        $current_employee = \Session::get('current_employee') ?>
                 <?php foreach($department as $departments) : ?>
-                    <option value="<?php echo $departments['id_department']?>" <?php echo ($departments['id_department'] == $current_employee['id_department']) ? 'selected' : '' ?> > <?php echo $departments['name']?> </option>
+                    <option value="<?php echo $departments['id_department']?>" <?php echo (($departments['id_department'] == $current_employee['id_department']) ? 'selected' : '') ?> > <?php echo $departments['name']?> </option>
                 <?php endforeach ?>
                 <?php endif ?>
             </select>
@@ -32,10 +32,14 @@
         </div>
     </div>
 
-    <h4 class="box-title">หัวหน้าแผนก </h4>
+    <h4 class="box-title show-data">หัวหน้าแผนก </h4>
     <hr>
-    <div class="box-body" id="group-employee">
-        <div class="row">
+    <div class="change">
+    <div class="box-body show group-employee" id="group-employee" >
+        <div class="row" id="header">
+        <?php foreach($employee as $key => $value):
+            if($value['id_position'] == 2) :
+        ?>
             <div class="col-md-2 col-sm-2 ">
                 <div class="box box-widget widget-user-2">
                     <div class="widget-user-header">
@@ -43,15 +47,11 @@
                         <div class="group-image" align="center" valign="center">
                             <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">
                         </div>
-                        <?php foreach($header as $key => $value):
-                                if($value['id_position'] == 2) :
-                        ?>
-                        <div class="about-employee" id="header">
+                        <div class="about-employee">
                             <p id="header_id">รหัส  :<span><?php echo $value['id_employee']?></span></p>
                             <p id="header_name">ชื่อ   :<span><?php echo $value['first_name']?> <?php echo $value['last_name']?></span></p>
                         </div>
-                        <?php endif ?>
-                        <?php endforeach ?>
+
                     </div>
                     <div class="box-footer no-padding">
                         <ul class="nav nav-stacked">
@@ -66,15 +66,15 @@
                     </div>
                 </div>
             </div>
+        <?php endif ?>
+        <?php endforeach ?>
         </div>
 
         <h4 class="box-title">พนักงาน</h4>
         <hr>
-        <div class="box-body">
-            <div class="row" id="group-employee">
-
-                    <!-- <?php/* for($i=0; $i<count($employee); $i++*/):?> -->
-                <?php foreach($header as $key => $value):
+        <div class="box-body group-employee" id="group-employee">
+            <div class="row" id="employee">
+                <?php foreach($employee as $key => $value):
                         if($value['id_position'] == 1) :
                     ?>
                     <div class="col-md-2 col-sm-2 ">
@@ -84,7 +84,7 @@
                                 <div class="group-image" align="center" valign="center">
                                     <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">
                                 </div>
-                                <div class="about-employee" id="employee">
+                                <div class="about-employee">
                                     <p>รหัส  :<span><?php echo $value['id_employee']?></span></p>
                                     <p>ชื่อ   :<span><?php echo $value['first_name']?> <?php echo $value['last_name']?></span></p>
                                 </div>
@@ -106,6 +106,7 @@
                 <?php endforeach ?>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!-- data -->

@@ -262,4 +262,75 @@ class FormRepository
         </div>';
         return $form_new_time_clock;
     }
+
+
+    public static function getFormChangeDepartment($employee){
+
+     // หัวหน้า
+        //sd($employee->toArray());
+    $form = foreach ($employee as $key => $value) {
+           if($value['id_position'] == 2) {;
+                $form .='<div class="col-md-2 col-sm-2 ">';
+                    $form .='<div class="box box-widget widget-user-2">';
+                        $form .='<div class="widget-user-header">';
+                            $form .='<!-- /.widget-user-image -->';
+                                $form .='<div class="group-image" align="center" valign="center">';
+                                    $form .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
+                                $form .='</div>';
+                            $form .='<div class="about-employee" id="header">';
+                                $form .='<p id="header_id">รหัส  :<span>'.$value["id_employee"].'</span></p>';
+                                $form .='<p id="header_name">ชื่อ :<span>'.$value["first_name"].' '.$value["last_name"].'</span></p>';
+                            $form .='</div>';
+                        $form .='</div>';
+                        $form .='<div class="box-footer no-padding">';
+                            $form .='<ul class="nav nav-stacked">';
+                                $form .='<li class="manage-employee">';
+                                    $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
+                                        $form .='<center>';
+                                            $form .='<i class="fa fa-cog"></i> Manage Data';
+                                        $form .='</center>';
+                                    $form .='</a>';
+                                $form .='</li>';
+                            $form .='</ul>';
+                        $form .='</div>';
+                    $form .='</div>';
+                $form .='</div>';
+            }
+        }
+        $form .= '</div>';
+        $form .='<h4 class="box-title">พนักงาน</h4>
+                <hr>
+                <div class="box-body" id="group-employee">
+                <div class="row" id="employee">';
+    $form .= foreach($employee as $key => $value) {
+            if($value['id_position'] == 1) {;
+                $form .='<div class="col-md-2 col-sm-2 ">';
+                    $form .='<div class="box box-widget widget-user-2">';
+                         $form .='<div class="widget-user-header">';
+                            $form .='<!-- /.widget-user-image -->';
+                                $form .='<div class="group-image" align="center" valign="center">';
+                                    $form .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
+                                $form .='</div>';
+                                $form .='<div class="about-employee" id="employee">';
+                                    $form .='<p>รหัส  :<span>'.$value['id_employee'].'</span></p>';
+                                    $form .='<p>ชื่อ   :<span>'.$value['first_name'].$value['last_name'].'</span></p>';
+                                $form .='</div>';
+                        $form .='</div>';
+                        $form .='<div class="box-footer no-padding">';
+                            $form .='<ul class="nav nav-stacked">';
+                                $form .='<li class="manage-employee">';
+                                    $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
+                                        $form .='<center>';
+                                            $form .='<i class="fa fa-cog"></i> Manage Data';
+                                        $form .='</center>';
+                                    $form .='</a>';
+                                $form .='</li>';
+                            $form .='</ul>';
+                        $form .='</div>';
+                    $form .='</div>';
+                $form .='</div>';
+            }
+        }
+        return $form;
+    }
 }
