@@ -26,26 +26,6 @@
 
 </head>
 <body>
-    <?php
-    if(Session::has('employee_general')){
-        echo '<div>employee_general</div>';
-        $id = Session::get('employee_general');
-        echo $id;
-    }else if(Session::has('header_general')){
-        echo '<div>header_general</div>';
-        $id = Session::get('header_general');
-        echo $id;
-    }else if(Session::has('employee_hr')){
-        echo '<div>employee_hr</div>';
-        $id = Session::get('employee_hr');
-        echo $id;
-    }else if(Session::has('header_hr')){
-        echo '<div>header_hr</div>';
-        $id = Session::get('header_hr');
-        echo $id;
-    }
-    ?>
-    
     <!-- Main content -->
     <section class="content">
         <!-- Main row -->
@@ -55,7 +35,8 @@
                 <div class="lockscreen-wrapper">
                     <div class="text-center">
                         <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-                        <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
+                        <h4>HUMAN RESOURCE MANAGEMENT SYSTEM
+                        </h4>
                         <hr>
                         <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
                         <a href="">
@@ -64,116 +45,30 @@
                     </div>
                 </div>
             </div>
+            <?php if(Session::has('current_employee')) :  ?>
+            <?php $cur_emp = Session::get('current_employee');
+                // /*echo $cur_emp['id_employee']*/;
+                //var_dump($cur_emp['id_department']);
+            ?>
+            <?php endif ?>
             <div class="col-md-6">
                 <!-- Automatic element centering -->
                 <div class="lockscreen-wrapper">
                     <div class="links">
                         <div class="col-sm-12 col-xs-12">
-                            <?php if(Session::has('employee_general')) {
-                                $id = Session::get('employee_general');  ?>  
+                            <?php if(\Session::has('current_menu')) :  ?>
+                            <?php foreach(\Session::get('current_menu') as $menu ):?>
                                 <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/time_stamp.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave.get')?>">
-                                        <img class="image_menu" src="/resources/image/leave.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
-                                        <img class="image_menu" src="/resources/image/personal_information.png">
-                                    </a>
-                                </div>
-                            <?php }else if(Session::has('header_general')) {
-                                $id = Session::get('header_general');  ?>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/time_stamp.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave.get')?>">
-                                        <img class="image_menu" src="/resources/image/leave.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
-                                        <img class="image_menu" src="/resources/image/personal_information.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('evaluation.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/evaluation.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="#">
-                                        <img class="image_menu" src="/resources/image/report.png">
-                                    </a>
-                                </div>
 
-                            <?php }else if(Session::has('employee_hr')) { 
-                                $id = Session::get('employee_hr');  ?>   
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/time_stamp.png">
+                                    <!-- <?php //echo ($menu->name_th)?>
+                                    <?php //echo ($menu->name_en)?> -->
+                                    <!-- <?php echo $menu->route ?> -->
+                                    <a href="<?php echo route ($menu->route)  ?>">
+                                        <img class="image_menu" src="<?php echo 'resources/image/'.$menu->image ?>">
                                     </a>
                                 </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave.get')?>">
-                                        <img class="image_menu" src="/resources/image/leave.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
-                                        <img class="image_menu" src="/resources/image/personal_information.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('evaluation.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/evaluation.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('data_management.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/data_management.png">
-                                    </a>
-                                </div>
-                            <?php }else if(Session::has('header_hr')){
-                                $id = Session::get('header_hr');  ?>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('time_stamp.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/time_stamp.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('leave.leave.get')?>">
-                                        <img class="image_menu" src="/resources/image/leave.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('personal_info.personal_info.get', $id)?>">
-                                        <img class="image_menu" src="/resources/image/personal_information.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('evaluation.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/evaluation.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="#">
-                                        <img class="image_menu" src="/resources/image/report.png">
-                                    </a>
-                                </div>
-                                <div class="col-sm-6 col-xs-6">
-                                    <a href="<?php echo route('data_management.index.get')?>">
-                                        <img class="image_menu" src="/resources/image/data_management.png">
-                                    </a>
-                                </div>
-                            <?php }?>
+                            <?php endforeach ?>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -185,9 +80,14 @@
                         <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
                         <hr>
                         <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-                        <a href="#">
+
+                        <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
                         </a>
+                         <form id="logout-form" action="<?php echo route('logout') ?>" method="POST" style="display: none;">
+                            <?php echo csrf_field() ?>
+                        </form>
+
                     </div>
                 </div>
             </div>

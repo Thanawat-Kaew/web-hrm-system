@@ -3,7 +3,8 @@ function msg_waiting(){
 		title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i>',
 		html: '<h3>Please waiting....</h3>',
 		showConfirmButton: false,
-		allowOutsideClick: false
+		allowOutsideClick: false,
+		timer: 1000
 	})
 }
 

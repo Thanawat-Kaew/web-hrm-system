@@ -218,40 +218,32 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">ธนวัฒน์  แก้วล้อมวัง</span>
+                <?php if(\Session::has('current_employee')) :
+                    $current_employee = \Session::get('current_employee');
+                ?>
+              <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
                 <p>
-                  ธนวัฒน์  แก้วล้อมวัง - Web Developer
+                <?php echo $current_employee['first_name'];?>
+                <?php echo $current_employee['last_name'];
+                    endif
+                ?>
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
+              
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default">โปรไฟล์</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="#" class="btn btn-default">ออกจากระบบ</a>
                 </div>
               </li>
             </ul>

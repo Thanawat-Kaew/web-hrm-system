@@ -7,8 +7,12 @@
           <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>ธนวัฒน์  แก้วล้อมวัง</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            <?php if(\Session::has('current_employee')) :
+                $current_employee = \Session::get('current_employee');
+            ?>
+          <p><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></p>
+            <?php endif ?>
+          <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a>
         </div>
       </div>
       <!-- search form -->

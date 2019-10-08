@@ -10,7 +10,7 @@
 			<div class="row">
 				<div class="btn-group pull-right new-evaluation">
           <a class="add-evaluation" href="<?php echo route('evaluation.create_evaluations.get')?>">
-					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> New Evaluation
+					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
 					</button>
         </a>
 				</div>

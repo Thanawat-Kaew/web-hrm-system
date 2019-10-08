@@ -45,6 +45,34 @@ $(function(){
 		})
 	})
 
+	$('#department').on('change', function(){
+		var department_id = $(this).val();
+		//console.log(department_id);
+		/*if(department){*/
+			$.ajax({
+				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+				type : 'POST',
+				url  : $('#change-department').data('url'),
+				data : {'department': department_id},
+				success:function(result){
+					console.log(result);
+					//$('#header').remove();
+					//$('#header_name').remove();
+					//$('#header').add(result);
+					/*$(result).each(function(){
+						//alert(result.val());
+						//alert(result['id_position']);
+						//console.log($(this)).value();
+						//$('#header').html(result);
+					});*/
+					//alert(result[0]['id_position']);
+				}
+			});
+/*		}else{
+			$('#employee').html('<option value="">เลือกแผนก...</option>');
+		}*/
+	});
+
 });
 
 function showDialog(form,title, oldValue='',not_match){
@@ -74,7 +102,7 @@ function showDialog(form,title, oldValue='',not_match){
 	box.on('shown.bs.modal', function(){
 		msg_close();
 		$('body').addClass('modal-open'); //scroll mouse
-		if(oldValue !== ""){  
+		if(oldValue !== ""){
 			$.each(oldValue, function(key, value) {
 				$('#'+key).val(value);
 				if(value == "") {
@@ -82,7 +110,7 @@ function showDialog(form,title, oldValue='',not_match){
 				} else {
 					$('#'+key + "-text-error").html("").hide();
 				}
-			});	
+			});
 		}
 		if(not_match){
 			$('#confirm_password-text-error').html("Please try password again").show();
@@ -93,7 +121,7 @@ function showDialog(form,title, oldValue='',not_match){
 };
 
 function addEmployee(form, title){
-	// msg_waiting();
+	msg_waiting();
 	var count 			 = 0;
 	var oldValue 		 = {};
 	var password         = $('#password').val();
@@ -108,6 +136,7 @@ function addEmployee(form, title){
 			$(this).css({"border" : "1px solid lightgray"});
 		}
 	})
+
 	// check match password
 	var not_match = true;
 	if(password != confirm_password) {
@@ -121,6 +150,7 @@ function addEmployee(form, title){
 			}
 		}
 	}
+
 }
 
 function saveAddEmployee(oldValue){
@@ -143,10 +173,15 @@ function saveAddEmployee(oldValue){
 			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-			msg_success();
+// success alert
+			msg_success()
+			// alert('Data save');
+			// msg_close();
 		},
 		error: function(error){
 			alert('Data not save');
+			msg_close();
 		}
 	});
 }
+
