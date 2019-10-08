@@ -306,96 +306,93 @@ class FormRepository
 
     public static function getFormChangeDepartment($employee){
 
-     // หัวหน้า
-        //sd($employee->toArray());
-    // $form = foreach ($employee as $key => $value) {
-    //        if($value['id_position'] == 2) {;
-    //             $form .='<div class="col-md-2 col-sm-2 ">';
-    //                 $form .='<div class="box box-widget widget-user-2">';
-    //                     $form .='<div class="widget-user-header">';
-    //                         $form .='<!-- /.widget-user-image -->';
-    //                             $form .='<div class="group-image" align="center" valign="center">';
-    //                                 $form .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
-    //                             $form .='</div>';
-    //                         $form .='<div class="about-employee" id="header">';
-    //                             $form .='<p id="header_id">รหัส  :<span>'.$value["id_employee"].'</span></p>';
-    //                             $form .='<p id="header_name">ชื่อ :<span>'.$value["first_name"].' '.$value["last_name"].'</span></p>';
-    //                         $form .='</div>';
-    //                     $form .='</div>';
-    //                     $form .='<div class="box-footer no-padding">';
-    //                         $form .='<ul class="nav nav-stacked">';
-    //                             $form .='<li class="manage-employee">';
-    //                                 $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
-    //                                     $form .='<center>';
-    //                                         $form .='<i class="fa fa-cog"></i> Manage Data';
-    //                                     $form .='</center>';
-    //                                 $form .='</a>';
-    //                             $form .='</li>';
-    //                         $form .='</ul>';
-    //                     $form .='</div>';
-    //                 $form .='</div>';
-    //             $form .='</div>';
-    //         }
-    //     }
-    //     $form .= '</div>';
-    //     $form .='<h4 class="box-title">พนักงาน</h4>
-    //             <hr>
-    //             <div class="box-body" id="group-employee">
-    //             <div class="row" id="employee">';
-    // $form .= foreach($employee as $key => $value) {
-    //         if($value['id_position'] == 1) {;
-    //             $form .='<div class="col-md-2 col-sm-2 ">';
-    //                 $form .='<div class="box box-widget widget-user-2">';
-    //                      $form .='<div class="widget-user-header">';
-    //                         $form .='<!-- /.widget-user-image -->';
-    //                             $form .='<div class="group-image" align="center" valign="center">';
-    //                                 $form .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
-    //                             $form .='</div>';
-    //                             $form .='<div class="about-employee" id="employee">';
-    //                                 $form .='<p>รหัส  :<span>'.$value['id_employee'].'</span></p>';
-    //                                 $form .='<p>ชื่อ   :<span>'.$value['first_name'].$value['last_name'].'</span></p>';
-    //                             $form .='</div>';
-    //                     $form .='</div>';
-    //                     $form .='<div class="box-footer no-padding">';
-    //                         $form .='<ul class="nav nav-stacked">';
-    //                             $form .='<li class="manage-employee">';
-    //                                 $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
-    //                                     $form .='<center>';
-    //                                         $form .='<i class="fa fa-cog"></i> Manage Data';
-    //                                     $form .='</center>';
-    //                                 $form .='</a>';
-    //                             $form .='</li>';
-    //                         $form .='</ul>';
-    //                     $form .='</div>';
-    //                 $form .='</div>';
-    //             $form .='</div>';
-    //         }
-    //     }
+      $form_head ='';
+      $form_emp ='';
 
-    //     return $form;
+            foreach ($employee as $key => $value) {
+               if($value['id_position'] == 2) {
+                $form_head .='<div class="col-md-2 col-sm-2 ">';
+                $form_head .='<div class="box box-widget widget-user-2">';
+                $form_head .='<div class="widget-user-header">';
+                $form_head .='<!-- /.widget-user-image -->';
+                $form_head .='<div class="group-image" align="center" valign="center">';
+                $form_head .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
+                $form_head .='</div>';
+                $form_head .='<div class="about-employee" id="header">';
+                $form_head .='<p id="header_id">รหัส  : <span>'.$value["id_employee"].'</span></p>';
+                $form_head .='<p id="header_name">ชื่อ : <span>'.$value["first_name"].' '.$value["last_name"].'</span></p>';
+                $form_head .='</div>';
+                $form_head .='</div>';
+                $form_head .='<div class="box-footer no-padding">';
+                $form_head .='<ul class="nav nav-stacked">';
+                $form_head .='<li class="manage-employee">';
+                $form_head .='<a style="margin: 5px border: 1px; color : #F76608;">';
+                $form_head .='<center>';
+                $form_head .='<i class="fa fa-cog"></i> Manage Data';
+                $form_head .='</center>';
+                $form_head .='</a>';
+                $form_head .='</li>';
+                $form_head .='</ul>';
+                $form_head .='</div>';
+                $form_head .='</div>';
+                $form_head .='</div>';
+            }
+        }
+
+         foreach($employee as $key => $value) {
+            if($value['id_position'] == 1) {
+                $form_emp .='<div class="col-md-2 col-sm-2 ">';
+                $form_emp .='<div class="box box-widget widget-user-2">';
+                $form_emp .='<div class="widget-user-header">';
+                $form_emp .='<!-- /.widget-user-image -->';
+                $form_emp .='<div class="group-image" align="center" valign="center">';
+                $form_emp .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
+                $form_emp .='</div>';
+                $form_emp .='<div class="about-employee" id="employee">';
+                $form_emp .='<p>รหัส  : <span>'.$value['id_employee'].'</span></p>';
+                $form_emp .='<p>ชื่อ   : <span>'.$value['first_name']." ".$value['last_name'].'</span></p>';
+                $form_emp .='</div>';
+                $form_emp .='</div>';
+                $form_emp .='<div class="box-footer no-padding">';
+                $form_emp .='<ul class="nav nav-stacked">';
+                $form_emp .='<li class="manage-employee">';
+                $form_emp .='<a style="margin: 5px border: 1px; color : #F76608;">';
+                $form_emp .='<center>';
+                $form_emp .='<i class="fa fa-cog"></i> Manage Data';
+                $form_emp .='</center>';
+                $form_emp .='</a>';
+                $form_emp .='</li>';
+                $form_emp .='</ul>';
+                $form_emp .='</div>';
+                $form_emp .='</div>';
+                $form_emp .='</div>';
+            }
+        }
+
+         return ['form_head' => $form_head, 'form_emp' => $form_emp];
     }
 
-    // public static function getManageData(){
+    public static function getManageData(){
 
-    //     $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
-    //         $form .= '<div class="form-group">';
-    //             $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
-    //                 $form .= '<center>';
-    //                     $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
-    //                 $form .= '</center>';
-    //             $form .= '</button>';
-    //             $form .= '<button class="btn btn-block btn-warning btn-outline-success" href="#">';
-    //                 $form .= '<center>';
-    //                     $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
-    //                 $form .= '</center>';
-    //             $form .= '</button>';
-    //             $form .= '<button class="btn btn-block btn-danger btn-outline-success" href="#">';
-    //                 $form .= '<center>';
-    //                     $form .= '<i class="fa fa-trash-o"></i> ลบข้อมูล';
-    //                 $form .= '</center>';
-    //             $form .= '</button>';
-    //     $form .= '</div>';
+        $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
+            $form .= '<div class="form-group">';
+                $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
+                    $form .= '<center>';
+                        $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
+                    $form .= '</center>';
+                $form .= '</button>';
+                $form .= '<button class="btn btn-block btn-warning btn-outline-success" href="#">';
+                    $form .= '<center>';
+                        $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
+                    $form .= '</center>';
+                $form .= '</button>';
+                $form .= '<button class="btn btn-block btn-danger btn-outline-success" href="#">';
+                    $form .= '<center>';
+                        $form .= '<i class="fa fa-trash-o"></i> ลบข้อมูล';
+                    $form .= '</center>';
+                $form .= '</button>';
+        $form .= '</div>';
 
-    //     return $form;
-    // }
+        return $form;
+    }
 }

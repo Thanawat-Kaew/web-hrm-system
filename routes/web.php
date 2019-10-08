@@ -16,6 +16,7 @@ Route::get('/', function () {
     // return view('layouts.template');
     // return view('main');
 });
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout.index.post');
 
 
 
@@ -28,7 +29,9 @@ Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
-Route::get('/data_manage/index', 'DataManagement\DataManageController@index')->name('data_management.index.get');
+
+Route::get('/data_manage/employee', 'DataManagement\DataManageController@index')->name('data_management.index.get');
+
 Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@ajaxCenter')->name('data_manage.ajax_center.post');
 
 Route::post('/data_manage/add_employee', 'DataManagement\DataManageController@addEmployee')->name('data_manage.add_employee.post');

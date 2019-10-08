@@ -22,9 +22,9 @@ class DataManageController extends Controller
           
         }
         return $this->useTemplate('data_management.index', compact('department', 'employee'));
-	}
+    }
 
-	 public function ajaxCenter(Request $request)
+    public function ajaxCenter(Request $request)
     {
 
     	$method = $request->get('method');
@@ -32,20 +32,28 @@ class DataManageController extends Controller
             case 'getFormAddEmployee':
                 $department     = Department::all();
                 $position       = Position::all();
-               	$form_repo      = new FormRepository;
-				$form_add_emp   = $form_repo->getFormEmployee($department,$position);
+                $form_repo      = new FormRepository;
+                $form_add_emp   = $form_repo->getFormEmployee($department,$position);
                 return response()->json(['status'=> 'success','data'=> $form_add_emp]);
-                break;
+            break;
+            case 'getFormEmployeeWithDepartment':
+                    $department = $request->get('department');
+                    $employee   = Employee::where('id_department', $department)->get();
 
-            // case 'getManageData':
-            //     $form_repo          = new FormRepository;
-            //     $form_manage_data   = $form_repo->getManageData();
-            //     return response()->json(['status'=> 'success','data'=> $form_manage_data]);
-            //     break;
+                    $form_repo      = new FormRepository;
+                    $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
+                     return response()->json(['status'=> 'success','data'=> $get_form_emp]);
+            break;
+
+            case 'getManageData':
+                $form_repo          = new FormRepository;
+                $form_manage_data   = $form_repo->getManageData();
+                return response()->json(['status'=> 'success','data'=> $form_manage_data]);
+                break;
 
             default:
                 # code...
-                break;
+            break;
         }
     }
 
@@ -92,100 +100,5 @@ class DataManageController extends Controller
         }
 
         $employee->save();
-
-        //return redirect()->route('data_management.index.get');
-    }
-
-    public function changeDepartment(Request $request)
-    {
-        /*$department = $request->get('department');
-        switch ($department) {
-            case 'department':
-                $employee                    = Employee::where('id_department', $departmentr)->get();
-                $department                  = Department::all();
-                $form_repo                   = new FormRepository;
-                $form_change_department      = $form_repo->getFormChangeDepartment($employee);
-                return response()->json(['status'=> 'success','data'=> $form_change_department]);
-                break;
-
-            default:
-                # code...
-                break;
-        }*/
-
-
-        $department = $request->get('department');
-        $employee   = Employee::where('id_department', $department)->get();
-        //sd($employee->toArray());
-    
-
-        $form ='<div class="row" id="header">';
-        foreach ($employee as $key => $value) {
-           if($value['id_position'] == 2) {
-                $form .='<div class="col-md-2 col-sm-2 ">';
-                    $form .='<div class="box box-widget widget-user-2">';
-                        $form .='<div class="widget-user-header">';
-                            $form .='<!-- /.widget-user-image -->';
-                                $form .='<div class="group-image" align="center" valign="center">';
-                                    $form .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
-                                $form .='</div>';
-                            $form .='<div class="about-employee" id="header">';
-                                $form .='<p id="header_id">รหัส  :<span>'.$value["id_employee"].'</span></p>';
-                                $form .='<p id="header_name">ชื่อ :<span>'.$value["first_name"].' '.$value["last_name"].'</span></p>';
-                            $form .='</div>';
-                        $form .='</div>';
-                        $form .='<div class="box-footer no-padding">';
-                            $form .='<ul class="nav nav-stacked">';
-                                $form .='<li class="manage-employee">';
-                                    $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                        $form .='<center>';
-                                            $form .='<i class="fa fa-cog"></i> Manage Data';
-                                        $form .='</center>';
-                                    $form .='</a>';
-                                $form .='</li>';
-                            $form .='</ul>';
-                        $form .='</div>';
-                    $form .='</div>';
-                $form .='</div>';
-            }
-        }
-        $form .= '</div>';
-        $form .='<h4 class="box-title">พนักงาน</h4>
-                <hr>
-                <div class="box-body" id="group-employee">
-                <div class="row" id="employee">';
-        foreach($employee as $key => $value) {
-            if($value['id_position'] == 1) {
-                $form .='<div class="col-md-2 col-sm-2 ">';
-                    $form .='<div class="box box-widget widget-user-2">';
-                         $form .='<div class="widget-user-header">';
-                            $form .='<!-- /.widget-user-image -->';
-                                $form .='<div class="group-image" align="center" valign="center">';
-                                    $form .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
-                                $form .='</div>';
-                                $form .='<div class="about-employee" id="employee">';
-                                    $form .='<p>รหัส  :<span>'.$value['id_employee'].'</span></p>';
-                                    $form .='<p>ชื่อ   :<span>'.$value['first_name'].' '.$value['last_name'].'</span></p>';
-                                $form .='</div>';
-                        $form .='</div>';
-                        $form .='<div class="box-footer no-padding">';
-                            $form .='<ul class="nav nav-stacked">';
-                                $form .='<li class="manage-employee">';
-                                    $form .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                        $form .='<center>';
-                                            $form .='<i class="fa fa-cog"></i> Manage Data';
-                                        $form .='</center>';
-                                    $form .='</a>';
-                                $form .='</li>';
-                            $form .='</ul>';
-                        $form .='</div>';
-                    $form .='</div>';
-                $form .='</div>';
-            }
-        }
-        $form .='</div>';
-        $form .='</div>';
-        echo $form;
-        //sd($header);
     }
 }

@@ -1,52 +1,52 @@
 $(function(){
-	$('#group-employee').on('click', '.manage-employee', function(){
-		bootbox.dialog({
-			title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
-			message: '    <div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">'+
-			'<div class="form-group">'+
-			'<button class="btn btn-block btn-info btn-outline-primary  href="#">'+
-			'<center>'+
-			'<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว'+
-			'</center>'+
-			'</button>'+
-			'<button class="btn btn-block btn-warning btn-outline-success" href="#">'+
-			'<center>'+
-			'<i class="fa fa-cog"></i> แก้ไขข้อมูล'+
-			'</center>'+
-			'</button>'+
-			'<button class="btn btn-block btn-danger btn-outline-success" href="#">'+
-			'<center>'+
-			'<i class="fa fa-trash-o"></i> ลบข้อมูล'+
-			'</center>'+
-			'</button>'+
-			'</div>',
-			size: 'xlarge',
-			onEscape: true,
-			backdrop: true
-		})
-	});
-
-	// $('.group-employeee').on('click', '.manage-employee', function(){
-	// 	$.ajax({
-	// 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-	// 		type: 'POST',
-	// 		url: $('#ajax-center-url').data('url'),
-	// 		data: {method : 'getManageData'},
-	// 		success: function (result) {
-	// 			bootbox.dialog({
-	// 				title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
-	// 				message: '',
-	// 				size: 'xlarge',
-	// 				onEscape: true,
-	// 				backdrop: true,
-	// 			})
-	// 		},
-	// 		error : function(errors)
-	// 		{
-	// 			console.log(errors);
-	// 		}
+	// $('#group-employee').on('click', '.manage-employee', function(){
+	// 	bootbox.dialog({
+	// 		title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
+	// 		message: '    <div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">'+
+	// 		'<div class="form-group">'+
+	// 		'<button class="btn btn-block btn-info btn-outline-primary  href="#">'+
+	// 		'<center>'+
+	// 		'<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว'+
+	// 		'</center>'+
+	// 		'</button>'+
+	// 		'<button class="btn btn-block btn-warning btn-outline-success" href="#">'+
+	// 		'<center>'+
+	// 		'<i class="fa fa-cog"></i> แก้ไขข้อมูล'+
+	// 		'</center>'+
+	// 		'</button>'+
+	// 		'<button class="btn btn-block btn-danger btn-outline-success" href="#">'+
+	// 		'<center>'+
+	// 		'<i class="fa fa-trash-o"></i> ลบข้อมูล'+
+	// 		'</center>'+
+	// 		'</button>'+
+	// 		'</div>',
+	// 		size: 'xlarge',
+	// 		onEscape: true,
+	// 		backdrop: true
 	// 	})
-	// })
+	// });
+
+	$('#header, #employee').on('click', '.manage-employee', function(){
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {method : 'getManageData'},
+			success: function (result) {
+				bootbox.dialog({
+					title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
+					message: result.data,
+					size: 'xlarge',
+					onEscape: true,
+					backdrop: true
+				})
+			},
+			error : function(errors)
+			{
+				console.log(errors);
+			}
+		})
+	})
 
 	$('.add-employee').on('click', '.add-employee-form', function(){
 		msg_waiting();
@@ -67,20 +67,28 @@ $(function(){
 	})
 
 	$('#department').on('change', function(){
+		msg_waiting();
 		var department = $(this).val();
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type : 'POST',
-			url  : $('#change-department').data('url'),
-			data : {'department': department},
+			url  : $('#ajax-center-url').data('url'),
+			data : {
+				'method' : 'getFormEmployeeWithDepartment',
+				'department': department
+			},
 			success:function(result){
-					//$('#'+department).html(result)
-					//$('.show-data').html("result");
-					// $('.show').remove();
-					$('.show').html(result);
-					//console.log(result);
+				if(result.data !== ""){
+					$('#employee').html(result.data.form_emp);
+					$('#header').html(result.data.form_head);
+					msg_close();
 				}
-			});
+			},
+			error : function(errors){
+				msg_close();
+				console.log(errors);
+			}
+		});
 	});
 });
 

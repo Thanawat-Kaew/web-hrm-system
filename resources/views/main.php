@@ -84,7 +84,7 @@
                         <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
                         </a>
-                         <form id="logout-form" action="<?php echo route('logout') ?>" method="POST" style="display: none;">
+                         <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
                             <?php echo csrf_field() ?>
                         </form>
 
