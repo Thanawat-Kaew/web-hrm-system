@@ -19,7 +19,7 @@ class DataManageController extends Controller
             $current_employee = \Session::get('current_employee');
             $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
             $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
-          
+
         }
         return $this->useTemplate('data_management.index', compact('department', 'employee'));
     }
@@ -38,16 +38,19 @@ class DataManageController extends Controller
             break;
             case 'getFormEmployeeWithDepartment':
                     $department = $request->get('department');
+                    //sd($department); // en0001
                     $employee   = Employee::where('id_department', $department)->get();
-
                     $form_repo      = new FormRepository;
                     $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
                      return response()->json(['status'=> 'success','data'=> $get_form_emp]);
             break;
 
             case 'getManageData':
+                $position           = $request->get('position');
+                //sd($position);
+                $department         = $request->get('department');
                 $form_repo          = new FormRepository;
-                $form_manage_data   = $form_repo->getManageData();
+                $form_manage_data   = $form_repo->getManageData($position, $department);
                 return response()->json(['status'=> 'success','data'=> $form_manage_data]);
                 break;
 

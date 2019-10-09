@@ -56,7 +56,7 @@
                             </div>
                             <div class="box-footer no-padding">
                                 <ul class="nav nav-stacked">
-                                    <li class="manage-employee">
+                                    <li class="manage-employee" data-form_id="<?php echo $value['id_employee']?>" data-form_position="<?php echo $value['id_position']?>" data-form_department="<?php echo $value['id_department']?>">
                                         <a style="margin: 5px border: 1px; color : #F76608;">
                                             <center>
                                                 <i class="fa fa-cog"></i> Manage Data
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="box-footer no-padding">
                                     <ul class="nav nav-stacked">
-                                        <li class="manage-employee">
+                                        <li class="manage-employee" data-form_id="<?php echo $value['id_employee']?>" data-form_position="<?php echo $value['id_position']?>" data-form_department="<?php echo $value['id_department']?>">
                                             <a style="margin: 5px border: 1px; color : #F76608;">
                                                 <center>
                                                     <i class="fa fa-cog"></i> Manage Data

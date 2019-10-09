@@ -39,9 +39,12 @@
                         </h4>
                         <hr>
                         <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-                        <a href="">
+                        <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
                         </a>
+                         <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
+                            <?php echo csrf_field() ?>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -62,7 +65,7 @@
 
                                     <!-- <?php //echo ($menu->name_th)?>
                                     <?php //echo ($menu->name_en)?> -->
-                                    <!-- <?php echo $menu->route ?> -->
+                                    <!-- <?php /*echo*/ $menu->route ?> -->
                                     <a href="<?php echo route ($menu->route)  ?>">
                                         <img class="image_menu" src="<?php echo 'resources/image/'.$menu->image ?>">
                                     </a>

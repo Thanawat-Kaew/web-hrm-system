@@ -27,14 +27,24 @@ $(function(){
 	// });
 
 	$('#header, #employee').on('click', '.manage-employee', function(){
+		var id = $(this).data('form_id');
+		//console.log(id);
+		var position = $(this).data('form_position');
+		//console.log(position)
+		var department = $(this).data('form_department');
+		//console.log(department);
+		//alert(department);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
-			data: {method : 'getManageData'},
+			data: {'method'   : 'getManageData',
+				   'position' : position,
+				   'department' : department
+			},
 			success: function (result) {
 				bootbox.dialog({
-					title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
+					title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management'+position+'</h4>',
 					message: result.data,
 					size: 'xlarge',
 					onEscape: true,

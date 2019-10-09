@@ -236,14 +236,19 @@
                 </p>
               </li>
               <!-- Menu Body -->
-              
+
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
                   <a href="#" class="btn btn-default">โปรไฟล์</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default">ออกจากระบบ</a>
+                    <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <button class="btn btn-default">ออกจากระบบ</button>
+                    </a>
+                    <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
+                            <?php echo csrf_field() ?>
+                    </form>
                 </div>
               </li>
             </ul>

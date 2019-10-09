@@ -265,7 +265,7 @@ class FormRepository
         $form = '<div class="col-md-12 new-part">';
                  $form .= '<div class="panel panel-default">';
                      $form .= '<div class="panel-body">';
-                        
+
                          $form .= '<label>ชื่อตอน </label>';
                          $form .= '<input type="text" name="add-name" class="form-control" placeholder="ชื่อตอน..."><br>';
                          $form .= '<label>คำถาม</label>';
@@ -305,7 +305,6 @@ class FormRepository
 
 
     public static function getFormChangeDepartment($employee){
-
       $form_head ='';
       $form_emp ='';
 
@@ -325,7 +324,7 @@ class FormRepository
                 $form_head .='</div>';
                 $form_head .='<div class="box-footer no-padding">';
                 $form_head .='<ul class="nav nav-stacked">';
-                $form_head .='<li class="manage-employee">';
+                $form_head .='<li class="manage-employee" data-form_id="'.$value["id_employee"].'" data-form_position="'.$value["id_position"].'" data-form_department="'.$value["id_department"].'">';
                 $form_head .='<a style="margin: 5px border: 1px; color : #F76608;">';
                 $form_head .='<center>';
                 $form_head .='<i class="fa fa-cog"></i> Manage Data';
@@ -355,7 +354,7 @@ class FormRepository
                 $form_emp .='</div>';
                 $form_emp .='<div class="box-footer no-padding">';
                 $form_emp .='<ul class="nav nav-stacked">';
-                $form_emp .='<li class="manage-employee">';
+                $form_emp .='<li class="manage-employee" data-form_id="'.$value["id_employee"].'" data-form_position="'.$value["id_position"].'" data-form_department="'.$value["id_department"].'">';
                 $form_emp .='<a style="margin: 5px border: 1px; color : #F76608;">';
                 $form_emp .='<center>';
                 $form_emp .='<i class="fa fa-cog"></i> Manage Data';
@@ -372,27 +371,65 @@ class FormRepository
          return ['form_head' => $form_head, 'form_emp' => $form_emp];
     }
 
-    public static function getManageData(){
+    public static function getManageData($position, $department){
 
-        $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
-            $form .= '<div class="form-group">';
-                $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
-                    $form .= '<center>';
-                        $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
-                    $form .= '</center>';
-                $form .= '</button>';
-                $form .= '<button class="btn btn-block btn-warning btn-outline-success" href="#">';
-                    $form .= '<center>';
-                        $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
-                    $form .= '</center>';
-                $form .= '</button>';
-                $form .= '<button class="btn btn-block btn-danger btn-outline-success" href="#">';
-                    $form .= '<center>';
-                        $form .= '<i class="fa fa-trash-o"></i> ลบข้อมูล';
-                    $form .= '</center>';
-                $form .= '</button>';
-        $form .= '</div>';
-
-        return $form;
+        if(\Session::has('current_employee')){
+            //sd($position);
+            //sd($department);
+            $current_employee = \Session::get('current_employee');
+            if($current_employee['id_department'] == "hr0001" && $current_employee['id_position'] == 2){ // หัวหน้า HR
+                $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
+                    $form .= '<div class="form-group">';
+                        $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
+                            $form .= '<center>';
+                                $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
+                            $form .= '</center>';
+                        $form .= '</button>';
+                        $form .= '<button class="btn btn-block btn-warning btn-outline-success" href="#">';
+                            $form .= '<center>';
+                                $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
+                            $form .= '</center>';
+                        $form .= '</button>';
+                        $form .= '<button class="btn btn-block btn-danger btn-outline-success" href="#">';
+                            $form .= '<center>';
+                                $form .= '<i class="fa fa-trash-o"></i> ลบข้อมูล';
+                            $form .= '</center>';
+                        $form .= '</button>';
+                $form .= '</div>';
+            return $form;
+            }else if($current_employee['id_department'] == "hr0001" && $current_employee['id_position'] == 1){ // ลูกน้อง HR
+                $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
+                $form .= '<div class="form-group">';
+                    $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
+                        $form .= '<center>';
+                            $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
+                        $form .= '</center>';
+                    $form .= '</button>';
+                    if(($position == 1 && $department == "hr0001") || ($position == (2||1) && $department !== "hr0001")){
+                    $form .= '<button class="btn btn-block btn-warning btn-outline-success" href="#">';
+                        $form .= '<center>';
+                            $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
+                        $form .= '</center>';
+                    $form .= '</button>';
+                    }
+                    $form .= '<button class="btn btn-block btn-danger btn-outline-success" href="#">';
+                        $form .= '<center>';
+                            $form .= '<i class="fa fa-trash-o"></i> ลบข้อมูล';
+                        $form .= '</center>';
+                    $form .= '</button>';
+                $form .= '</div>';
+                return $form;
+            }else if($current_employee['id_department'] !== "hr0001" && $current_employee['id_position'] == 2){  // หัวหน้าทั่วไป
+                $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
+                    $form .= '<div class="form-group">';
+                        $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
+                            $form .= '<center>';
+                                $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
+                            $form .= '</center>';
+                        $form .= '</button>';
+                $form .= '</div>';
+            return $form;
+            }
+        }
     }
 }
