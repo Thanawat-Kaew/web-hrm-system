@@ -51,6 +51,14 @@ class DataManageController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_manage_data]);
                 break;
 
+            case 'getFormEditEmployee':
+                $department     = Department::all();
+                $position       = Position::all();
+                $form_repo      = new FormRepository;
+                $form_edit_emp   = $form_repo->getFormEditEmployee($department,$position);
+                return response()->json(['status'=> 'success','data'=> $form_edit_emp]);
+            break;
+
             default:
                 # code...
             break;

@@ -33,13 +33,33 @@ $(function(){
 			url: $('#ajax-center-url').data('url'),
 			data: {method : 'getManageData'},
 			success: function (result) {
-				bootbox.dialog({
+				var box = bootbox.dialog({
 					title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
 					message: result.data,
 					size: 'xlarge',
 					onEscape: true,
 					backdrop: true
 				})
+				box.on('shown.bs.modal', function(){
+					// Form edit data employee
+					$('.edit_data').on('click', function(event) {
+						$.ajax({
+							headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+							type: 'POST',
+							url: $('#ajax-center-url').data('url'),
+							data: {method : 'getFormEditEmployee'},
+							success: function (result) {
+								var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small></h4>"
+								showDialog(result.data,title);
+							},
+							error : function(errors)
+							{
+								console.log(errors);
+							}
+						})
+
+					});
+				});
 			},
 			error : function(errors)
 			{
@@ -90,6 +110,10 @@ $(function(){
 			}
 		});
 	});
+
+	$('#text-search').keyup(function(){  
+		search_table($(this).val());  
+	}); 
 });
 
 function showDialog(form,title, oldValue='',not_match){
@@ -104,7 +128,11 @@ function showDialog(form,title, oldValue='',not_match){
 				label: 'บันทึก',
 				className: 'btn-info',
 				callback: function(){
-					addEmployee(form, title);
+					if (title == "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>") {
+						addEmployee(form, title);
+					}else{
+						editEmployee();
+					}
 				}
 			},
 			fum: {
@@ -114,6 +142,7 @@ function showDialog(form,title, oldValue='',not_match){
 				}
 			}
 		}
+
 	})
 	//console.log(confirm_password);
 	box.on('shown.bs.modal', function(){
@@ -134,6 +163,8 @@ function showDialog(form,title, oldValue='',not_match){
 		}else{
 			$('#confirm_password-text-error').html("Please try password again").hide();
 		}
+
+
 	})
 };
 
@@ -200,5 +231,9 @@ function saveAddEmployee(oldValue){
 			msg_close();
 		}
 	});
+}
+
+function editEmployee(){
+	alert('jjjjjjjjjjjj');
 }
 

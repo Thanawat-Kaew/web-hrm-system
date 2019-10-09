@@ -155,102 +155,105 @@
                       </h3>
                       <div class="progress xs">
                         <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                        <span class="sr-only">20% Complete</span>
                       </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
+                    </div>
+                  </a>
+                </li>
+                <!-- end task item -->
+                <li><!-- Task item -->
+                  <a href="#">
+                    <h3>
+                      Create a nice theme
+                      <small class="pull-right">40%</small>
+                    </h3>
+                    <div class="progress xs">
+                      <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                      <span class="sr-only">40% Complete</span>
+                    </div>
+                  </div>
+                </a>
               </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                <?php if(\Session::has('current_employee')) :
-                    $current_employee = \Session::get('current_employee');
-                ?>
-              <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
+              <!-- end task item -->
+              <li><!-- Task item -->
+                <a href="#">
+                  <h3>
+                    Some task I need to do
+                    <small class="pull-right">60%</small>
+                  </h3>
+                  <div class="progress xs">
+                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                    <span class="sr-only">60% Complete</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <!-- end task item -->
+            <li><!-- Task item -->
+              <a href="#">
+                <h3>
+                  Make beautiful transitions
+                  <small class="pull-right">80%</small>
+                </h3>
+                <div class="progress xs">
+                  <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
+                  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                  <span class="sr-only">80% Complete</span>
+                </div>
+              </div>
             </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                <p>
-                <?php echo $current_employee['first_name'];?>
-                <?php echo $current_employee['last_name'];
-                    endif
-                ?>
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default">โปรไฟล์</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default">ออกจากระบบ</a>
-                </div>
-              </li>
-            </ul>
           </li>
-          <!-- Control Sidebar Toggle Button -->
+          <!-- end task item -->
         </ul>
-      </div>
+      </li>
+      <li class="footer">
+        <a href="#">View all tasks</a>
+      </li>
+    </ul>
+  </li>
+  <!-- User Account: style can be found in dropdown.less -->
+  <li class="dropdown user user-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+      <?php if(\Session::has('current_employee')) :
+        $current_employee = \Session::get('current_employee');
+        ?>
+        <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
+      </a>
+      <ul class="dropdown-menu">
+        <!-- User image -->
+        <li class="user-header">
+          <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <p>
+            <?php echo $current_employee['first_name'];?>
+            <?php echo $current_employee['last_name'];
+          endif
+          ?>
+          <small>Member since Nov. 2012</small>
+        </p>
+      </li>
+      <!-- Menu Body -->
+      
+      <!-- Menu Footer-->
+      <li class="user-footer">
+        <div class="pull-left">
+          <a href="#" class="btn btn-default">โปรไฟล์</a>
+        </div>
+        <div class="pull-right">
+          <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default">ออกจากระบบ</a>
+        </div>
+        <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
+          <?php echo csrf_field() ?>
+        </form>
+      </li>
+    </ul>
+  </li>
+  <!-- Control Sidebar Toggle Button -->
+</ul>
+</div>
 
-    </nav>
-  </header>
+</nav>
+</header>
