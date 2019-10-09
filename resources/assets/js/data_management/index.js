@@ -30,14 +30,14 @@ $(function(){
 							headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 							type: 'POST',
 							url: $('#ajax-center-url').data('url'),
-							data: {'method' : 'getFormEditEmployee',
-							'id'    : id
-						},
-						success: function (result) {
-							var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small></h4>"
-							showDialog(result.data,title);
-								//console.log(id);
+							data: { 'method' : 'getFormEditEmployee',
+									'id'     : id
+							},
+							success: function (result) {
+								var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small>"+id+"</h4>"
+								showDialog(result.data,title);
 								msg_close();
+								//console.log(id);
 							},
 							error : function(errors)
 							{
@@ -151,8 +151,10 @@ function showDialog(form,title, oldValue='',not_match){
 				callback: function(){
 					if (title == "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>") {
 						addEmployee(form, title);
+						//alert("add");
 					}else{
-						editEmployee();
+						//editEmployee(form, title);
+						//alert("edit");
 					}
 				}
 			},
@@ -251,7 +253,7 @@ function saveAddEmployee(oldValue){
 	});
 }
 
+
 function editEmployee(){
 
 }
-

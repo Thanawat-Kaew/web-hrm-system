@@ -24,3 +24,7 @@ li.manage-employee{
 img{
 	size: auto;
 }
+
+body{
+	padding-right: 0!important;
+}
