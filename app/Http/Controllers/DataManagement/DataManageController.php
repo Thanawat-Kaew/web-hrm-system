@@ -56,12 +56,13 @@ class DataManageController extends Controller
 
             case 'getFormEditEmployee':
                 $id             = $request->get('id');
+                $employee    = Employee::with('department')->with('position')->where('id_employee', $id)->first();
                 //sd($id);
-                //var_dump($id);
+                //sd($employee->position['name']);
                 $department     = Department::all();
                 $position       = Position::all();
                 $form_repo      = new FormRepository;
-                $form_edit_emp   = $form_repo->getFormEmployee($department,$position, $id);
+                $form_edit_emp   = $form_repo->getFormEmployee($department,$position, $employee);
                 return response()->json(['status'=> 'success','data'=> $form_edit_emp]);
             break;
 

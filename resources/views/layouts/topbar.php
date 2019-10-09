@@ -176,48 +176,6 @@
                   </div>
                 </a>
               </li>
-<<<<<<< HEAD
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                <?php if(\Session::has('current_employee')) :
-                    $current_employee = \Session::get('current_employee');
-                ?>
-              <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                <p>
-                <?php echo $current_employee['first_name'];?>
-                <?php echo $current_employee['last_name'];
-                    endif
-                ?>
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default">โปรไฟล์</a>
-                </div>
-                <div class="pull-right">
-                    <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            <button class="btn btn-default">ออกจากระบบ</button>
-                    </a>
-                    <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
-                            <?php echo csrf_field() ?>
-                    </form>
-=======
               <!-- end task item -->
               <li><!-- Task item -->
                 <a href="#">
@@ -244,7 +202,6 @@
                   <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
                   aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                   <span class="sr-only">80% Complete</span>
->>>>>>> master
                 </div>
               </div>
             </a>
