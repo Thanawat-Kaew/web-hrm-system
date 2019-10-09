@@ -372,7 +372,6 @@ class FormRepository
     }
 
     public static function getManageData($position, $department){
-
         if(\Session::has('current_employee')){
             //sd($position);
             //sd($department);
@@ -385,7 +384,7 @@ class FormRepository
                                 $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
                             $form .= '</center>';
                         $form .= '</button>';
-                        $form .= '<button class="btn btn-block btn-warning btn-outline-success" href="#">';
+                        $form .= '<button class="btn btn-block btn-warning btn-outline-success edit_data" href="#">';
                             $form .= '<center>';
                                 $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
                             $form .= '</center>';
@@ -406,7 +405,7 @@ class FormRepository
                         $form .= '</center>';
                     $form .= '</button>';
                     if(($position == 1 && $department == "hr0001") || ($position == (2||1) && $department !== "hr0001")){
-                    $form .= '<button class="btn btn-block btn-warning btn-outline-success" href="#">';
+                    $form .= '<button class="btn btn-block btn-warning btn-outline-success edit_data" href="#">';
                         $form .= '<center>';
                             $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
                         $form .= '</center>';
@@ -432,4 +431,5 @@ class FormRepository
             }
         }
     }
+
 }

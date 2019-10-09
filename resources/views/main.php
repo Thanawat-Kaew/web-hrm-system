@@ -42,17 +42,17 @@
                         <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
                         </a>
-                         <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
+                        <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
                             <?php echo csrf_field() ?>
                         </form>
                     </div>
                 </div>
             </div>
             <?php if(Session::has('current_employee')) :  ?>
-            <?php $cur_emp = Session::get('current_employee');
+                <?php $cur_emp = Session::get('current_employee');
                 // /*echo $cur_emp['id_employee']*/;
                 //var_dump($cur_emp['id_department']);
-            ?>
+                ?>
             <?php endif ?>
             <div class="col-md-6">
                 <!-- Automatic element centering -->
@@ -60,8 +60,8 @@
                     <div class="links">
                         <div class="col-sm-12 col-xs-12">
                             <?php if(\Session::has('current_menu')) :  ?>
-                            <?php foreach(\Session::get('current_menu') as $menu ):?>
-                                <div class="col-sm-6 col-xs-6">
+                                <?php foreach(\Session::get('current_menu') as $menu ):?>
+                                    <div class="col-sm-6 col-xs-6">
 
                                     <!-- <?php //echo ($menu->name_th)?>
                                     <?php //echo ($menu->name_en)?> -->
@@ -71,37 +71,37 @@
                                     </a>
                                 </div>
                             <?php endforeach ?>
-                            <?php endif ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="lockscreen-wrapper pull-left hidden-xs">
-                    <div class="text-center" style="margin-top: 130px;">
-                        <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-                        <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
-                        <hr>
-                        <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-
-                        <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
-                        </a>
-                         <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
-                            <?php echo csrf_field() ?>
-                        </form>
-
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /.col -->
-    </section>
-    <!-- /.content -->
+        <div class="col-md-6">
+            <div class="lockscreen-wrapper pull-left hidden-xs">
+                <div class="text-center" style="margin-top: 130px;">
+                    <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                    <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
+                    <hr>
+                    <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
 
-    <!-- jQuery 3 -->
-    <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+                    <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
+                    </a>
+                    <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
+                        <?php echo csrf_field() ?>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.col -->
+</section>
+<!-- /.content -->
+
+<!-- jQuery 3 -->
+<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
