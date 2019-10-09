@@ -29,6 +29,7 @@ Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
+Route::post('/personal_info/amendment', 'Employee\EmployeeController@ajaxCenter')->name('personal_info.ajax_center.post');
 
 Route::get('/data_manage/employee', 'DataManagement\DataManageController@index')->name('data_management.index.get');
 

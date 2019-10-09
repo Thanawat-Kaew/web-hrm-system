@@ -252,7 +252,3 @@ function saveAddEmployee(oldValue){
 	});
 }
 
-function editEmployee(){
-
-}
-
