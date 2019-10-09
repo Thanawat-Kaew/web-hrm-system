@@ -432,4 +432,115 @@ class FormRepository
         }
     }
 
+    public static function getFormAmendment($department, $position , $employee){
+                $form = '<div class="row">';
+            $form .= '<div class="col-md-8 col-md-offset-2" >';
+                $form .= '<div class="box-body">';
+                     $form .= 'ชื่อ';
+                    $form .= '<div class="input-group fname_employee">';
+                        $form .= '<div class="input-group-addon">';
+                             $form .= '<i class="fa fa-user-secret"></i>';
+                         $form .= '</div>';
+                         $form .= '<input class="form-control required " type="text" value="'.$employee["first_name"].'" id="fname">';
+                     $form .= '</div>';
+                     $form .= 'นามสกุล';
+                    $form .= '<div class="input-group lname_employee">';
+                        $form .= '<div class="input-group-addon">';
+                             $form .= '<i class="fa fa-user-secret"></i>';
+                         $form .= '</div>';
+                         $form .= '<input class="form-control required" type="text" value="'.$employee["last_name"].'" id="lname">';
+                     $form .= '</div>';
+                     $form .= 'ตำแหน่ง';
+                    $form .= '<div class="input-group position_employee">';
+                        $form .= '<div class="input-group-addon">';
+                             $form .= '<i class="fa fa-briefcase"></i>';
+                         $form .= '</div>';
+                         $form .= '<select class="form-control required select2" style="width: 100%;" id="position">';
+                             $form .= '<option selected="selected" value="'.$employee->position["id_position"].'">'.$employee->position["name"].'</option>';
+                            foreach ($position as $value) {
+                             $form .= '<option value="'.$value->id_position.'">'.$value->name.'</option>';
+                     }
+                     $form .= '</select>';
+                 $form .= '</div>';
+                 $form .= 'แผนก';
+                $form .= '<div class="input-group department_employee">';
+                    $form .= '<div class="input-group-addon">';
+                         $form .= '<i class="fa fa-sitemap"></i>';
+                     $form .= '</div>';
+                     $form .= '<select class="form-control required select2" style="width: 100%;" id="department">';
+                         $form .= '<option selected="selected" value="'.$employee->department["id_department"].'">'.$employee->department["name"].'</option>';
+                        foreach ($department as $value) {
+                         $form .='<option value="'.$value->id_department.'">'.$value->name.'</option>';
+                    }
+                    $form .='</select>';
+             $form .= '</div>';
+             $form .= 'การศึกษา';
+            $form .= '<div class="input-group education_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-graduation-cap"></i>';
+                 $form .= '</div>';
+                 $form .= '<select class="form-control required select2" style="width: 100%;" id="education">';
+                     $form .= '<option selected="selected" value="'.$employee["education"].'">'.$employee["education"].'</option>';
+                     $form .= '<option value="มัธยมต้น">มัธยมต้น</option>';
+                     $form .= '<option value="มัธยมปลาย">มัธยมปลาย</option>';
+                     $form .= '<option value="ประกาศนียบัตรวิชาชีพ (ปวช)">ประกาศนียบัตรวิชาชีพ (ปวช)</option>';
+                     $form .= '<option value="ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)</option>';
+                     $form .= '<option value="ปริญญาตรี">ปริญญาตรี</option>';
+                     $form .= '<option value="ปริญญาโท">ปริญญาโท</option>';
+                     $form .= '<option value="ปริญญาเอก">ปริญญาเอก</option>';
+                 $form .= '</select>';
+             $form .= '</div>';
+             $form .= 'เพศ';
+            $form .= '<div class="input-group gender_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-venus-mars"></i>';
+                 $form .= '</div>';
+                 $form .= '<select class="form-control required select2" style="width: 100%;" id="gender">';
+                     $form .= '<option selected="selected" value="'.$employee["gender"].'">'.$employee["gender"].'</option>';
+                     $form .= '<option value="หญิง">หญิง</option>';
+                     $form .= '<option value="ชาย">ชาย</option>';
+                 $form .= '</select>';
+             $form .= '</div>';
+             $form .= 'อายุ';
+            $form .= '<div class="input-group old_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa  fa-circle-o"></i>';
+                 $form .= '</div>';
+                 $form .= '<input class="form-control required" type="number" value="'.$employee["age"].'" id="age">';
+             $form .= '</div>';
+             $form .= 'ที่อยู่';
+            $form .= '<div class="input-group address_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-map-marker"></i>';
+                 $form .= '</div>';
+                 $form .= '<input class="form-control required" type="text" value="'.$employee["address"].'" id="address">';
+             $form .= '</div>';
+             $form .= 'อีเมล์';
+            $form .= '<div class="input-group email_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-envelope"></i>';
+                 $form .= '</div>';
+                 $form .= '<input class="form-control required" type="text" value="'.$employee["email"].'"  id="email">';
+             $form .= '</div>';
+            $form .= 'เบอร์โทรศัพท์';
+            $form .= '<div class="input-group tel_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa  fa-phone"></i>';
+                 $form .= '</div>';
+                 $form .= '<input class="form-control required" type="number" value="'.$employee["tel"].'"  id="tel">';
+             $form .= '</div>';
+               $form .= 'เหตุผล';
+            $form .= '<div class="input-group reason">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-commenting"></i>';
+                 $form .= '</div>';
+                 $form .= '<input class="form-control required" type="text" value="" placeholder="เหตุผล..." id="reason">';
+             $form .= '</div><br>';
+         $form .= '</div>';
+         $form .= '</div>';
+         $form .= '</div>';
+
+        return $form;
+    }
+
 }

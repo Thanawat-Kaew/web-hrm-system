@@ -25,39 +25,79 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="hold-transition skin-blue sidebar-mini">
+    <?php echo view('layouts.topbar') ?>
     <div class="container">
         <section class="content">
             <h3>ข้อมูลส่วนตัว <small>| Personal Information</small></h3>
             <div class="row">
-                <div class="box box-info">
-                    <div class="box-body">
-                        <div class="text-center">
-                            <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-                        </div>
-                        <div class="personal-data">
-                            <?php if(\Session::has('current_employee')) :
-                            $current_employee = \Session::get('current_employee') ?>
-                            <h4>รหัสพนักงาน :  <?php echo $current_employee['id_employee'] ?> </h4>
-                            <h4>ชื่อ - สกุล :   <?php echo $current_employee['first_name'] ?> </h4>
-                            <h4>ตำแหน่ง :    <?php echo $name_position['name'] ?></h4>
-                            <h4>แผนก :  <?php echo $name_department['name'] ?></h4>
-                            <h4>อัตราเงินเดือน : <?php echo $current_employee['salary'] ?> </h4>
-                            <h4>การศึกษา :  <?php echo $current_employee['education'] ?> </h4>
-                            <h4>เพศ :  <?php echo $current_employee['gender'] ?> </h4>
-                            <h4>อายุ :  <?php echo $current_employee['age'] ?> </h4>
-                            <h4>ที่อยู่ :  <?php echo $current_employee['address'] ?> </h4>
-                            <h4>อีเมล์ :  <?php echo $current_employee['email'] ?> </h4>
-                            <h4>เบอร์โทรศัพท์ : <?php echo $current_employee['tel'] ?> </h4>
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-body">
+                            <?php if(\Session::has('current_employee')) :?>
+                            <div class="text-center">
+                                <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                            </div>
+                            <div class="personal-data">
+                                   <?php $current_employee = \Session::get('current_employee') ?>
+                                    <h4>รหัสพนักงาน :  <?php echo $current_employee['id_employee'] ?> </h4>
+                                    <h4>ชื่อ - สกุล :   <?php echo $current_employee['first_name'] ?> <?php echo $current_employee['last_name'] ?></h4>
+                                    <h4>ตำแหน่ง :    <?php echo $name_position['name'] ?></h4>
+                                    <h4>แผนก :  <?php echo $name_department['name'] ?></h4>
+                                    <h4>อัตราเงินเดือน : <?php echo $current_employee['salary'] ?> </h4>
+                                    <h4>การศึกษา :  <?php echo $current_employee['education'] ?> </h4>
+                                    <h4>เพศ :  <?php echo $current_employee['gender'] ?> </h4>
+                                    <h4>อายุ :  <?php echo $current_employee['age'] ?> </h4>
+                                    <h4>ที่อยู่ :  <?php echo $current_employee['address'] ?> </h4>
+                                    <h4>อีเมล์ :  <?php echo $current_employee['email'] ?> </h4>
+                                    <h4>เบอร์โทรศัพท์ : <?php echo $current_employee['tel'] ?> </h4>
+                                
+                            </div><hr>
+                            <div class="form-group text-center about-menu">
+                                <a href="<?php echo route('main.get')?>">
+                                    <button class="btn btn-info pull-center" type="submit">กลับสู่หน้าหลัก</button>
+                                </a>
+                                <a>
+                                    <button class="btn btn-warning pull-center amendment" data-id="<?php echo $current_employee['id_employee'] ?>" type="submit">แจ้งแก้ไขข้อมูล</button>
+                                </a>
+                            </div>
                             <?php endif ?>
                         </div>
-                        <div class="form-group text-center">
-                            <a href="<?php echo route('main.get')?>">
-                                <button class="btn btn-info pull-center" type="submit">กลับสู่หน้าหลัก</button>
-                            </a>
-                            <a href="">
-                                <button class="btn btn-warning pull-center" type="submit">แจ้งแก้ไขข้อมูล</button>
-                            </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            ประวัติการแก้ไขข้อมูล
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>ครั้งที่</th>
+                                    <th>วันที่</th>
+                                    <th>เหตุผล</th>
+                                    <th>สถานะ</th>
+                                    <th>แก้ไข</th>
+                                    <th>ลบ</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>11-7-2014 19:08:00</td>
+                                    <td>แก้ไขชื่อ</td>
+                                    <td><span class="label label-success">Approved</span></td>
+                                    <td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
+                                    <td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>11-7-2014 09:48:30</td>
+                                    <td>แก้ไขชื่อ</td>
+                                    <td><span class="label label-warning">Waiting</span></td>
+                                    <td><span class="btn btn-warning form-control"><i class="fa fa-pencil btn"></i></span></td>
+                                    <td><span class="btn btn-danger form-control"><i class="fa fa-trash btn"></i></span></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -66,8 +106,19 @@
     </div>
 </body>
 
+<!-- data -->
+<div id="ajax-center-url" data-url="<?php echo route('personal_info.ajax_center.post')?>"></div>
+<?php echo csrf_field()?>
+
 <!-- jQuery 3 -->
 <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- bootbox -->
+<script src="/resources/assets/js/core/bootbox/bootbox.min.js"></script>
+<script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
+<script src="/resources/assets/js/personal_info/personal_info.js"></script>
+<script src="/resources/assets/js/main.js"></script>
 </html>
+
+
