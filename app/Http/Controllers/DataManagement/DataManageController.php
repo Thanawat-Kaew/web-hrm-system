@@ -71,6 +71,14 @@ class DataManageController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
             break;
 
+            case 'getDataPersonal':
+                $id             = $request->get('id');
+                $employee       = Employee::with('department')->with('position')->where('id_employee', $id)->first();
+                $form_repo      = new FormRepository;
+                $form_view_emp   = $form_repo->getDataPersonal( $employee);
+                return response()->json(['status'=> 'success','data'=> $form_view_emp]);
+            break;
+
             default:
                 # code...
             break;

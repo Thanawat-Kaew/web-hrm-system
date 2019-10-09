@@ -1,4 +1,3 @@
-
 $(function(){
 	$('.sidebar-toggle').hide();
 
@@ -42,6 +41,7 @@ $(function(){
 					label: 'ยกเลิก',
 					className: 'btn-warning',
 					callback: function(){
+						
 
 					}
 				}

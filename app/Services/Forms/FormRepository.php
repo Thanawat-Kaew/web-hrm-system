@@ -121,7 +121,7 @@ class FormRepository
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-envelope"></i>';
                  $form .= '</div>';
-                 $form .= '<input class="form-control required" type="text" value="" placeholder="email@example.com" id="email">';
+                 $form .= '<input class="form-control required" type="email" value="" placeholder="email@example.com" id="email">';
              $form .= '</div>';
             $form .= '<label class="text-error" id="email-text-error"></label>';
             $form .= 'เบอร์โทรศัพท์';
@@ -379,7 +379,7 @@ class FormRepository
             if($current_employee['id_department'] == "hr0001" && $current_employee['id_position'] == 2){ // หัวหน้า HR
                 $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
                     $form .= '<div class="form-group">';
-                        $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
+                        $form .= '<button class="btn btn-block btn-info btn-outline-primary view_data" href="#">';
                             $form .= '<center>';
                                 $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
                             $form .= '</center>';
@@ -399,7 +399,7 @@ class FormRepository
             }else if($current_employee['id_department'] == "hr0001" && $current_employee['id_position'] == 1){ // ลูกน้อง HR
                 $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
                 $form .= '<div class="form-group">';
-                    $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
+                    $form .= '<button class="btn btn-block btn-info btn-outline-primary view_data" href="#">';
                         $form .= '<center>';
                             $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
                         $form .= '</center>';
@@ -421,7 +421,7 @@ class FormRepository
             }else if($current_employee['id_department'] !== "hr0001" && $current_employee['id_position'] == 2){  // หัวหน้าทั่วไป
                 $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
                     $form .= '<div class="form-group">';
-                        $form .= '<button class="btn btn-block btn-info btn-outline-primary" href="#">';
+                        $form .= '<button class="btn btn-block btn-info btn-outline-primary view_data" href="#">';
                             $form .= '<center>';
                                 $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
                             $form .= '</center>';
@@ -520,7 +520,7 @@ class FormRepository
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-envelope"></i>';
                  $form .= '</div>';
-                 $form .= '<input class="form-control required" type="text" value="'.$employee["email"].'"  id="email">';
+                 $form .= '<input class="form-control required" type="email" value="'.$employee["email"].'"  id="email">';
              $form .= '</div>';
             $form .= 'เบอร์โทรศัพท์';
             $form .= '<div class="input-group tel_employee">';
@@ -541,6 +541,31 @@ class FormRepository
          $form .= '</div>';
 
         return $form;
+    }
+
+    public static function getDataPersonal($employee){
+        $form = '<div class="box-body" style="text-center">';
+            $form .= '<div class="text-center">';
+                $form .= '<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">';
+            $form .= '</div>';
+            $form .= '<div class="personal-data">';
+            $form .= '<h4>รหัสพนักงาน :  '.$employee['id_employee'].' </h4>';
+            $form .= '<h4>ชื่อ - สกุล :   '.$employee['first_name'].' '. $employee['last_name'].'</h4>';
+            $form .= '<h4>ตำแหน่ง :    '.  $employee->position["name"].'</h4>';
+            $form .= '<h4>แผนก :  '.  $employee->department['name'].'</h4>';
+            if($employee['$id_position'] == 2 ){
+            $form .= '<h4>อัตราเงินเดือน : '. $employee['salary'].' </h4>';
+            }
+            $form .= '<h4>การศึกษา :  '. $employee['education'].' </h4>';
+            $form .= '<h4>เพศ :  '. $employee['gender'].' </h4>';
+            $form .= '<h4>อายุ :  '. $employee['age'].' </h4>';
+            $form .= '<h4>ที่อยู่ :  '. $employee['address'].' </h4>';
+            $form .= '<h4>อีเมล์ :  '. $employee['email'].' </h4>';
+            $form .= '<h4>เบอร์โทรศัพท์ : '. $employee['tel'].' </h4>';
+        $form .= '</div>';
+        $form .= '</div>';
+
+    return $form;
     }
 
 }

@@ -1,58 +1,28 @@
 $(function(){
-	// $('#group-employee').on('click', '.manage-employee', function(){
-	// 	bootbox.dialog({
-	// 		title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
-	// 		message: '    <div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">'+
-	// 		'<div class="form-group">'+
-	// 		'<button class="btn btn-block btn-info btn-outline-primary  href="#">'+
-	// 		'<center>'+
-	// 		'<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว'+
-	// 		'</center>'+
-	// 		'</button>'+
-	// 		'<button class="btn btn-block btn-warning btn-outline-success" href="#">'+
-	// 		'<center>'+
-	// 		'<i class="fa fa-cog"></i> แก้ไขข้อมูล'+
-	// 		'</center>'+
-	// 		'</button>'+
-	// 		'<button class="btn btn-block btn-danger btn-outline-success" href="#">'+
-	// 		'<center>'+
-	// 		'<i class="fa fa-trash-o"></i> ลบข้อมูล'+
-	// 		'</center>'+
-	// 		'</button>'+
-	// 		'</div>',
-	// 		size: 'xlarge',
-	// 		onEscape: true,
-	// 		backdrop: true
-	// 	})
-	// });
 
 	$('#header, #employee').on('click', '.manage-employee', function(){
 		msg_waiting();
 		var id = $(this).data('form_id');
-		//console.log(id);
 		var position = $(this).data('form_position');
-		//console.log(position)
 		var department = $(this).data('form_department');
-		//console.log(department);
-		//alert(department);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
 			data: {'method'   : 'getManageData',
-				   'position' : position,
-				   'department' : department
-			},
-			success: function (result) {
-				var box = bootbox.dialog({
-					title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
-					message: result.data,
-					size: 'xlarge',
-					onEscape: true,
-					backdrop: true
-				})
-				msg_close();
-				box.on('shown.bs.modal', function(){
+			'position' : position,
+			'department' : department
+		},
+		success: function (result) {
+			var box = bootbox.dialog({
+				title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
+				message: result.data,
+				size: 'xlarge',
+				onEscape: true,
+				backdrop: true
+			})
+			msg_close();
+			box.on('shown.bs.modal', function(){
 					// Form edit data employee
 					$('.edit_data').on('click', function(event) {
 						msg_waiting();
@@ -61,11 +31,11 @@ $(function(){
 							type: 'POST',
 							url: $('#ajax-center-url').data('url'),
 							data: {'method' : 'getFormEditEmployee',
-									'id'    : id
-							},
-							success: function (result) {
-								var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small></h4>"
-								showDialog(result.data,title);
+							'id'    : id
+						},
+						success: function (result) {
+							var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small></h4>"
+							showDialog(result.data,title);
 								//console.log(id);
 								msg_close();
 							},
@@ -76,13 +46,47 @@ $(function(){
 						})
 
 					});
+
+					// Form view data employee
+					$('.view_data').on('click', function(event) {
+						msg_waiting();
+						$.ajax({
+							headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+							type: 'POST',
+							url: $('#ajax-center-url').data('url'),
+							data: {'method' : 'getDataPersonal',
+									'id'    : id
+						},
+						success: function (result) {
+							var title = "<h4 style='color: red;'>ข้อมูลพนักงาน <small> | Personal Data</small></h4>"
+							bootbox.dialog({
+								title: title,
+								message: result.data,
+								size: 'small',
+								onEscape: true,
+								backdrop: 'static',
+								buttons: {
+									fum: {
+										label: 'ยกเลิก',
+										className: 'btn-warning',
+										callback: function(){
+										}
+									}
+								}
+							})
+							},
+							error : function(errors){
+								console.log(errors);
+							}
+						})
+					});
 				});
-			},
-			error : function(errors)
-			{
-				console.log(errors);
-			}
-		})
+		},
+		error : function(errors)
+		{
+			console.log(errors);
+		}
+	})
 	})
 
 	$('.add-employee').on('click', '.add-employee-form', function(){
@@ -238,10 +242,7 @@ function saveAddEmployee(oldValue){
 			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-			// success alert
 			msg_success()
-			// alert('Data save');
-			// msg_close();
 		},
 		error: function(error){
 			alert('Data not save');
@@ -251,6 +252,6 @@ function saveAddEmployee(oldValue){
 }
 
 function editEmployee(){
-	alert('jjjjjjjjjjjj');
+
 }
 
