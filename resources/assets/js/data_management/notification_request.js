@@ -1,3 +1,4 @@
+msg_waiting()
 $('.btn-confirm').click(function(){
 	Swal.fire({
 		title: 'คุณแน่ใจหรือไม่?',
@@ -31,9 +32,9 @@ $('.btn-cancel').click(function(){
 	}).then((result) => {
 		if (result.value) {
 			Swal.fire(
-				'ยกเลิก!',
-				'คุณได้ทำการยกเลิกเรียบร้อย',
-				'success')
+			'ยกเลิก!',
+			'คุณได้ทำการยกเลิกเรียบร้อย',
+			'success')
 		}
 	})
 })

@@ -50,7 +50,7 @@
                             <div class="widget-user-header">
                                 <!-- /.widget-user-image -->
                                 <div class="group-image" align="center" valign="center">
-                                    <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">
+                                    <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" alt="">
                                 </div>
                                 <div class="about-employee">
                                     <p id="header_id">รหัส  :<span><?php echo $value['id_employee']?></span></p>

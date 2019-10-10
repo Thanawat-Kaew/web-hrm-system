@@ -62,7 +62,7 @@
 							<td>1</td>
 							<td>ศักดิ์ทิพ สมเพียร</td>
 							<td>11-7-2014</td>
-							<td><span class="label label-success">อนุมัติ</span></td>
+							<td><span class="label label-primary">อนุมัติ</span></td>
 							<td><i class="fa fa-eye fa-lg btn"></i></td>
 						</tr>
 						<tr>

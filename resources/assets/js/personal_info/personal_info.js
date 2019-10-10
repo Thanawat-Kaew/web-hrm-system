@@ -1,8 +1,9 @@
 $(function(){
+	msg_waiting()
 	$('.sidebar-toggle').hide();
 
-		$('.amendment').click(function(){
-			var	id = $(this).data('id');
+	$('.amendment').click(function(){
+		var	id = $(this).data('id');
 			// alert(id);
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
@@ -11,7 +12,7 @@ $(function(){
 				data: {'method' : 'getFormAmendmentEmployee',
 				'id'	: id
 			},
-				success: function (result) {
+			success: function (result) {
 				var title = "<h4 style='color: red;'>แจ้งแก้ไขข้อมูล <small> | Edit Employee</small></h4>"
 				showDialog(result.data,title);
 			},
@@ -20,7 +21,7 @@ $(function(){
 				console.log(errors);
 			}
 		})
-	})
+		})
 });
 
 function showDialog(form,title, oldValue=''){
@@ -42,7 +43,6 @@ function showDialog(form,title, oldValue=''){
 				label: 'ยกเลิก',
 				className: 'btn-warning',
 				callback: function(){
-
 				}
 			}
 		}
