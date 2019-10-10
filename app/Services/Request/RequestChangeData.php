@@ -12,4 +12,9 @@ class RequestChangeData extends Model
     {
     	return $this->belongsTo("App\Services\Employee\Employee", 'id_employee', 'id_employee');
     }
+
+    public function status()
+    {
+    	return $this->belongsTo("App\Services\Request\RequestChangeData", 'status', 'id');
+    }
 }

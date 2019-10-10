@@ -5,12 +5,12 @@ $(function(){
 	$('.amendment').click(function(){
 		msg_waiting()
 		var	id = $(this).data('id');
-			$.ajax({
-				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-				type: 'POST',
-				url: $('#ajax-center-url').data('url'),
-				data: {'method' : 'getFormAmendmentEmployee',
-				'id'	: id
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {'method' : 'getFormAmendmentEmployee',
+			'id'	: id
 			},
 			success: function (result) {
 				var title = "<h4 style='color: red;'>แจ้งแก้ไขข้อมูล <small> | Edit Employee</small></h4>"
@@ -22,7 +22,91 @@ $(function(){
 				console.log(errors);
 			}
 		})
+	})
+
+	$('.view-data').click(function(){
+		msg_waiting()
+		var	id = $(this).data('id');
+		console.log(id)
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {'method' : 'getHistoryChangeData',
+					'id'	: id
+			},
+			success: function (result) {
+				var title = "<h4 style='color: red;'>แจ้งแก้ไขข้อมูล <small> | Edit Employee</small></h4>"
+					// showDialog(result.data,title);
+				bootbox.dialog({
+					title: title,
+					message: result.data,
+					size: 'large',
+					onEscape: true,
+					backdrop: 'static',
+					buttons: {
+						fum: {
+							label: 'ปิด',
+							className: 'btn-warning',
+							callback: function(){
+							}
+						}
+					}
+				})
+			msg_close();
+			},
+			error : function(errors)
+			{
+				console.log(errors);
+			}
 		})
+	})
+
+	$('.edit-data').click(function(){
+		msg_waiting()
+		var	id = $(this).data('id');
+		console.log(id);
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {'method' : 'getEditAgain',
+					'id'	: id
+			},
+			success: function (result) {
+				var title = "<h4 style='color: red;'>แจ้งแก้ไขข้อมูล <small> | Edit Employee</small></h4>"
+					// showDialog(result.data,title);
+				bootbox.dialog({
+					title: title,
+					message: result.data,
+					size: 'large',
+					onEscape: true,
+					backdrop: 'static',
+					buttons: {
+						fi: {
+							label: 'ส่งคำร้อง',
+							className: 'btn-info',
+							callback: function(){
+							sendRequest(form, title);
+							}
+						},
+						fum: {
+							label: 'ปิด',
+							className: 'btn-warning',
+							callback: function(){
+							}
+						}
+					}
+				})
+			msg_close();
+			},
+			error : function(errors)
+			{
+				console.log(errors);
+			}
+		})
+	})
+
 });
 
 function showDialog(form,title, oldValue=''){
