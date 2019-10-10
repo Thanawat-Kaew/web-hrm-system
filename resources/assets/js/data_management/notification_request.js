@@ -32,7 +32,7 @@ $('.btn-cancel').click(function(){
 	}).then((result) => {
 		if (result.value) {
 			Swal.fire(
-			'ยกเลิก!',
+			'เรียบร้อย!',
 			'คุณได้ทำการยกเลิกเรียบร้อย',
 			'success')
 		}
