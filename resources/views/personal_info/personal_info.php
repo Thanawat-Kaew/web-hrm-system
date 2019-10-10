@@ -19,9 +19,10 @@
 <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="/resources/assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
-    
+
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
@@ -53,7 +54,6 @@
                                  <h4>ที่อยู่ :  <?php echo $current_employee['address'] ?> </h4>
                                  <h4>อีเมล์ :  <?php echo $current_employee['email'] ?> </h4>
                                  <h4>เบอร์โทรศัพท์ : <?php echo $current_employee['tel'] ?> </h4>
-                                 
                              </div><hr>
                              <div class="form-group text-center about-menu">
                                 <a href="<?php echo route('main.get')?>">
@@ -111,6 +111,7 @@
 
 <!-- data -->
 <div id="ajax-center-url" data-url="<?php echo route('personal_info.ajax_center.post')?>"></div>
+<div id="edit-data-employee" data-url="<?php echo route('personal_info.edit_data_employee.post')?>"></div>
 <?php echo csrf_field()?>
 
 <!-- jQuery 3 -->

@@ -3,8 +3,8 @@ $(function(){
 	$('.sidebar-toggle').hide();
 
 	$('.amendment').click(function(){
+		msg_waiting()
 		var	id = $(this).data('id');
-			// alert(id);
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 				type: 'POST',
@@ -15,6 +15,7 @@ $(function(){
 			success: function (result) {
 				var title = "<h4 style='color: red;'>แจ้งแก้ไขข้อมูล <small> | Edit Employee</small></h4>"
 				showDialog(result.data,title);
+				msg_close();
 			},
 			error : function(errors)
 			{
@@ -64,6 +65,7 @@ function showDialog(form,title, oldValue=''){
 }
 
 function sendRequest(form, title){
+	msg_waiting();
 	var count 			 = 0;
 	var oldValue 		 = {};
 	jQuery.each($('.required'),function(){
@@ -79,16 +81,19 @@ function sendRequest(form, title){
 
 	if(count > 0) {
 		showDialog(form, title, oldValue);
+	}else{
+		//alert("ok");
+		editDataEmployee(oldValue);
 	}
 }
 
-function updateEmployee(){
+function editDataEmployee(oldValue){
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
-		url  : $('#ajax-center-url').data('url'),
+		url  : $('#edit-data-employee').data('url'),
 		data : {
-			id          : $('#id').val(),
+			id_employee : $('#id_employee').val(),
 			fname 		: $('#fname').val(),
 			lname 		: $('#lname').val(),
 			position 	: $('#position').val(),
@@ -99,6 +104,7 @@ function updateEmployee(){
 			address 	: $('#address').val(),
 			email      	: $('#email').val(),
 			tel 		: $('#tel').val(),
+			reason 		: $('#reason').val(),
 		},
 		success: function(response){
 			// success alert

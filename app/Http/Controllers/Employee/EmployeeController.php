@@ -9,6 +9,7 @@ use App\Services\Employee\EmployeeObject;
 use App\Services\Position\Position;
 use App\Services\Department\Department;
 use App\Services\Forms\FormRepository;
+use App\Services\Request\RequestChangeData;
 
 class EmployeeController extends Controller
 {
@@ -51,4 +52,38 @@ class EmployeeController extends Controller
         }
     }
 
+    public function editDataEmployee(Request $request){
+        $id_employee = $request->get('id_employee');
+        $fname       = $request->get('fname');
+        $lname       = $request->get('lname');
+        $position    = $request->get('position');
+        $department  = $request->get('department');
+        $education   = $request->get('education');
+        $gender      = $request->get('gender');
+        $age         = $request->get('age');
+        $address     = $request->get('address');
+        $email       = $request->get('email');
+        $tel         = $request->get('tel');
+        $reason      = $request->get('reason');
+
+        //sd($id_employee);
+
+        //save to database
+        $edit = new RequestChangeData();
+        $edit->id_employee     = $id_employee;
+        $edit->first_name      = $fname;
+        $edit->last_name       = $lname;
+        $edit->id_position     = $position;
+        $edit->id_department   = $department;
+        $edit->education       = $education;
+        $edit->gender          = $gender;
+        $edit->age             = $age;
+        $edit->address         = $address;
+        $edit->email           = $email;
+        $edit->tel             = $tel;
+        $edit->reason          = $reason;
+        $edit->status          = 2;
+
+        $edit->save();
+    }
 }

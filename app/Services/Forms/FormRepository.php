@@ -436,6 +436,7 @@ class FormRepository
                 $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
+                $form .= '<input type="hidden" value="'.$employee['id_employee'].'" id="id_employee">';
                      $form .= 'ชื่อ';
                     $form .= '<div class="input-group fname_employee">';
                         $form .= '<div class="input-group-addon">';

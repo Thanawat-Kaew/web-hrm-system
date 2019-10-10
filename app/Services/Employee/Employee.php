@@ -22,4 +22,9 @@ class Employee extends Model
     {
     	return $this->hasMany("App\Services\Employee\EmployeeMenu", 'id_employee', 'id_employee');
     }
+
+    public function requestchangedata()
+    {
+        return $this->hasMany("App\Services\Request\RequestChangeData", 'id_employee', 'id_employee');
+    }
 }
