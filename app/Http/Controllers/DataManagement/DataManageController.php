@@ -136,4 +136,5 @@ class DataManageController extends Controller
         return $this->useTemplate('data_management.notification_request');
 
     }
+
 }

@@ -56,6 +56,8 @@ Route::get('/report/report_evaluation', 'Report\ReportController@reportEvaluatio
 Route::get('/report/report_overview', 'Report\ReportController@reportOverview')->name('report.report_overview.get');
 Route::get('/personal_info/request', 'DataManagement\DataManageController@notificationRequest')->name('data_management.notification_request.get');
 
+Route::post('personal_info/dalete/{id}','Employee\EmployeeController@postDeleteRequestChangeData')->name('personal_info.delete_employee.post');
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

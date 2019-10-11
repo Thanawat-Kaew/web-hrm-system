@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="/resources/assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
     <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
-    
-
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
@@ -84,15 +82,34 @@
                                 <th>ลบ</th>
                                 <th></th>
                             </tr>
+                            <?php $count = 0; ?>
+                            <?php foreach($request_edit_data as $value) : ?>
+                                <?php echo $value['id']?>
+                            <?php $count = $count+1;?>
                             <tr>
-                                <td>1</td>
-                                <td>11-7-2014 19:08:00</td>
-                                <td><span class="label label-success">อนุมัติแล้ว</span></td>
-                                <td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
-                                <td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button>
+                                <td><?php echo $count; ?></td>
+                                <td><?php echo $value['created_at'] ?></td>
+                                <td>
+                                    <span class="label <?php echo ($value['status'] == 1 ? 'label-success' : ($value['status'] == 2 ? 'label-warning' : 'label-danger')); ?>"><?php echo ($value['status'] == 1 ? 'อนุมัติแล้ว' : ($value['status'] == 2 ? 'กำลังรอ' : 'ไม่อนุมัติ')); ?>
+                                    </span>
                                 </td>
-                                <td><i class="fa fa-eye fa-lg btn"></i></td>
+                                <td>
+                                    <button class="btn btn-warning form-control edit-data <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" data-id="<?php echo $value['id']?>">
+                                        <i class="fa fa-pencil btn <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" >
+                                        </i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger form-control delete-data <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" data-id="<?php echo $value['id']?>" data-href="<?php echo route('personal_info.delete_employee.post',$value['id']);?>">
+                                        <i class="fa fa-trash btn <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" >
+                                        </i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <i class="fa fa-eye fa-lg btn view-data" data-id="<?php echo $value['id']?>"></i>
+                                </td>
                             </tr>
+                            <?php endforeach?>
                             <tr>
                                 <td>2</td>
                                 <td>11-7-2014 09:48:30</td>
@@ -100,12 +117,12 @@
                                 <td><span class="btn btn-warning form-control"><i class="fa fa-pencil btn"></i></span></td>
                                 <td><span class="btn btn-danger form-control"><i class="fa fa-trash btn"></i></span></td>
                                 <td><i class="fa fa-eye fa-lg btn"></i></td>
-
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 </div>

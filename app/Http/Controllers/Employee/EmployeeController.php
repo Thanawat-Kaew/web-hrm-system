@@ -18,15 +18,14 @@ class EmployeeController extends Controller
     	//$current_id = Employee::with('position', 'department')->where('id_employee', $this->employee)->first();
         //return view('personal_info.personal_info', ['current_id' => $current_id]);
         if(\Session::has('current_employee')){
-        	$current_employee = \Session::get('current_employee');
-        	//sd($current_employee['id_department']);
-        	$name_position  = Position::with('employee')->where('id_position', $current_employee['id_position'])->first();
-        	//sd($name_position['name']);
-        	$name_department = Department::with('employee')->where('id_department', $current_employee['id_department'])->first();
-        	//sd($name_position['name']);
-        	//sd($name_department['name']);
+        	$current_employee  = \Session::get('current_employee');
+        	$name_position     = Position::with('employee')->where('id_position', $current_employee['id_position'])->first();
+        	$name_department   = Department::with('employee')->where('id_department', $current_employee['id_department'])->first();
+
+            $request_edit_data = RequestChangeData::with('employee')->where('id_employee', $current_employee['id_employee'])->get();
+            //sd($request_edit_data->toArray());
     	}
-        return view('personal_info.personal_info', compact('name_position', 'name_department'));
+        return view('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data'));
     }
 
     public function ajaxCenter(Request $request)
@@ -34,15 +33,43 @@ class EmployeeController extends Controller
 
         $method = $request->get('method');
         switch ($method) {
-            case 'getFormAmendmentEmployee':
+            case 'getFormAmendmentEmployee': // แก้ไขข้อมูลครั้งแรก
                 $id             = $request->get('id');
                 $employee       = Employee::with('department')->with('position')->where('id_employee', $id)->first();
                 // sd($employee->toArray());
-
+                //sd($employee['gender']);
+                $gender         = Employee::get('gender');
+                //sd($gender);
                 $department     = Department::all();
                 $position       = Position::all();
                 $form_repo              = new FormRepository;
                 $form_amendment_emp     = $form_repo->getFormAmendment($department, $position ,$employee);
+                return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
+            break;
+
+            case 'getHistoryChangeData': // ดูข้อมูล
+                $id             = $request->get('id');
+                //sd($id);
+                $employee       = RequestChangeData::with('employee')->where('id', $id)->first();
+                //sd($employee['id_employee']);
+                $emp_department    = Department::where('id_department', $employee['id_department'])->first();
+                $emp_position      = Position::where('id_position', $employee['id_position'])->first();
+                //sd($emp_position->position['id_position']);
+                //sd($emp_position);
+                $form_repo              = new FormRepository;
+                $form_amendment_emp     = $form_repo->getHistoryChangeData($emp_department, $emp_position ,$employee);
+                return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
+            break;
+
+            case 'getEditAgain': // แก้ไขข้อมูลครั้งที่ 2
+                $id              = $request->get('id');
+                $employee           = RequestChangeData::with('employee')->where('id', $id)->first();
+                $emp_department    = Department::where('id_department', $employee['id_department'])->first();
+                $emp_position      = Position::where('id_position', $employee['id_position'])->first();
+                $department     = Department::all();
+                $position       = Position::all();
+                $form_repo              = new FormRepository;
+                $form_amendment_emp     = $form_repo->getEditAgain($emp_department, $emp_position ,$employee, $position, $department);
                 return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
             break;
 
@@ -85,5 +112,23 @@ class EmployeeController extends Controller
         $edit->status          = 2;
 
         $edit->save();
+    }
+
+     public function postDeleteRequestChangeData($id)
+    {
+
+        $employee           = RequestChangeData::with('employee')->where('id', $id)->first();
+        // sd($employee );
+        if(!empty($employee))
+        {
+            $employee->delete();
+
+            return ['status' => 'success', 'message' => 'Delete complete.'];
+
+        }
+        else
+        {
+            return['status' => 'failed','message' =>'Not found.'];
+        }
     }
 }
