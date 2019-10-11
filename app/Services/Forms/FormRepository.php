@@ -3,7 +3,7 @@ namespace App\Services\Forms;
 
 class FormRepository
 {
-	public static function getFormEmployee($department, $position, $employee=''){
+	public static function getFormEmployee($department, $position, $education, $employee=''){
                 $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
@@ -77,14 +77,10 @@ class FormRepository
                      $form .= '<i class="fa fa-graduation-cap"></i>';
                  $form .= '</div>';
                  $form .= '<select class="form-control required select2" style="width: 100%;" id="education">';
-                     $form .= '<option selected="selected" value="'.((!empty($employee) ? $employee['education'] : '' )).'">'.((!empty($employee) ? $employee['education'] : 'เลือกระดับการศึกษา' )).'</option>';
-                     $form .= '<option value="มัธยมต้น">มัธยมต้น</option>';
-                     $form .= '<option value="มัธยมปลาย">มัธยมปลาย</option>';
-                     $form .= '<option value="ประกาศนียบัตรวิชาชีพ (ปวช)">ประกาศนียบัตรวิชาชีพ (ปวช)</option>';
-                     $form .= '<option value="ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)</option>';
-                     $form .= '<option value="ปริญญาตรี">ปริญญาตรี</option>';
-                     $form .= '<option value="ปริญญาโท">ปริญญาโท</option>';
-                     $form .= '<option value="ปริญญาเอก">ปริญญาเอก</option>';
+                     $form .= '<option selected="selected" value="'.((!empty($employee) ? $employee->education['id_education'] : '' )).'">'.((!empty($employee) ? $employee->education['name'] : 'เลือกระดับการศึกษา' )).'</option>';
+                     foreach ($education as $value) {
+                         $form .='<option value="'.$value->id_education.'">'.$value->name.'</option>';
+                    }
                  $form .= '</select>';
              $form .= '</div>';
             $form .= '<label class="text-error" id="education-text-error"></label>';
@@ -432,7 +428,7 @@ class FormRepository
         }
     }
 
-    public static function getFormAmendment($department, $position , $employee){
+    public static function getFormAmendment($department, $position , $employee, $education){
                 $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
@@ -483,14 +479,9 @@ class FormRepository
                      $form .= '<i class="fa fa-graduation-cap"></i>';
                  $form .= '</div>';
                  $form .= '<select class="form-control required select2" style="width: 100%;" id="education">';
-                     $form .= '<option selected="selected" value="'.$employee["education"].'">'.$employee["education"].'</option>';
-                     $form .= '<option value="มัธยมต้น">มัธยมต้น</option>';
-                     $form .= '<option value="มัธยมปลาย">มัธยมปลาย</option>';
-                     $form .= '<option value="ประกาศนียบัตรวิชาชีพ (ปวช)">ประกาศนียบัตรวิชาชีพ (ปวช)</option>';
-                     $form .= '<option value="ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส)</option>';
-                     $form .= '<option value="ปริญญาตรี">ปริญญาตรี</option>';
-                     $form .= '<option value="ปริญญาโท">ปริญญาโท</option>';
-                     $form .= '<option value="ปริญญาเอก">ปริญญาเอก</option>';
+                 foreach ($education as $value) {
+                        $form .= '<option value="'.$value["id_education"].'" '.(($value["id_education"] == $employee['id_education']) ? 'selected' : '').'>'.$value["name"].'</option>';
+                    }
                  $form .= '</select>';
              $form .= '</div>';
              $form .= '<label class="text-error" id="education-text-error"></label>';
@@ -565,7 +556,7 @@ class FormRepository
             if($employee['$id_position'] == 2 ){
             $form .= '<h4>อัตราเงินเดือน : '. $employee['salary'].' </h4>';
             }
-            $form .= '<h4>การศึกษา :  '. $employee['education'].' </h4>';
+            $form .= '<h4>การศึกษา :  '. $employee->education['name'].' </h4>';
             $form .= '<h4>เพศ :  '. $employee['gender'].' </h4>';
             $form .= '<h4>อายุ :  '. $employee['age'].' </h4>';
             $form .= '<h4>ที่อยู่ :  '. $employee['address'].' </h4>';
@@ -577,7 +568,7 @@ class FormRepository
     return $form;
     }
 
-    public static function getHistoryChangeData($emp_department, $emp_position ,$employee){
+    public static function getHistoryChangeData($emp_department, $emp_position ,$employee, $emp_education){
                 $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
@@ -619,9 +610,7 @@ class FormRepository
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-graduation-cap"></i>';
                  $form .= '</div>';
-                 $form .= '<select class="form-control required select2" readonly style="width: 100%;" id="education">';
-                     $form .= '<option selected="selected" value="'.$employee["education"].'">'.$employee["education"].'</option>';
-                 $form .= '</select>';
+                 $form .= '<input class="form-control required select2" readonly style="width: 100%;" id="education" value="'.$emp_education['name'].'">';
              $form .= '</div>';
              $form .= '<label class="text-error" id="education-text-error"></label>';
              $form .= 'เพศ';
@@ -629,9 +618,7 @@ class FormRepository
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-venus-mars"></i>';
                  $form .= '</div>';
-                 $form .= '<select class="form-control required select2" readonly style="width: 100%;" id="gender">';
-                     $form .= '<option selected="selected" value="'.$employee["gender"].'">'.$employee["gender"].'</option>';
-                 $form .= '</select>';
+                 $form .= '<input class="form-control required select2" readonly style="width: 100%;" id="education" value="'.$employee['gender'].'">';
              $form .= '</div>';
              $form .= '<label class="text-error" id="gender-text-error"></label>';
              $form .= 'อายุ';
@@ -680,10 +667,11 @@ class FormRepository
         return $form;
     }
 
-    public static function getEditAgain($emp_department, $emp_position ,$employee, $position, $department){
+    public static function getEditAgain($emp_department, $emp_position ,$employee, $position, $department, $emp_education, $education){
                 $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
+                $form .= '<input type="hidden" value="'.$employee['id'].'" id="id">'; // id ของ table request_change_data
                 $form .= '<input type="hidden" value="'.$employee['id_employee'].'" id="id_employee">';
                      $form .= 'ชื่อ';
                     $form .= '<div class="input-group fname_employee">';
@@ -731,7 +719,9 @@ class FormRepository
                      $form .= '<i class="fa fa-graduation-cap"></i>';
                  $form .= '</div>';
                  $form .= '<select class="form-control required select2"  style="width: 100%;" id="education">';
-                     $form .= '<option selected="selected" value="'.$employee["education"].'">'.$employee["education"].'</option>';
+                     foreach ($education as $value) {
+                            $form .= '<option value="'.$value["id_education"].'" '.(($value["id_education"] == $emp_education['id_education']) ? 'selected' : '').'>'.$value["name"].'</option>';
+                     }
                  $form .= '</select>';
              $form .= '</div>';
              $form .= '<label class="text-error" id="education-text-error"></label>';

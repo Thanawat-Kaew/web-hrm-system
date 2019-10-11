@@ -27,4 +27,9 @@ class Employee extends Model
     {
         return $this->hasMany("App\Services\Request\RequestChangeData", 'id_employee', 'id_employee');
     }
+
+    public function education()
+    {
+        return $this->belongsTo("App\Services\Education\Education", 'id_education', 'id_education');
+    }
 }

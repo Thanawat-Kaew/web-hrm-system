@@ -49,7 +49,7 @@
                                  <h4>ตำแหน่ง :    <?php echo $name_position['name'] ?></h4>
                                  <h4>แผนก :  <?php echo $name_department['name'] ?></h4>
                                  <h4>อัตราเงินเดือน : <?php echo $current_employee['salary'] ?> </h4>
-                                 <h4>การศึกษา :  <?php echo $current_employee['education'] ?> </h4>
+                                 <h4>การศึกษา :  <?php echo $name_education['name'] ?> </h4>
                                  <h4>เพศ :  <?php echo $current_employee['gender'] ?> </h4>
                                  <h4>อายุ :  <?php echo $current_employee['age'] ?> </h4>
                                  <h4>ที่อยู่ :  <?php echo $current_employee['address'] ?> </h4>
@@ -85,7 +85,6 @@
                             </tr>
                             <?php $count = 0; ?>
                             <?php foreach($request_edit_data as $value) : ?>
-                                <?php echo $value['id']?>
                             <?php $count = $count+1;?>
                             <tr>
                                 <td><?php echo $count; ?></td>
@@ -132,6 +131,7 @@
 <!-- data -->
 <div id="ajax-center-url" data-url="<?php echo route('personal_info.ajax_center.post')?>"></div>
 <div id="edit-data-employee" data-url="<?php echo route('personal_info.edit_data_employee.post')?>"></div>
+<div id="update-edit-data-employee" data-url="<?php echo route('personal_info.update_edit_data_employee.post')?>"></div>
 <?php echo csrf_field()?>
 
 <!-- jQuery 3 -->

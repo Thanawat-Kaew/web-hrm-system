@@ -2,7 +2,7 @@ $(function(){
 	msg_waiting()
 	$('.sidebar-toggle').hide();
 
-	$('.amendment').click(function(){
+	$('.amendment').click(function(){ // แก้ไข้ครั้งแรก
 		msg_waiting()
 		var	id = $(this).data('id');
 		$.ajax({
@@ -62,43 +62,21 @@ $(function(){
 		})
 	})
 
-	$('.edit-data').click(function(){
+	$('.edit-data').click(function(){ // แก้ไข้ครั้งที่ 2
 		msg_waiting()
 		var	id = $(this).data('id');
-		console.log(id);
+		//console.log(id);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
 			data: {'method' : 'getEditAgain',
-					'id'	: id
+			'id'	: id
 			},
 			success: function (result) {
-				var title = "<h4 style='color: red;'>แจ้งแก้ไขข้อมูล <small> | Edit Employee</small></h4>"
-					// showDialog(result.data,title);
-				bootbox.dialog({
-					title: title,
-					message: result.data,
-					size: 'large',
-					onEscape: true,
-					backdrop: 'static',
-					buttons: {
-						fi: {
-							label: 'ส่งคำร้อง',
-							className: 'btn-info',
-							callback: function(){
-							sendRequest(form, title);
-							}
-						},
-						fum: {
-							label: 'ปิด',
-							className: 'btn-warning',
-							callback: function(){
-							}
-						}
-					}
-				})
-			msg_close();
+				var title = "<h4 style='color: red;'>แก้ไขข้อมูล <small> | Edit Employee</small></h4>"
+				showDialog(result.data,title);
+				msg_close();
 			},
 			error : function(errors)
 			{
@@ -166,8 +144,13 @@ function sendRequest(form, title){
 	if(count > 0) {
 		showDialog(form, title, oldValue);
 	}else{
-		//alert("ok");
-		editDataEmployee(oldValue);
+		if(title == "<h4 style='color: red;'>แจ้งแก้ไขข้อมูล <small> | Edit Employee</small></h4>"){
+			//alert("edit");
+			editDataEmployee(oldValue);
+		}else if(title == "<h4 style='color: red;'>แก้ไขข้อมูล <small> | Edit Employee</small></h4>"){
+			//alert("update");
+			updateEditDataEmployee(oldValue)
+		}
 	}
 }
 
@@ -197,8 +180,42 @@ function editDataEmployee(oldValue){
 			// msg_close();
 		},
 		error: function(error){
-			alert('Data not save');
+			alert('Data not save form edit');
 			msg_close();
 		}
 	});
 }
+
+function updateEditDataEmployee(oldValue){
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type : 'POST',
+		url  : $('#update-edit-data-employee').data('url'),
+		data : {
+			id          : $('#id').val(),
+			id_employee : $('#id_employee').val(),
+			fname 		: $('#fname').val(),
+			lname 		: $('#lname').val(),
+			position 	: $('#position').val(),
+			department 	: $('#department').val(),
+			education 	: $('#education').val(),
+			gender 		: $('#gender').val(),
+			age 		: $('#age').val(),
+			address 	: $('#address').val(),
+			email      	: $('#email').val(),
+			tel 		: $('#tel').val(),
+			reason 		: $('#reason').val(),
+		},
+		success: function(response){
+			// success alert
+			msg_success()
+			// alert('Data save');
+			// msg_close();
+		},
+		error: function(error){
+			alert('Data not save for update');
+			msg_close();
+		}
+	});
+}
+

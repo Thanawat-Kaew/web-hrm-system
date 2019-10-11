@@ -9,6 +9,7 @@ use App\Services\Forms\FormRepository;
 use App\Services\Department\Department;
 use App\Services\Position\Position;
 use App\Services\Employee\Employee;
+use App\Services\Education\Education;
 
 class DataManageController extends Controller
 {
@@ -32,8 +33,10 @@ class DataManageController extends Controller
             case 'getFormAddEmployee':
                 $department     = Department::all();
                 $position       = Position::all();
+                $education      = Education::all();
+                //sd($education->toArray());
                 $form_repo      = new FormRepository;
-                $form_add_emp   = $form_repo->getFormEmployee($department,$position);
+                $form_add_emp   = $form_repo->getFormEmployee($department,$position,$education);
                 return response()->json(['status'=> 'success','data'=> $form_add_emp]);
             break;
             case 'getFormEmployeeWithDepartment':
@@ -56,13 +59,14 @@ class DataManageController extends Controller
 
             case 'getFormEditEmployee':
                 $id             = $request->get('id');
-                $employee    = Employee::with('department')->with('position')->where('id_employee', $id)->first();
+                $employee    = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
                 //sd($id);
                 //sd($employee->position['name']);
                 $department     = Department::all();
                 $position       = Position::all();
+                $education       = Education::all();
                 $form_repo      = new FormRepository;
-                $form_edit_emp   = $form_repo->getFormEmployee($department,$position, $employee);
+                $form_edit_emp   = $form_repo->getFormEmployee($department,$position, $education, $employee);
                 return response()->json(['status'=> 'success','data'=> $form_edit_emp]);
             break;
 
@@ -74,7 +78,7 @@ class DataManageController extends Controller
 
             case 'getDataPersonal':
                 $id             = $request->get('id');
-                $employee       = Employee::with('department')->with('position')->where('id_employee', $id)->first();
+                $employee       = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
                 $form_repo      = new FormRepository;
                 $form_view_emp   = $form_repo->getDataPersonal( $employee);
                 return response()->json(['status'=> 'success','data'=> $form_view_emp]);

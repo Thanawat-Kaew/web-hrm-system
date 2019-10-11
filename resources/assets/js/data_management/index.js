@@ -98,7 +98,7 @@ $(function(){
 			data: {method : 'getFormAddEmployee'},
 			success: function (result) {
 				var title = "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>"
-				showDialog(result.data,title)
+				showDialog(result.data,title);
 			},
 			error : function(errors)
 			{
@@ -254,6 +254,3 @@ function saveAddEmployee(oldValue){
 }
 
 
-function editEmployee(){
-
-}

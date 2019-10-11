@@ -31,6 +31,7 @@ Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
 Route::post('/personal_info/amendment', 'Employee\EmployeeController@ajaxCenter')->name('personal_info.ajax_center.post');
 Route::post('/personal_info/edit_data_employee', 'Employee\EmployeeController@editDataEmployee')->name('personal_info.edit_data_employee.post');
+Route::post('/personal_info/uppate_edit_data_employee', 'Employee\EmployeeController@updateEditDataEmployee')->name('personal_info.update_edit_data_employee.post');
 
 Route::get('/data_manage/employee', 'DataManagement\DataManageController@index')->name('data_management.index.get');
 
