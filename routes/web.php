@@ -59,6 +59,9 @@ Route::get('/personal_info/request', 'DataManagement\DataManageController@notifi
 
 Route::post('personal_info/dalete/{id}','Employee\EmployeeController@postDeleteRequestChangeData')->name('personal_info.delete_employee.post');
 
+Route::post('/data_manage/delete','DataManagement\DataManageController@postDeleteData')->name('data_manage.delete_employee.post');
+
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

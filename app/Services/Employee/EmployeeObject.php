@@ -94,6 +94,16 @@ class EmployeeObject{
     	return $this->last_name;
     }
 
+    public function getIdPosition()
+    {
+        return $this->id_position;
+    }
+
+    public function getIdDepartment()
+    {
+        return $this->id_department;
+    }
+
     public function mockMenu()
     {
     	return ["id_employee" => "", "permission" =>  "", "menu" => [] ];

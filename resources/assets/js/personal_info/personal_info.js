@@ -198,7 +198,6 @@ function editDataEmployee(oldValue){
 		},
 		success: function(response){
 			// success alert
-
 			msg_success()
 			window.location.reload();
 			// alert('Data save');

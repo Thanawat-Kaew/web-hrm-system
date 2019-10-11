@@ -31,10 +31,26 @@ $('.btn-cancel').click(function(){
 		confirmButtonText: 'ใช่, ไม่อนุมัติ!'
 	}).then((result) => {
 		if (result.value) {
-			Swal.fire(
-			'เรียบร้อย!',
-			'คุณได้ทำการยกเลิกเรียบร้อย',
-			'success')
+			Swal.fire({
+				title: 'กรุณากรอกเหตุผล',
+				input: 'textarea',
+				inputPlaceholder: 'Type your message here...',
+				inputAttributes: {
+					'aria-label': 'Type your message here'
+				},
+				showCancelButton: true
+			}).then((result) => {
+				if(result.value !== ''){
+					// send update data.
+				}else{
+					Swal.fire(
+				'ไม่สำเร็จ!',
+				'กรุณากรอกเหตุผล สำหรับการไม่อนุมัติในครั้งนี้',
+				'warning')
+				}
+			})
+
+			
 		}
 	})
 })
