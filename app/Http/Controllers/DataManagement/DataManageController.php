@@ -62,6 +62,7 @@ class DataManageController extends Controller
                 $employee    = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
                 //sd($id);
                 //sd($employee->position['name']);
+                //sd($employee->toArray());
                 $department     = Department::all();
                 $position       = Position::all();
                 $education       = Education::all();
@@ -119,7 +120,7 @@ class DataManageController extends Controller
         $employee->gender        = $gender;
         $employee->tel           = $tel;
         $employee->age           = $age;
-        $employee->education     = $education;
+        $employee->id_education  = $education;
         $employee->salary        = $salary;
 
         if($employee->id_department == 'en0001' || 'fa0001' || 'pm0001' || 'ss0001' && $employee->id_position == 1){
@@ -131,7 +132,7 @@ class DataManageController extends Controller
         }else if($employee->id_department == 'hr0001' && $employee->id_position == 4){
             $employee->id_role = 4;
         }
-
+        //sd($employee->id_department);
         $employee->save();
     }
 

@@ -8,7 +8,7 @@ class Education extends Model
 {
     protected $table = 'education';
 
-    protected $fillable = ['id_employee', 'first_name', 'last_name', 'id_position', 'id_department', 'id_education', 'gender', 'age', 'address', 'email', 'tel', 'reason', 'status', 'approvers', 'reason_approvers'];
+    //protected $fillable = ['id_employee', 'first_name', 'last_name', 'id_position', 'id_department', 'id_education', 'gender', 'age', 'address', 'email', 'tel', 'reason', 'status', 'approvers', 'reason_approvers'];
 
     public function employee()
     {

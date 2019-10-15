@@ -230,7 +230,7 @@ function saveAddEmployee(oldValue){
 		type : 'POST',
 		url  : $('#add-employee-url').data('url'),
 		data : {
-			department 	: $('#department').val(),
+			department 	: $('#add-emp-department').val(),
 			position 	: $('#position').val(),
 			fname 		: $('#fname').val(),
 			lname 		: $('#lname').val(),

@@ -4,7 +4,7 @@ namespace App\Services\Forms;
 class FormRepository
 {
 	public static function getFormEmployee($department, $position, $education, $employee=''){
-                $form = '<div class="row">';
+        $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
                     $form .= '<div class="profile-picture">';
@@ -43,26 +43,38 @@ class FormRepository
                              $form .= '<i class="fa fa-briefcase"></i>';
                          $form .= '</div>';
                          $form .= '<select class="form-control required select2" style="width: 100%;" id="position">';
-                             $form .= '<option selected="selected" value="'.((!empty($employee) ? $employee->position['id_position'] : '' )).'">'.((!empty($employee) ? $employee->position['name'] : 'เลือกตำแหน่ง...' )).'</option>';
-                            foreach ($position as $value) {
-                             $form .= '<option value="'.$value->id_position.'">'.$value->name.'</option>';
-                     }
+                            if(!empty($employee)){ //แก้ไข
+                                foreach($position as $value){
+                                    $form .= '<option value="'.$employee->position['id_position'].'" '.(($value['id_position'] == $employee->position['id_position']) ? 'selected' : '').'>'.$value['name'].'</option>';
+                                }
+                            }else{ // เพิ่มพนักงาน
+                                $form .= '<option value="">'.'เลือกตำแหน่ง...'.'</option>';
+                                foreach($position as $value) {
+                                    $form .= '<option value="'.$value['id_position'].'">'.$value['name'].'</option>';
+                                }
+                            }
                      $form .= '</select>';
                  $form .= '</div>';
                 $form .= '<label class="text-error" id="position-text-error"></label>';
-                 $form .= 'แผนก';
-                $form .= '<div class="input-group department_employee">';
-                    $form .= '<div class="input-group-addon">';
-                         $form .= '<i class="fa fa-sitemap"></i>';
-                     $form .= '</div>';
-                     $form .= '<select class="form-control required select2" style="width: 100%;" id="department">';
-                         $form .= '<option selected="selected" value="'.((!empty($employee) ? $employee->department['id_department'] : '' )).'">'.((!empty($employee) ? $employee->department['name'] : 'เลือกแผนก...' )).'</option>';
-                        foreach ($department as $value) {
-                         $form .='<option value="'.$value->id_department.'">'.$value->name.'</option>';
+                $form .= 'แผนก';
+            $form .= '<div class="input-group department_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-graduation-cap"></i>';
+                $form .= '</div>';
+                $form .= '<select class="form-control required select2" style="width: 100%;" id="add-emp-department">';
+                     if(!empty($employee)){ //แก้ไข
+                        foreach($department as $value){
+                             $form .= '<option value="'.$employee->department['id_department'].'" '.(($value['id_department'] == $employee->department['id_department']) ? 'selected' : '').'>'.$value['name'].'</option>';
+                        }
+                    }else{ // เพิ่มพนักงาน
+                        $form .= '<option value="">'.'เลือกแผนก...'.'</option>';
+                        foreach($department as $value) {
+                            $form .= '<option value="'.$value['id_department'].'">'.$value['name'].'</option>';
+                        }
                     }
-                    $form .='</select>';
-             $form .= '</div>';
-            $form .= '<label class="text-error" id="department-text-error"></label>';
+                $form .= '</select>';
+            $form .= '</div>';
+            $form .= '<label class="text-error" id="add-emp-department-text-error"></label>';
              $form .= 'อัตราเงินเดือน';
             $form .= '<div class="input-group salary_employee">';
                 $form .= '<div class="input-group-addon">';
@@ -77,10 +89,16 @@ class FormRepository
                      $form .= '<i class="fa fa-graduation-cap"></i>';
                  $form .= '</div>';
                  $form .= '<select class="form-control required select2" style="width: 100%;" id="education">';
-                     $form .= '<option selected="selected" value="'.((!empty($employee) ? $employee->education['id_education'] : '' )).'">'.((!empty($employee) ? $employee->education['name'] : 'เลือกระดับการศึกษา' )).'</option>';
-                     foreach ($education as $value) {
-                         $form .='<option value="'.$value->id_education.'">'.$value->name.'</option>';
-                    }
+                     if(!empty($employee)){ //แก้ไข
+                                foreach($education as $value){
+                                    $form .= '<option value="'.$employee->education['id_education'].'" '.(($value['id_education'] == $employee->education['id_education']) ? 'selected' : '').'>'.$value['name'].'</option>';
+                                }
+                            }else{ // เพิ่มพนักงาน
+                                $form .= '<option value="">'.'เลือกระดับการศึกษา...'.'</option>';
+                                foreach($education as $value) {
+                                    $form .= '<option value="'.$value['id_education'].'">'.$value['name'].'</option>';
+                                }
+                            }
                  $form .= '</select>';
              $form .= '</div>';
             $form .= '<label class="text-error" id="education-text-error"></label>';
@@ -671,8 +689,8 @@ class FormRepository
                 $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
-                $form .= '<input type="hidden" value="'.$employee['id'].'" id="id">'; // id ของ table request_change_data
                 $form .= '<input type="hidden" value="'.$employee['id_employee'].'" id="id_employee">';
+                $form .= '<input type="hidden" value="'.$employee['id'].'" id="id">'; // id ของ table request_change_data
                      $form .= 'ชื่อ';
                     $form .= '<div class="input-group fname_employee">';
                         $form .= '<div class="input-group-addon">';
