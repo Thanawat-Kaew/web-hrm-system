@@ -44,6 +44,7 @@
 							<th>Break-In</th>
 							<th>Break-Out</th>
 							<th>Time-Out</th>
+							<th>Status</th>
 						</tr>
 						<tr>
 							<td>ธนวัฒน์ แก้วล้อมวัง</td>
@@ -53,6 +54,7 @@
 							<td>-</td>
 							<td>-</td>
 							<td>18:00</td>
+							<td><span class="label label-warning">กำลังรอ</span></td>
 						</tr>
 					</table>
 				</div>

@@ -14,12 +14,12 @@ $(document).ready(function() {
             	console.log(error);
             }
         })
-		$("#group-part").on('click',".add-more", function(){
-			$(this).closest(".new-part").find(".selected-question").append($(".copy").html());
-		})
-		$("#group-part").on("click",".remove", function(){
-			$(this).parents('.control-group').remove();
-		})
+		// $("#group-part").on('click',".add-more", function(){
+		// 	$(this).closest(".new-part").find(".selected-question").append($(".copy").html());
+		// })
+		// $("#group-part").on("click",".remove", function(){
+		// 	$(this).parents('.control-group').remove();
+		// })
 	})
 
 	$("#group-part").on('click',".add-more", function(){

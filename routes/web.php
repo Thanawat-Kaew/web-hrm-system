@@ -26,6 +26,8 @@ Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.in
 
 Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.get');
 
+Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp_request.get');
+
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
@@ -61,7 +63,7 @@ Route::get('/data_manage/request', 'DataManagement\DataManageController@notifica
 
 Route::post('personal_info/dalete/{id}','Employee\EmployeeController@postDeleteRequestChangeData')->name('personal_info.delete_employee.post');
 
-Route::post('/data_manage/delete','DataManagement\DataManageController@postDeleteData')->name('data_manage.delete_employee.post');
+Route::post('/data_manage/delete/{id_employee}','DataManagement\DataManageController@postDeleteData')->name('data_manage.delete_employee.post');
 
 
 Auth::routes();

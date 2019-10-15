@@ -29,9 +29,9 @@
 							<th>เรื่อง</th>
 							<th>ว/ด/ป</th>
 							<th>รายละเอียด</th>
+							<th></th>
+							<th></th>
 							<th>สถานะ</th>
-							<th></th>
-							<th></th>
 						</tr>
 						<?php $count = 0;?>
 						<?php foreach($request as $value) : ?>
@@ -55,17 +55,7 @@
                                     </button>
 							</td>
 						</tr>
-						<?php endforeach?>
-						<tr>
-							<td>2</td>
-							<td>ชนะชัย  ชุ่มชื่น</td>
-							<td>ขอเปลี่ยนแปลงข้อมูลส่วนตัว</td>
-							<td>11-7-2014 19:08:00</td>
-							<td><i class="fa fa-eye fa-lg btn" ></i></td>
-							<td><span class="label label-primary">อนุมัติ</span></td>
-							<td><button class="btn btn-primary form-control btn-confirm disabled">อนุมัติ</button></td>
-							<td><button class="btn btn-danger form-control btn-cancel disabled">ไม่อนุมัติ</button></td>
-						</tr>
+						<?php endforeach ?>
 					</table>
 				</div>
 			</div>

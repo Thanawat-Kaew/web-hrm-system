@@ -45,7 +45,7 @@
         <div class="row" id="header">
             <?php foreach($employee as $key => $value):
                 if($value['id_position'] == 2) : ?>
-                    <div class="col-md-2 col-sm-2 ">
+                    <div class="col-md-2 col-sm-2">
                         <div class="box box-widget widget-user-2">
                             <div class="widget-user-header">
                                 <!-- /.widget-user-image -->
@@ -114,6 +114,5 @@
     </div>
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('data_manage.ajax_center.post')?>"></div>
-<div id="delete-ajax-center-url" data-url="<?php echo route('data_manage.delete_employee.post')?>"></div>
 <div id="add-employee-url" data-url="<?php echo route('data_manage.add_employee.post')?>"></div>
 <?php echo csrf_field()?>

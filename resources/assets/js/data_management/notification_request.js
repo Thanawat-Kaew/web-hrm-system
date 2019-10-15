@@ -70,17 +70,7 @@ $(function(){
 	})
 
 	$('.btn-cancel-data-request').click(function(){
-		//alert("cancel");
 		var id = $(this).data('id');
-		console.log(id);
-		/*$.ajax({
-			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-			type: "POST",
-			url: $('#cancel-ajax-center-url').data('url'),
-			data: {'method' : 'getViewDataRequest',
-				   'id'	    : id
-			}
-		});*/
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะไม่อนุมัติการแก้ไขข้อมูลนี้ !",
@@ -102,7 +92,7 @@ $(function(){
 					showCancelButton: true
 				}).then((result) => {
 					if(result.value !== ''){
-					// send update data.
+						// send update data.
 						$.ajax({
 							headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 							type: "POST",
@@ -122,16 +112,7 @@ $(function(){
 			}
 		})
 	})
-
 });
-
-function confirm(){
-	$.ajax({
-		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-		type: "POST",
-		url: $('#confirm-ajax-center-url').data('url')
-	});
-}
 
 
 

@@ -7,11 +7,11 @@
           <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-            <?php if(\Session::has('current_employee')) :
-                $current_employee = \Session::get('current_employee');
+          <?php if(\Session::has('current_employee')) :
+            $current_employee = \Session::get('current_employee');
             ?>
-          <p><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></p>
-            <?php endif ?>
+            <p><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></p>
+          <?php endif ?>
           <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a>
         </div>
       </div>
@@ -20,10 +20,10 @@
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+              <i class="fa fa-search"></i>
+            </button>
+          </span>
         </div>
       </form>
       <!-- /.search form -->
@@ -32,15 +32,19 @@
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview menu-open">
         </li>
-        <li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>Menu 1</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green"></small>
-            </span>
-          </a>
-        </li>
-        <li>
+        <?php if(\Session::has('current_menu')) :  ?>
+          <?php foreach(\Session::get('current_menu') as $menu ):?>
+            <li>
+              <a href="<?php echo route ($menu->route)  ?>">
+                <i class="fa fa-th"></i> <span><?php echo $menu->name_th  ?></span>
+                <span class="pull-right-container">
+                  <small class="label pull-right bg-green"></small>
+                </span>
+              </a>
+            </li>
+          <?php endforeach ?>
+        <?php endif ?>
+        <!-- <li>
           <a href="pages/calendar.html">
             <i class="fa fa-calendar"></i> <span>Menu 2</span>
             <span class="pull-right-container">
@@ -110,7 +114,7 @@
             </li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </section>
     <!-- /.sidebar -->
