@@ -10,6 +10,7 @@ use App\Services\Department\Department;
 use App\Services\Position\Position;
 use App\Services\Employee\Employee;
 use App\Services\Education\Education;
+use App\Services\Request\RequestChangeData;
 
 class DataManageController extends Controller
 {
@@ -50,7 +51,7 @@ class DataManageController extends Controller
 
             case 'getManageData':
                 $employee_id           = $request->get('employee_id');
-                $get_data_employee = Employee::with('position', 'department')->where('id_employee', $employee_id)->first(); 
+                $get_data_employee = Employee::with('position', 'department')->where('id_employee', $employee_id)->first();
                 $form_repo          = new FormRepository;
                 $form_manage_data   = $form_repo->getManageData($get_data_employee);
                 return response()->json(['status'=> 'success','data'=> $form_manage_data]);
@@ -82,6 +83,18 @@ class DataManageController extends Controller
                 $form_repo      = new FormRepository;
                 $form_view_emp   = $form_repo->getDataPersonal( $employee);
                 return response()->json(['status'=> 'success','data'=> $form_view_emp]);
+            break;
+
+            case 'getViewDataRequest': // ดูข้อมูลที่ร้องข้อการแก้ไข
+                $id             = $request->get('id');
+                $employee       = RequestChangeData::with('employee')->where('id', $id)->first();
+                //sd($employee->toArray());
+                $emp_department    = Department::where('id_department', $employee['id_department'])->first();
+                $emp_position      = Position::where('id_position', $employee['id_position'])->first();
+                $emp_education     = Education::where('id_education', $employee['id_education'])->first();
+                $form_repo      = new FormRepository;
+                $form_view_date_request   = $form_repo->getViewDataRequest($employee, $emp_department, $emp_position, $emp_education);
+                return response()->json(['status'=> 'success','data'=> $form_view_date_request]);
             break;
 
             default:
@@ -137,8 +150,40 @@ class DataManageController extends Controller
 
     public function notificationRequest()
     {
-        return $this->useTemplate('data_management.notification_request');
+        $request = RequestChangeData::orderBy('id', 'desc')->get();
+        //sd($request->toArray());
+        return $this->useTemplate('data_management.notification_request', compact('request'));
 
+    }
+
+    public function confirmDataRequest(Request $request)
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        $id          = $request->get('id');
+        //sd($id);
+        $confirm = RequestChangeData::find($id);
+        //d($confirm->toArray());
+        $confirm->status                 = 1;
+        $confirm->approvers              = $current_employee['id_employee'];
+        $confirm->save();
+    }
+
+    public function cancelDataRequest(Request $request)
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        $id              = $request->get('id');
+        $reason_reject   = $request->get('reason_reject');
+        //sd($id);
+        $confirm = RequestChangeData::find($id);
+        //d($confirm->toArray());
+        $confirm->status               = 3;
+        $confirm->approvers            = $current_employee['id_employee'];
+        $confirm->reason_approvers     = $reason_reject;
+        $confirm->save();
     }
 
     // public function postDeleteData()

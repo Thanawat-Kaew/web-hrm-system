@@ -31,7 +31,7 @@ Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
 Route::post('/personal_info/amendment', 'Employee\EmployeeController@ajaxCenter')->name('personal_info.ajax_center.post');
 Route::post('/personal_info/edit_data_employee', 'Employee\EmployeeController@editDataEmployee')->name('personal_info.edit_data_employee.post');
-Route::post('/personal_info/uppate_edit_data_employee', 'Employee\EmployeeController@updateEditDataEmployee')->name('personal_info.update_edit_data_employee.post');
+Route::post('/personal_info/update_edit_data_employee', 'Employee\EmployeeController@updateEditDataEmployee')->name('personal_info.update_edit_data_employee.post');
 
 Route::get('/data_manage/employee', 'DataManagement\DataManageController@index')->name('data_management.index.get');
 
@@ -39,6 +39,8 @@ Route::post('/data_manage/ajax_center', 'DataManagement\DataManageController@aja
 
 Route::post('/data_manage/add_employee', 'DataManagement\DataManageController@addEmployee')->name('data_manage.add_employee.post');
 Route::post('/data_manage/change_department', 'DataManagement\DataManageController@changeDepartment')->name('data_manage.change_department.post');
+Route::post('/data_manage/confirm', 'DataManagement\DataManageController@confirmDataRequest')->name('data_manage.confirm_data_request.post');
+Route::post('/data_manage/cancel', 'DataManagement\DataManageController@cancelDataRequest')->name('data_manage.cancel_data_request.post');
 
 Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center.post');
 
