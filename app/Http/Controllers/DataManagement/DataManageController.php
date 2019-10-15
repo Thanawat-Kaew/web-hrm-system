@@ -49,11 +49,10 @@ class DataManageController extends Controller
             break;
 
             case 'getManageData':
-                $position           = $request->get('position');
-                //sd($position);
-                $department         = $request->get('department');
+                $employee_id           = $request->get('employee_id');
+                $get_data_employee = Employee::with('position', 'department')->where('id_employee', $employee_id)->first(); 
                 $form_repo          = new FormRepository;
-                $form_manage_data   = $form_repo->getManageData($position, $department);
+                $form_manage_data   = $form_repo->getManageData($get_data_employee);
                 return response()->json(['status'=> 'success','data'=> $form_manage_data]);
                 break;
 
@@ -141,5 +140,23 @@ class DataManageController extends Controller
         return $this->useTemplate('data_management.notification_request');
 
     }
+
+    // public function postDeleteData()
+    //     {
+
+    //     $employee    = Employee::first();
+    //     sd($employee);
+    //     if(!empty($employee))
+    //     {
+    //         $employee->delete();
+
+    //         return ['status' => 'success', 'message' => 'Delete complete.'];
+
+    //     }
+    //     else
+    //     {
+    //         return['status' => 'failed','message' =>'Not found.'];
+    //     }
+    // }
 
 }

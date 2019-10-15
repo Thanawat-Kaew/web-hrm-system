@@ -2,16 +2,13 @@ $(function(){
 
 	$('#header, #employee').on('click', '.manage-employee', function(){
 		msg_waiting();
-		var id = $(this).data('form_id');
-		var position = $(this).data('form_position');
-		var department = $(this).data('form_department');
+		var id 		= $(this).data('form_id'); 
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
 			data: {'method'   : 'getManageData',
-			'position' : position,
-			'department' : department
+			'employee_id' : id 
 		},
 		success: function (result) {
 			var box = bootbox.dialog({
@@ -31,12 +28,12 @@ $(function(){
 							type: 'POST',
 							url: $('#ajax-center-url').data('url'),
 							data: { 'method' : 'getFormEditEmployee',
-									'id'     : id
-							},
-							success: function (result) {
-								var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small>"+id+"</h4>"
-								showDialog(result.data,title);
-								msg_close();
+							'id'     : id
+						},
+						success: function (result) {
+							var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small>"+id+"</h4>"
+							showDialog(result.data,title);
+							msg_close();
 								//console.log(id);
 							},
 							error : function(errors)
@@ -55,7 +52,7 @@ $(function(){
 							type: 'POST',
 							url: $('#ajax-center-url').data('url'),
 							data: {'method' : 'getDataPersonal',
-									'id'    : id
+							'id'    : id
 						},
 						success: function (result) {
 							var title = "<h4 style='color: red;'>ข้อมูลพนักงาน <small> | Personal Data</small></h4>"
@@ -74,11 +71,40 @@ $(function(){
 									}
 								}
 							})
-							},
-							error : function(errors){
-								console.log(errors);
+						},
+						error : function(errors){
+							console.log(errors);
+						}
+					})
+					});
+
+					$('.delete_data').on('click', function(event) {
+						msg_waiting();
+						
+						
+						Swal.fire(
+						{
+							title: 'คุณแน่ใจหรือไม่?',
+							text: "ที่จะลบรายการนี้ !",
+							type: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							cancelButtonText: 'ไม่ลบ',
+							confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
+						}).then((result) => 
+						{
+							if (result.value) 
+
+							{
+								// postDelete(); 
 							}
 						})
+
+
+
+
+
 					});
 				});
 		},
@@ -253,4 +279,41 @@ function saveAddEmployee(oldValue){
 	});
 }
 
+function postDelete()
+{
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type: "POST",
+		url: $('#delete-ajax-center-url').data('url'),
+		
+		success: function(result)
+		{
+			if(result.status == "success")
+			{
+				Swal.fire(
+				{
+					title: 'คุณลบรายการนี้เรียบร้อย',
+					type: 'success',
+					showCancelButton: false,
+					confirmButtonText: 'ปิด'
 
+				}).then((result) =>{
+
+					if (result.value) 
+					{
+						window.location.reload();
+					}
+				})
+
+			}
+			else
+			{
+				alert(result.message);
+			}
+		},	
+		error : function(errors)
+		{
+			console.log(errors);
+		}
+	});
+}
