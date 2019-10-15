@@ -34,7 +34,7 @@
             <div class="col-md-6 hidden-md hidden-sm hidden-lg">
                 <div class="lockscreen-wrapper">
                     <div class="text-center">
-                        <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                        <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle hidden-xs" alt="User Image">
                         <h4>HUMAN RESOURCE MANAGEMENT SYSTEM
                         </h4>
                         <hr>

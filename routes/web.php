@@ -55,7 +55,7 @@ Route::get('/report/report_time_stamp', 'Report\ReportController@reportTimeStamp
 Route::get('/report/report_leave', 'Report\ReportController@reportLeave')->name('report.report_leave.get');
 Route::get('/report/report_evaluation', 'Report\ReportController@reportEvaluation')->name('report.report_evaluations.get');
 Route::get('/report/report_overview', 'Report\ReportController@reportOverview')->name('report.report_overview.get');
-Route::get('/personal_info/request', 'DataManagement\DataManageController@notificationRequest')->name('data_management.notification_request.get');
+Route::get('/data_manage/request', 'DataManagement\DataManageController@notificationRequest')->name('data_management.notification_request.get');
 
 Route::post('personal_info/dalete/{id}','Employee\EmployeeController@postDeleteRequestChangeData')->name('personal_info.delete_employee.post');
 
