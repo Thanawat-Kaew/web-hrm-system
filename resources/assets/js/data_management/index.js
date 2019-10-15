@@ -64,7 +64,7 @@ $(function(){
 								backdrop: 'static',
 								buttons: {
 									fum: {
-										label: 'ยกเลิก',
+										label: 'ปิด',
 										className: 'btn-warning',
 										callback: function(){
 										}
@@ -81,7 +81,8 @@ $(function(){
 					$('.delete_data').on('click', function(event) {
 						msg_waiting();
 						
-						
+						var url=$(this).data('href');
+						// console.log(url)
 						Swal.fire(
 						{
 							title: 'คุณแน่ใจหรือไม่?',
@@ -92,19 +93,14 @@ $(function(){
 							cancelButtonColor: '#d33',
 							cancelButtonText: 'ไม่ลบ',
 							confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-						}).then((result) => 
-						{
+						}).then((result) =>{
+
 							if (result.value) 
 
 							{
-								// postDelete(); 
+								postDelete(url); 
 							}
 						})
-
-
-
-
-
 					});
 				});
 		},
@@ -270,7 +266,19 @@ function saveAddEmployee(oldValue){
 			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-			msg_success()
+			
+				Swal.fire(
+				{
+					title: 'คุณเพิ่มรายการนี้เรียบร้อย',
+					type: 'success',
+					showCancelButton: false,
+					confirmButtonText: 'ปิด'
+
+				}).then((response) =>{
+
+					window.location.reload();
+
+				})	
 		},
 		error: function(error){
 			alert('Data not save');
@@ -279,12 +287,12 @@ function saveAddEmployee(oldValue){
 	});
 }
 
-function postDelete()
+function postDelete(url)
 {
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type: "POST",
-		url: $('#delete-ajax-center-url').data('url'),
+		url: url,
 		
 		success: function(result)
 		{
@@ -304,7 +312,6 @@ function postDelete()
 						window.location.reload();
 					}
 				})
-
 			}
 			else
 			{

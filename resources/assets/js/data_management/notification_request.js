@@ -41,6 +41,7 @@ $('.btn-cancel').click(function(){
 				showCancelButton: true
 			}).then((result) => {
 				if(result.value !== ''){
+					// alert(result.value)
 					// send update data.
 				}else{
 					Swal.fire(

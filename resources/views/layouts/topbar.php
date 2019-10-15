@@ -33,6 +33,11 @@
                       <i class="fa fa-users text-aqua"></i> รายการคำร้องขอเปลี่ยนแปลงข้อมูลส่วนตัว
                     </a>
                   </li>
+                  <li class="view-time-stamp-request">
+                    <a href="<?php echo route('time_stamp_request.get')?>">
+                      <i class="fa fa-users text-aqua"></i> รายการคำร้องขอลงเวลาย้อนหลัง
+                    </a>
+                  </li>
                 </ul>
               </li>
             </ul>

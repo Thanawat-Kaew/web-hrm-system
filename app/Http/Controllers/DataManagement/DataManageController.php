@@ -141,22 +141,23 @@ class DataManageController extends Controller
 
     }
 
-    // public function postDeleteData()
-    //     {
+    public function postDeleteData($id_employee)
+        {
 
-    //     $employee    = Employee::first();
-    //     sd($employee);
-    //     if(!empty($employee))
-    //     {
-    //         $employee->delete();
+        $get_data_employee = Employee::where('id_employee', $id_employee)->first(); 
+        // sd($get_data_employee->toArray());
 
-    //         return ['status' => 'success', 'message' => 'Delete complete.'];
+        if(!empty($get_data_employee))
+        {
+            $get_data_employee->delete();
 
-    //     }
-    //     else
-    //     {
-    //         return['status' => 'failed','message' =>'Not found.'];
-    //     }
-    // }
+            return ['status' => 'success', 'message' => 'Delete complete.'];
+
+        }
+        else
+        {
+            return['status' => 'failed','message' =>'Not found.'];
+        }
+    }
 
 }

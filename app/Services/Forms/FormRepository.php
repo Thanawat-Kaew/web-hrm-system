@@ -412,7 +412,7 @@ class FormRepository
                         }
 
                         if($current_department == 'hr0001' &&  $current_position == 2){
-                            $form .= '<button class="btn btn-block btn-danger btn-outline-success  delete_data" href="#" >';
+                            $form .= '<button class="btn btn-block btn-danger btn-outline-success  delete_data" href="#" data-href="'.route('data_manage.delete_employee.post',$get_data_employee['id_employee']).'" >';
                                 $form .= '<center>';
                                     $form .= '<i class="fa fa-trash-o"></i> ลบข้อมูล';
                                 $form .= '</center>';

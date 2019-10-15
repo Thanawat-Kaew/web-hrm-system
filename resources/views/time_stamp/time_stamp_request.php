@@ -1,7 +1,7 @@
 <section class="content-header">
 	<h1>
-		การจัดการคำร้อง |
-		<small> Amendment Manage</small>
+		การลงเวลาย้อนหลัง |
+		<small> Time Stamp Request</small>
 	</h1>
 </section>
 <section class="content">
@@ -26,7 +26,7 @@
 						<tr>
 							<th>#</th>
 							<th>ชื่อ-สกุล</th>
-							<th>เรื่อง</th>
+							<th>รหัสพนักงาน</th>
 							<th>ว/ด/ป</th>
 							<th>รายละเอียด</th>
 							<th></th>
@@ -36,7 +36,7 @@
 						<tr>
 							<td>1</td>
 							<td>ชนะชัย  ชุ่มชื่น</td>
-							<td>ขอเปลี่ยนแปลงข้อมูลส่วนตัว</td>
+							<td>59</td>
 							<td>11-7-2014 19:08:00</td>
 							<td><i class="fa fa-eye fa-lg btn"></i></td>
 							<td><button class="btn btn-primary form-control btn-confirm">อนุมัติ</button></td>
@@ -46,7 +46,7 @@
 						<tr>
 							<td>2</td>
 							<td>ชนะชัย  ชุ่มชื่น</td>
-							<td>ขอเปลี่ยนแปลงข้อมูลส่วนตัว</td>
+							<td>59</td>
 							<td>11-7-2014 19:08:00</td>
 							<td><i class="fa fa-eye fa-lg btn"></i></td>
 							<td><button class="btn btn-primary form-control btn-confirm disabled">อนุมัติ</button></td>
