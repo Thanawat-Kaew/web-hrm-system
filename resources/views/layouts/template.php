@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
   <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css">
   <link rel="stylesheet" href="/resources/assets/css/data_management/index.css">
+  <link rel="stylesheet" href="/resources/assets/css/time_stamp/time_stamp.css">
 
   <?php if (file_exists(base_path().'/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css')): ?>
   <link rel="stylesheet" href="<?php echo '/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css' ?>">

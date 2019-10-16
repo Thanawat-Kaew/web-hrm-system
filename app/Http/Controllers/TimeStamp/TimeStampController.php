@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\Forms\FormRepository;
+use App\Services\TimeStamp\TimeStamp;
 
 class TimeStampController extends Controller
 {
@@ -16,13 +17,14 @@ class TimeStampController extends Controller
 
     public function time_stamp()
     {
-        return view('time_stamp.time_stamp');
+        return $this->useTemplate('time_stamp.time_stamp');
     }
 
     public function time_stamp_request()
     {
         return $this->useTemplate('time_stamp.time_stamp_request');
     }
+
 
     public function ajaxCenter(Request $request)
     {
@@ -40,5 +42,7 @@ class TimeStampController extends Controller
         }
        
     }
+    
+    
 
 }

@@ -43,16 +43,16 @@
 							<td><?php echo $value['created_at'] ?></td>
 							<td><i class="fa fa-eye fa-lg btn view-data-request" data-id="<?php echo $value['id']?>"></i></td>
 							<td>
-								<span class="label <?php echo ($value['status'] == 1 ? 'label-primary' : ($value['status'] == 3 ? 'label-danger' : '')); ?>"><?php echo ($value['status'] == 1 ? 'อนุมัติ' : ($value['status'] == 3 ? 'ไม่อนุมัติ' : '')); ?>
-                                </span>
-							</td>
-							<td>
 								<button class="btn btn-primary form-control btn-confirm-data-request <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
                                 </button>
 							</td>
 							<td>
 								<button class="btn btn-danger form-control btn-cancel-data-request <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>" data-href="<?php echo route('personal_info.delete_employee.post',$value['id']);?>">ไม่อนุมัติ
                                     </button>
+							</td>
+							<td>
+								<span class="label <?php echo ($value['status'] == 1 ? 'label-primary' : ($value['status'] == 3 ? 'label-danger' : '')); ?>"><?php echo ($value['status'] == 1 ? 'อนุมัติ' : ($value['status'] == 3 ? 'ไม่อนุมัติ' : '')); ?>
+                                </span>
 							</td>
 						</tr>
 						<?php endforeach ?>

@@ -11,6 +11,7 @@ use App\Services\Department\Department;
 use App\Services\Forms\FormRepository;
 use App\Services\Request\RequestChangeData;
 use App\Services\Education\Education;
+use App\Services\TimeStamp\TimeStamp;
 
 class EmployeeController extends Controller
 {
@@ -28,7 +29,7 @@ class EmployeeController extends Controller
             $request_edit_data = RequestChangeData::with('employee')->where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
             //sd($request_edit_data->toArray());
     	}
-        return view('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data', 'name_education'));
+        return $this->useTemplate('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data', 'name_education'));
     }
 
     public function ajaxCenter(Request $request)
@@ -166,7 +167,10 @@ class EmployeeController extends Controller
         {
 
         $employee           = RequestChangeData::with('employee')->where('id', $id)->first();
-        // sd($employee );
+
+        // date_default_timezone_set('Asia/Bangkok');
+        // $date = date('Y-m-d H:i:s');
+        // sd($date );
         if(!empty($employee))
         {
             $employee->delete();

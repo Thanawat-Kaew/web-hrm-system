@@ -35,8 +35,8 @@
         <?php if(\Session::has('current_menu')) :  ?>
           <?php foreach(\Session::get('current_menu') as $menu ):?>
             <li>
-              <a href="<?php echo route ($menu->route)  ?>">
-                <i class="fa fa-th"></i> <span><?php echo $menu->name_th  ?></span>
+              <a href="<?php echo route ($menu->route) ?>">
+                 <i class="<?php echo $menu->fa_icon ?>"></i><span><?php echo $menu->name_th ?></span>
                 <span class="pull-right-container">
                   <small class="label pull-right bg-green"></small>
                 </span>

@@ -8,10 +8,10 @@ $(function(){
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
 			data: {'method' : 'getViewDataRequest',
-				   'id'	    : id
-			},
-			success: function (result) {
-				var title = "<h4 style='color: red;'>ข้อมูลที่แก้ไข <small> | Edit Employee</small></h4>"
+			'id'	    : id
+		},
+		success: function (result) {
+			var title = "<h4 style='color: red;'>ข้อมูลที่แก้ไข <small> | Edit Employee</small></h4>"
 				//showDialog(result.data,title);
 				bootbox.dialog({
 					title: title,
@@ -47,9 +47,9 @@ $(function(){
 			type: "POST",
 			url: $('#confirm-ajax-center-url').data('url'),
 			data: {'method' : 'getViewDataRequest',
-				   'id'	    : id
-			}
-		});
+			'id'	    : id
+		}
+	});
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะอนุมัติการแก้ไขข้อมูลนี้ !",
@@ -64,10 +64,15 @@ $(function(){
 				Swal.fire(
 					'อนุมัติ!',
 					'คุณได้ทำการอนุมัติเรียบร้อย',
-					'success')
-			}
+					'success').then((result) =>{
+						if (result.value) 
+						{
+							window.location.reload();
+						}
+					})
+				}
+			})
 		})
-	})
 
 	$('.btn-cancel-data-request').click(function(){
 		var id = $(this).data('id');
@@ -98,10 +103,11 @@ $(function(){
 							type: "POST",
 							url: $('#cancel-ajax-center-url').data('url'),
 							data: {'method' 	   : 'getViewDataRequest',
-								   'id'	           : id,
-								   'reason_reject' : result.value
-							}
-						});
+							'id'	           : id,
+							'reason_reject' : result.value
+						}
+					});
+						window.location.reload()
 					}else{
 						Swal.fire(
 							'ไม่สำเร็จ!',
