@@ -33,4 +33,9 @@ class Employee extends Model
     {
         return $this->belongsTo("App\Services\Education\Education", 'id_education', 'id_education');
     }
+
+    public function timestamp()
+    {
+        return $this->hasOne("App\Services\TimeStamp\TimeStamp", 'id_employee', 'id_employee');
+    }
 }

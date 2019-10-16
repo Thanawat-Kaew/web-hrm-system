@@ -46,9 +46,7 @@ $(function(){
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: "POST",
 			url: $('#confirm-ajax-center-url').data('url'),
-			data: {'method' : 'getViewDataRequest',
-				   'id'	    : id
-			}
+			data: {'id'	    : id}
 		});
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
@@ -97,8 +95,7 @@ $(function(){
 							headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 							type: "POST",
 							url: $('#cancel-ajax-center-url').data('url'),
-							data: {'method' 	   : 'getViewDataRequest',
-								   'id'	           : id,
+							data: { 'id'	           : id,
 								   'reason_reject' : result.value
 							}
 						});

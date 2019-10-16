@@ -27,6 +27,7 @@ Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.in
 Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.get');
 
 Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp_request.get');
+Route::post('/timestamp/add_timestamp', 'TimeStamp\TimeStampController@addTimeStamp')->name('time_stamp.add_timestamp.post');
 
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 
