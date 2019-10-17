@@ -1,6 +1,6 @@
 $(function(){
 	msg_waiting()
-	$('.sidebar-toggle').hide();
+	// $('.sidebar-toggle').hide();
 
 	$('.amendment').click(function(){ // แก้ไข้ครั้งแรก
 		msg_waiting()

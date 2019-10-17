@@ -17,12 +17,14 @@ setInterval( function() {
 	$("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
 	},1000);
 
+
 setInterval( function() {
 	// Create a newDate() object and extract the minutes of the current time on the visitor's
 	var minutes = new Date().getMinutes();
 	// Add a leading zero to the minutes value
 	$("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
     },1000);
+
 
 setInterval( function() {
 	// Create a newDate() object and extract the hours of the current time on the visitor's
@@ -70,33 +72,42 @@ setInterval( function() {
 		/*}*/
 	/*});*/
 
-	$('.type-time').change(function(){
+	/*$('.type-time').change(function(){*/
 		//$(this).find(':selected').addClass('selected').siblings('option').removeClass('selected');
-		var selectedOptions = $('.type-time option:selected');
-		var type_time       = selectedOptions.val();
+		/*var selectedOptions = $('.type-time option:selected');
+		var type_time       = selectedOptions.val();*/
 		//alert(type_time);
 		//alert(selectedOptions);
-		console.log(type_time);
+		//console.log(type_time);
 		$('.submit-add-timestamp').click(function(){
+			//var selectedOptions = $('select.type-time > option.ti').attr('value');
+			var selectedOptions = $('.type-time option:selected');
+			var type_time = selectedOptions.val();
+			//var type_time       = selectedOptions.val();
 			//alert(type_time);
-			console.log(type_time);
+			//console.log(type_time);
+			alert(type_time);
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 				type   : "POST",
 				url    : $('#add-timestamp').data('url'),
-				data   : {type_time : 'type_time'},
+				data   : {'type_time' : type_time},
 				success: function (result) {
 					//alert("success"+type_time);
+					//alert(result);
 					//msg_close();
 					//console.log(id);
-					console.log(type_time);
+					//console.log(result.data);
 				},
 				error : function(errors)
 				{
 					console.log(errors);
 				}
 			});
+			//console.log(type_time);
 		});
-	});
+		//console.log(type_time);
+	/*});*/
 
 });
+

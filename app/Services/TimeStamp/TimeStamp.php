@@ -10,6 +10,6 @@ class TimeStamp extends Model
 
     public function employee()
     {
-    	return $this->belongsTo("App\Services\Employee\Employee", 'id_employee', 'id_employee');
+    	return $this->hasMany("App\Services\Employee\Employee", 'id_employee', 'id_employee'); // onetoMany ไปยังตาราง Employee
     }
 }

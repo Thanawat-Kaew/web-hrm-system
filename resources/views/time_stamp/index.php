@@ -5,7 +5,7 @@
 	</h1>
 </section>
 <section class="content">
-	
+
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row add-leave-time-clock">
@@ -14,8 +14,10 @@
 					</button>
 				</div>
 				<div class="btn-group pull-right time-clock">
-					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
+					<a href="<?php echo route('time_stamp.time_stamp.get') ?>">
+					<button href="" type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
 					</button>
+				</a>
 				</div>
 			</div>
 			<div class="box box-info">
@@ -67,5 +69,6 @@
 
 <!-- data -->
 <div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
+<div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
 <?php echo csrf_field()?>
 

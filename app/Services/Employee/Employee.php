@@ -37,5 +37,11 @@ class Employee extends Model
     public function timestamp()
     {
         return $this->hasOne("App\Services\TimeStamp\TimeStamp", 'id_employee', 'id_employee');
+
+    }
+
+    public function requesttimestamp()
+    {
+        return $this->hasMany("App\Services\Request\RequestTimeStamp", 'id_employee', 'id_employee');
     }
 }

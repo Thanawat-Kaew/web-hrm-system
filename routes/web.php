@@ -24,15 +24,19 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout.index.post');
 // Route::get('/main', 'Main\MainController@main')->name('main');
 Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.index.get');
 
-Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.get');
+Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.time_stamp.get');
 
 Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp_request.get');
 Route::post('/timestamp/add_timestamp', 'TimeStamp\TimeStampController@addTimeStamp')->name('time_stamp.add_timestamp.post');
+
+Route::post('/time_stamp/add_time_stamp', 'TimeStamp\TimeStampController@add_time_stamp')->name('time_stamp.add_time_stamp.post');
+Route::post('/time_stamp/add_request_time_stamp', 'TimeStamp\TimeStampController@addRequestTimeStamp')->name('time_stamp.add_request_time_stamp.post');
 
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
 Route::post('/personal_info/amendment', 'Employee\EmployeeController@ajaxCenter')->name('personal_info.ajax_center.post');
+
 Route::post('/personal_info/edit_data_employee', 'Employee\EmployeeController@editDataEmployee')->name('personal_info.edit_data_employee.post');
 Route::post('/personal_info/update_edit_data_employee', 'Employee\EmployeeController@updateEditDataEmployee')->name('personal_info.update_edit_data_employee.post');
 

@@ -58,6 +58,7 @@ class EmployeeObject{
     			$submenu = [];
     			$submenu['name_th'] = $value->menu->name_th;
     			$submenu['name_en'] = $value->menu->name_en;
+                $submenu['fa_icon'] = $value->menu->fa_icon;
     			$submenu['permission'] = $value->permission;
     			$submenu['sorting'] = $value->menu->sorting;
     			$submenu['image'] = $value->menu->image;
@@ -71,7 +72,7 @@ class EmployeeObject{
 
     	\Session::put('current_menu', (object)$menu);
         //$curr_emp =
-        // sd((object)$menu);
+         // sd((object)$menu);
     }
 
     public function getIdEmployee()
