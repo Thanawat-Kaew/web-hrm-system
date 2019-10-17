@@ -65,7 +65,7 @@ $(function(){
 					'อนุมัติ!',
 					'คุณได้ทำการอนุมัติเรียบร้อย',
 					'success').then((result) =>{
-						if (result.value) 
+						if (result.value)
 						{
 							window.location.reload();
 						}

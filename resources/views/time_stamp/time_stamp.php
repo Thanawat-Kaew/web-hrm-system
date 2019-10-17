@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,10 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-user-secret"></i>
                             </div>
-                            <input class="form-control" type="text" readonly value=" ธนวัฒน์  แก้วล้อมวัง">
+                            <?php if(\Session::has('current_employee')) :?>
+                                <?php $current_employee = \Session::get('current_employee') ?>
+                                <input class="form-control" type="text" readonly value="<?php echo $current_employee['first_name']?> <?php echo $current_employee['last_name']?>">
+                            <?php endif?>
                         </div><br>
                         <div class="input-group password_employee">
                             <div class="input-group-addon">
@@ -59,22 +63,23 @@
                         </div><br>
                         <div class="form-group ">
                             <label>รูปแบบ</label>
-                            <select class="form-control select2" style="width: 100%;">
-                                <option selected="selected" value="time_in77" id="time_in">ลงเวลาเข้า  (Time In)</option>
-                                <option value="time_out"  id="time_out">ลงเวลาออก  (Time Out)</option>
-                                <option value="break_out" id="break_out">ออกพักกลางวัน  (Break Out)</option>
-                                <option value="break_in"  id="break_in">เข้าพักกลางวัน  (Break In)</option>
+                            <select class="form-control select2 type-time" style="width: 100%;">
+                                <option>กรุณาเลือกรูปแบบ</option>
+                                <option class="time_in ti" value="time_in">ลงเวลาเข้า  (Time In)</option>
+                                <option class="break_out ti" value="break_out">ออกพักกลางวัน  (Break Out)</option>
+                                <option class="break_in ti" value="break_in">เข้าพักกลางวัน  (Break In)</option>
+                                <option class="time_out ti" value="time_out">ลงเวลาออก  (Time Out)</option>
                             </select>
                         </div>
                         <div class="form-group text-center">
                             <a href="">
-                                <button class="btn btn-info pull-center add_time_stamp" type="submit">SUBMIT</button>
+                                <button class="btn btn-info pull-center submit-add-timestamp" type="submit">SUBMIT</button>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="box-body table-responsive no-padding">
+                <div class="box box-body table-responsive no-padding">
                     <table class="table">
                         <tr>
                             <th>Name</th>
@@ -86,34 +91,34 @@
                             <th>Time-Out</th>
                         </tr>
                         <tr>
-                            <td>ธนวัฒน์ แก้วล้อมวัง</td>
+
+                            <td></td>
                             <td>Web Developer</td>
                             <td>11-7-2014</td>
                             <td>09:00</td>
                             <td>-</td>
                             <td>-</td>
                             <td>18:00</td>
+
                         </tr>
                     </table>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
-<!-- data -->
-<div id="ajax-center-url" data-url="<?php echo route('time_stamp.add_time_stamp.post')?>"></div>
+    <!-- data -->
+    <div id="ajax-center-url" data-url="<?php echo route('time_stamp.add_time_stamp.post')?>"></div>
+    <div id="add-timestamp" class="add-timestamp" data-url="<?php echo route('time_stamp.add_timestamp.post')?>"></div>
+    <?php echo csrf_field()?>
 
-
-<!-- jQuery 3 -->
-<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
-<!--Clock-->
-<script src="/resources/assets/js/time_stamp/time_stamp.js"></script>
+    <!-- jQuery 3 -->
+    <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
+    <!--Clock-->
+    <script src="/resources/assets/js/time_stamp/time_stamp.js"></script>
 </body>
-
 </html>
-

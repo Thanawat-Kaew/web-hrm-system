@@ -31,8 +31,8 @@ $('.request-time_stamp').on('click', '.request_time_stamp', function(){
 	})
 })
 
-function showDialog(form,title){
-	var box = bootbox.dialog({ 
+function showDialog(form,title,oldValue=''){
+	var box = bootbox.dialog({
 		title: title,
 		message: form,
 		size: 'xlarge',
@@ -43,7 +43,7 @@ function showDialog(form,title){
 				label: 'บันทึก',
 				className: 'btn-info',
 				callback: function(){
-
+				sendRequest(form, title);
 				}
 			},
 			fum: {
@@ -62,7 +62,19 @@ function showDialog(form,title){
 			use24hours: true,
 			showMeridian: false
 		})
-		$('.datepicker').datepicker({autoclose: true,format: 'dd-mm-yyyy'})
+		$('.datepicker').datepicker({autoclose: true,format: 'yyyy-mm-dd'})
+
+		$('body').addClass('modal-open');
+		if(oldValue !== ""){
+			$.each(oldValue, function(key, value) {
+				$('#'+key).val(value);
+				if(value == "") {
+					$('#'+key + "-text-error").html("* Required").show();
+				} else {
+					$('#'+key + "-text-error").html("").hide();
+				}
+			});
+		}
 	});
 };
 
@@ -72,3 +84,56 @@ $('.time-clock').on('click', '.time_stamp', function(){
 
 $('.timepicker').timepicker({ format: 'HH:mm', use24hours: true, showMeridian: false})
 $('.datepicker').datepicker({autoclose: true,format: 'dd-mm-yyyy'})
+
+function sendRequest(form, title){
+	msg_waiting();
+	var count 			 = 0;
+	var oldValue 		 = {};
+	jQuery.each($('.required'),function(){
+		var name = $(this).attr('id');
+		oldValue[name]= $(this).val();
+		if ($(this).val() =="") {
+			count++
+			$(this).css({"border" : "1px solid red"});
+		}else{
+			$(this).css({"border" : "1px solid lightgray"});
+		}
+	})
+
+	if(count > 0) {
+		showDialog(form, title, oldValue);
+	}else{
+		recordRequestTimeStamp(oldValue);
+	}
+}
+
+function addRequestTimeStamp(oldValue){ // บันทึกลง Table Request_time_stamp
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type : 'POST',
+		url  : $('#add-request-time-stamp').data('url'),
+		data : {
+			delay_time  : $('#date-history').val(),
+			time_in 	: $('#time-in-history').val(),
+			break_out 	: $('#break-out-history').val(),
+			break_in 	: $('#break-in-history').val(),
+			time_out 	: $('#time-out-history').val(),
+			reason 	    : $('#reason-request-time-stamp').val(),
+		},
+		success: function(response){
+			// success alert
+			msg_success()
+			window.location.reload();
+			// alert('Data save');
+			// msg_close();
+		},
+		error: function(error){
+			alert('Data not save form edit');
+			msg_close();
+		}
+	});
+}
+
+// $('.time-clock').on('click', '.time_stamp', function(){
+// 	window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
+// });
