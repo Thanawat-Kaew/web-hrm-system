@@ -884,4 +884,52 @@ class FormRepository
         return $form;
     }
 
+    public static function getRequestTimeStamp()
+    {
+            $form = '<div class="box-body">';
+                $form .= '<div class="form-group">';
+                    $form .= '<label>วันที่</label>';
+                    $form .= '<div class="input-group">';
+                        $form .= '<div class="input-group-addon">';
+                            $form .= '<i class="fa fa-calendar"></i>';
+                        $form .= '</div>';
+                        $form .= '<input type="text" class="form-control datepicker" placeholder="14-10-2019">';
+                    $form .= '</div>';
+                $form .= '</div>';
+                $form .= '<div class="form-group ">';
+                    $form .= '<label>รูปแบบ</label>';
+                    $form .= '<select class="form-control select2" style="width: 100%;">';
+                        $form .= '<option selected="selected" value="time_in77" id="time_in">ลงเวลาเข้า  (Time In)</option>';
+                        $form .= '<option value="time_out" id="time_out">ลงเวลาออก  (Time Out)</option>';
+                        $form .= '<option value="break_out" id="break_out">ออกพักกลางวัน  (Break Out)</option>';
+                        $form .= '<option value="break_in" id="break_in">เข้าพักกลางวัน  (Break In)</option>';
+                    $form .= '</select>';
+                $form .= '</div>';
+                $form .= '<div class="form-group">';
+                    $form .= '<label>เวลา</label>';
+                    $form .= '<div class="input-group">';
+                        $form .= '<div class="input-group-addon">';
+                            $form .= '<i class="fa fa-clock-o"></i>';
+                        $form .= '</div>';
+                        $form .= '<input type="text" class="form-control timepicker">';
+                    $form .= '</div>';
+                $form .= '</div>';
+                $form .= '<div class="form-group">';
+                    $form .= '<label>เหตุผล</label>';
+                    $form .= '<textarea type="text" rows="5" class="form-control" placeholder="ลืมลงเวลาออก"></textarea>';
+                $form .= '</div>';
+                $form .= '<div class="form-group">';
+                    $form .= '<label>ผู้อนุมัติ</label>';
+                    $form .= '<div class="input-group">';
+                        $form .= '<div class="input-group-addon">';
+                            $form .= '<i class="fa fa-user"></i>';
+                        $form .= '</div>';
+                        $form .= '<input type="text" readonly class="form-control">';
+                    $form .= '</div>';
+                $form .= '</div>';
+            $form .= '</div>';
+
+        return $form;
+    }
+
 }

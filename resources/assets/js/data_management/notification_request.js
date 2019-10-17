@@ -72,7 +72,7 @@ $(function(){
 					})
 				}
 			})
-		})
+	})
 
 	$('.btn-cancel-data-request').click(function(){
 		var id = $(this).data('id');
@@ -107,7 +107,16 @@ $(function(){
 							'reason_reject' : result.value
 						}
 					});
-						window.location.reload()
+					Swal.fire(
+						'สำเร็จ!',
+						'คุณได้ปฏิเสธการ้องขอเรียบร้อย',
+						'success'
+						).then((result) =>{
+							if (result.value) 
+							{
+								window.location.reload();
+							}
+						})
 					}else{
 						Swal.fire(
 							'ไม่สำเร็จ!',
@@ -119,10 +128,3 @@ $(function(){
 		})
 	})
 });
-
-
-
-
-
-
-

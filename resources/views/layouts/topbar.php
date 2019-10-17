@@ -68,7 +68,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default">โปรไฟล์</a>
+                  <a href="<?php echo route('personal_info.personal_info.get') ?>" class="btn btn-default">โปรไฟล์</a>
                 </div>
                 <div class="pull-right">
                   <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default">ออกจากระบบ</a>

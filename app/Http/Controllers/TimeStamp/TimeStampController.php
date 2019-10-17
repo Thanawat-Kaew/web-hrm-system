@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\Forms\FormRepository;
-use App\Services\TimeStamp\TimeStamp;
 
 class TimeStampController extends Controller
 {
@@ -17,7 +16,7 @@ class TimeStampController extends Controller
 
     public function time_stamp()
     {
-        return $this->useTemplate('time_stamp.time_stamp');
+        return view('time_stamp.time_stamp');
     }
 
     public function time_stamp_request()
@@ -35,6 +34,12 @@ class TimeStampController extends Controller
 				$form_new_time_clock = $form_repo->getFormNewTimeClock();
                 return response()->json(['status'=> 'success','data'=> $form_new_time_clock]);
                 break;
+
+            case 'getRequestTimeStamp':
+                $form_repo = new FormRepository;
+                $form_request_timestamp = $form_repo->getRequestTimeStamp();
+                return response()->json(['status'=> 'success','data'=> $form_request_timestamp]);
+                break;
             
             default:
                 # code...
@@ -42,7 +47,4 @@ class TimeStampController extends Controller
         }
        
     }
-    
-    
-
 }

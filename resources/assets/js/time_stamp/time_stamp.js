@@ -31,7 +31,16 @@ setInterval( function() {
 	$("#hours").html(( hours < 10 ? "0" : "" ) + hours);
 }, 1000)
 
+	// add time stamp function
+	$('.add_time_stamp').click(function() {		
+		$('.select2').on('change',function(){
 
+			var format_time = $('#time_in').val();
+
+			// alert(format_time);
+			postAddTimeStamp(format_time);	
+
+		});
+	})
 
 });
-

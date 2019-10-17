@@ -24,7 +24,7 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout.index.post');
 // Route::get('/main', 'Main\MainController@main')->name('main');
 Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.index.get');
 
-Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.time_stamp.get');
+Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.get');
 
 Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp_request.get');
 

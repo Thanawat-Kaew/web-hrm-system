@@ -90,7 +90,6 @@
                     <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
                         <?php echo csrf_field() ?>
                     </form>
-
                 </div>
             </div>
         </div>
