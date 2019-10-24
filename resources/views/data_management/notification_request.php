@@ -1,8 +1,8 @@
 <section class="content-header">
-	<h1>
+	<h3>
 		การจัดการคำร้อง |
 		<small> Amendment Manage</small>
-	</h1>
+	</h3>
 </section>
 <section class="content">
 	<div class="row">

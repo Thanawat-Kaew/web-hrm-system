@@ -27,6 +27,15 @@ class TimeStampController extends Controller
         return $this->useTemplate('time_stamp.time_stamp_request');
     }
 
+    public function time_stamp_list_request()
+    {
+        return $this->useTemplate('time_stamp.list_request');
+    }
+
+    public function change_time_stamp_request()
+    {
+        return $this->useTemplate('time_stamp.change_time_stamp_request');
+    }
 
     public function ajaxCenter(Request $request)
     {

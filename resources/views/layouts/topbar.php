@@ -34,8 +34,13 @@
                     </a>
                   </li>
                   <li class="view-time-stamp-request">
-                    <a href="<?php echo route('time_stamp_request.get')?>">
+                    <a href="<?php echo route('time_stamp.time_stamp_request.get')?>">
                       <i class="fa fa-users text-aqua"></i> รายการคำร้องขอลงเวลาย้อนหลัง
+                    </a>
+                  </li>
+                  <li class="view-time-stamp-request">
+                    <a href="<?php echo route('time_stamp.change_time_stamp_request.get')?>">
+                      <i class="fa fa-users text-aqua"></i> รายการคำร้องขอแก้ไขการลงเวลา
                     </a>
                   </li>
                 </ul>

@@ -15,7 +15,10 @@
 	margin-bottom: 5px; 
 }
 
-
 .request-time_stamp{
+	margin-right: 10px;
+}
+
+.request_list{
 	margin-right: 10px;
 }

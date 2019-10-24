@@ -26,7 +26,12 @@ Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.in
 
 Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.get');
 
-Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp_request.get');
+Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp.time_stamp_request.get');
+
+Route::get('/index/timestamp/list_request', 'TimeStamp\TimeStampController@time_stamp_list_request')->name('time_stamp.list_request.get');
+
+Route::get('/index/timestamp/change_time_stamp_request', 'TimeStamp\TimeStampController@change_time_stamp_request')->name('time_stamp.change_time_stamp_request.get');
+
 Route::post('/timestamp/add_timestamp', 'TimeStamp\TimeStampController@addTimeStamp')->name('time_stamp.add_timestamp.post');
 
 Route::post('/time_stamp/add_time_stamp', 'TimeStamp\TimeStampController@add_time_stamp')->name('time_stamp.add_time_stamp.post');
@@ -54,6 +59,7 @@ Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('lea
 Route::post('/time_stamp/ajax_center', 'TimeStamp\TimeStampController@ajaxCenter')->name('time_stamp.ajax_center.post');
 
 Route::get('/evaluation/create_evaluations', 'Evaluation\EvaluationController@create_evaluations')->name('evaluation.create_evaluations.get');
+Route::get('/evaluation/assessment', 'Evaluation\EvaluationController@assessment')->name('evaluation.assessment.get');
 
 Route::post('/evaluation/ajax_center', 'Evaluation\EvaluationController@ajaxCenter')->name('evaluation.ajax_center.post');
 

@@ -1,8 +1,8 @@
 <section class="content-header">
-	<h1>
+	<h3>
 		การออกรายงาน |
 		<small> Report</small>
-	</h1>
+	</h3>
 </section>
 <section class="content">
 	<!-- Small boxes (Stat box) -->

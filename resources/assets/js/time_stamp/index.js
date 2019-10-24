@@ -14,7 +14,7 @@ $('.dropup-new-record').on('click', '.add-new-record', function(){
 	})
 })
 
-// ปุมลืมลงเวลา
+// ปุมลืมลงเวลาออก
 $('.request-time_stamp').on('click', '.request_time_stamp', function(){
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
@@ -22,7 +22,7 @@ $('.request-time_stamp').on('click', '.request_time_stamp', function(){
 		url: $('#ajax-center-url').data('url'),
 		data: {method : 'getRequestTimeStamp'},
 		success: function (result) {
-			var title = "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add Record (กรณีลืมลงเวลา)</small></h4>";
+			var title = "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add Record (กรณีลืมลงเวลาออก)</small></h4>";
 			showDialog(result.data,title)
 		},
 		error: function(errors){
@@ -82,7 +82,7 @@ $('.time-clock').on('click', '.time_stamp', function(){
 	window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
 });
 
-$('.timepicker').timepicker({ format: 'HH:mm', use24hours: true, showMeridian: false})
+$('.timepicker').timepicker()
 $('.datepicker').datepicker({autoclose: true,format: 'dd-mm-yyyy'})
 
 function sendRequest(form, title){

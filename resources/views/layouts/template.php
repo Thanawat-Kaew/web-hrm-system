@@ -106,12 +106,6 @@
 <!-- main function -->
 <script src="/resources/assets/js/main.js"></script>
 
-<!-- <script src="/resources/assets/js/personal_info/personal_info.js"></script>
-<script src="/resources/assets/js/data_management/index.js"></script>
-<script src="/resources/assets/js/time_stamp/index.js"></script>
-<script src="/resources/assets/js/time_stamp/time_stamp.js"></script>
-<script src="/resources/assets/js/leave/leave.js"></script>
- -->
 <?php if (file_exists(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js')): ?>
 <script src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
 <?php endif ?>

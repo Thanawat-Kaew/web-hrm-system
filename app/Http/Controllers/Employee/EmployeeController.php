@@ -83,7 +83,6 @@ class EmployeeController extends Controller
             break;
 
             default:
-                # code...
             break;
         }
     }
@@ -101,9 +100,6 @@ class EmployeeController extends Controller
         $email       = $request->get('email');
         $tel         = $request->get('tel');
         $reason      = $request->get('reason');
-
-        //sd($id_employee);
-        //sd($fname);
 
         //save to database
         $edit = new RequestChangeData();

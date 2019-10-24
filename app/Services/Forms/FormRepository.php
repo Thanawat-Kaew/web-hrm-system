@@ -908,8 +908,7 @@ class FormRepository
 
     public static function getRequestTimeStamp()
     {
-            $form = '<div class="box-body">';
-                $form .= '<div class="form-group">';
+                $form = '<div class="form-group">';
                     $form .= '<label>วันที่</label>';
                     $form .= '<div class="input-group">';
                         $form .= '<div class="input-group-addon">';
@@ -949,7 +948,6 @@ class FormRepository
                         $form .= '<input type="text" readonly class="form-control">';
                     $form .= '</div>';
                 $form .= '</div>';
-            $form .= '</div>';
 
         return $form;
     }

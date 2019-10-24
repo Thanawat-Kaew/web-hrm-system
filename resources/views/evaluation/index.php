@@ -1,23 +1,29 @@
 <section class="content-header">
-	<h1>
+	<h3>
 		การประเมินผล |
 		<small> Evaluation</small>
-	</h1>
+	</h3>
 </section>
 <section class="content">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row">
 				<div class="btn-group pull-right new-evaluation">
-          <a class="add-evaluation" href="<?php echo route('evaluation.create_evaluations.get')?>">
-					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
-					</button>
-        </a>
+					<a class="add-evaluation" href="<?php echo route('evaluation.create_evaluations.get')?>">
+						<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
+						</button>
+					</a>
+				</div>
+				<div class="btn-group pull-right assess-evaluation">
+					<a class="add-evaluation" href="<?php echo route('evaluation.assessment.get')?>">
+						<button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน
+						</button>
+					</a>
 				</div>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
-					<h3 class="box-title">ประวัติการประเมิน</h3>
+					<h3 class="box-title">ประวัติการสร้างแบบประเมิน</h3>
 
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
@@ -45,7 +51,7 @@
 						<tr>
 							<td>0001</td>
 							<td>2019</td>
-							<td>แบบประเมินพิจารณาขึ้นเงินเดือน ประจำปี 2019</td>
+							<td>แบบประเมินผลการปฏิบัติงานของพนักงานประจาปี 2019</td>
 							<td>11-7-2014</td>
 							<td><span class="label label-success">Approved</span></td>
 							<td><button class="btn btn-info form-control"><i class="fa fa-eye"></i></button></td>

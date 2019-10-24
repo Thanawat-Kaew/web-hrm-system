@@ -1,8 +1,8 @@
 <section class="content-header">
-	<h1>
+	<h3>
 		การลงเวลา |
 		<small> Time Stamp</small>
-	</h1>
+	</h3>
 </section>
 <section class="content">
 	<div class="row">
@@ -20,6 +20,12 @@
 					<button type="button" class='btn btn-primary request_time_stamp'></i> ลืมลงเวลา
 					</button>
 				</div>
+				<a href="<?php echo route('time_stamp.list_request.get')?>">
+					<div class="btn-group pull-right request-time_stamp">
+						<button type="button" class='btn btn-warning request_list'></i> การร้องขอ
+						</button>
+					</div>
+				</a>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
@@ -47,7 +53,6 @@
 							<th>Break-In</th>
 							<th>Break-Out</th>
 							<th>Time-Out</th>
-							<th>Status</th>
 						</tr>
 						<tr>
 							<td>ธนวัฒน์ แก้วล้อมวัง</td>
@@ -57,7 +62,6 @@
 							<td>-</td>
 							<td>-</td>
 							<td>18:00</td>
-							<td><span class="label label-warning">กำลังรอ</span></td>
 						</tr>
 					</table>
 				</div>

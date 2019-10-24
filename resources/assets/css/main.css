@@ -37,3 +37,30 @@ h5,button{
 	width: 100%;
 	border-top: 2px solid red;
 }
+
+th{
+	width: 5px;
+	text-align: center;
+}
+
+.content_assessment,.assessment_grand_total{
+	background-color: #222d32 !important;
+	color: white;
+}
+
+tr>td{
+	text-align: center;
+}
+
+.name_title{
+	text-align: left !important;
+}
+
+.btn_success_evaluation{
+	margin-right: 10px;
+}
+
+.grand_total{
+	font-size: 20px;
+}
+

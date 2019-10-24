@@ -1,7 +1,7 @@
 <section class="content-header">
 	<h3>
-		การลงเวลาย้อนหลัง |
-		<small> Time Stamp Request</small>
+		คำร้องขอแก้ไขการลงเวลา |
+		<small> Request to amend the time stamp</small>
 	</h3>
 </section>
 <section class="content">
@@ -38,7 +38,7 @@
 							<td>ชนะชัย  ชุ่มชื่น</td>
 							<td>59</td>
 							<td>11-7-2014 19:08:00</td>
-							<td><i class="fa fa-eye fa-lg btn view_data"></i></td>
+							<td><i class="fa fa-eye fa-lg btn"></i></td>
 							<td><button class="btn btn-primary form-control btn-confirm">อนุมัติ</button></td>
 							<td><button class="btn btn-danger form-control btn-cancel">ไม่อนุมัติ</button></td>
 							<td><span class="label label-warning">กำลังรอ</span></td>

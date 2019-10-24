@@ -1,8 +1,8 @@
 <section class="content-header">
-	<h1>
+	<h3>
 		การลา |
 		<small> Leave</small>
-	</h1>
+	</h3>
 </section>
 <section class="content">
 	<!-- Info boxes -->

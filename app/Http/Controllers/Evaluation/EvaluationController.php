@@ -21,6 +21,11 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.create_evaluations');
     }
 
+    public function assessment()
+    {
+        return view('evaluation.assessment');
+    }
+
      public function ajaxCenter(Request $request)
     {
     	$method = $request->get('method');
