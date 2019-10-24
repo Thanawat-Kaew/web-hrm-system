@@ -75,4 +75,5 @@
 <!-- data -->
 <div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
 <div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
+<div id="add-request-forget-to-time" data-url="<?php echo route('time_stamp.add_request_forget_to_time.post')?>"></div>
 <?php echo csrf_field()?>

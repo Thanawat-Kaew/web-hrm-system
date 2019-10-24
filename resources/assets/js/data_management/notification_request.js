@@ -112,7 +112,7 @@ $(function(){
 						'คุณได้ปฏิเสธการ้องขอเรียบร้อย',
 						'success'
 						).then((result) =>{
-							if (result.value) 
+							if (result.value)
 							{
 								window.location.reload();
 							}

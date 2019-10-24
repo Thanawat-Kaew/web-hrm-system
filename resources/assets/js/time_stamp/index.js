@@ -1,4 +1,4 @@
-$('.dropup-new-record').on('click', '.add-new-record', function(){
+$('.dropup-new-record').on('click', '.add-new-record', function(){ // New Record
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type: 'POST',
@@ -103,7 +103,15 @@ function sendRequest(form, title){
 	if(count > 0) {
 		showDialog(form, title, oldValue);
 	}else{
-		recordRequestTimeStamp(oldValue);
+		//addRequestTimeStamp(oldValue);
+		//alert("ok");
+		if(title == "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add New Record</small></h4>"){
+			//alert("Add New Record");
+			addRequestTimeStamp(oldValue);
+		}else if(title == "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add Record (กรณีลืมลงเวลา)</small></h4>"){
+			//alert("Add Record");
+			addRequestForgetToTime(oldValue);
+		}
 	}
 }
 
@@ -128,7 +136,33 @@ function addRequestTimeStamp(oldValue){ // บันทึกลง Table Reques
 			// msg_close();
 		},
 		error: function(error){
-			alert('Data not save form edit');
+			alert('Data not save to request time stamp');
+			msg_close();
+		}
+	});
+}
+
+function addRequestForgetToTime(oldValue){ // บันทึกลง Table request_forget_to_time
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type : 'POST',
+		url  : $('#add-request-forget-to-time').data('url'),
+		data : {
+			type_time : $('#type-time-request-forget-to-time').val(),
+			time     : $('#time-request-forget-to-time').val(),
+			reason   : $('#reason-request-forget-to-time').val(),
+			date     : $('#date-request-forget-to-time').val(),
+		},
+		success: function(response){
+			// success alert
+			msg_success()
+			window.location.reload();
+			// alert('Data save');
+			// msg_close();
+		},
+		error: function(error){
+
+			alert('Data not save to request forget to time');
 			msg_close();
 		}
 	});
@@ -137,3 +171,4 @@ function addRequestTimeStamp(oldValue){ // บันทึกลง Table Reques
 // $('.time-clock').on('click', '.time_stamp', function(){
 // 	window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
 // });
+

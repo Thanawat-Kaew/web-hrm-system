@@ -12,4 +12,15 @@ class Status extends Model
     {
     	return $this->hasOne("App\Services\Request\RequestChangeData", 'id', 'status');
     }
+
+    public function requesttimestamp()
+    {
+    	return $this->hasOne("App\Services\Request\RequestTimeStamp", 'id', 'status');
+    }
+
+    public function requestforgettotime()
+    {
+    	return $this->hasOne("App\Services\Request\RequestForgetToTime", 'id', 'status');
+    }
+
 }
