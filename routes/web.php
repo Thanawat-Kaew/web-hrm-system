@@ -26,11 +26,13 @@ Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.in
 
 Route::get('/index/timestamp', 'TimeStamp\TimeStampController@time_stamp')->name('time_stamp.get');
 
-Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp_request.get');
+Route::get('/index/timestamp/request', 'TimeStamp\TimeStampController@time_stamp_request')->name('time_stamp.time_stamp_request.get');
 Route::post('/timestamp/add_timestamp', 'TimeStamp\TimeStampController@addTimeStamp')->name('time_stamp.add_timestamp.post');
 
 Route::post('/time_stamp/add_time_stamp', 'TimeStamp\TimeStampController@add_time_stamp')->name('time_stamp.add_time_stamp.post');
 Route::post('/time_stamp/add_request_time_stamp', 'TimeStamp\TimeStampController@addRequestTimeStamp')->name('time_stamp.add_request_time_stamp.post');
+Route::post('/time_stamp/add_request_forget_to_time', 'TimeStamp\TimeStampController@addRequestForgetToTime')->name('time_stamp.add_request_forget_to_time.post');
+
 
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 
@@ -52,6 +54,8 @@ Route::post('/data_manage/cancel', 'DataManagement\DataManageController@cancelDa
 Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center.post');
 
 Route::post('/time_stamp/ajax_center', 'TimeStamp\TimeStampController@ajaxCenter')->name('time_stamp.ajax_center.post');
+Route::post('/time_stamp/confirm', 'TimeStamp\TimeStampController@confirmDataRequestTimeStamp')->name('time_stamp.confirm-data-request-time-stamp.post');
+Route::post('/time_stamp/cancel', 'TimeStamp\TimeStampController@cancelDataRequestTimeStamp')->name('time_stamp.cancel-data-request-time-stamp.post');
 
 Route::get('/evaluation/create_evaluations', 'Evaluation\EvaluationController@create_evaluations')->name('evaluation.create_evaluations.get');
 

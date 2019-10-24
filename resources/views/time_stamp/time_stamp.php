@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +44,7 @@
                                 <li id="point">:</li>
                                 <li id="sec"> </li>
                             </ul>
-                        </div> 
+                        </div>
                         <div class="input-group name_employee">
                             <div class="input-group-addon">
                                 <i class="fa fa-user-secret"></i>
@@ -108,8 +107,7 @@
     </div>
 
     <!-- data -->
-    <div id="ajax-center-url" data-url="<?php echo route('time_stamp.add_time_stamp.post')?>"></div>
-    <div id="add-timestamp" class="add-timestamp" data-url="<?php echo route('time_stamp.add_timestamp.post')?>"></div>
+    <div id="add-timestamp" data-url="<?php echo route('time_stamp.add_timestamp.post')?>"></div>
     <?php echo csrf_field()?>
 
     <!-- jQuery 3 -->

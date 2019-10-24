@@ -15,6 +15,6 @@ class RequestChangeData extends Model
 
     public function status()
     {
-    	return $this->belongsTo("App\Services\Request\RequestChangeData", 'status', 'id');
+    	return $this->belongsTo("App\Services\Request\Status", 'status', 'id');
     }
 }

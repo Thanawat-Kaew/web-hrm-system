@@ -4,9 +4,9 @@ namespace App\Services\Request;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RequestTimeStamp extends Model
+class RequestForgetToTime extends Model
 {
-    protected $table = 'request_time_stamp';
+    protected $table = 'request_forget_to_time';
 
     public function employee()
     {

@@ -1,18 +1,17 @@
 $(function(){
-	$('.view-data-request').click(function(){
+	$('.view-data-request-time-stamp').click(function(){
 		msg_waiting()
 		var	id = $(this).data('id');
-		//console.log(id)
+		//console.log(id);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
-			data: {'method' : 'getViewDataRequest',
+			data: {'method' : 'getViewDataRequestTimeStamp',
 			'id'	    : id
 		},
 		success: function (result) {
-			var title = "<h4 style='color: red;'>ข้อมูลที่แก้ไข <small> | Edit Employee</small></h4>"
-				//showDialog(result.data,title);
+			var title = "<h4 style='color: red;'>ข้อมูลเวลาที่ขอลงเวลาย้อนหลัง <small> | Edit Employee</small></h4>"
 				bootbox.dialog({
 					title: title,
 					message: result.data,
@@ -28,6 +27,8 @@ $(function(){
 						}
 					}
 				})
+				//alert(result.data);
+				//console.log(result.data);
 				msg_close();
 			},
 			error : function(errors)
@@ -35,19 +36,19 @@ $(function(){
 				console.log(errors);
 			}
 		})
-	})
+	});
 
 	msg_waiting()
-	$('.btn-confirm-data-request').click(function(){
+	$('.btn-confirm-data-request-time-stamp').click(function(){  // กด อนุมัติ
 		//alert("confirm");
 		var id = $(this).data('id');
-		console.log(id);
+		//console.log(id);
+		//alert(id);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: "POST",
-			url: $('#confirm-ajax-center-url').data('url'),
-			data: {'method' : 'getViewDataRequest',
-			'id'	    : id
+			url: $('#confirm-data-request-time-stamp').data('url'),
+			data: {'id'	    : id
 		}
 	});
 		Swal.fire({
@@ -74,8 +75,9 @@ $(function(){
 			})
 	})
 
-	$('.btn-cancel-data-request').click(function(){
+	$('.btn-cancel-data-request-time-stamp').click(function(){  // กดปฏิเสธ
 		var id = $(this).data('id');
+		//alert(id);
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะไม่อนุมัติการแก้ไขข้อมูลนี้ !",
@@ -101,11 +103,10 @@ $(function(){
 						$.ajax({
 							headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 							type: "POST",
-							url: $('#cancel-ajax-center-url').data('url'),
-							data: {'method' 	   : 'getViewDataRequest',
-							'id'	           : id,
-							'reason_reject' : result.value
-						}
+							url: $('#cancel-data-request-time-stamp').data('url'),
+							data:{'id'	           : id,
+							       'reason_reject' : result.value
+						    }
 					});
 					Swal.fire(
 						'สำเร็จ!',
@@ -128,3 +129,4 @@ $(function(){
 		})
 	})
 });
+
