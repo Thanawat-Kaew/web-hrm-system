@@ -17,4 +17,9 @@ class RequestForgetToTime extends Model
     {
     	return $this->belongsTo("App\Services\Request\Status", 'status', 'id');
     }
+
+    public function timestamp()
+    {
+    	return $this->belongsTo("App\Services\TimeStamp\TimeStamp", 'id_employee', 'id_employee');
+    }
 }

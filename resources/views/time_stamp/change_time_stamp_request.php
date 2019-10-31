@@ -33,16 +33,32 @@
 							<th></th>
 							<th>สถานะ</th>
 						</tr>
+						<?php $count = 0;
+							foreach($request as $value) :
+						 	$count = $count + 1;
+						?>
 						<tr>
-							<td>1</td>
-							<td>ชนะชัย  ชุ่มชื่น</td>
-							<td>59</td>
-							<td>11-7-2014 19:08:00</td>
-							<td><i class="fa fa-eye fa-lg btn"></i></td>
-							<td><button class="btn btn-primary form-control btn-confirm">อนุมัติ</button></td>
-							<td><button class="btn btn-danger form-control btn-cancel">ไม่อนุมัติ</button></td>
-							<td><span class="label label-warning">กำลังรอ</span></td>
+							<td><?php echo $count; ?></td>
+							<td><?php echo $value->employee['first_name']?> <?php echo $value->employee['last_name']?></td>
+							<td><?php echo $value['id_employee']?></td>
+							<td><?php echo $value['created_at']?></td>
+							<td>
+								<i class="fa fa-eye fa-lg btn view-data-request-forget-to-time" data-id="<?php echo $value['id']?>"></i>
+							</td>
+							<td>
+								<button class="btn btn-primary form-control btn-confirm-data-request-forget-to-time <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
+                                </button>
+							</td>
+							<td>
+								<button class="btn btn-danger form-control btn-cancel-data-request-forget-to-time <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">ไม่อนุมัติ
+                                </button>
+							</td>
+							<td>
+								<span class="label <?php echo ($value['status'] == 1 ? 'label-primary' : ($value['status'] == 3 ? 'label-danger' : 'label-warning')); ?>"><?php echo ($value['status'] == 1 ? 'อนุมัติ' : ($value['status'] == 3 ? 'ไม่อนุมัติ' : 'กำลังรอ')); ?>
+                                </span>
+							</td>
 						</tr>
+						<?php endforeach ?>
 						<tr>
 							<td>2</td>
 							<td>ชนะชัย  ชุ่มชื่น</td>
@@ -59,3 +75,7 @@
 		</div>
 	</div>
 </section>
+<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
+<div id="confirm-data-request-forget-to-time" data-url="<?php echo route('time_stamp.confirm-data-request-forget-to-time.post')?>"></div>
+<div id="cancel-data-request-forget-to-time" data-url="<?php echo route('time_stamp.cancel-data-request-forget-to-time.post')?>"></div>
+<?php echo csrf_field()?>

@@ -6,7 +6,7 @@ $('.dropup-new-record').on('click', '.add-new-record', function(){ // New Record
 		data: {method : 'getFormNewTimeClock'},
 		success: function (result) {
 			var title = "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add New Record</small></h4>";
-			showDialog(result.data,title)
+			showDialog(result.data,title);
 		},
 		error: function(errors){
 			console.log(errors)
@@ -22,8 +22,8 @@ $('.request-time_stamp').on('click', '.request_time_stamp', function(){
 		url: $('#ajax-center-url').data('url'),
 		data: {method : 'getRequestTimeStamp'},
 		success: function (result) {
-			var title = "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add Record (กรณีลืมลงเวลาออก)</small></h4>";
-			showDialog(result.data,title)
+			var title = "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add Record (กรณีลืมลงเวลา)</small></h4>";
+			showDialog(result.data,title);
 		},
 		error: function(errors){
 			console.log(errors)
@@ -155,8 +155,8 @@ function addRequestForgetToTime(oldValue){ // บันทึกลง Table req
 		},
 		success: function(response){
 			// success alert
-			msg_success()
-			window.location.reload();
+			msg_success();
+			window.location.reload();  //ต้องปิดถ้าอยากดูค่าเพราะเป็น Ajax
 			// alert('Data save');
 			// msg_close();
 		},

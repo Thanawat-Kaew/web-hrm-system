@@ -49,4 +49,5 @@ class Employee extends Model
     {
         return $this->hasMany("App\Services\Request\RequestForgetToTime", 'id_employee', 'id_employee');
     }
+
 }
