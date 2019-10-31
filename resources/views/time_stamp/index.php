@@ -16,16 +16,6 @@
 					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
 					</button>
 				</div>
-				<div class="btn-group pull-right request-time_stamp">
-					<button type="button" class='btn btn-primary request_time_stamp'></i> ลืมลงเวลา
-					</button>
-				</div>
-				<a href="<?php echo route('time_stamp.list_request.get')?>">
-					<div class="btn-group pull-right request-time_stamp">
-						<button type="button" class='btn btn-warning request_list'></i> การร้องขอ
-						</button>
-					</div>
-				</a>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
@@ -47,21 +37,61 @@
 					<table class="table table-hover">
 						<tr>
 							<th>Name</th>
-							<th>Position</th>
 							<th>Date</th>
 							<th>Time-In</th>
 							<th>Break-In</th>
 							<th>Break-Out</th>
 							<th>Time-Out</th>
+							<th>Status</th>
+							<th></th>
 						</tr>
 						<tr>
 							<td>ธนวัฒน์ แก้วล้อมวัง</td>
-							<td>Web Developer</td>
 							<td>11-7-2014</td>
 							<td>09:00</td>
 							<td>-</td>
 							<td>-</td>
 							<td>18:00</td>
+							<td><span class="label label-warning">waiting</span></td>
+							<td>
+								<i class="fa fa-pencil btn" >
+								</i>
+							
+								<i class="fa fa-trash btn" >
+								</i>
+								<i class="fa fa-eye fa-lg btn view-data"></i>
+							</td>
+					
+						</tr>
+						<tr>
+							<td>ธนวัฒน์ แก้วล้อมวัง</td>
+							<td>11-7-2014</td>
+							<td>09:00</td>
+							<td>-</td>
+							<td>-</td>
+							<td>18:00</td>
+							<td><span class="label label-success">success</span></td>
+							<td><i class="fa fa-eye fa-lg btn view-data"></i></td>
+						</tr>
+						<tr>
+							<td>ธนวัฒน์ แก้วล้อมวัง</td>
+							<td>11-7-2014</td>
+							<td>09:00</td>
+							<td>-</td>
+							<td>-</td>
+							<td>18:00</td>
+							<td><span class="label label-danger">rejected</span></td>
+							<td><i class="fa fa-eye fa-lg btn view-data"></i></td>
+						</tr>
+						<tr>
+							<td>ธนวัฒน์ แก้วล้อมวัง</td>
+							<td>11-7-2014</td>
+							<td>09:00</td>
+							<td>-</td>
+							<td>-</td>
+							<td>18:00</td>
+							<td></td>
+							<td></td>
 						</tr>
 					</table>
 				</div>

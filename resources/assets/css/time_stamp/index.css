@@ -22,3 +22,30 @@
 .request_list{
 	margin-right: 10px;
 }
+.picker-opened > .picker-dialog {
+  /*bottom: 0; */
+  top: 5% !important;
+}
+
+.picker-confirm{
+	background-color: #0074d9;
+	color: white;
+}
+.picker-confirm:hover{
+	background-color: #0074d9a6;
+	color: white;
+}
+.picker-cancel{
+	background-color: #dd4b39;
+	color: white;
+}
+.picker-cancel:hover{
+	background-color: #c9302c;
+	color: white;
+}
+.picker-dialog{
+	background-color: black !important;
+}
+.picker-body, .picker-footer{
+	background-color: white !important;
+}

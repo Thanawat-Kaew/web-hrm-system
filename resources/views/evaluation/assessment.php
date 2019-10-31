@@ -21,10 +21,9 @@
 	<!-- icheck -->
 	<link rel="stylesheet" href="/resources/assets/theme/adminlte/plugins/iCheck/all.css">
 	<!-- sweet alert -->
-  	<link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
+	<link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
 	<!-- main -->
-  	<link rel="stylesheet" href="/resources/assets/css/main.css">
-
+	<link rel="stylesheet" href="/resources/assets/css/main.css">
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
@@ -32,38 +31,61 @@
 <body class="content_assessment">
 	<section class="content">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-3">
+					<div class="content-header">
+						<h3>ข้อมูล</h3>
+					</div>
+				<!-- <div class="info-box bg-yellow">
+					<span class="info-box-icon"><i class="fa fa-check-square-o"></i></span>
+					<div class="info-box-content">
+						<span class="info-box-text">จำนวนพนักงานทั้งหมด</span>
+						<span class="info-box-number">85</span>
+
+						<div class="progress">
+							<div class="progress-bar" style="width: 45%"></div>
+						</div>
+						<span class="progress-description">
+							ประเมินสำเร็จ 35  คิดเป็น 45%
+						</span>
+					</div>
+				</div> -->
+				<div class="text-center">
+					<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-imaged img-circle" alt="User Image">
+				</div>
+
+				<div class="box-header information_detail">
+					<div class="col-md-12">
+						<div class="form-group">
+							<h4>รหัสพนักงาน / ID Emp.</h4>
+							<input type="text" class="form-control assess_id_emp input_box" readonly value="5951001063">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<h4>ชื่อ-นามสกุล / Full Name.</h4>
+							<input type="text" class="form-control assess_fullname input_box" readonly value="ธนวัฒน์  แก้วล้อมวัง">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<h4>แผนก / Dept.</h4>
+							<input type="text" class="form-control assess_department input_box" readonly value="Engineer">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<h4>หน่วยงาน / Unit.</h4>
+							<input type="text" class="form-control assess_organization input_box" readonly value="Bookkaza Co.,Ltd">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-9">
 				<div class="content-header">
 					<h3>แบบประเมินผลการปฏิบัติงานของพนักงาน ประจำปี 2019</h3>
 				</div>
 				<div class="box box-info">
-					<div class="box-header">
-						<div class="col-md-6">
-							<div class="form-group">
-								<h4>แผนก / Dept.</h4>
-								<input type="text" class="form-control assess_department">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h4>หน่วยงาน / Unit.</h4>
-								<input type="text" class="form-control assess_organization">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h4>ชื่อ-นามสกุล / Full Name.</h4>
-								<input type="text" class="form-control assess_fullname">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h4>รหัสพนักงาน / ID Emp.</h4>
-								<input type="text" class="form-control assess_id_emp">
-							</div>
-						</div>
-					</div>
-					<hr>
 
 					<div class="box-header with-border">
 						<div class="col-md-8">
@@ -106,7 +128,7 @@
 						<table class="table table-bordered table-condensed">
 							<tr>
 								<th>ข้อที่</th>
-								<th>ประสิทธิภาพในการทางาน 60%</th>
+								<th>ประสิทธิภาพในการทำงาน 60%</th>
 								<th>5</th>
 								<th>4</th>
 								<th>3</th>
@@ -159,15 +181,13 @@
 					</div>
 
 					<div class="box-header">
-						<label class="pull-right grand_total">Grand Total : 85 </label>
+						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : 85 </label>
 					</div>
 				</div>
 
 				<div class="btn-group pull-right">
-					<a href="">
-						<button type="button" class='btn btn-warning cancel_evaluation'> ยกเลิก
-						</button>
-					</a>
+					<button type="button" class='btn btn-warning cancel_evaluation'> ยกเลิก
+					</button>
 				</div>
 				<div class="btn-group pull-right btn_success_evaluation">
 					<a href="">
@@ -175,30 +195,29 @@
 						</button>
 					</a>
 				</div>
-			</div>
-			<div class="row hidden-xs hidden-sm">
-				<div class="col-md-8 col-md-offset-2">
-					<hr>
-					<strong>Copyright &copy; 2019 <a href="">EngCom-RU</a>.</strong> All rights
-					reserved.					
-				</div>
-				
+		</div><br><br>
+		<div class="row hidden-xs hidden-sm">
+			<div class="col-md-12">
+				<hr>
+				<strong style="margin-left: 10px;">Copyright &copy; 2019 <a href="">EngCom-RU</a>.</strong> All rights
+				reserved.					
 			</div>
 		</div>
-	</section>
-	<!-- jQuery 3 -->
-	<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap 3.3.7 -->
-	<script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
-	<!-- icheck -->
-	<script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
-	<script src="/resources/assets/js/evaluation/assessment.js"></script>
-	<!-- sweet alert -->
-	<script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
-	<!-- main function -->
-	<script src="/resources/assets/js/main.js"></script>
+	</div>
+</section>
+<!-- jQuery 3 -->
+<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
+<!-- icheck -->
+<script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
+<script src="/resources/assets/js/evaluation/assessment.js"></script>
+<!-- sweet alert -->
+<script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
+<!-- main function -->
+<script src="/resources/assets/js/main.js"></script>
 
 </body>
 </html>

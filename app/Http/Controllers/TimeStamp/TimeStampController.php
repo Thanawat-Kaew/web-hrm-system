@@ -260,7 +260,7 @@ class TimeStampController extends Controller
         $request->status      = 2;
         $request->reason      = $reason;
         $request->save();
-    }
+            }
 
 
 

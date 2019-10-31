@@ -5,14 +5,12 @@
 	</h3>
 </section>
 <section class="content">
-	<!-- Info boxes -->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box box-danger">
 				<div class="box-header">
 					<h3 class="box-title">ตารางการลาประจำปี</h3>
 				</div>
-				<!-- /.box-header -->
 				<div class="box-body no-padding">
 					<table class="table table-condensed">
 						<tbody>
@@ -147,12 +145,9 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- /.box-body -->
 			</div>
-			<!-- /.box -->
 		</div>
 	</div>
-	<!-- /.row -->
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row">
@@ -175,7 +170,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
 					<table class="table table-hover">
 						<tr>
@@ -235,9 +229,7 @@
 						</tr>
 					</table>
 				</div>
-				<!-- /.box-body -->
 			</div>
-			<!-- /.box -->
 		</div>
 	</div>
 </section>

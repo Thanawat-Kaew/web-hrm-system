@@ -64,3 +64,22 @@ tr>td{
 	font-size: 20px;
 }
 
+.information_detail{
+	color: white;
+}
+
+.input_box{
+	border-radius: 20px;
+	font-size: 18px;
+	text-align: center;
+	
+}
+
+.user-imaged{
+	width: 160px;
+	height: 160px;
+}
+
+.content_human_assessment{
+	background-color: #222d32 !important;
+}

@@ -19,7 +19,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead downloading all them to reduce the load. -->
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
     <!--Clock-->
-    <link rel="stylesheet" href="/resources/assets/css/time_stamp/time_stamp.css">
+    <link rel="stylesheet" href="/resources/assets/css/time_stamp/time_stamp.css?time=<?php echo time()?>">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
 

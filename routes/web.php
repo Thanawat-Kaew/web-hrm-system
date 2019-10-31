@@ -63,7 +63,8 @@ Route::post('/time_stamp/confirm', 'TimeStamp\TimeStampController@confirmDataReq
 Route::post('/time_stamp/cancel', 'TimeStamp\TimeStampController@cancelDataRequestTimeStamp')->name('time_stamp.cancel-data-request-time-stamp.post');
 
 Route::get('/evaluation/create_evaluations', 'Evaluation\EvaluationController@create_evaluations')->name('evaluation.create_evaluations.get');
-Route::get('/evaluation/assessment', 'Evaluation\EvaluationController@assessment')->name('evaluation.assessment.get');
+Route::get('/evaluation/human_assessment/assessment', 'Evaluation\EvaluationController@assessment')->name('evaluation.assessment.get');
+Route::get('/evaluation/human_assessment', 'Evaluation\EvaluationController@human_assessment')->name('evaluation.human_assessment.get');
 
 Route::post('/evaluation/ajax_center', 'Evaluation\EvaluationController@ajaxCenter')->name('evaluation.ajax_center.post');
 

@@ -47,7 +47,7 @@ function showDialog(form,title){
         })
 
         // date time picker
-        $(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+        $(".form_datetime").datetimepicker();
     });
 };
 
