@@ -45,8 +45,4 @@ class Employee extends Model
         return $this->hasMany("App\Services\Request\RequestTimeStamp", 'id_employee', 'id_employee');
     }
 
-    public function requestforgettotime()
-    {
-        return $this->hasMany("App\Services\Request\RequestForgetToTime", 'id_employee', 'id_employee');
-    }
 }

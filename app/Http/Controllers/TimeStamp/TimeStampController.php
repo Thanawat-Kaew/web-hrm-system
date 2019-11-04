@@ -10,7 +10,6 @@ use App\Services\TimeStamp\TimeStamp;
 use App\Services\Employee\Employee;
 use App\Services\Employee\EmployeeObject;
 use App\Services\Request\RequestTimeStamp;
-use App\Services\Request\RequestForgetToTime;
 
 class TimeStampController extends Controller
 {
@@ -261,7 +260,4 @@ class TimeStampController extends Controller
         $request->reason      = $reason;
         $request->save();
             }
-
-
-
 }
