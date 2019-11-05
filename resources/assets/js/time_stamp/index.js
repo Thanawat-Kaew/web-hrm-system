@@ -101,7 +101,7 @@ function showDialog(form,title,oldValue='',oldCheck=''){
 			$('#input-t_in').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-t_in').addClass('hide')
-			$('#input-t_in').addClass('required')
+			$('#input-t_in').removeClass('required')
 		});
 
 		$('#t_out').on('ifChecked', function(event){
