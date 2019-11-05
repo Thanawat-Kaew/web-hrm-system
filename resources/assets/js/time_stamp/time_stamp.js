@@ -33,78 +33,24 @@ setInterval( function() {
 	$("#hours").html(( hours < 10 ? "0" : "" ) + hours);
     }, 1000);
 
-	/*$('.type-time').change(function(){
+
+	$('.submit-add-timestamp').click(function(){
 		var selectedOptions = $('.type-time option:selected');
-		var type_time       = selectedOptions.val();*/
-		//alert(type_time);
-		//alert(selectedOptions.text());
-		//console.log(selectedOptions.text());
-		//alert(selectedOptions.val());
-		//console.log(selectedOptions.val());
-		/*if(selectedOptions.val() == 1){ */// Time_in
-			//alert(selectedOptions.text());
-			/*$('.submit-add-timestamp').click(function(){*/
-			//alert("submit-add-timestamp");
-			//console.log(newDate);
-			//var type_time = $('.type-time').val();
-			//alert(type_time);
-			//console.log(type_time);
-			//alert(selectedOptions.val());
-			//alert(type_time);
-				/*$.ajax({
-					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-					type   : "POST",
-					url    : $('#add-timestamp').data('url'),
-					data   : { type_time : 'type_time'},
-					success: function (result) {
-						alert("success"+type_time);
-						//msg_close();
-								//console.log(id);
-					},
-					error : function(errors)
-					{
-						console.log(errors);
-					}
-				});
-			});*/
-		/*}*/
-	/*});*/
-
-	/*$('.type-time').change(function(){*/
-		//$(this).find(':selected').addClass('selected').siblings('option').removeClass('selected');
-		/*var selectedOptions = $('.type-time option:selected');
-		var type_time       = selectedOptions.val();*/
-		//alert(type_time);
-		//alert(selectedOptions);
-		//console.log(type_time);
-		$('.submit-add-timestamp').click(function(){
-			//var selectedOptions = $('select.type-time > option.ti').attr('value');
-			var selectedOptions = $('.type-time option:selected');
-			var type_time = selectedOptions.val();
-			//var type_time       = selectedOptions.val();
-			//alert(type_time);
-			//console.log(type_time);
-			alert(type_time);
-			$.ajax({
-				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-				type   : "POST",
-				url    : $('#add-timestamp').data('url'),
-				data   : {'type_time' : type_time},
-				success: function (result) {
-					//alert("success"+type_time);
-					//alert(result);
-					//msg_close();
-					//console.log(id);
-					//console.log(result.data);
-				},
-				error : function(errors)
-				{
-					console.log(errors);
-				}
-			});
-			//console.log(type_time);
+		var type_time = selectedOptions.val();
+		alert(type_time);
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type   : "POST",
+			url    : $('#add-timestamp').data('url'),
+			data   : {'type_time' : type_time},
+			success: function (result) {
+				alert("success"+type_time);
+			},
+			error : function(errors)
+			{
+				console.log(errors);
+			}
 		});
-		//console.log(type_time);
-	/*});*/
 
+	});
 });

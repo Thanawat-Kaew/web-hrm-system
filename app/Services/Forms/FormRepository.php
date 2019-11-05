@@ -227,8 +227,7 @@ class FormRepository
     }
 
     public static function getFormNewTimeClock($header){
-            
-            $form_new_time_clock = '<h4>วันที่ขอลงเวลา</h4>';
+         $form_new_time_clock = '<h4>วันที่ขอลงเวลา</h4>';
             $form_new_time_clock .= '<div class="input-group col-md-12">';
                 $form_new_time_clock .= '<div class="input-group-addon">';
                     $form_new_time_clock .= '<i class="fa fa-calendar"></i>';
@@ -312,7 +311,7 @@ class FormRepository
             $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<label class="text-error" id="input-t_out-text-error">';
             $form_new_time_clock .= '</label>';
-          
+
 
             $form_new_time_clock .= '<div class="form-group input-b_in hide">';
                 $form_new_time_clock .= 'พักกลางวัน';
@@ -336,7 +335,7 @@ class FormRepository
             $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<label class="text-error" id="input-b_out-text-error">';
             $form_new_time_clock .= '</label>';
-          
+
 
             $form_new_time_clock .= '<br>';
             $form_new_time_clock .= '<h4>เหตุผล</h4>';
@@ -975,7 +974,7 @@ class FormRepository
                         $form .= '</div>';
                         $form .= '<input type="text" class="form-control datepicker required" value=""  id="date-request-forget-to-time">';
                     $form .= '</div>';
-                $form .= '<label class="text-error" id="date-text-error"></label>';
+                $form .= '<label class="text-error" id="date-request-forget-to-time-text-error"></label>';
                 $form .= '</div>';
                 $form .= '<div class="form-group ">';
                     $form .= '<label>รูปแบบ</label>';
@@ -998,7 +997,7 @@ class FormRepository
                 $form .= '<div class="form-group">';
                     $form .= '<label>เหตุผล</label>';
                     $form .= '<textarea type="text" rows="5" class="form-control required" placeholder="ลืมลงเวลาออก" id="reason-request-forget-to-time" value=""></textarea>';
-                $form .= '<label class="text-error" id="reason-text-error"></label>';
+                $form .= '<label class="text-error" id="reason-request-forget-to-time-text-error"></label>';
                 $form .= '</div>';
                 $form .= '<div class="form-group">';
                     $form .= '<label>ผู้ที่จะอนุมัติ</label>';
@@ -1076,4 +1075,134 @@ class FormRepository
         return $form;
     }
 
+    public static function getViewDetailRequestTimeStamp($data){
+        $form  = '<div class="box-body">';
+            $form .= 'วันที่ขอลงเวลาย้อนหลัง <span style="color : black">ปี/เดือน/วัน</span>';
+            $form .= '<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-calendar"></i>';
+                $form .='</div>';
+                $form .='<input  value="'.$data["delay_time"].'" readonly  class="form-control datepicker required" id="date-history">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="date-history-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาเข้างาน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["time_in"].'"  readonly class="form-control timepicker required" id="time-in-history">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="time-in-history-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาออก(พัก)กลางวัน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["break_out"].'"  readonly class="form-control timepicker required" id="break-out-history">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="break-out-history-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาเข้า(พัก)กลางวัน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["break_in"].'"  readonly class="form-control timepicker required" id="break-in-history">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="break-in-history-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาเลิกงาน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["time_out"].'" readonly class="form-control timepicker required" id="time-out-history" >';
+            $form .='</div>';
+            $form .='<label class="text-error" id="time-out-history-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เหตุผลที่ขอลงเวลาย้อนหลัง';
+            $form .='<br>';
+            $form .='<textarea class="form-control textarea g-disable-input required"  readonly rows="5" id="reason-request-time-stamp" >'.$data["reason"].'</textarea>';
+            $form .='<label class="text-error" id="reason-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เหตุผลที่อนุมัติ/ไม่อนุมัติ';
+            $form .='<br>';
+            $form .='<input class="form-control textarea g-disable-input required"  readonly rows="5" id="reason-approvers-request-time-stamp" value="'.$data["reason_approvers"].'">';
+            $form .='<label class="text-error" id="reason-approvers-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+        $form .='</div>';
+        return $form;
+    }
+
+    public static function getEditRequestTimeStamp($data){
+        $form  = '<div class="box-body">';
+            $form .= '<input type="hidden" value="'.$data['id'].'" id="id-edit-reauest-time-stamp">';
+            $form .= 'วันที่ขอลงเวลาย้อนหลัง <span style="color : black">ปี/เดือน/วัน</span>';
+            $form .= '<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-calendar"></i>';
+                $form .='</div>';
+                $form .='<input  value="'.$data["delay_time"].'"   class="form-control datepicker required" id="edit-date-request-time-stamp">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="edit-date-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาเข้างาน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["time_in"].'"   class="form-control timepicker required" id="edit-time-in-request-time-stamp">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="edit-time-in-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาออก(พัก)กลางวัน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["break_out"].'"   class="form-control timepicker required" id="edit-break-out-request-time-stamp">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="edit-break-out-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาเข้า(พัก)กลางวัน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["break_in"].'"   class="form-control timepicker required" id="edit-break-in-request-time-stamp">';
+            $form .='</div>';
+            $form .='<label class="text-error" id="edit-break-in-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เวลาเลิกงาน';
+            $form .='<div class="input-group col-md-12">';
+                $form .='<div class="input-group-addon">';
+                    $form .='<i class="fa fa-clock-o"></i>';
+                $form .='</div>';
+                $form .='<input value="'.$data["time_out"].'"  class="form-control timepicker required" id="edit-time-out-request-time-stamp" >';
+            $form .='</div>';
+            $form .='<label class="text-error" id="edit-time-out-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+            $form .='เหตุผล';
+            $form .='<br>';
+            $form .='<textarea class="form-control textarea g-disable-input required"   rows="5" id="edit-reason-request-time-stamp" >'.$data["reason"].'</textarea>';
+            $form .='<label class="text-error" id="edit-reason-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+
+        $form .='</div>';
+        return $form;
+    }
 }

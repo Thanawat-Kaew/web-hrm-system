@@ -39,12 +39,38 @@
 							<th>Name</th>
 							<th>Date</th>
 							<th>Time-In</th>
-							<th>Break-In</th>
 							<th>Break-Out</th>
+							<th>Break-In</th>
 							<th>Time-Out</th>
 							<th>Status</th>
 							<th></th>
 						</tr>
+						<?php
+							foreach($data as $value) :
+						?>
+						<tr>
+							<td><?php echo $value->employee['first_name']?> <?php echo $value->employee['last_name']?></td>
+							<td><?php echo $value['date']?></td>
+							<td><?php echo $value['time_in']?></td>
+							<td><?php echo $value['break_out']?></td>
+							<td><?php echo $value['break_in']?></td>
+							<td><?php echo $value['time_out']?></td>
+							<td>
+								<?php echo (!empty($value->requesttimestamp[0])  ? $value->requesttimestamp[0]['status'] : "")?>
+								<?php
+									if(!empty($value->requesttimestamp[0])){
+								?>
+										<span class="label <?php echo ($value->requesttimestamp[0]['status'] == 1 ? 'label-success' : ($value->requesttimestamp[0]['status'] == 2 ? 'label-warning' : 'label-danger')); ?>"><?php echo ($value->requesttimestamp[0]['status'] == 1 ? 'success' : ($value->requesttimestamp[0]['status'] == 2 ? 'waiting' : 'rejected')); ?>
+                            			</span>
+								<?php
+									}else{
+										echo "None";
+									}
+								?>
+							</td>
+							<td></td>
+						</tr>
+						<?php endforeach ?>
 						<tr>
 							<td>ธนวัฒน์ แก้วล้อมวัง</td>
 							<td>11-7-2014</td>
@@ -56,12 +82,12 @@
 							<td>
 								<i class="fa fa-pencil btn" >
 								</i>
-							
+
 								<i class="fa fa-trash btn" >
 								</i>
 								<i class="fa fa-eye fa-lg btn view-data"></i>
 							</td>
-					
+
 						</tr>
 						<tr>
 							<td>ธนวัฒน์ แก้วล้อมวัง</td>

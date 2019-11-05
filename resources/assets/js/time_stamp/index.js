@@ -17,7 +17,6 @@ $(document).ready(function(){
 		})
 	})
 
-
 	$('.time-clock').on('click', '.time_stamp', function(){
 		window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
 	});
@@ -174,7 +173,7 @@ function sendRequest(form, title){
 	var count 			 = 0;
 	var oldValue 		 = {};
 	jQuery.each($('.required'),function(){
-		var name = $(this).attr('id'); 
+		var name = $(this).attr('id');
 		oldValue[name]= $(this).val();
 		if ($(this).val() =="") {
 			count++
@@ -193,6 +192,7 @@ function sendRequest(form, title){
 	})
 
 	if(count > 0) {
+
 		showDialog(form, title, oldValue,oldCheck);
 	}else{
 		addRequestTimeStamp(oldValue);
@@ -205,17 +205,17 @@ function addRequestTimeStamp(oldValue){ // บันทึกลง Table Reques
 		type : 'POST',
 		url  : $('#add-request-time-stamp').data('url'),
 		data : {
-			delay_time  : $('#date-history').val(),
-			time_in 	: $('#time-in-history').val(),
-			break_out 	: $('#break-out-history').val(),
-			break_in 	: $('#break-in-history').val(),
-			time_out 	: $('#time-out-history').val(),
+			request_date  : $('#date-history').val(),
+			time_in 	: $('#time_in').val(),
+			break_out 	: $('#break_out').val(),
+			break_in 	: $('#break_in').val(),
+			time_out 	: $('#time_out').val(),
 			reason 	    : $('#reason-request-time-stamp').val(),
 		},
 		success: function(response){
 			// success alert
 			msg_success()
-			window.location.reload();
+			//window.location.reload();
 			// alert('Data save');
 			// msg_close();
 		},
@@ -239,8 +239,8 @@ function addRequestForgetToTime(oldValue){ // บันทึกลง Table req
 		},
 		success: function(response){
 			// success alert
-			msg_success()
-			window.location.reload();
+			msg_success();
+			//window.location.reload();  //ต้องปิดถ้าอยากดูค่าเพราะเป็น Ajax
 			// alert('Data save');
 			// msg_close();
 		},
@@ -286,7 +286,7 @@ function getTimePicker(obj_input)
 	str += "<li>23</li>";
 	str += "</ul>";
 	str += "</div>";
-	
+
 	str += "<div class='col-sm-6 col-xs-6'>";
 	str += "<label>Minutes</label>";
 	str += "<ul id='select-minutes' class='select-minutes' style='list-style: none;'>";
@@ -392,7 +392,7 @@ function getTimePicker(obj_input)
 		 			}
 		 		});
 		 	}
-		 	 
+
 		}
 	}).then((result) => {
 		if (result.value) {
