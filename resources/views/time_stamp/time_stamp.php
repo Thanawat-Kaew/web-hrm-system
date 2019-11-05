@@ -19,7 +19,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead downloading all them to reduce the load. -->
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
     <!--Clock-->
-    <link rel="stylesheet" href="/resources/assets/css/time_stamp/time_stamp.css">
+    <link rel="stylesheet" href="/resources/assets/css/time_stamp/time_stamp.css?time=<?php echo time()?>">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
 
@@ -90,15 +90,13 @@
                             <th>Time-Out</th>
                         </tr>
                         <tr>
-
-                            <td></td>
-                            <td>Web Developer</td>
-                            <td>11-7-2014</td>
-                            <td>09:00</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>18:00</td>
-
+                            <td><?php echo $current_data['first_name']?> <?php echo $current_data['last_name']?></td>
+                            <td><?php echo $current_data_position['name']?></td>
+                            <td><?php echo $current_data_time['date']?></td>
+                            <td><?php echo $current_data_time['time_in']?></td>
+                            <td><?php echo $current_data_time['break_out']?></td>
+                            <td><?php echo $current_data_time['break_in']?></td>
+                            <td><?php echo $current_data_time['time_out']?></td>
                         </tr>
                     </table>
                 </div>

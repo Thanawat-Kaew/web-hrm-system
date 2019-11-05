@@ -17,4 +17,9 @@ class RequestTimeStamp extends Model
     {
     	return $this->belongsTo("App\Services\Request\Status", 'status', 'id');
     }
+
+    public function timestamp()
+    {
+    	return $this->belongsTo("App\Services\TimeStamp\TimeStamp", 'date', 'request_date');
+    }
 }

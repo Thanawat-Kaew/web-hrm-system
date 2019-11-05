@@ -201,7 +201,7 @@ function updateEditRequestTimeStamp(oldValue){
 		success: function(response){
 			// success alert
 			msg_success()
-			window.location.reload();
+			//window.location.reload();
 			// alert('Data save');
 			// msg_close();
 		},

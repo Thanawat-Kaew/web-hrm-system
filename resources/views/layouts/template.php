@@ -36,12 +36,13 @@
 
   <link rel="stylesheet" href="/resources/assets/css/main.css">
   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
+  <link rel="stylesheet" href="/resources/assets/css/full_picker/picker.css">
   <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
-  <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css">
+  <!-- <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css"> -->
   <link rel="stylesheet" href="/resources/assets/css/data_management/index.css">
 
   <?php if (file_exists(base_path().'/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css')): ?>
-  <link rel="stylesheet" href="<?php echo '/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css' ?>">
+  <link rel="stylesheet" href="<?php echo '/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css?='.time() ?>">
 <?php endif ?>
 
 </head>
@@ -100,6 +101,7 @@
 <script src="/resources/assets/theme/adminlte/bower_components/bootstrap-daterangepicker/moment.min.js"></script>
 <!-- bootbox -->
 <script src="/resources/assets/js/core/bootbox/bootbox.min.js"></script>
+<script src="/resources/assets/js/core/full_picker/picker.min.js"></script>
 <script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
 <!-- icheck -->
 <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>

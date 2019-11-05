@@ -15,16 +15,14 @@
 					</a>
 				</div>
 				<div class="btn-group pull-right assess-evaluation">
-					<a class="add-evaluation" href="<?php echo route('evaluation.assessment.get')?>">
-						<button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน
-						</button>
-					</a>
+					<button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน
+					</button>
 				</div>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
-					<h3 class="box-title">ประวัติการสร้างแบบประเมิน</h3>
-
+					<h4 class="box-title">ประวัติการสร้างแบบประเมิน</h4>
+					
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
 							<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -35,7 +33,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
 					<table class="table table-hover">
 						<tr>
@@ -61,9 +58,7 @@
 						</tr>
 					</table>
 				</div>
-				<!-- /.box-body -->
 			</div>
-			<!-- /.box -->
 		</div>
 	</div>
 </section>

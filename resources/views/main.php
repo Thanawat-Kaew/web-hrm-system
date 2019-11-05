@@ -48,59 +48,68 @@
                     </div>
                 </div>
             </div>
-            <?php if(Session::has('current_employee')) :  ?>
-                <?php $cur_emp = Session::get('current_employee');
-                // /*echo $cur_emp['id_employee']*/;
-                //var_dump($cur_emp['id_department']);
-                ?>
-            <?php endif ?>
+
             <div class="col-md-6">
                 <!-- Automatic element centering -->
                 <div class="lockscreen-wrapper">
                     <div class="links">
                         <div class="col-sm-12 col-xs-12">
                             <?php if(\Session::has('current_menu')) :  ?>
-                                <?php foreach(\Session::get('current_menu') as $menu ):?>
-                                    <div class="col-sm-6 col-xs-6">
+                                <?php 
+                                    $menu_list   = \Session::get('current_menu'); 
+                                    $count_menu  = count((array) $menu_list);
+                                ?>
+                                <?php foreach($menu_list as $key => $menu):?>
+                                    <?php $row_max = $key + 1;?>
+                                    <?php if ($count_menu % 3 == 0 && $count_menu % 6 != 0):?>
+                                        <div class="col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                                    <?php else:?>
+                                        <div class="col-sm-6 col-xs-6">
+                                    <?php endif ?>
 
-                                    <!-- <?php //echo ($menu->name_th)?>
-                                    <?php //echo ($menu->name_en)?> -->
-                                    <!-- <?php /*echo*/ $menu->route ?> -->
-                                    <a href="<?php echo route ($menu->route)  ?>">
-                                        <img class="image_menu" src="<?php echo 'resources/image/'.$menu->image ?>">
-                                    </a>
-                                </div>
-                            <?php endforeach ?>
-                        <?php endif ?>
+                                        <a href="<?php echo route ($menu->route)  ?>">
+                                            <img class="image_menu" src="<?php echo 'resources/image/'.$menu->image ?>">
+                                        </a>
+                                    </div>
+                                    <?php if ($count_menu % 3 == 0 && $count_menu % 6 != 0 && $row_max != $count_menu): ?>
+                                        </div>
+                                        <div class="col-sm-12 col-xs-12"> 
+                                    <?php elseif($row_max == $count_menu):?>
+                                        </div>
+                                    <?php endif ?>
+                                <?php endforeach ?>
+                            <?php endif ?>
+                            <?php if ($count_menu % 3 != 0 && $count_menu % 6 == 0): ?>
+                                </div> 
+                            <?php endif ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="lockscreen-wrapper pull-left hidden-xs">
+                        <div class="text-center" style="margin-top: 130px;">
+                            <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                            <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
+                            <hr>
+                            <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
+
+                            <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
+                            </a>
+                            <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
+                                <?php echo csrf_field() ?>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="lockscreen-wrapper pull-left hidden-xs">
-                <div class="text-center" style="margin-top: 130px;">
-                    <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-                    <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
-                    <hr>
-                    <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
+            <!-- /.col -->
+        </section>
+        <!-- /.content -->
 
-                    <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
-                    </a>
-                    <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
-                        <?php echo csrf_field() ?>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.col -->
-</section>
-<!-- /.content -->
-
-<!-- jQuery 3 -->
-<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+        <!-- jQuery 3 -->
+        <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+    </html>

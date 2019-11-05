@@ -71,6 +71,9 @@ class EmployeeController extends Controller
                 //sd($id);
                 $employee          = RequestChangeData::with('employee')->where('id', $id)->first();
                 //sd($employee['id']);
+                //sd($employee['created_at']);
+                //$exp = explode(" ", $employee['created_at']);
+                //sd($exp[0]);
                 $emp_department    = Department::where('id_department', $employee['id_department'])->first();
                 $emp_position      = Position::where('id_position', $employee['id_position'])->first();
                 $emp_education     = Education::where('id_education', $employee['id_education'])->first();

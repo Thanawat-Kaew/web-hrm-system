@@ -10,11 +10,13 @@ class TimeStamp extends Model
 
     public function employee()
     {
-    	return $this->hasMany("App\Services\Employee\Employee", 'id_employee', 'id_employee'); // onetoMany ไปยังตาราง Employee
+    	return $this->belongsTo("App\Services\Employee\Employee", 'id_employee', 'id_employee');
     }
 
-    public function requestforgettotime()
+    public function requesttimestamp()
     {
-    	return $this->hasOne("App\Services\Request\RequestForgetToTime", 'id_employee', 'id_employee'); // onetoMany ไปยังตาราง request_forget_to_time
+    	return $this->hasMany("App\Services\Request\RequestTimeStamp", 'request_date', 'date');
     }
+
+
 }
