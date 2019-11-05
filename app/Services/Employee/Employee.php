@@ -44,6 +44,4 @@ class Employee extends Model
     {
         return $this->hasMany("App\Services\Request\RequestTimeStamp", 'id_employee', 'id_employee');
     }
-
-
 }

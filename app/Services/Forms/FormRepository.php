@@ -227,56 +227,57 @@ class FormRepository
     }
 
     public static function getFormNewTimeClock($header){
-
-            $form_new_time_clock = '<h4>วันที่ขอลงเวลา</h4>';
+         $form_new_time_clock = '<h4>วันที่ขอลงเวลา</h4>';
             $form_new_time_clock .= '<div class="input-group col-md-12">';
                 $form_new_time_clock .= '<div class="input-group-addon">';
                     $form_new_time_clock .= '<i class="fa fa-calendar"></i>';
                 $form_new_time_clock .= '</div>';
-                $form_new_time_clock .= '<input  value=""  placeholder="เลือกวันที่..."  class="form-control datepicker required" id="date-history">';
+                $form_new_time_clock .= '<input type="text"  value=""  placeholder="เลือกวันที่..."  class="form-control datepicker required" id="date-history">';
             $form_new_time_clock .= '</div>';
-            $form_new_time_clock .= '<label class="text-error" id="date-history-text-error"></label>';
-            $form_new_time_clock .= '<br>';
+            $form_new_time_clock .= '<label class="text-error" id="date-history-text-error"></label><br>';
+
+
             $form_new_time_clock .= '<h4>รูปแบบการลงเวลา</h4>';
             $form_new_time_clock .= '<div class="form-group">';
                 $form_new_time_clock .= '<div class="col-md-12">';
                     $form_new_time_clock .= '<div class="col-md-6">';
-
                         $form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="" class="flat-red" id="t_in_out"> ';
+                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_in_out" class="flat-red" id="t_in_out"> ';
                             $form_new_time_clock .= 'ลงเวลาเข้า-ออก งาน';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<div class="col-md-12">';
                           $form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="" class="flat-red hide" id="t_in" disabled> ';
+                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_in" class="flat-red hide" id="t_in" disabled> ';
                             $form_new_time_clock .= 'ลงเวลาเข้างาน';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<br>';
-                        $form_new_time_clock .= '<label class="text-error" id="time-in-history-text-error">';
+                        $form_new_time_clock .= '<label class="text-error" id="t_in-text-error">';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="" class="flat-red hide" id="t_out" disabled> ';
+                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_out" class="flat-red hide" id="t_out" disabled> ';
                             $form_new_time_clock .= 'ลงเวลาออกงาน';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<br>';
+                          $form_new_time_clock .= '<label class="text-error" id="t_out-text-error">';
+                        $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '</div>';
-
                         $form_new_time_clock .= '<br>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<div class="col-md-6">';
 
+
+                    $form_new_time_clock .= '<div class="col-md-6">';
                         $form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="" class="flat-red" id="br_in_out"> ';
+                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_in_out" class="flat-red" id="br_in_out"> ';
                             $form_new_time_clock .= 'ลงเวลาพัก';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<div class="col-md-12">';
                          $form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="" class="flat-red" id="br_in" disabled> ';
+                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_in" class="flat-red" id="br_in" disabled> ';
                             $form_new_time_clock .= 'พักกลางวัน';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<br>';
                         $form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="" class="flat-red" id="br_out" disabled> ';
+                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_out" class="flat-red" id="br_out" disabled> ';
                             $form_new_time_clock .= 'เข้าทำงานช่วงบ่าย';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<br>';
@@ -285,55 +286,60 @@ class FormRepository
                     $form_new_time_clock .= '</div>';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
-            $form_new_time_clock .= '<div class="form-group time_in hide">';
+
+
+            $form_new_time_clock .= '<div class="form-group input-t_in hide">';
                 $form_new_time_clock .= 'เวลาเข้างาน';
                 $form_new_time_clock .= '<div class="input-group">';
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="time_in" id="time_in" class="form-control ">';
+                    $form_new_time_clock .= '<input type="text" name="time_in" id="input-t_in" class="form-control">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
-            $form_new_time_clock .= '<label class="text-error" id="time_in-text-error">';
+            $form_new_time_clock .= '<label class="text-error" id="input-t_in-text-error">';
             $form_new_time_clock .= '</label>';
-            $form_new_time_clock .= '<div class="form-group time_out hide">';
+
+            $form_new_time_clock .= '<div class="form-group input-t_out hide">';
                 $form_new_time_clock .= 'เวลาออกงาน';
                 $form_new_time_clock .= '<div class="input-group time_out">';
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="time_out" id="time_out" class="form-control " id="time_out">';
+                    $form_new_time_clock .= '<input type="text" name="t_out" id="input-t_out" class="form-control" id="time_out">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
-            $form_new_time_clock .= '<label class="text-error" id="time_out-text-error">';
+            $form_new_time_clock .= '<label class="text-error" id="input-t_out-text-error">';
             $form_new_time_clock .= '</label>';
 
-            $form_new_time_clock .= '<div class="form-group break_in hide">';
-                $form_new_time_clock .= 'เวลาเข้าพักกลางวัน';
+
+            $form_new_time_clock .= '<div class="form-group input-b_in hide">';
+                $form_new_time_clock .= 'พักกลางวัน';
                 $form_new_time_clock .= '<div class="input-group">';
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="break_in" id="break_in" class="form-control timepicker ">';
+                    $form_new_time_clock .= '<input type="text" name="break_in" id="input-b_in" class="form-control">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
-            $form_new_time_clock .= '<label class="text-error" id="break_in-text-error">';
+            $form_new_time_clock .= '<label class="text-error" id="input-b_in-text-error">';
             $form_new_time_clock .= '</label>';
-            $form_new_time_clock .= '<div class="form-group break_out hide">';
-                $form_new_time_clock .= 'เวลาออกพักกลางวัน';
+            $form_new_time_clock .= '<div class="form-group input-b_out hide">';
+                $form_new_time_clock .= 'เข้าทำงานช่วงบ่าย';
                 $form_new_time_clock .= '<div class="input-group">';
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="break_out" id="break_out" class="form-control timepicker ">';
+                    $form_new_time_clock .= '<input type="text" name="break_out" id="input-b_out" class="form-control">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
-            $form_new_time_clock .= '<label class="text-error" id="break_out-text-error">';
+            $form_new_time_clock .= '<label class="text-error" id="input-b_out-text-error">';
             $form_new_time_clock .= '</label>';
+
 
             $form_new_time_clock .= '<br>';
             $form_new_time_clock .= '<h4>เหตุผล</h4>';
-            $form_new_time_clock .= '<textarea class="form-control textarea g-disable-input required reason_request"  placeholder="Type..." rows="5" id="reason-request-time-stamp">';
+            $form_new_time_clock .= '<textarea type="text" class="form-control textarea g-disable-input required reason_request"  placeholder="Type..." rows="5" id="reason-request-time-stamp">';
             $form_new_time_clock .= '</textarea>';
             $form_new_time_clock .= '<label class="text-error" id="reason-request-time-stamp-text-error">';
             $form_new_time_clock .= '</label>';
@@ -344,7 +350,7 @@ class FormRepository
                 $form_new_time_clock .= '<div class="input-group-addon">';
                     $form_new_time_clock .= '<i class="fa fa-user"></i>';
                 $form_new_time_clock .= '</div>';
-                $form_new_time_clock .= '<input value="'.$header['first_name'].' '.$header['last_name'].'" readonly class="form-control" id="approved">';
+                $form_new_time_clock .= '<input type="text" value="'.$header['first_name'].' '.$header['last_name'].'" readonly class="form-control" id="approved">';
             $form_new_time_clock .= '</div>';
 
         return $form_new_time_clock;
