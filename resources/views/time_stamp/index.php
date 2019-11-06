@@ -16,6 +16,10 @@
 					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
 					</button>
 				</div>
+				<div class="btn-group history_record pull-right ">
+					<button href="" type="button" class="btn btn-warning dropdown-toggle history_new_record"><i class="fa fa-history"></i> History
+					</button>
+				</div>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
@@ -57,31 +61,30 @@
 								<td><?php echo $value['time_out']?></td>
 								<td>
 									<?php
-										$count_request 			= $value->requesttimestamp->count();
-										$count_request_status_2 = $value->requesttimestamp->where('status',2)->count();
+									$count_request 			= $value->requesttimestamp->count();
+									$count_request_status_2 = $value->requesttimestamp->where('status',2)->count();
 									?>
 									<?php if($count_request_status_2 != 0):?>
 										<span class="label  label-warning">waiting</span>
-									<?php else: ?>
-										<span class="label  label-success">success</span>
-									<?php endif ?>
+										<?php else: ?>
+											<span class="label  label-success">success</span>
+										<?php endif ?>
 								</td>
 								<td>
-									<i class="fa fa-eye fa-lg btn view-data"></i>
+										<i class="fa fa-eye fa-lg btn view-data"></i>
 								</td>
-									</tr>
-								<?php endforeach ?>
-							</table>
-						</div>
-						<!-- /.box-body -->
-					</div>
-					<!-- /.box -->
+							</tr>
+						<?php endforeach ?>
+					</table>
 				</div>
+				<!-- /.box-body -->
 			</div>
-		</section>
+			<!-- /.box -->
+		</div>
+	</div>
+</section>
 
-		<!-- data -->
-		<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
-		<div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
-		<div id="add-request-forget-to-time" data-url="<?php echo route('time_stamp.add_request_forget_to_time.post')?>"></div>
-		<?php echo csrf_field()?>
+<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
+<div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
+<div id="add-request-forget-to-time" data-url="<?php echo route('time_stamp.add_request_forget_to_time.post')?>"></div>
+<?php echo csrf_field()?>

@@ -119,6 +119,33 @@ class TimeStampController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_edit_request_timestamp]);
                 break;
 
+            case 'getViewDataRequestForgetToTime': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ดูของลูกน้อง
+                $id             = $request->get('id');
+                //sd($id);
+                $data           = RequestForgetToTime::where('id', $id)->first();
+                //sd($data->toArray());
+                $form_repo = new FormRepository;
+                $form_view_data_request_forget_to_time = $form_repo->getViewDataRequestForgetToTime($data);
+                return response()->json(['status'=> 'success','data'=> $form_view_data_request_forget_to_time]);
+                break;
+
+            case 'getViewDetailRequestForgetToTime': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ลืมลงเวลาบ้างส่วน //ดูของตัวเอง
+                $id             = $request->get('id');
+                //sd($id);
+                $data           = RequestForgetToTime::where('id', $id)->first();
+                //sd($data->toArray());
+                $form_repo = new FormRepository;
+                $form_view_request_forget_to_time = $form_repo->getViewDetailRequestForgetToTime($data);
+                return response()->json(['status'=> 'success','data'=> $form_view_request_forget_to_time]);
+                break;
+
+            case 'getHistoryNewRecord': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ลืมลงเวลาบ้างส่วน //ดูของตัวเอง
+
+                $form_repo = new FormRepository;
+                $form_history_record = $form_repo->getHistoryNewRecord();
+                return response()->json(['status'=> 'success','data'=> $form_history_record]);
+                break;
+
             default:
                 # code...
                 break;

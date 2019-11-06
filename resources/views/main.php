@@ -20,6 +20,8 @@
     folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="/resources/assets/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
+    
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
@@ -105,8 +107,10 @@
             </div>
             <!-- /.col -->
         </section>
-        <!-- /.content -->
+<script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
 
+       <!-- main function -->
+<script src="/resources/assets/js/main.js"></script>
         <!-- jQuery 3 -->
         <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
