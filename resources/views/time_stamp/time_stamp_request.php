@@ -35,13 +35,16 @@
 						</tr>
 						<?php $count = 0;?>
 						<?php foreach($request as $value) : ?>
-						<?php $count = $count +1;?>
+						<?php $count = $count +1;
+							  $date  = explode(" ", $value['created_at']);
+							  $created_date = $date[0];
+						?>
 						<tr>
 
 							<td><?php echo $count?></td>
 							<td><?php echo $value->employee['first_name']?> <?php echo $value->employee['last_name']?></td>
 							<td><?php echo $value['id_employee']?></td>
-							<td><?php echo $value['delay_time']?></td>
+							<td><?php echo $created_date?></td>
 							<td>
 								<i class="fa fa-eye fa-lg btn view-data-request-time-stamp" data-id="<?php echo $value['id']?>"></i>
 							</td>
@@ -59,16 +62,7 @@
 							</td>
 						</tr>
 						<?php endforeach?>
-						<tr>
-							<td>2</td>
-							<td>ชนะชัย  ชุ่มชื่น</td>
-							<td>59</td>
-							<td>11-7-2014 19:08:00</td>
-							<td><i class="fa fa-eye fa-lg btn"></i></td>
-							<td><button class="btn btn-primary form-control btn-confirm disabled">อนุมัติ</button></td>
-							<td><button class="btn btn-danger form-control btn-cancel disabled">ไม่อนุมัติ</button></td>
-							<td><span class="label label-primary">อนุมัติ</span></td>
-						</tr>
+
 					</table>
 				</div>
 			</div>

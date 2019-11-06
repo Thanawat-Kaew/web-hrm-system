@@ -22,9 +22,9 @@ class TimeStampController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $date_today   = date('Y-m-d');
-        $data = TimeStamp::with('employee')->with('requesttimestamp')->where('id_employee', $current_employee['id_employee'])->get();
+        $data = TimeStamp::with('employee')->with('requesttimestamp')->where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
 
-        //sd($data->toArray());
+        // sd($data->toArray());
         return $this->useTemplate('time_stamp.index', compact('data'));
     }
 
@@ -43,19 +43,12 @@ class TimeStampController extends Controller
         return view('time_stamp.time_stamp', compact('current_data_time', 'current_data', 'current_data_position'));
     }
 
-    public function time_stamp_request() // ไม่ได้ลงเวลาเข้าและออกของวันนี้
+    public function time_stamp_request() // หน้า confirm/cancel การลงวลาย้อนหลัง
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
         $request = RequestTimeStamp::with('employee')->where('approvers', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
-        //$request = Employee::with('eequesttimeStamp')->get();
-        //$requesta = Employee::with('department')->with('request')
-        //sd($request[0]);
-        //sd($requesta->toArray());
-        //sd($request->toArray());
-        //$emp    = Employee::with('requesttimestamp')->where('id_employee', $request['id_employee'])->get();
-        //sd($emp->toArray());
         return $this->useTemplate('time_stamp.time_stamp_request', compact('request'));
     }
 
@@ -66,35 +59,8 @@ class TimeStampController extends Controller
         }
         $request_time_stamp     = RequestTimeStamp::where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
         //sd($request_time_stamp->toArray());
-        $request_forget_to_time = RequestForgetToTime::where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
-        //sd($request_forget_to_time->toArray());
-        return $this->useTemplate('time_stamp.list_request', compact('request_time_stamp', 'request_forget_to_time'));
+        return $this->useTemplate('time_stamp.list_request', compact('request_time_stamp'));
     }
-
-    /*public function change_time_stamp_request() // ลงเวลาเข้าแต่ไม่ได้ลงเวลาออก // ลืมลงเวลาบางส่วน
-    {
-        if(\Session::has('current_employee')){
-            $current_employee = \Session::get('current_employee');
-        }
-
-        $request = RequestForgetToTime::with('employee')->where('approvers', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
-        //$id_position = $request->employee->id_position;
-        //sd($id_position);
-        //sd($request->toArray());
-
-        /*foreach ($request as $key => $value) {
-            echo $value['employee']['id_position'];
-            echo "<br>";
-        }
-        exit();*/
-        //sd($request['employee']['id_employee']->toArray());
-        //var_dump($request);
-        //print_r($request);
-        //sd($request['id']->toArray());
-        //$request = RequestForgetToTime::where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
-        //sd($request->toArray());
-       /* return $this->useTemplate('time_stamp.change_time_stamp_request', compact('request'));
-    }*/
 
     public function ajaxCenter(Request $request)
     {
@@ -129,6 +95,7 @@ class TimeStampController extends Controller
                 //sd($data->toArray());
                 $form_repo = new FormRepository;
                 $form_view_request_timestamp = $form_repo->getViewDataRequestTimeStamp($data);
+                //sd($form_view_request_timestamp);
                 return response()->json(['status'=> 'success','data'=> $form_view_request_timestamp]);
                 break;
 
@@ -150,26 +117,6 @@ class TimeStampController extends Controller
                 $form_repo = new FormRepository;
                 $form_edit_request_timestamp = $form_repo->getEditRequestTimeStamp($data);
                 return response()->json(['status'=> 'success','data'=> $form_edit_request_timestamp]);
-                break;
-
-            case 'getViewDataRequestForgetToTime': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ดูของลูกน้อง
-                $id             = $request->get('id');
-                //sd($id);
-                $data           = RequestForgetToTime::where('id', $id)->first();
-                //sd($data->toArray());
-                $form_repo = new FormRepository;
-                $form_view_data_request_forget_to_time = $form_repo->getViewDataRequestForgetToTime($data);
-                return response()->json(['status'=> 'success','data'=> $form_view_data_request_forget_to_time]);
-                break;
-
-            case 'getViewDetailRequestForgetToTime': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ลืมลงเวลาบ้างส่วน //ดูของตัวเอง
-                $id             = $request->get('id');
-                //sd($id);
-                $data           = RequestForgetToTime::where('id', $id)->first();
-                //sd($data->toArray());
-                $form_repo = new FormRepository;
-                $form_view_request_forget_to_time = $form_repo->getViewDetailRequestForgetToTime($data);
-                return response()->json(['status'=> 'success','data'=> $form_view_request_forget_to_time]);
                 break;
 
             default:
@@ -228,12 +175,13 @@ class TimeStampController extends Controller
 
     public function addRequestTimeStamp(Request $request) // บันทึกลง request_time_stamp
     {
+        date_default_timezone_set('Asia/Bangkok');
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
 
         $request_date          = $request->get('request_date');
-        sd($request_date);
+        //sd($request_date);
         $time_in               = $request->get('time_in');
         $break_out             = $request->get('break_out');
         $break_in              = $request->get('break_in');
@@ -271,18 +219,12 @@ class TimeStampController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $id          = $request->get('id');
-        //sd($id);
         $confirm = RequestTimeStamp::find($id);
-        //d($confirm->toArray());
         $confirm->status                 = 1;
-        //$confirm->approvers              = $current_employee['id_employee'];
-        //sd($confirm->toArray());
-        //sd($confirm['time_in']);
-        $confirm->save();
-        //sd($id_employee_request);
+        //$confirm->save();
 
         $id_employee_request  = $confirm['id_employee']; // id ของผู้ request
-        $date_time_in    = $confirm['delay_time'].' '.$confirm['time_in'];
+        $date_time_in         = $confirm['delay_time'].' '.$confirm['time_in'];
         //sd($date_time_in);
         //var_dump($date_time_in);
         //var_dump($confirm['delay_time']);
@@ -296,8 +238,7 @@ class TimeStampController extends Controller
         $request->break_out     = $date_break_out;
         $request->break_in      = $date_break_in;
         $request->time_out      = $date_time_out;
-        $request->status        = 0;
-        $request->save();
+        //$request->save();
 
     }
 

@@ -232,9 +232,9 @@ class FormRepository
                 $form_new_time_clock .= '<div class="input-group-addon">';
                     $form_new_time_clock .= '<i class="fa fa-calendar"></i>';
                 $form_new_time_clock .= '</div>';
-                $form_new_time_clock .= '<input type="text"  value=""  placeholder="เลือกวันที่..."  class="form-control datepicker required" id="date-history">';
+                $form_new_time_clock .= '<input type="text"  value=""  placeholder="เลือกวันที่..."  class="form-control datepicker required" id="date-request-timestamp">';
             $form_new_time_clock .= '</div>';
-            $form_new_time_clock .= '<label class="text-error" id="date-history-text-error"></label><br>';
+            $form_new_time_clock .= '<label class="text-error" id="date-request-timestamp-text-error"></label><br>';
 
 
             $form_new_time_clock .= '<h4>รูปแบบการลงเวลา</h4>';
@@ -1012,7 +1012,7 @@ class FormRepository
         return $form;
     }
 
-    public static function getViewDataRequestTimeStamp($data){
+    public static function getViewDataRequestTimeStamp($data){ // หน้า การลงเวลาย้อนหลัง
         $form  = '<div class="box-body">';
 
             $form .= 'วันที่ขอลงเวลาย้อนหลัง <span style="color : black">ปี/เดือน/วัน</span>';
@@ -1020,11 +1020,12 @@ class FormRepository
                 $form .='<div class="input-group-addon">';
                     $form .='<i class="fa fa-calendar"></i>';
                 $form .='</div>';
-                $form .='<input  value="'.$data["delay_time"].'" readonly  class="form-control datepicker required" id="date-history">';
+                $form .='<input  value="'.$data["request_date"].'" readonly  class="form-control datepicker required" id="date-history">';
             $form .='</div>';
             $form .='<label class="text-error" id="date-history-text-error"></label>';
             $form .='<br>';
 
+            if(!empty($data["time_in"])){
             $form .='เวลาเข้างาน';
             $form .='<div class="input-group col-md-12">';
                 $form .='<div class="input-group-addon">';
@@ -1034,7 +1035,9 @@ class FormRepository
             $form .='</div>';
             $form .='<label class="text-error" id="time-in-history-text-error"></label>';
             $form .='<br>';
+            }
 
+            if(!empty($data["break_out"])){
             $form .='เวลาออก(พัก)กลางวัน';
             $form .='<div class="input-group col-md-12">';
                 $form .='<div class="input-group-addon">';
@@ -1044,7 +1047,9 @@ class FormRepository
             $form .='</div>';
             $form .='<label class="text-error" id="break-out-history-text-error"></label>';
             $form .='<br>';
+            }
 
+            if(!empty($data["break_in"])){
             $form .='เวลาเข้า(พัก)กลางวัน';
             $form .='<div class="input-group col-md-12">';
                 $form .='<div class="input-group-addon">';
@@ -1054,7 +1059,9 @@ class FormRepository
             $form .='</div>';
             $form .='<label class="text-error" id="break-in-history-text-error"></label>';
             $form .='<br>';
+            }
 
+            if(!empty($data["time_out"])){
             $form .='เวลาเลิกงาน';
             $form .='<div class="input-group col-md-12">';
                 $form .='<div class="input-group-addon">';
@@ -1064,6 +1071,7 @@ class FormRepository
             $form .='</div>';
             $form .='<label class="text-error" id="time-out-history-text-error"></label>';
             $form .='<br>';
+            }
 
             $form .='เหตุผล';
             $form .='<br>';

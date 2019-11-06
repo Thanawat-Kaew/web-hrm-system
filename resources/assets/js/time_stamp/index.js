@@ -100,7 +100,7 @@ function showDialog(form,title,oldValue='',oldCheck=''){
 			$('#input-t_in').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-t_in').addClass('hide')
-			$('#input-t_in').addClass('required')
+			$('#input-t_in').removeClass('required')
 		});
 
 		$('#t_out').on('ifChecked', function(event){
@@ -199,18 +199,18 @@ function sendRequest(form, title){
 	}
 }
 
-function addRequestTimeStamp(oldValue){ // บันทึกลง Table Request_time_stamp
+function addRequestTimeStamp(oldValue){ // บันทึกลง Table request_time_stamp
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
 		url  : $('#add-request-time-stamp').data('url'),
 		data : {
-			request_date  : $('#date-history').val(),
-			time_in 	: $('#time_in').val(),
-			break_out 	: $('#break_out').val(),
-			break_in 	: $('#break_in').val(),
-			time_out 	: $('#time_out').val(),
-			reason 	    : $('#reason-request-time-stamp').val(),
+			request_date  : $('#date-request-timestamp').val(),
+			time_in 	  : $('#input-t_in').val(),
+			time_out 	  : $('#input-t_out').val(),
+			break_out 	  : $('#input-b_in').val(),
+			break_in 	  : $('#input-b_out').val(),
+			reason 	      : $('#reason-request-time-stamp').val(),
 		},
 		success: function(response){
 			// success alert
@@ -225,33 +225,6 @@ function addRequestTimeStamp(oldValue){ // บันทึกลง Table Reques
 		}
 	});
 }
-
-function addRequestForgetToTime(oldValue){ // บันทึกลง Table request_forget_to_time
-	$.ajax({
-		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-		type : 'POST',
-		url  : $('#add-request-forget-to-time').data('url'),
-		data : {
-			type_time : $('#type-time-request-forget-to-time').val(),
-			time     : $('#time-request-forget-to-time').val(),
-			reason   : $('#reason-request-forget-to-time').val(),
-			date     : $('#date-request-forget-to-time').val(),
-		},
-		success: function(response){
-			// success alert
-			msg_success();
-			//window.location.reload();  //ต้องปิดถ้าอยากดูค่าเพราะเป็น Ajax
-			// alert('Data save');
-			// msg_close();
-		},
-		error: function(error){
-
-			alert('Data not save to request forget to time');
-			msg_close();
-		}
-	});
-}
-
 
 function getTimePicker(obj_input)
 {
