@@ -16,9 +16,11 @@
 					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
 					</button>
 				</div>
-				<div class="btn-group history_record pull-right ">
-					<button href="" type="button" class="btn btn-warning dropdown-toggle history_new_record"><i class="fa fa-history"></i> History
-					</button>
+				<div class="btn-group pull-right ">
+					<a href="<?php echo route('request_history.get')?>">
+						<button type="button" class="btn btn-warning dropdown-toggle"><i class="fa fa-history"></i> History
+						</button>
+					</a>
 				</div>
 			</div>
 			<div class="box box-info">
@@ -69,22 +71,22 @@
 										<?php else: ?>
 											<span class="label  label-success">success</span>
 										<?php endif ?>
-								</td>
-								<td>
+									</td>
+									<td>
 										<i class="fa fa-eye fa-lg btn view-data"></i>
-								</td>
-							</tr>
-						<?php endforeach ?>
-					</table>
+									</td>
+								</tr>
+							<?php endforeach ?>
+						</table>
+					</div>
+					<!-- /.box-body -->
 				</div>
-				<!-- /.box-body -->
+				<!-- /.box -->
 			</div>
-			<!-- /.box -->
 		</div>
-	</div>
-</section>
+	</section>
 
-<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
-<div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
-<div id="add-request-forget-to-time" data-url="<?php echo route('time_stamp.add_request_forget_to_time.post')?>"></div>
-<?php echo csrf_field()?>
+	<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
+	<div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
+	<div id="add-request-forget-to-time" data-url="<?php echo route('time_stamp.add_request_forget_to_time.post')?>"></div>
+	<?php echo csrf_field()?>

@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
 	$('.dropup-new-record').on('click', '.add-new-record', function(){ // New Record
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
@@ -17,21 +16,21 @@ $(document).ready(function(){
 		})
 	})
 
-	$('.history_record').on('click', '.history_new_record', function(){ // New Record
-		$.ajax({
-			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-			type: 'POST',
-			url: $('#ajax-center-url').data('url'),
-			data: {method : 'getHistoryNewRecord'},
-			success: function (result) {
-				var title = "<h4 style='color: red;'>ประวัติการขอลงเวลาย้อนหลัง<small> | History New Record</small></h4>";
-				showHistoryRecord(result.data,title)
-			},
-			error: function(errors){
-				console.log(errors)
-			}
-		})
-	})
+	// $('.history_record').on('click', '.history_new_record', function(){ // New Record
+	// 	$.ajax({
+	// 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+	// 		type: 'POST',
+	// 		url: $('#ajax-center-url').data('url'),
+	// 		data: {method : 'getHistoryNewRecord'},
+	// 		success: function (result) {
+	// 			var title = "<h4 style='color: red;'>ประวัติการขอลงเวลาย้อนหลัง<small> | History New Record</small></h4>";
+	// 			showHistoryRecord(result.data,title)
+	// 		},
+	// 		error: function(errors){
+	// 			console.log(errors)
+	// 		}
+	// 	})
+	// })
 
 	$('.time-clock').on('click', '.time_stamp', function(){
 		window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');

@@ -28,6 +28,13 @@ class TimeStampController extends Controller
         return $this->useTemplate('time_stamp.index', compact('data'));
     }
 
+    public function request_history()
+    {
+
+        return $this->useTemplate('time_stamp.request_history');
+    }
+
+
     public function time_stamp() // ขึ้นข้อมูลปัจจุบัน
     {
         if(\Session::has('current_employee')){
