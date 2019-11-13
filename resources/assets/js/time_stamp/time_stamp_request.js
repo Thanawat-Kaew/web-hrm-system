@@ -11,11 +11,11 @@ $(function(){
 			'id'	    : id
 		},
 		success: function (result) {
-			var title = "<h4 style='color: red;'>ข้อมูลเวลาที่ขอลงเวลาย้อนหลัง <small> | Edit Employee</small></h4>"
+			var title = "<h4 style='color: red;'>ข้อมูลเวลาที่ขอลงเวลาย้อนหลัง <small> <br> Edit Employee</small></h4>"
 				bootbox.dialog({
 					title: title,
 					message: result.data,
-					size: 'large',
+					size: 'small',
 					onEscape: true,
 					backdrop: 'static',
 					buttons: {
@@ -68,7 +68,7 @@ $(function(){
 					'success').then((result) =>{
 						if (result.value)
 						{
-							window.location.reload();
+							//window.location.reload();
 						}
 					})
 				}

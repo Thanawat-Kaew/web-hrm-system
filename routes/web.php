@@ -35,9 +35,9 @@ Route::get('/index/timestamp/change_time_stamp_request', 'TimeStamp\TimeStampCon
 Route::post('/timestamp/add_timestamp', 'TimeStamp\TimeStampController@addTimeStamp')->name('time_stamp.add_timestamp.post');
 
 Route::post('/time_stamp/add_time_stamp', 'TimeStamp\TimeStampController@add_time_stamp')->name('time_stamp.add_time_stamp.post');
-Route::post('/time_stamp/add_request_time_stamp', 'TimeStamp\TimeStampController@addRequestTimeStamp')->name('time_stamp.add_request_time_stamp.post');
-Route::post('/time_stamp/update_request_time_stamp', 'TimeStamp\TimeStampController@updateRequestTimeStamp')->name('time_stamp.update_request_time_stamp.post');
-Route::post('/time_stamp/add_request_forget_to_time', 'TimeStamp\TimeStampController@addRequestForgetToTime')->name('time_stamp.add_request_forget_to_time.post');
+Route::post('/time_stamp/add_request_time_stamp', 'TimeStamp\TimeStampController@addRequestTimeStamp')->name('time_stamp.add_request_time_stamp.post'); //add-request-timestamp
+Route::post('/time_stamp/edit_request_time_stamp', 'TimeStamp\TimeStampController@editRequestTimeStamp')->name('time_stamp.edit_request_time_stamp.post'); //edit-request-timestamp
+
 
 
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
@@ -63,8 +63,7 @@ Route::post('/time_stamp/ajax_center', 'TimeStamp\TimeStampController@ajaxCenter
 Route::post('/time_stamp/confirm', 'TimeStamp\TimeStampController@confirmDataRequestTimeStamp')->name('time_stamp.confirm-data-request-time-stamp.post'); // confirm-request-time-stamp
 Route::post('/time_stamp/cancel', 'TimeStamp\TimeStampController@cancelDataRequestTimeStamp')->name('time_stamp.cancel-data-request-time-stamp.post'); // cancel-request-time-stamp
 
-Route::post('/time_stamp/confirm-forget', 'TimeStamp\TimeStampController@confirmDataRequestForgetToTime')->name('time_stamp.confirm-data-request-forget-to-time.post'); // confirm-forget
-Route::post('/time_stamp/cancel-forget', 'TimeStamp\TimeStampController@cancelDataRequestForgetToTime')->name('time_stamp.cancel-data-request-forget-to-time.post');  // cancel-forget
+
 
 Route::get('/evaluation/create_evaluations', 'Evaluation\EvaluationController@create_evaluations')->name('evaluation.create_evaluations.get');
 Route::get('/evaluation/human_assessment/assessment', 'Evaluation\EvaluationController@assessment')->name('evaluation.assessment.get');
