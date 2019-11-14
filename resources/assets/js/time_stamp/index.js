@@ -46,16 +46,16 @@ $(document).ready(function(){
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
 			data: {method : 'getEditRequestTimeStamp',
-					'id'    : id
-			},
-			success: function (result) {
-				var title = "<h4 style='color: red;'>แก้ไขข้อมูลการขอลงเวลาย้อนหลัง</h4>";
-				showEditDialog(result.data,title)
-			},
-			error: function(errors){
-				console.log(errors)
-			}
-		})
+			'id'    : id
+		},
+		success: function (result) {
+			var title = "<h4 style='color: red;'>แก้ไขข้อมูลการขอลงเวลาย้อนหลัง</h4>";
+			showEditDialog(result.data,title)
+		},
+		error: function(errors){
+			console.log(errors)
+		}
+	})
 	});
 
 	$('.view-request-timestamp').click(function(){
@@ -69,28 +69,28 @@ $(document).ready(function(){
 		},
 		success: function (result) {
 			var title = "<h4 style='color: red;'>แก้ไขข้อมูล <small> | Edit Employee</small></h4>"
-					bootbox.dialog({
-						title: title,
-						message: result.data,
-						size: 'large',
-						onEscape: true,
-						backdrop: 'static',
-						buttons: {
-							fum: {
-								label: 'ปิด',
-								className: 'btn-warning',
-								callback: function(){
-								}
-							}
+			bootbox.dialog({
+				title: title,
+				message: result.data,
+				size: 'large',
+				onEscape: true,
+				backdrop: 'static',
+				buttons: {
+					fum: {
+						label: 'ปิด',
+						className: 'btn-warning',
+						callback: function(){
 						}
-					})
-					msg_close();
-				},
-				error : function(errors)
-				{
-					console.log(errors);
+					}
 				}
 			})
+			msg_close();
+		},
+		error : function(errors)
+		{
+			console.log(errors);
+		}
+	})
 	});
 })
 
@@ -112,7 +112,7 @@ function showHistoryRecord(form,title){
 	})
 }
 
-function showDialog(form,title,oldValue='',oldCheck=''){
+function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
@@ -249,6 +249,12 @@ function showDialog(form,title,oldValue='',oldCheck=''){
 
 
 				}
+			})
+		}
+
+		if(errors !== ""){
+			jQuery.each(errors, function(k, v){
+				$('#input-'+k+'-text-error').html(v).show();
 			})
 		}
 	});
@@ -425,14 +431,14 @@ function sendRequest(form, title){
 		showDialog(form, title, oldValue,oldCheck);
 	}else{
 		if(title == "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add New Record</small></h4>"){
-			addRequestTimeStamp(oldValue);
+			addRequestTimeStamp(form, title, oldValue,oldCheck);
 		}else if(title == "<h4 style='color: red;'>แก้ไขข้อมูลการขอลงเวลาย้อนหลัง</h4>"){
-			editRequestTimeStamp(oldValue);
+			editRequestTimeStamp(form, title, oldValue,oldCheck);
 		}
 	}
 }
 
-function addRequestTimeStamp(oldValue){ // บันทึกลง Table request_time_stamp
+function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึกลง Table request_time_stamp
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
@@ -447,7 +453,17 @@ function addRequestTimeStamp(oldValue){ // บันทึกลง Table reques
 			approvers_id  : $('#approved-id').val(),
 		},
 		success: function(response){
-			console.log(response);
+			if(response == "success"){
+				//alert(response.message);
+				msg_close();
+				msg_success();
+				window.location.reload();
+			}else{
+				// alert(response);
+				var data_resp = jQuery.parseJSON(response);
+				showDialog(form, title, oldValue,oldCheck, data_resp.message);
+
+			}
 			// success alert
 			//msg_success()
 			//alert("success");
@@ -455,9 +471,7 @@ function addRequestTimeStamp(oldValue){ // บันทึกลง Table reques
 			// alert('Data save');
 			// msg_close();
 		},
-		failed: function(errors){
-			//alert("error");
-			//alert(errors);
+		error: function(errors){
 			console.log(errors);
 		}
 	});
@@ -593,7 +607,7 @@ function getTimePicker(obj_input)
 	Swal.fire({
 		title: 'เลือกเวลา',
 		html: str,
-		 width: 900,
+		width: 900,
 		showCloseButton: true,
 		showCancelButton: true,
 		focusConfirm: false,
@@ -602,34 +616,34 @@ function getTimePicker(obj_input)
 		cancelButtonText: 'Cancel',
 		onBeforeOpen: () => {
 			$('.select-hour').on('click', 'li', function(){
-		 		$('.select-hour>li').removeClass('selected-hour');
-		 		$(this).addClass('selected-hour');
-		 	});
-		 	$('.select-minutes').on('click', 'li', function(){
-		 		$('.select-minutes>li').removeClass('selected-minutes');
-		 		$(this).addClass('selected-minutes');
-		 	});
+				$('.select-hour>li').removeClass('selected-hour');
+				$(this).addClass('selected-hour');
+			});
+			$('.select-minutes').on('click', 'li', function(){
+				$('.select-minutes>li').removeClass('selected-minutes');
+				$(this).addClass('selected-minutes');
+			});
 
-		 	var time_ = $(obj_input).val();
-		 	if(time_ !== ""){
-		 		var hh_mm = time_.split(':');
-		 		var hh = hh_mm[0];
-		 		var mm = hh_mm[1];
-		 		jQuery.each($('.select-minutes>li'), function(){
-		 			if(String($(this).text()) == String(mm)){
-		 				$(this).addClass('selected-minutes');
-		 			} else{
-		 				$(this).removeClass('selected-minutes');
-		 			}
-		 		});
-		 		jQuery.each($('.select-hour>li'), function(){
-		 			if(String($(this).text()) == (hh)){
-		 				$(this).addClass('selected-hour');
-		 			} else{
-		 				$(this).removeClass('selected-hour');
-		 			}
-		 		});
-		 	}
+			var time_ = $(obj_input).val();
+			if(time_ !== ""){
+				var hh_mm = time_.split(':');
+				var hh = hh_mm[0];
+				var mm = hh_mm[1];
+				jQuery.each($('.select-minutes>li'), function(){
+					if(String($(this).text()) == String(mm)){
+						$(this).addClass('selected-minutes');
+					} else{
+						$(this).removeClass('selected-minutes');
+					}
+				});
+				jQuery.each($('.select-hour>li'), function(){
+					if(String($(this).text()) == (hh)){
+						$(this).addClass('selected-hour');
+					} else{
+						$(this).removeClass('selected-hour');
+					}
+				});
+			}
 
 		}
 	}).then((result) => {
