@@ -231,14 +231,14 @@ class TimeStampController extends Controller
         if(!empty($verify_timestamp)){  // ถ้ามีrecord ของ timestamp
             if(!empty($time_in)){ //ถ้า มีการส่งค่า time_in
                 if(!empty($verify_timestamp['time_in'])){ //ถ้า time_in ของ timestamp มีข้อมูลอยู่
-                    $result[] = "มีการลงเวลาเข้าแล้ว";
+                    $result['t_in'] = "มีการบันทึกเวลาเข้าทำงานแล้ว";
                 }else{ // ถ้าไม่มีก็ new record ที่ request_time_stamp
                     if($count_data !== 0){  // check ใน request_time_stamp
                         for($i=0; $i<$count_data; $i++){
                             $request_type[] = $verify_request[$i]['request_type'];
                         }
                         if(in_array("time_in", $request_type)){
-                            $result[] = "มีการลงเวลาเข้าแล้ว";
+                            $result['t_in'] = "มีการส่งคำร้องขอลงเวลาเข้าทำงานย้อนหลังแล้ว";
                         }else{
                             $timeStamp                    = new RequestTimeStamp();
                             $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -266,14 +266,14 @@ class TimeStampController extends Controller
 
             if(!empty($break_out)){
                 if(!empty($verify_timestamp['break_out'])){
-                    $result[] = "มีการลงเวลาพักกลางวัน";
+                    $result['b_out'] = "มีการบันทึกเวลาพักกลางวันแล้ว";
                 }else{
                     if(($count_data !== 0)){
                         for($i=0; $i<$count_data; $i++){
                             $request_type[] = $verify_request[$i]['request_type'];
                         }
                         if(in_array("break_out", $request_type)){
-                            $result[] = "มีการลงเวลาพักกลางวัน";
+                            $result['b_out'] = "มีการส่งคำร้องขอลงเวลาพักกลางวันย้อนหลังแล้ว";
                         }else{
                             $timeStamp                    = new RequestTimeStamp();
                             $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -303,14 +303,14 @@ class TimeStampController extends Controller
 
             if(!empty($break_in)){
                 if(!empty($verify_timestamp['break_in'])){
-                    $result[] = "มีการลงเวลาเข้าทำงานช่วงบ่าย";
+                    $result['b_in'] = "มีการบันทึกเวลาเข้าทำงานช่วงบ่ายแล้ว";
                 }else{
                     if($count_data !== 0){
                         for($i=0; $i<$count_data; $i++){
                             $request_type[] = $verify_request[$i]['request_type'];
                         }
                         if(in_array("break_in", $request_type)){
-                            $result[] = "มีการลงเวลาพักกลางวัน";
+                            $result['b_in'] = "มีการส่งคำร้องขอลงเวลาเข้าทำงานช่วงบ่ายแล้ว";
                         }else{
                             $timeStamp                    = new RequestTimeStamp();
                             $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -340,14 +340,14 @@ class TimeStampController extends Controller
 
             if(!empty($time_out)){
                 if(!empty($verify_timestamp['time_out'])){
-                    $result[] = "มีการลงเวลาออก";
+                    $result['t_out'] = "มีการบันทึกเวลาออกงานแล้ว";
                 }else{
                     if($count_data !== 0){
                         for($i=0; $i<$count_data; $i++){
                             $request_type[] = $verify_request[$i]['request_type'];
                         }
                         if(in_array("time_out", $request_type)){
-                            $result[] = "มีการลงเวลาออก";
+                            $result['t_out'] = "มีการส่งคำร้องขอลงเวลาออกงานแล้ว";
                         }else{
                             $timeStamp                    = new RequestTimeStamp();
                             $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -382,7 +382,7 @@ class TimeStampController extends Controller
                          $request_type[] = $verify_request[$i]['request_type'];
                     }
                     if(in_array("time_in", $request_type)){
-                        $result[] = "มีการลงเวลาเข้าแล้ว";
+                        $result['t_in'] = "มีการส่งคำร้องขอลงเวลาเข้าทำงานย้อนหลังแล้ว";
                     }else{
                         $timeStamp                    = new RequestTimeStamp();
                         $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -415,7 +415,7 @@ class TimeStampController extends Controller
                          $request_type[] = $verify_request[$i]['request_type'];
                     }
                     if(in_array("break_out", $request_type)){
-                        $result[] = "มีการลงเวลาพักแล้ว";
+                        $result['b_out'] = "มีการส่งคำร้องขอลงเวลาพักกลางวันย้อนหลังแล้ว";
                     }else{
                         $timeStamp                    = new RequestTimeStamp();
                         $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -448,7 +448,7 @@ class TimeStampController extends Controller
                          $request_type[] = $verify_request[$i]['request_type'];
                     }
                     if(in_array("break_in", $request_type)){
-                        $result[] = "มีการลงเวลาเข้าทำงานชาวงบ่ายแล้ว";
+                        $result['b_in'] = "มีการส่งคำร้องขอลงเวลาเข้าทำงานช่วงบ่ายย้อนหลังแล้ว";
                     }else{
                         $timeStamp                    = new RequestTimeStamp();
                         $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -481,7 +481,7 @@ class TimeStampController extends Controller
                          $request_type[] = $verify_request[$i]['request_type'];
                     }
                     if(in_array("time_out", $request_type)){
-                        $result[] = "มีการลงเวลาออกแล้ว";
+                        $result['t_out'] = "มีการส่งคำร้องขอลงเวลาออกงานย้อนหลังแล้ว";
                     }else{
                         $timeStamp                    = new RequestTimeStamp();
                         $timeStamp->id_employee       = $current_employee['id_employee'];
@@ -509,13 +509,13 @@ class TimeStampController extends Controller
             }
         }
         $count_error = count($result);
-        var_dump($result);
+        // var_dump($result);
         if($count_error > 0){
-            $jsonData =  json_encode($result);
+            $jsonData =   $result;
             //var_dump($jsonData);
-            return['status' => 'failed','message' => $result];
+            return json_encode(['status' => 'failed','message' => $jsonData]);
         }else{
-            return ['status' => 'success', 'message' => 'success'];
+            return json_encode(['status' => 'success', 'message' => 'success']);
         }
         //echo $jsonData;
         //var_dump($result);
