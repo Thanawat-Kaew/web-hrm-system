@@ -66,27 +66,29 @@
 									$count_request 			= $value->requesttimestamp->count();
 									$count_request_status_2 = $value->requesttimestamp->where('status',2)->count();
 									?>
-									<?php if($count_request_status_2 != 0):?>
+									<?php if($count_request && $count_request_status_2 != 0):?>
 										<span class="label  label-warning">waiting</span>
-										<?php else: ?>
-											<span class="label  label-success">success</span>
-										<?php endif ?>
-									</td>
-									<td>
-										<i class="fa fa-eye fa-lg btn view-data"></i>
-									</td>
-								</tr>
-							<?php endforeach ?>
-						</table>
-					</div>
-					<!-- /.box-body -->
+									<?php else: ?>
+										<span class="label  label-success">success</span>
+									<?php endif ?>
+								</td>
+								<td>
+									<?php if($count_request && $count_request_status_2 != 0):?>
+										<i class="fa fa-eye fa-lg btn edit-data-request-timestamp" data-id="<?php echo $value['id']?>"></i>
+									<?php else: ?>
+										<i class="fa fa-eye fa-lg btn view-request-timestamp" data-id="<?php echo $value['id']?>"></i>
+									<?php endif ?>
+								</td>
+							</tr>
+						<?php endforeach ?>
+					</table>
 				</div>
-				<!-- /.box -->
 			</div>
 		</div>
+	</div>
 	</section>
 
-	<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
-	<div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
-	<div id="add-request-forget-to-time" data-url="<?php echo route('time_stamp.add_request_forget_to_time.post')?>"></div>
-	<?php echo csrf_field()?>
+<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
+<div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
+<div id="edit-request-time-stamp" data-url="<?php echo route('time_stamp.edit_request_time_stamp.post')?>"></div>
+<?php echo csrf_field()?>

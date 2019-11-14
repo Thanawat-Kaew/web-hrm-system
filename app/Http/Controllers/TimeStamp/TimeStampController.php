@@ -56,17 +56,8 @@ class TimeStampController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $request = RequestTimeStamp::with('employee')->where('approvers', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
+        //sd($request->toArray());
         return $this->useTemplate('time_stamp.time_stamp_request', compact('request'));
-    }
-
-    public function time_stamp_list_request() //ประวัติการร้องขอ
-    {
-        if(\Session::has('current_employee')){
-            $current_employee = \Session::get('current_employee');
-        }
-        $request_time_stamp     = RequestTimeStamp::where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
-        //sd($request_time_stamp->toArray());
-        return $this->useTemplate('time_stamp.list_request', compact('request_time_stamp'));
     }
 
     public function ajaxCenter(Request $request)
@@ -74,88 +65,74 @@ class TimeStampController extends Controller
     	$method = $request->get('method');
         switch ($method) {
             case 'getFormNewTimeClock': // ลงเวลาย้อนหลัง
-                if(\Session::has('current_employee')){
-                    $current_employee = \Session::get('current_employee');
-                }
-                $employee = TimeStamp::where('id_employee', $current_employee['id_employee'])->get();
+            if(\Session::has('current_employee')){
+                $current_employee = \Session::get('current_employee');
+            }
+                // $employee = TimeStamp::where('id_employee', $current_employee['id_employee'])->get();
+            $header = Employee::where('id_position', 2)->where('id_department', $current_employee['id_department'])->first();
+            $form_repo = new FormRepository;
+            $form_new_time_clock = $form_repo->getFormNewTimeClock($header);
+            return response()->json(['status'=> 'success','data'=> $form_new_time_clock]);
+            break;
 
-                $header = Employee::where('id_position', 2)->where('id_department', $current_employee['id_department'])->first();
-                $form_repo = new FormRepository;
-                $form_new_time_clock = $form_repo->getFormNewTimeClock($header);
-                return response()->json(['status'=> 'success','data'=> $form_new_time_clock]);
-                break;
-
-            case 'getRequestTimeStamp': // ลงแต่เวลาเข้าไม่ได้ลงเวลาออก //ลืมลงเวลา
-                if(\Session::has('current_employee')){
-                    $current_employee = \Session::get('current_employee');
-                }
-                $header = Employee::where('id_position', 2)->where('id_department', $current_employee['id_department'])->first();
-                $form_repo = new FormRepository;
-                $form_request_timestamp = $form_repo->getRequestTimeStamp($header);
-                return response()->json(['status'=> 'success','data'=> $form_request_timestamp]);
-                break;
+            case 'getRequestTimeStamp':  //ลืมลงเวลา
+            if(\Session::has('current_employee')){
+                $current_employee = \Session::get('current_employee');
+            }
+            $header = Employee::where('id_position', 2)->where('id_department', $current_employee['id_department'])->first();
+            $form_repo = new FormRepository;
+            $form_request_timestamp = $form_repo->getRequestTimeStamp($header);
+            return response()->json(['status'=> 'success','data'=> $form_request_timestamp]);
+            break;
 
             case 'getViewDataRequestTimeStamp': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ดูของลูกน้อง
-                $id             = $request->get('id');
+            $id             = $request->get('id');
                 //sd($id);
-                $data           = RequestTimeStamp::where('id', $id)->first();
+            $data           = RequestTimeStamp::where('id', $id)->first();
                 //sd($data->toArray());
-                $form_repo = new FormRepository;
-                $form_view_request_timestamp = $form_repo->getViewDataRequestTimeStamp($data);
+            $form_repo = new FormRepository;
+            $form_view_data_request_timestamp = $form_repo->getViewDataRequestTimeStamp($data);
                 //sd($form_view_request_timestamp);
-                return response()->json(['status'=> 'success','data'=> $form_view_request_timestamp]);
-                break;
+            return response()->json(['status'=> 'success','data'=> $form_view_data_request_timestamp]);
+            break;
 
-            case 'getViewDetailRequestTimeStamp': // ดูลายละเอียดที่ขอลงเวลาย้อนหลัง //ดูของตัวเอง
-                $id             = $request->get('id');
+            case 'getViewRequestTimeStamp': // ดูลายละเอียดที่ขอลงเวลาย้อนหลัง //ดูของตัวเอง
+            $id             = $request->get('id');
                 //sd($id);
-                $data           = RequestTimeStamp::where('id', $id)->first();
+            $data           = TimeStamp::where('id', $id)->first();
                 //sd($data->toArray());
-                $form_repo = new FormRepository;
-                $form_view_detail_request_timestamp = $form_repo->getViewDetailRequestTimeStamp($data);
-                return response()->json(['status'=> 'success','data'=> $form_view_detail_request_timestamp]);
-                break;
+            $form_repo = new FormRepository;
+            $form_view_request_timestamp = $form_repo->getViewRequestTimeStamp($data);
+            return response()->json(['status'=> 'success','data'=> $form_view_request_timestamp]);
+            break;
 
-            case 'getEditRequestTimeStamp': // แก้ไข้ที่ร้องขอไป
-                $id             = $request->get('id');
-                //sd($id);
-                $data           = RequestTimeStamp::where('id', $id)->first();
+            case 'getEditRequestTimeStamp': // แก้ไข้ข้อมูลที่ร้องขอไป
+            if(\Session::has('current_employee')){
+                $current_employee = \Session::get('current_employee');
+            }
+            $header = Employee::where('id_position', 2)->where('id_department', $current_employee['id_department'])->first();
+            $id         = $request->get('id');
+            $request    = TimeStamp::find($id);
+            $date       = $request->date;
+                //sd($date);
+            $data           = RequestTimeStamp::where('request_date', $date)->orderBy('created_at', 'desc')->first();
                 //sd($data->toArray());
-                $form_repo = new FormRepository;
-                $form_edit_request_timestamp = $form_repo->getEditRequestTimeStamp($data);
-                return response()->json(['status'=> 'success','data'=> $form_edit_request_timestamp]);
-                break;
-
-            case 'getViewDataRequestForgetToTime': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ดูของลูกน้อง
-                $id             = $request->get('id');
-                //sd($id);
-                $data           = RequestForgetToTime::where('id', $id)->first();
-                //sd($data->toArray());
-                $form_repo = new FormRepository;
-                $form_view_data_request_forget_to_time = $form_repo->getViewDataRequestForgetToTime($data);
-                return response()->json(['status'=> 'success','data'=> $form_view_data_request_forget_to_time]);
-                break;
-
-            case 'getViewDetailRequestForgetToTime': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ลืมลงเวลาบ้างส่วน //ดูของตัวเอง
-                $id             = $request->get('id');
-                //sd($id);
-                $data           = RequestForgetToTime::where('id', $id)->first();
-                //sd($data->toArray());
-                $form_repo = new FormRepository;
-                $form_view_request_forget_to_time = $form_repo->getViewDetailRequestForgetToTime($data);
-                return response()->json(['status'=> 'success','data'=> $form_view_request_forget_to_time]);
-                break;
+                //sd($data['time_in']);
+            $form_repo = new FormRepository;
+            $form_edit_request_timestamp = $form_repo->getEditRequestTimeStamp($header, $data);
+            return response()->json(['status'=> 'success','data'=> $form_edit_request_timestamp]);
+            break;
 
             case 'getHistoryNewRecord': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ลืมลงเวลาบ้างส่วน //ดูของตัวเอง
 
-                $form_repo = new FormRepository;
-                $form_history_record = $form_repo->getHistoryNewRecord();
-                return response()->json(['status'=> 'success','data'=> $form_history_record]);
-                break;
+            $form_repo = new FormRepository;
+            $form_history_record = $form_repo->getHistoryNewRecord();
+            return response()->json(['status'=> 'success','data'=> $form_history_record]);
+            break;
 
             default:
                 # code...
-                break;
+            break;
         }
 
     }
@@ -214,66 +191,573 @@ class TimeStampController extends Controller
             $current_employee = \Session::get('current_employee');
         }
 
-        $request_date          = $request->get('request_date');
-        //sd($request_date);
-        $time_in               = $request->get('time_in');
-        $break_out             = $request->get('break_out');
-        $break_in              = $request->get('break_in');
-        $time_out              = $request->get('time_out');
-        $reason                = $request->get('reason');
+        $request_date                       = $request->get('request_date');
+        $time_in                            = $request->get('time_in');
+        $break_out                          = $request->get('break_out');
+        $break_in                           = $request->get('break_in');
+        $time_out                           = $request->get('time_out');
+        $reason                             = $request->get('reason');
+        $array_time                         = [
+                                                'time_in' =>$time_in,
+                                                'time_out' => $time_out,
+                                                'break_in' => $break_in,
+                                                'break_out' => $break_out,
+                                            ];
 
-        // save data to database
-        $request = new RequestTimeStamp();
-        $request->id_employee  = $current_employee['id_employee'];
-        $request->request_date = $request_date ;
-        $request->time_in      = $time_in;
-        $request->break_out    = $break_out;
-        $request->break_in     = $break_in;
-        $request->time_out     = $time_out;
-        $request->reason       = $reason;
-        $request->status       = 2;
-        if(($current_employee['id_department'] == "en0001" ) && ($current_employee['id_position'] == 1)){
-            $request->approvers = 96;
-        }else if(($current_employee['id_department'] == "fa0001" ) && ($current_employee['id_position'] == 1)){
-            $request->approvers = 99;
-        }else if(($current_employee['id_department'] == "hr0001" ) && ($current_employee['id_position'] == 1)){
-            $request->approvers = 100;
-        }else if(($current_employee['id_department'] == "pm0001" ) && ($current_employee['id_position'] == 1)){
-            $request->approvers = 98;
-        }else if(($current_employee['id_department'] == "ss0001" ) && ($current_employee['id_position'] == 1)){
-            $request->approvers = 97;
+        $verify_request  = RequestTimeStamp::where('request_date', $request_date)->where('id_employee', $current_employee['id_employee'])->where('status', 2)->get();
+        $num = [];
+        foreach ($verify_request->toArray() as $key ) {
+           $num[] = $key['request_type'];
         }
+        $count_data = count($verify_request->toArray());
+        //sd($num);
+        //sd($verify_request->toArray());
+        /*if($count_data == 0){
+            echo "ไม่มี";
+        }else{
+            echo "มี";
+        }exit();
+        sd($count_data);*/
+        $verify_timestamp = TimeStamp::where('date', $request_date)->where('id_employee', $current_employee['id_employee'])->first();
+        //sd($verify_timestamp->toArray());
+        /*if(isset($verify_timestamp)){
+            echo "มี";
+        }else{
+            echo "ไม่มี";
+        }exit();*/
 
-        $request->save();
+        $result = [];
+        $request_type = [];
+        if(!empty($verify_timestamp)){  // ถ้ามีrecord ของ timestamp
+            if(!empty($time_in)){ //ถ้า มีการส่งค่า time_in
+                if(!empty($verify_timestamp['time_in'])){ //ถ้า time_in ของ timestamp มีข้อมูลอยู่
+                    $result[] = "มีการลงเวลาเข้าแล้ว";
+                }else{ // ถ้าไม่มีก็ new record ที่ request_time_stamp
+                    if($count_data !== 0){  // check ใน request_time_stamp
+                        for($i=0; $i<$count_data; $i++){
+                            $request_type[] = $verify_request[$i]['request_type'];
+                        }
+                        if(in_array("time_in", $request_type)){
+                            $result[] = "มีการลงเวลาเข้าแล้ว";
+                        }else{
+                            $timeStamp                    = new RequestTimeStamp();
+                            $timeStamp->id_employee       = $current_employee['id_employee'];
+                            $timeStamp->request_date      = $request_date;
+                            $timeStamp->request_type      = "time_in";
+                            $timeStamp->request_time      = $time_in;
+                            $timeStamp->reason            = $reason;
+                            $timeStamp->status            = 2;
+                            $timeStamp->detail            = "user กรอก time_in มา วันที่ตรงแต่ไม่มี time_in 1";
+                            $timeStamp->approvers         = $request->get('approvers_id');
+                        }
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "time_in";
+                        $timeStamp->request_time      = $time_in;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก time_in มาวันที่ไม่ตรง 2";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                    }
+                }
+            }
+
+            if(!empty($break_out)){
+                if(!empty($verify_timestamp['break_out'])){
+                    $result[] = "มีการลงเวลาพักกลางวัน";
+                }else{
+                    if(($count_data !== 0)){
+                        for($i=0; $i<$count_data; $i++){
+                            $request_type[] = $verify_request[$i]['request_type'];
+                        }
+                        if(in_array("break_out", $request_type)){
+                            $result[] = "มีการลงเวลาพักกลางวัน";
+                        }else{
+                            $timeStamp                    = new RequestTimeStamp();
+                            $timeStamp->id_employee       = $current_employee['id_employee'];
+                            $timeStamp->request_date      = $request_date;
+                            $timeStamp->request_type      = "break_out";
+                            $timeStamp->request_time      = $break_out;
+                            $timeStamp->reason            = $reason;
+                            $timeStamp->status            = 2;
+                            $timeStamp->detail            = "user กรอก break_out มา วันที่ตรงแต่ไม่มี break_out 1";
+                            $timeStamp->approvers         = $request->get('approvers_id');
+                            $timeStamp->save();
+                        }
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "break_out";
+                        $timeStamp->request_time      = $break_out;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก break_out มาวันที่ไม่ตรง 2";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                        $timeStamp->save();
+                    }
+                }
+            }
+
+            if(!empty($break_in)){
+                if(!empty($verify_timestamp['break_in'])){
+                    $result[] = "มีการลงเวลาเข้าทำงานช่วงบ่าย";
+                }else{
+                    if($count_data !== 0){
+                        for($i=0; $i<$count_data; $i++){
+                            $request_type[] = $verify_request[$i]['request_type'];
+                        }
+                        if(in_array("break_in", $request_type)){
+                            $result[] = "มีการลงเวลาพักกลางวัน";
+                        }else{
+                            $timeStamp                    = new RequestTimeStamp();
+                            $timeStamp->id_employee       = $current_employee['id_employee'];
+                            $timeStamp->request_date      = $request_date;
+                            $timeStamp->request_type      = "break_in";
+                            $timeStamp->request_time      = $break_in;
+                            $timeStamp->reason            = $reason;
+                            $timeStamp->status            = 2;
+                            $timeStamp->detail            = "user กรอก break_in มา วันที่ตรงแต่ไม่มี break_in 1";
+                            $timeStamp->approvers         = $request->get('approvers_id');
+                            $timeStamp->save();
+                        }
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "break_in";
+                        $timeStamp->request_time      = $break_in;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก break_in มาวันที่ไม่ตรง 2";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                        $timeStamp->save();
+                    }
+                }
+            }
+
+            if(!empty($time_out)){
+                if(!empty($verify_timestamp['time_out'])){
+                    $result[] = "มีการลงเวลาออก";
+                }else{
+                    if($count_data !== 0){
+                        for($i=0; $i<$count_data; $i++){
+                            $request_type[] = $verify_request[$i]['request_type'];
+                        }
+                        if(in_array("time_out", $request_type)){
+                            $result[] = "มีการลงเวลาออก";
+                        }else{
+                            $timeStamp                    = new RequestTimeStamp();
+                            $timeStamp->id_employee       = $current_employee['id_employee'];
+                            $timeStamp->request_date      = $request_date;
+                            $timeStamp->request_type      = "time_out";
+                            $timeStamp->request_time      = $time_out;
+                            $timeStamp->reason            = $reason;
+                            $timeStamp->status            = 2;
+                            $timeStamp->detail            = "user กรอก time_out มา วันที่ตรงแต่ไม่มี time_out 1";
+                            $timeStamp->approvers         = $request->get('approvers_id');
+                            $timeStamp->save();
+                        }
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "time_out";
+                        $timeStamp->request_time      = $time_out;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก time_out มาวันที่ไม่ตรง 2";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                        $timeStamp->save();
+                    }
+                }
+            }
+
+        }else{ // ไม่ตรงกับ timestamp
+            if(!empty($time_in)){  // ถ้า time_in ที่ส่งมาไม่วาง
+                if($count_data !== 0){ // ถ้า request_time_stmap ไม่ว่าง
+                    for($i=0; $i<$count_data; $i++){
+                         $request_type[] = $verify_request[$i]['request_type'];
+                    }
+                    if(in_array("time_in", $request_type)){
+                        $result[] = "มีการลงเวลาเข้าแล้ว";
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "time_in";
+                        $timeStamp->request_time      = $time_in;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก time_in มาไม่มีวันที่ใน timestamp วันที่ตรงแต่ไม่มี time_in 3";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                        $timeStamp->save();
+                    }
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "time_in";
+                    $timeStamp->request_time      = $time_in;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->detail            = "user กรอก time_in มาไม่มีวันที่ใน timestamp วันที่ไม่ตรง 4";
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+            }
+
+            if(!empty($break_out)){  // ถ้า break_out ที่ส่งมาไม่วาง
+                if($count_data !== 0){ // ถ้า request_time_stmap ไม่ว่าง
+                    for($i=0; $i<$count_data; $i++){
+                         $request_type[] = $verify_request[$i]['request_type'];
+                    }
+                    if(in_array("break_out", $request_type)){
+                        $result[] = "มีการลงเวลาพักแล้ว";
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "break_out";
+                        $timeStamp->request_time      = $break_out;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก break_out มาไม่มีวันที่ใน timestamp วันที่ตรงแต่ไม่มี break_out 3";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                        $timeStamp->save();
+                    }
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "break_out";
+                    $timeStamp->request_time      = $break_out;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->detail            = "user กรอก break_out มาไม่มีวันที่ใน timestamp วันที่ไม่ตรง 4";
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+            }
+
+            if(!empty($break_in)){  // ถ้า break_in ที่ส่งมาไม่วาง
+                if($count_data !== 0){ // ถ้า request_time_stmap ไม่ว่าง
+                    for($i=0; $i<$count_data; $i++){
+                         $request_type[] = $verify_request[$i]['request_type'];
+                    }
+                    if(in_array("break_in", $request_type)){
+                        $result[] = "มีการลงเวลาเข้าทำงานชาวงบ่ายแล้ว";
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "break_in";
+                        $timeStamp->request_time      = $break_in;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก break_in มาไม่มีวันที่ใน timestamp วันที่ตรงแต่ไม่มี break_in 3";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                        $timeStamp->save();
+                    }
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "break_in";
+                    $timeStamp->request_time      = $break_in;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->detail            = "user กรอก break_in มาไม่มีวันที่ใน timestamp วันที่ไม่ตรง 4";
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+            }
+
+            if(!empty($time_out)){  // ถ้า time_out ที่ส่งมาไม่วาง
+                if($count_data !== 0){ // ถ้า request_time_stmap ไม่ว่าง
+                    for($i=0; $i<$count_data; $i++){
+                         $request_type[] = $verify_request[$i]['request_type'];
+                    }
+                    if(in_array("time_out", $request_type)){
+                        $result[] = "มีการลงเวลาออกแล้ว";
+                    }else{
+                        $timeStamp                    = new RequestTimeStamp();
+                        $timeStamp->id_employee       = $current_employee['id_employee'];
+                        $timeStamp->request_date      = $request_date;
+                        $timeStamp->request_type      = "time_out";
+                        $timeStamp->request_time      = $time_out;
+                        $timeStamp->reason            = $reason;
+                        $timeStamp->status            = 2;
+                        $timeStamp->detail            = "user กรอก time_out มาไม่มีวันที่ใน timestamp วันที่ตรงแต่ไม่มี time_out 3";
+                        $timeStamp->approvers         = $request->get('approvers_id');
+                        $timeStamp->save();
+                    }
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "time_out";
+                    $timeStamp->request_time      = $time_out;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->detail            = "user กรอก time_out มาไม่มีวันที่ใน timestamp วันที่ไม่ตรง 4";
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+            }
+        }
+        $count_error = count($result);
+        var_dump($result);
+        if($count_error > 0){
+            $jsonData =  json_encode($result);
+            //var_dump($jsonData);
+            return['status' => 'failed','message' => $result];
+        }else{
+            return ['status' => 'success', 'message' => 'success'];
+        }
+        //echo $jsonData;
+        //var_dump($result);
+        //print_r($result);
+        //sd($result);
+        //return error()->json(['status'=> 'error','data'=> $jsonData]);
     }
+
+    // save data to database
+    /*foreach ($array_time as $key => $time) {
+                    if(empty($time)) continue;
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = $key;
+                    $timeStamp->request_time      = $time;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }*/
+
+        //sd($verify_request->toArray());
+        //sd($verify_timestamp->toArray());
+        //sd($verify_timestamp['time_in']);
+        //$count_data = count($verify_request->toArray());
+        //sd($count);
+        /*if($count_data != 0){
+            echo "request";
+        }else if(!empty($verify_timestamp)){
+            echo "timeStamp";
+        }
+        exit();*/
+        /*if(!empty($verify_request)){
+            $request_type = [];
+            for($i=0; $i<$count_data; $i++){
+                $request_type[] = $verify_request[$i]['request_type'];
+            }
+            $result = [];
+            if(in_array("time_in", $request_type)){
+                $result[] = "time_in";
+            }
+             if(in_array("break_out", $request_type)){
+                $result[] = "break_out";
+            }
+             if(in_array("break_in", $request_type)){
+                $result[] = "break_in";
+            }
+             if(in_array("time_out", $request_type)){
+                $result[] = "time_out";
+            }
+            //sd($result);
+            //print_r($result);
+            echo "เข้า case 1";
+        }else if(!empty($verify_timestamp)){
+            $result2 = [];
+            if(!empty($time_in)){
+                if(!empty($verify_timestamp['time_in'])){
+                    $result2[] = "มีการลงเวลาเข้าแล้ว";
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "time_in";
+                    $timeStamp->request_time      = $time_in;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+                echo "เข้า case 2";
+            }
+            if(!empty($break_out)){
+                if(!empty($verify_timestamp['break_out'])){
+                    $result2[] = "มีการลงเวลาพักกลางวัน";
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "break_out";
+                    $timeStamp->request_time      = $break_out;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+                echo "เข้า case 2";
+            }
+            if(!empty($break_in)){
+                if(!empty($verify_timestamp['break_in'])){
+                    $result2[] = "มีการลงเวลาเข้าทำงานช่วงบ่าย";
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "break_in";
+                    $timeStamp->request_time      = $break_in;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+                echo "เข้า case 2";
+            }
+            if(!empty($time_out)){
+                if(!empty($verify_timestamp['time_out'])){
+                    $result2[] = "มีการลงเวลาออก";
+                }else{
+                    $timeStamp                    = new RequestTimeStamp();
+                    $timeStamp->id_employee       = $current_employee['id_employee'];
+                    $timeStamp->request_date      = $request_date;
+                    $timeStamp->request_type      = "time_out";
+                    $timeStamp->request_time      = $time_out;
+                    $timeStamp->reason            = $reason;
+                    $timeStamp->status            = 2;
+                    $timeStamp->approvers         = $request->get('approvers_id');
+                    $timeStamp->save();
+                }
+                echo "เข้า case 2";
+            }*/
+            //sd($result2);
+            //print_r($result2);
+            //echo "เข้า case 2";
+
+
+
+
+
+
+
+        /*$date    = TimeStamp::with('requesttimestamp')->where('date', $request_date)->where('id_employee', $current_employee['id_employee'])->get();
+        sd($date->toArray());
+        if(!empty($date[0])){ // วันที่ตรงกับ timestamp
+            $result = [];
+            if(!empty($time_in)){
+                if(!empty($date[0]['time_in'])){
+                    $result[]      = "TimeIn";
+                }
+            }
+            if(!empty($break_out)){
+                if(!empty($date[0]['break_out'])){
+                    $result[]        = "BreakOut";
+                }
+            }
+            if(!empty($break_in)){
+                if(!empty($date[0]['break_in'])){
+                    $result[]       = "BreakIn";
+                }
+            }
+            if(!empty($time_out)){
+                if(!empty($date[0]['time_out'])){
+                    $result[]       = "TimeOut";
+                }
+            }
+            print_r($result);
+            //return error()->json(['status'=> 'error','data'=> $result]);
+        }else{ // วันที่ไม่ตรงกับ timestamp
+            // save data to database
+            foreach ($array_time as $key => $time) {
+                if(empty($time)) continue;
+                $timeStamp                    = new RequestTimeStamp();
+                $timeStamp->id_employee       = $current_employee['id_employee'];
+                $timeStamp->request_date      = $request_date;
+                $timeStamp->request_type      = $key;
+                $timeStamp->request_time      = $time;
+                $timeStamp->reason            = $reason;
+                $timeStamp->status            = 2;
+                $timeStamp->approvers         = $request->get('approvers_id');
+                //$timeStamp->save();
+            }
+        /*}*/
+
+    /*}*/
 
     public function confirmDataRequestTimeStamp(Request $request)  // กดอนุมัติ
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $id          = $request->get('id');
+        $id      = $request->get('id');
+        //sd($id);
         $confirm = RequestTimeStamp::find($id);
-        $confirm->status                 = 1;
-        //$confirm->save();
+        //sd($confirm->toArray());
+        $confirm->status  = 1;
+        $confirm->save();
 
-        $id_employee_request  = $confirm['id_employee']; // id ของผู้ request
-        $date_time_in         = $confirm['delay_time'].' '.$confirm['time_in'];
-        //sd($date_time_in);
-        //var_dump($date_time_in);
-        //var_dump($confirm['delay_time']);
-        $date_break_out  = $confirm['delay_time'].' '.$confirm['break_out'];
-        $date_break_in   = $confirm['delay_time'].' '.$confirm['break_in'];
-        $date_time_out   = $confirm['delay_time'].' '.$confirm['time_out'];
-        //sd($date_timein);
-        $request = new TimeStamp();
-        $request->id_employee   = $id_employee_request;
-        $request->time_in       = $date_time_in;
-        $request->break_out     = $date_break_out;
-        $request->break_in      = $date_break_in;
-        $request->time_out      = $date_time_out;
+        $request_date = $confirm->request_date;
+        //sd($request_date);
+        $request_type = $confirm->request_type;
+        //sd($request_type);
+        $request_time = $confirm->request_time;
+        //sd($request_time);
+        /*$time_in      = $confirm->time_in;
+        $break_out    = $confirm->break_out;
+        $break_in     = $confirm->break_in;
+        $time_out     = $confirm->time_out;
+        */
+
+        $request      = TimeStamp::where('date', $request_date)->first();
+        //sd($request);
+        if(isset($request)){
+            if($request_type        == "break_out"){
+                $request->break_out = $request_time;
+            }
+            if($request_type        == "break_in"){
+                $request->break_in  = $request_time;
+            }
+            if($request_type        == "time_out"){
+                $request->time_out  = $request_time;
+            }
+            $request->save();
+        }else{
+            $add                = new TimeStamp();
+            $add->id_employee   = $current_employee['id_employee'];
+            if($request_type    == "time_in"){
+                $add->time_in   = $request_time;
+            }
+            if($request_type    == "break_out"){
+                $add->break_out = $request_time;
+            }
+            if($request_type    == "break_in"){
+                $add->break_in  = $request_time;
+            }
+            if($request_type    == "time_out"){
+                $add->time_out  = $request_time;
+            }
+            $add->save();
+        }
+
+        /*if(!empty($time_in)){
+            $request->time_in   = $time_in;
+        }
+        if(!empty($break_out)){
+            $request->break_out = $break_out;
+        }
+        if(!empty($break_in)){
+            $request->break_in  = $break_in;
+        }
+        if(!empty($time_out)){
+            $request->time_out  = $time_out;
+        }*/
         //$request->save();
-
     }
 
     public function cancelDataRequestTimeStamp(Request $request)  // กดไม่อนุมัติ
@@ -287,31 +771,56 @@ class TimeStampController extends Controller
         $confirm = RequestTimeStamp::find($id);
         //d($confirm->toArray());
         $confirm->status               = 3;
-        $confirm->approvers            = $current_employee['id_employee'];
         $confirm->reason_approvers     = $reason_reject;
         $confirm->save();
     }
 
-    public function updateRequestTimeStamp(Request $request){ //แก้ไขข้อมูลที่ร้องขอลงเวลาย้อนหลัง
+    public function editRequestTimeStamp(Request $request){ //แก้ไขข้อมูลที่ร้องขอลงเวลาย้อนหลัง
         $id                    = $request->get('id');
         //sd($id);
-        $date                  = $request->get('date');
+        $request_date          = $request->get('request_date');
+        //sd($request_date);
         $time_in               = $request->get('time_in');
-        $break_out             = $request->get('break_out');
+        //sd($time_in);
         $break_in              = $request->get('break_in');
+        $break_out             = $request->get('break_out');
         $time_out              = $request->get('time_out');
         $reason                = $request->get('reason');
 
-        $update  = RequestTimeStamp::find($id);
-        //sd($update);
-        $update->delay_time    = $date;
-        $update->time_in       = $time_in;
-        $update->break_out     = $break_out;
-        $update->break_in      = $break_in;
-        $update->time_out      = $time_out;
-        $update->reason        = $reason;
-        $update->status        = 2;
+        $update                = RequestTimeStamp::find($id);
+        //sd($update->toArray());
+        if(!empty($request_date)){
+            $update->request_date  = $request_date;
+        }
+        if(!empty($time_in)){
+            $update->time_in       = $time_in;
+        }
+        if(!empty($break_out)){
+            $update->break_out     = $break_out;
+        }
+        if(!empty($break_in)){
+            $update->break_in      = $break_in;
+        }
+        if(!empty($time_out)){
+            $update->time_out      = $time_out;
+        }
+        $update->status            = 2;
         $update->save();
 
+    }
+
+    function array_push_associative(&$arr) {
+        $args = func_get_args();
+        foreach ($args as $arg) {
+            if (is_array($arg)) {
+                foreach ($arg as $key => $value) {
+                    $arr[$key] = $value;
+                    $ret++;
+                }
+            }else{
+                $arr[$arg] = "";
+            }
+        }
+        return $ret;
     }
 }
