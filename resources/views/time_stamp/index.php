@@ -48,8 +48,6 @@
 							<th>Break-Out</th>
 							<th>Break-In</th>
 							<th>Time-Out</th>
-							<th>Status</th>
-							<th></th>
 						</tr>
 						<?php
 						foreach($data as $value) :
@@ -61,24 +59,6 @@
 								<td><?php echo $value['break_out']?></td>
 								<td><?php echo $value['break_in']?></td>
 								<td><?php echo $value['time_out']?></td>
-								<td>
-									<?php
-									$count_request 			= $value->requesttimestamp->count();
-									$count_request_status_2 = $value->requesttimestamp->where('status',2)->count();
-									?>
-									<?php if($count_request && $count_request_status_2 != 0):?>
-										<span class="label  label-warning">waiting</span>
-									<?php else: ?>
-										<span class="label  label-success">success</span>
-									<?php endif ?>
-								</td>
-								<td>
-									<?php if($count_request && $count_request_status_2 != 0):?>
-										<i class="fa fa-eye fa-lg btn edit-data-request-timestamp" data-id="<?php echo $value['id']?>"></i>
-									<?php else: ?>
-										<i class="fa fa-eye fa-lg btn view-request-timestamp" data-id="<?php echo $value['id']?>"></i>
-									<?php endif ?>
-								</td>
 							</tr>
 						<?php endforeach ?>
 					</table>
@@ -86,7 +66,7 @@
 			</div>
 		</div>
 	</div>
-	</section>
+</section>
 
 <div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
 <div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>

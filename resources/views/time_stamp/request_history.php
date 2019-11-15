@@ -28,15 +28,45 @@
 							<th>วันที่</th>
 							<th>ประเภท</th>
 							<th>เวลา</th>
+							<th>เหตุผล</th>
 							<th>สถานะ</th>
-							<th></th>
+							<th style="width: 20px;"></th>
 						</tr>
 						<tr>
 							<td>11/11/2019</td>
 							<td>time in</td>
 							<td>09:00</td>
-							<td>รอ</td>
-							<td></td>
+							<td>ไก่จิกเด็กตาย เด็กตายบนปากโอ่ง</td>
+							<td><span class="label label-warning">waiting</span></td>
+							<td style="width: 20px;">
+								<i class="btn fa fa-pencil"></i>
+								<i class="btn fa fa-trash"></i>
+								<i class="btn fa fa-eye"></i>
+							</td>
+						</tr>
+						<tr>
+							<td>11/11/2019</td>
+							<td>time in</td>
+							<td>09:00</td>
+							<td>ไก่จิกเด็กตาย เด็กตายบนปากโอ่ง</td>
+							<td><span class="label label-success">success</span></td>
+							<td style="width: 20px;">
+								<i class="btn fa fa-pencil"></i>
+								<i class="btn fa fa-trash"></i>
+								<i class="btn fa fa-eye"></i>
+							</td>
+						</tr>
+						<tr>
+							<td>11/11/2019</td>
+							<td>time in</td>
+							<td>09:00</td>
+							<td>ไก่จิกเด็กตาย เด็กตายบนปากโอ่ง</td>
+							<td><span class="label label-danger">reject</span></td>
+							<td style="width: 20px;">
+								<i class="btn fa fa-pencil"></i>
+								<i class="btn fa fa-trash"></i>
+								<i class="btn fa fa-eye"></i>
+							</td>
 						</tr>
 					</table>
 				</div>

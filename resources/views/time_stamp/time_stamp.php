@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead downloading all them to reduce the load. -->
     <link rel="stylesheet" href="/resources/assets/theme/adminlte/dist/css/skins/_all-skins.min.css">
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
     <!--Clock-->
     <link rel="stylesheet" href="/resources/assets/css/time_stamp/time_stamp.css?time=<?php echo time()?>">
     <!-- Google Font -->
@@ -71,9 +73,9 @@
                             </select>
                         </div>
                         <div class="form-group text-center">
-                            <a href="">
+                            <!-- <a href=""> -->
                                 <button class="btn btn-info pull-center submit-add-timestamp" type="submit">SUBMIT</button>
-                            </a>
+                            <!-- </a> -->
                         </div>
                     </div>
                 </div>
@@ -114,7 +116,10 @@
     <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
     <!--Clock-->
     <script src="/resources/assets/js/time_stamp/time_stamp.js"></script>
+
 </body>
 </html>
