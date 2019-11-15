@@ -134,46 +134,64 @@ class TimeStampController extends Controller
     {
         date_default_timezone_set('Asia/Bangkok');
         $type_time = $request->get('type_time'); //time_in, break_out, ...
+        //sd($type_time);
+        $pass = $request->get('pass');
+        //sd($pass);
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
+        }
+        if($pass !== $current_employee['password']){
+            return ['status' => 'failed_password','message' => "failed_password"];
         }
         $date_today   = date('Y-m-d');
         if($type_time == "time_in"){
             $current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->orderBy('date', 'desc')->first();
             $latest_date  = $current_time['date'];
+            //sd($latest_date);
             if($latest_date !== $date_today){ //time_in ซ้ำไม่ได้
                 $time_stamp = new TimeStamp();
                 $time_stamp->id_employee   = $current_employee['id_employee'];
                 $time_stamp->date          = date('Y-m-d');
                 $time_stamp->time_in       = date('H:i:s');
                 $time_stamp->save();
+                return ['status' => 'success_timein','message' => "success"];
             }else{
-                return "คุณลงเวลาเข้าไปแล้ว";
+                return ['status' => 'failed_timein','message' => "failed"];
             }
         }else if($type_time == "break_out"){
             $current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->where('date', $date_today)->first();
-
-            /*$current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->where('cr')->first();
-            $date_today   = date('Y-m-d');*/
-
-            $id = $current_time['id'];
-            $time_stamp = TimeStamp::find($id);
-            $time_stamp->break_out = date('Y-m-d H:i:s');
-            $time_stamp->save();
+            if(empty($current_time['break_out'])){
+                $id = $current_time['id'];
+                $time_stamp = TimeStamp::find($id);
+                $time_stamp->break_out = date('Y-m-d H:i:s');
+                $time_stamp->save();
+                return ['status' => 'success_breakout','message' => "success"];
+            }else{
+                 return ['status' => 'failed_breakout','message' => "failed"];
+            }
         }else if($type_time == "break_in"){
-            /*$current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->orderBy('created_at', 'desc')->first();*/
+
             $current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->where('date', $date_today)->first();
-            $id = $current_time['id'];
-            $time_stamp = TimeStamp::find($id);
-            $time_stamp->break_in  = date('Y-m-d H:i:s');
-            $time_stamp->save();
+            if(empty($current_time['break_in'])){
+                $id = $current_time['id'];
+                $time_stamp = TimeStamp::find($id);
+                $time_stamp->break_in = date('Y-m-d H:i:s');
+                $time_stamp->save();
+                return ['status' => 'success_breakin','message' => "success"];
+            }else{
+                return ['status' => 'failed_breakin','message' => "failed"];
+            }
         }else if($type_time == "time_out"){
-            /*$current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->orderBy('created_at', 'desc')->first();*/
             $current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->where('date', $date_today)->first();
-            $id = $current_time['id'];
-            $time_stamp = TimeStamp::find($id);
-            $time_stamp->time_out  = date('Y-m-d H:i:s');
-            $time_stamp->save();
+            if(empty($current_time['time_out'])){
+                $id = $current_time['id'];
+                $time_stamp = TimeStamp::find($id);
+                $time_stamp->time_out = date('Y-m-d H:i:s');
+                $time_stamp->save();
+                return ['status' => 'success_timeout','message' => "success"];
+            }else{
+                return ['status' => 'failed_timeout','message' => "failed"];
+            }
         }
     }
 
@@ -198,27 +216,8 @@ class TimeStampController extends Controller
                                             ];
 
         $verify_request  = RequestTimeStamp::where('request_date', $request_date)->where('id_employee', $current_employee['id_employee'])->where('status', 2)->get();
-        $num = [];
-        foreach ($verify_request->toArray() as $key ) {
-           $num[] = $key['request_type'];
-        }
         $count_data = count($verify_request->toArray());
-        //sd($num);
-        //sd($verify_request->toArray());
-        /*if($count_data == 0){
-            echo "ไม่มี";
-        }else{
-            echo "มี";
-        }exit();
-        sd($count_data);*/
         $verify_timestamp = TimeStamp::where('date', $request_date)->where('id_employee', $current_employee['id_employee'])->first();
-        //sd($verify_timestamp->toArray());
-        /*if(isset($verify_timestamp)){
-            echo "มี";
-        }else{
-            echo "ไม่มี";
-        }exit();*/
-
         $result = [];
         $request_type = [];
         if(!empty($verify_timestamp)){  // ถ้ามีrecord ของ timestamp
@@ -502,10 +501,8 @@ class TimeStampController extends Controller
             }
         }
         $count_error = count($result);
-        // var_dump($result);
         if($count_error > 0){
             $jsonData =   $result;
-            //var_dump($jsonData);
             return json_encode(['status' => 'failed','message' => $jsonData]);
         }else{
             return json_encode(['status' => 'success', 'message' => 'success']);

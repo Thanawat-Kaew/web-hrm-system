@@ -34,21 +34,52 @@ setInterval( function() {
     }, 1000);
 
 
+	/*$( "#pass_emp" ).keyup(function() {
+		var a = $(this).val();
+  		alert(a);
+	});*/
 	$('.submit-add-timestamp').click(function(){
 		var selectedOptions = $('.type-time option:selected');
-		var type_time = selectedOptions.val();
-		alert(type_time);
+		var type_time       = selectedOptions.val();
+		var pass            = $('#pass_emp').val();
+		/*console.log(pass);
+		alert(pass);
+		alert(type_time);*/
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type   : "POST",
 			url    : $('#add-timestamp').data('url'),
-			data   : {'type_time' : type_time},
+			data   : {
+				'type_time' : type_time,
+				'pass'      : pass
+			},
 			success: function (result) {
-				alert("success"+type_time);
+				//alert("success"+type_time);
+				if(result.status == "failed_password"){
+					alert("password ผิด");
+				}
+				if(result.status == "failed_timein"){
+					alert("คุณลงเวลาเข้าทำงานแล้ว");
+				}else if(result.status == "success_timein"){
+					alert("ลงเวลาเข้าทำงานสำเร็จ");
+				}else if(result.status == "failed_breakout"){
+					alert("คุณลงเวลาพักกลางวันแล้ว");
+				}else if(result.status == "success_breakout"){
+					alert("ลงเวลาพักกลางวันสำเร็จ");
+				}else if(result.status == "failed_breakin"){
+					alert("คุณลงเวลาเข้าทำงานช่วงบ่ายแล้ว");
+				}else if(result.status == "success_breakin"){
+					alert("ลงเวลาเข้าทำงานช่วงบ่ายสำเร็จ");
+				}else if(result.status == "failed_timeout"){
+					alert("คุณลงเวลาออกงานแล้ว");
+				}else if(result.status == "success_timeout"){
+					alert("คุณลงเวลาออกงานสำเร็จ");
+				}
+
 			},
 			error : function(errors)
 			{
-				console.log(errors);
+				/*console.log(errors);*/
 			}
 		});
 

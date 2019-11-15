@@ -31,7 +31,7 @@ $(document).ready(function(){
 		})
 	})
 
-	$('.time-clock').on('click', '.time_stamp', function(){
+	$('.time-clock').on('click', '.time_stamp', function(){ //Time Clock
 		window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
 	});
 
@@ -453,12 +453,15 @@ function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึ
 			approvers_id  : $('#approved-id').val(),
 		},
 		success: function(response){
-			if(response == "success"){
+			var data_resp = jQuery.parseJSON(response);
+			if(data_resp.status == "success"){
+				alert("success");
 				//alert(response.message);
-				msg_close();
+				//msg_close();
 				msg_success();
-				window.location.reload();
+				//window.location.reload();
 			}else{
+				alert("error");
 				// alert(response);
 				var data_resp = jQuery.parseJSON(response);
 				showDialog(form, title, oldValue,oldCheck, data_resp.message);
