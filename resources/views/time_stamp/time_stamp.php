@@ -58,7 +58,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-unlock"></i>
                             </div>
-                            <input class="form-control" type="password" placeholder="Enter your password..." value="">
+                            <input class="form-control pass_emp" type="password" placeholder="Enter your password..." value="" id="pass_emp">
                         </div><br>
                         <div class="form-group ">
                             <label>รูปแบบ</label>
@@ -85,8 +85,8 @@
                             <th>Position</th>
                             <th>Date</th>
                             <th>Time-In</th>
-                            <th>Break-In</th>
                             <th>Break-Out</th>
+                            <th>Break-In</th>
                             <th>Time-Out</th>
                         </tr>
                         <tr>
