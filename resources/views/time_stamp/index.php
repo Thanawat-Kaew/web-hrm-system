@@ -17,7 +17,7 @@
 					</button>
 				</div>
 				<div class="btn-group pull-right ">
-					<a href="<?php echo route('request_history.get')?>">
+					<a href="<?php echo route('time_stamp.request_history.get')?>">
 						<button type="button" class="btn btn-warning dropdown-toggle"><i class="fa fa-history"></i> History
 						</button>
 					</a>
@@ -70,5 +70,4 @@
 
 <div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
 <div id="add-request-time-stamp" data-url="<?php echo route('time_stamp.add_request_time_stamp.post')?>"></div>
-<div id="edit-request-time-stamp" data-url="<?php echo route('time_stamp.edit_request_time_stamp.post')?>"></div>
 <?php echo csrf_field()?>

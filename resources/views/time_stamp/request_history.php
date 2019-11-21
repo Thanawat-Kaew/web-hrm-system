@@ -32,6 +32,27 @@
 							<th>สถานะ</th>
 							<th style="width: 20px;"></th>
 						</tr>
+						<?php foreach($request as $value) :
+							  $date  = explode(" ", $value['created_at']);
+							  $created_date = $date[0];
+							  $created_time = $date[1];
+						?>
+						<tr>
+							<td><?php echo $value['request_date'] ?></td>
+							<td><?php echo $value['request_type']?></td>
+							<td><?php echo $created_time?></td>
+							<td><?php echo $value['reason']?></td>
+							<td>
+								<span class="label <?php echo ($value['status'] == 1 ? 'label-primary' : ($value['status'] == 3 ? 'label-danger' : 'label-warning')); ?>"><?php echo ($value['status'] == 1 ? 'อนุมัติ' : ($value['status'] == 3 ? 'ไม่อนุมัติ' : 'กำลังรอ')); ?>
+                                </span>
+							</td>
+							<td style="width: 20px;">
+								<i class="btn fa <?php echo ($value['status'] == 2 ? 'fa-pencil' : ''); ?> edit-data-request-timestamp" data-id="<?php echo $value['id'] ?>"></i>
+								<i class="btn fa fa-trash "></i>
+								<i class="btn fa fa-eye view-request-timestamp" data-id="<?php echo $value['id'] ?>"></i>
+							</td>
+						</tr>
+						<?php endforeach ?>
 						<tr>
 							<td>11/11/2019</td>
 							<td>time in</td>
@@ -76,3 +97,6 @@
 		</div>
 	</div>
 </section>
+<div id="ajax-center-url" data-url="<?php echo route('request_history.ajax_center.post')?>"></div>
+<div id="edit-request-time-stamp" data-url="<?php echo route('request_history.edit_request_time_stamp.post')?>"></div>
+<?php echo csrf_field()?>

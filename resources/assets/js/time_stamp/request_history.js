@@ -1,30 +1,65 @@
 $(document).ready(function(){
-	$('.dropup-new-record').on('click', '.add-new-record', function(){ // New Record
+	$('.view-request-timestamp').click(function(){
+		var	id = $(this).data('id');
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
-			data: {method : 'getFormNewTimeClock'},
+			data: {'method' : 'getViewRequestTimeStamp',
+			'id'	: id
+			},
 			success: function (result) {
-				var title = "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add New Record</small></h4>";
-				showDialog(result.data,title)
+				var title = "<h4 style='color: red;'>แก้ไขข้อมูล <small> | Edit Employee</small></h4>"
+				bootbox.dialog({
+					title: title,
+					message: result.data,
+					size: 'small',
+					onEscape: true,
+					backdrop: 'static',
+					buttons: {
+						fum: {
+							label: 'ปิด',
+							className: 'btn-warning',
+							callback: function(){
+							}
+						}
+					}
+				})
+				msg_close();
+			},
+			error : function(errors)
+			{
+				console.log(errors);
+			}
+		})
+	});
+
+	$('.edit-data-request-timestamp').click(function(){
+		//alert("edit");
+		var	id = $(this).data('id');
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {method : 'getEditRequestTimeStamp',
+			'id'    : id,
+		},
+			success: function (result) {
+				var title = "<h4 style='color: red;'>แก้ไขข้อมูลการขอลงเวลาย้อนหลัง</h4>";
+				showEditDialog(result.data,title)
 			},
 			error: function(errors){
 				console.log(errors)
 			}
 		})
-	})
-
-	$('.time-clock').on('click', '.time_stamp', function(){ //Time Clock
-		window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
 	});
-
-	$('.timepicker').timepicker()
-	$('.datepicker').datepicker({autoclose: true,format: 'dd-mm-yyyy'})
-})
+});
 
 
-function showDialog(form,title,oldValue='',oldCheck='',errors=''){
+
+
+
+function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
@@ -60,19 +95,19 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 		 	});
 
 		 	// Open time picker custom.
-		 	$('#input-t_in').on('click', function(){
+		 	$('#edit-input-t_in').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
-		 	$('#input-t_out').on('click', function(){
+		 	$('#edit-input-t_out').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
-		 	$('#input-b_in').on('click', function(){
+		 	$('#edit-input-b_in').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
-		 	$('#input-b_out').on('click', function(){
+		 	$('#edit-input-b_out').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
@@ -84,56 +119,56 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 			radioClass   : 'iradio_flat-green'
 		})
 
-		$('#t_in_out').on('ifChecked', function(event){
-			$('#t_in').iCheck('enable');
-			$('#t_out').iCheck('enable');
+		$('#edit-t_in_out').on('ifChecked', function(event){
+			$('#edit-t_in').iCheck('enable');
+			$('#edit-t_out').iCheck('enable');
 		});
 
-		$('#t_in_out').on('ifUnchecked', function(event){
-			$('#t_in').iCheck('disable').iCheck('uncheck');
-			$('#t_out').iCheck('disable').iCheck('uncheck');
+		$('#edit-t_in_out').on('ifUnchecked', function(event){
+			$('#edit-t_in').iCheck('disable').iCheck('uncheck');
+			$('#edit-t_out').iCheck('disable').iCheck('uncheck');
 		});
 
-		$('#t_in').on('ifChecked', function(event){
+		$('#edit-t_in').on('ifChecked', function(event){
 			$('.input-t_in').removeClass('hide')
-			$('#input-t_in').addClass('required')
+			$('#edit-input-t_in').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-t_in').addClass('hide')
-			$('#input-t_in').removeClass('required')
+			$('#edit-input-t_in').removeClass('required')
 		});
 
-		$('#t_out').on('ifChecked', function(event){
+		$('#edit-t_out').on('ifChecked', function(event){
 			$('.input-t_out').removeClass('hide')
-			$('#input-t_out').addClass('required')
+			$('#edit-input-t_out').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-t_out').addClass('hide')
-			$('#input-t_out').removeClass('required')
+			$('#edit-input-t_out').removeClass('required')
 		});
 
-		$('#br_in_out').on('ifChecked', function(event){
-			$('#br_in').iCheck('enable');
-			$('#br_out').iCheck('enable');
+		$('#edit-br_in_out').on('ifChecked', function(event){
+			$('#edit-br_in').iCheck('enable');
+			$('#edit-br_out').iCheck('enable');
 		});
 
-		$('#br_in_out').on('ifUnchecked', function(event){
-			$('#br_in').iCheck('disable').iCheck('uncheck');
-			$('#br_out').iCheck('disable').iCheck('uncheck');
+		$('#edit-br_in_out').on('ifUnchecked', function(event){
+			$('#edit-br_in').iCheck('disable').iCheck('uncheck');
+			$('#edit-br_out').iCheck('disable').iCheck('uncheck');
 		});
 
 		$('#br_in').on('ifChecked', function(event){
 			$('.input-b_in').removeClass('hide')
-			$('#input-b_in').addClass('required')
+			$('#edit-input-b_in').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-b_in').addClass('hide')
-			$('#input-b_in').removeClass('required')
+			$('#edit-input-b_in').removeClass('required')
 		});
 
-		$('#br_out').on('ifChecked', function(event){
+		$('#edit-br_out').on('ifChecked', function(event){
 			$('.input-b_out').removeClass('hide')
-			$('#input-b_out').addClass('required')
+			$('#edit-input-b_out').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-b_out').addClass('hide')
-			$('#input-b_out').removeClass('required')
+			$('#edit-input-b_out').removeClass('required')
 		});
 		// end Checkbox
 
@@ -154,25 +189,21 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 			$.each(oldCheck, function(key, value){
 				if (value) {
 					$('#'+key).iCheck('check');
-					$('#input-'+key).addClass('required');
+					$('#edit-input-'+key).addClass('required');
 				}else{
 					$('#'+key).iCheck('uncheck')
-					$('#input-'+key).removeClass('required');
-
-
+					$('#edit-input-'+key).removeClass('required');
 				}
 			})
 		}
 
 		if(errors !== ""){
 			jQuery.each(errors, function(k, v){
-				$('#input-'+k+'-text-error').html(v).show();
+				$('#edit-input-'+k+'-text-error').html(v).show();
 			})
 		}
 	});
 };
-
-
 
 
 function sendRequest(form, title){
@@ -199,29 +230,28 @@ function sendRequest(form, title){
 	})
 
 	if(count > 0) {
-		showDialog(form, title, oldValue,oldCheck);
+		showEditDialog(form, title, oldValue,oldCheck);
 	}else{
-		/*if(title == "<h4 style='color: red;'>เพิ่มข้อมูล <small> | Add New Record</small></h4>"){*/
-			addRequestTimeStamp(form, title, oldValue,oldCheck);
-		/*}else if(title == "<h4 style='color: red;'>แก้ไขข้อมูลการขอลงเวลาย้อนหลัง</h4>"){
-			editRequestTimeStamp(form, title, oldValue,oldCheck);
-		}*/
+		editRequestTimeStamp(form, title, oldValue,oldCheck);
 	}
 }
 
-function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึกลง Table request_time_stamp
+
+
+function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
-		url  : $('#add-request-time-stamp').data('url'),
+		url  : $('#edit-request-time-stamp').data('url'),
 		data : {
-			request_date  : $('#date-request-timestamp').val(),
-			time_in 	  : $('#input-t_in').val(),
-			time_out 	  : $('#input-t_out').val(),
-			break_out 	  : $('#input-b_in').val(),
-			break_in 	  : $('#input-b_out').val(),
-			reason 	      : $('#reason-request-time-stamp').val(),
-			approvers_id  : $('#approved-id').val(),
+			id            : $('#id-edit-request-timestamp').val(),
+			request_date  : $('#edit-date-request-timestamp').val(),
+			time_in 	  : $('#edit-input-t_in').val(),
+			time_out 	  : $('#edit-input-t_out').val(),
+			break_out 	  : $('#edit-input-b_in').val(), // ออกไปพัก
+			break_in 	  : $('#edit-input-b_out').val(),// เขาทำงานหลังพัก
+			reason 	      : $('#edit-reason-request-time-stamp').val(),
+			approvers_id  : $('#approved-id-edit').val(),
 		},
 		success: function(response){
 			var data_resp = jQuery.parseJSON(response);
@@ -238,20 +268,13 @@ function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึ
 				showDialog(form, title, oldValue,oldCheck, data_resp.message);
 
 			}
-			// success alert
-			//msg_success()
-			//alert("success");
-			//window.location.reload();
-			// alert('Data save');
-			// msg_close();
 		},
-		error: function(errors){
-			console.log(errors);
+		error: function(error){
+			alert('Edit data not save to request time stamp');
+			msg_close();
 		}
 	});
 }
-
-
 
 function getTimePicker(obj_input)
 {
@@ -401,9 +424,4 @@ function getTimePicker(obj_input)
 			$(obj_input).val(hh+":"+mm);
 		}
 	});
-
 }
-// $('.time-clock').on('click', '.time_stamp', function(){
-// 	window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
-// });
-
