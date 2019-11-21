@@ -5,7 +5,7 @@ function msg_waiting(){
 		html: '<h3>รอสักครู่...</h3>',
 		showConfirmButton: false,
 		allowOutsideClick: false,
-		timer: 1000
+		timer: 1000,
 	})
 }
 

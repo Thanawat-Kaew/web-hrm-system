@@ -1,3 +1,19 @@
+function msg_success(){
+	Swal.fire(
+						{
+							title: 'บันทึกข้อมูลสำเร็จ',
+							text: "",
+							type: 'success',
+							
+						}).then((result) =>{
+
+							if (result.value) 
+
+							{
+								window.location.reload(); 
+							}
+						})
+}
 $(document).ready(function() {
 
 /*$( "#pass_emp" ).keyup(function() {
@@ -20,59 +36,43 @@ $(document).ready(function() {
 				'pass'      : pass
 			},
 			success: function (result) {
-				//alert("success"+type_time);
 				if(result.status == "failed_password"){
-					alert("password ผิด");
+					Swal.fire(
+						'คุณกรอกรหัสผ่านผิด!','กรุณาลองไหมอีกครั้ง','error')
 				}
 				if(result.status == "failed_timein"){
-					alert("คุณลงเวลาเข้าทำงานแล้ว");
-				}else if(result.status == "success_timein"){
-					//alert("ลงเวลาเข้าทำงานสำเร็จ");
 					Swal.fire(
-						'Good job!',
-						'You clicked the button!',
-						'success',{
-							showConfirmButton: false,
-						}
-						)
+						'คุณลงเวลาเข้าทำงานแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
+
+				}else if(result.status == "success_timein"){
+					msg_success()
 				}else if(result.status == "failed_breakout"){
-					alert("คุณลงเวลาพักกลางวันแล้ว");
+					Swal.fire(
+						'คุณลงเวลาพักกลางวันแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
+
 				}else if(result.status == "success_breakout"){
-					//alert("ลงเวลาพักกลางวันสำเร็จ");
-					Swal.fire({
-						position: 'top-end',
-						icon: 'success',
-						title: 'Your work has been saved',
-						showConfirmButton: false,
-						timer: 1500
-					})
+					msg_success()
+
 				}else if(result.status == "failed_breakin"){
-					alert("คุณลงเวลาเข้าทำงานช่วงบ่ายแล้ว");
+					Swal.fire(
+						'คุณลงเวลาเข้าทำงานช่วงบ่ายแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
+
 				}else if(result.status == "success_breakin"){
-					//alert("ลงเวลาเข้าทำงานช่วงบ่ายสำเร็จ");
-					Swal.fire({
-						position: 'top-end',
-						icon: 'success',
-						title: 'Your work has been saved',
-						showConfirmButton: false,
-						timer: 1500
-					})
+					msg_success()
+
 				}else if(result.status == "failed_timeout"){
-					alert("คุณลงเวลาออกงานแล้ว");
+					Swal.fire(
+						'คุณลงเวลาออกงานแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
+
 				}else if(result.status == "success_timeout"){
-					//alert("คุณลงเวลาออกงานสำเร็จ");
-					Swal.fire({
-						position: 'top-end',
-						icon: 'success',
-						title: 'Your work has been saved',
-						showConfirmButton: false,
-						timer: 1500
-					})
+					msg_success()
+
 				}
+
 			},
 			error : function(errors)
 			{
-				/*console.log(errors);*/
+				console.log(errors);
 			}
 		});
 
@@ -115,3 +115,4 @@ setInterval( function() {
 
 
 });
+

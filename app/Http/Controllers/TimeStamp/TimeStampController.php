@@ -123,13 +123,6 @@ class TimeStampController extends Controller
             return response()->json(['status'=> 'success','data'=> $form_edit_request_timestamp]);
             break;
 
-            case 'getHistoryNewRecord': // ดูข้อมูลที่ร้องขอการลงเวลาย้อนหลัง // ลืมลงเวลาบ้างส่วน //ดูของตัวเอง
-
-            $form_repo = new FormRepository;
-            $form_history_record = $form_repo->getHistoryNewRecord();
-            return response()->json(['status'=> 'success','data'=> $form_history_record]);
-            break;
-
             default:
                 # code...
             break;

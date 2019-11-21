@@ -17,7 +17,7 @@
 					</button>
 				</div>
 				<div class="btn-group pull-right ">
-					<a href="<?php echo route('request_history.get')?>">
+					<a href="<?php echo route('time_stamp.request_history.get')?>">
 						<button type="button" class="btn btn-warning dropdown-toggle"><i class="fa fa-history"></i> History
 						</button>
 					</a>

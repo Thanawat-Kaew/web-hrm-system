@@ -1287,29 +1287,4 @@ class FormRepository
         return $form_new_time_clock;
 
     }
-
-    public static function getHistoryNewRecord(){
-        $form = '<div class="box-body table-responsive no-padding">';
-            $form .= '<table class="table table-hover">';
-                $form .= '<tr>';
-                    $form .= '<th>ครั้งที่</th>';
-                    $form .= '<th>วันที่</th>';
-                    $form .= '<th>สถานะ</th>';
-                $form .= '</tr>';
-                $form .= '<tr>';
-                    $form .= '<td>1</td>';
-                    $form .= '<td>11-7-2014 09:48:30</td>';
-                    $form .= '<td><span class="label label-warning">กำลังรอ</span></td>';
-                $form .= '</tr>';
-                $form .= '<tr>';
-                    $form .= '<td>2</td>';
-                    $form .= '<td>11-7-2014 09:48:30</td>';
-                    $form .= '<td><span class="label label-warning">กำลังรอ</span></td>';
-                $form .= '</tr>';
-            $form .= '</table>';
-        $form .= '</div>';
-
-        return $form;
-
-    }
 }
