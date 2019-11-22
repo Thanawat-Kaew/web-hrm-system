@@ -1185,7 +1185,9 @@ class FormRepository
                             $form_new_time_clock .= 'ลงเวลาเข้า-ออก งาน';
                         $form_new_time_clock .= '</label>';*/
 
-                        // $form_new_time_clock .= '<div class="col-md-12">';
+
+                         //$form_new_time_clock .= '<div class="col-md-12">';
+
 
                         if($data['request_type'] == "time_in"){
                         $form_new_time_clock .= '<label class="group-display">';
@@ -1203,7 +1205,7 @@ class FormRepository
                         $form_new_time_clock .= '<br>';
                           $form_new_time_clock .= '<label class="text-error" id="edit-t_out-text-error">';
                         $form_new_time_clock .= '</label>';
-                        }
+                        
                         /*$form_new_time_clock .= '</div>';*/
 
                         /*$form_new_time_clock .= '<br>';
@@ -1212,15 +1214,15 @@ class FormRepository
 
                     /*$form_new_time_clock .= '<div class="col-md-6">';
 */
-                        /*$form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_in_out" class="flat-red" id="edit-br_in_out" '.($data['request_type'] == "break_out" or $data['request_type'] == "break_in" ? 'checked' : '').'> ';
-                            $form_new_time_clock .= 'ลงเวลาพัก';
-                        $form_new_time_clock .= '</label>';*/
+                        // $form_new_time_clock .= '<label class="group-display">';
+                        //     $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_in_out" class="flat-red" id="edit-br_in_out" '.($data['request_type'] == "break_out" or $data['request_type'] == "break_in" ? 'checked' : '').'> ';
+                        //     $form_new_time_clock .= 'ลงเวลาพัก';
+                        // $form_new_time_clock .= '</label>';
 
-                        $form_new_time_clock .= '<div class="col-md-12">';
-                        else if($data['request_type'] == "break_out"){
+                        // $form_new_time_clock .= '<div class="col-md-12">';
+                        }else if($data['request_type'] == "break_out"){
                          $form_new_time_clock .= '<label class="group-display">';
-                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_in" class="flat-red"  id="edit-br_in"  '.($data['request_type'] == "break_out" ? 'checked' : '').'> ';
+                            $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_in" class="flat-red" id="edit-br_in"  '.($data['request_type'] == "break_out" ? 'checked' : '').'> ';
                             $form_new_time_clock .= ' พักกลางวัน';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<br>';

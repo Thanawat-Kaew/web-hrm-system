@@ -48,7 +48,7 @@ $(function(){
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: "POST",
 			url: $('#confirm-data-request-time-stamp').data('url'),
-			data: {'id'	    : id,
+			data: {'id'	    : id
 			}
 		});
 		Swal.fire({
@@ -73,7 +73,7 @@ $(function(){
 					})
 				}
 			})
-	})
+		})
 
 	$('.btn-cancel-data-request-time-stamp').click(function(){  // กดปฏิเสธ
 		var id = $(this).data('id');

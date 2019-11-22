@@ -115,15 +115,15 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 			radioClass   : 'iradio_flat-green'
 		})
 
-		$('#edit-t_in_out').on('ifChecked', function(event){
+		/*$('#edit-t_in_out').on('ifChecked', function(event){
 			$('#edit-t_in').iCheck('enable');
 			$('#edit-t_out').iCheck('enable');
-		});
+		});*/
 
-		$('#edit-t_in_out').on('ifUnchecked', function(event){
+		/*$('#edit-t_in_out').on('ifUnchecked', function(event){
 			$('#edit-t_in').iCheck('disable').iCheck('uncheck');
 			$('#edit-t_out').iCheck('disable').iCheck('uncheck');
-		});
+		});*/
 
 		$('#edit-t_in').on('ifChecked', function(event){
 			$('.input-t_in').removeClass('hide')
@@ -141,19 +141,20 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 			$('#edit-input-t_out').removeClass('required')
 		});
 
-		$('#edit-br_in_out').on('ifChecked', function(event){
-			$('#edit-br_in').iCheck('enable');
-			$('#edit-br_out').iCheck('enable');
-		});
+		// $('#edit-br_in_out').on('ifChecked', function(event){
+		// 	$('#edit-br_in').iCheck('enable');
+		// 	$('#edit-br_out').iCheck('enable');
+		// });
 
-		$('#edit-br_in_out').on('ifUnchecked', function(event){
-			$('#edit-br_in').iCheck('disable').iCheck('uncheck');
-			$('#edit-br_out').iCheck('disable').iCheck('uncheck');
-		});
+		// $('#edit-br_in_out').on('ifUnchecked', function(event){
+		// 	$('#edit-br_in').iCheck('disable').iCheck('uncheck');
+		// 	$('#edit-br_out').iCheck('disable').iCheck('uncheck');
+		// });
 
-		$('#br_in').on('ifChecked', function(event){
+		$('#edit-br_in').on('ifChecked', function(event){ // ออกจากไปพัก
 			$('.input-b_in').removeClass('hide')
 			$('#edit-input-b_in').addClass('required')
+			//alert("ออกไปพัก");
 		}).on('ifUnchecked', function(event){
 			$('.input-b_in').addClass('hide')
 			$('#edit-input-b_in').removeClass('required')
@@ -162,6 +163,7 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 		$('#edit-br_out').on('ifChecked', function(event){
 			$('.input-b_out').removeClass('hide')
 			$('#edit-input-b_out').addClass('required')
+			//alert("เข้าทำงานช่วงบ่าย");
 		}).on('ifUnchecked', function(event){
 			$('.input-b_out').addClass('hide')
 			$('#edit-input-b_out').removeClass('required')
