@@ -29,8 +29,7 @@
 							<th>เรื่อง</th>
 							<th>ว/ด/ป</th>
 							<th>รายละเอียด</th>
-							<th></th>
-							<th></th>
+							<th style="width: 20px;"></th>
 							<th>สถานะ</th>
 						</tr>
 						<?php $count = 0;?>
@@ -43,11 +42,9 @@
 							<td><?php echo $value['created_at'] ?></td>
 							<td><i class="fa fa-eye fa-lg btn view-data-request" data-id="<?php echo $value['id']?>"></i></td>
 							<td>
-								<button class="btn btn-primary form-control btn-confirm-data-request <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
+								<button style="width: auto;" class="btn btn-primary form-control btn-confirm-data-request <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
                                 </button>
-							</td>
-							<td>
-								<button class="btn btn-danger form-control btn-cancel-data-request <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>" data-href="<?php echo route('personal_info.delete_employee.post',$value['id']);?>">ไม่อนุมัติ
+								<button style="width: auto;" class="btn btn-danger form-control btn-cancel-data-request <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>" data-href="<?php echo route('personal_info.delete_employee.post',$value['id']);?>">ไม่อนุมัติ
                                     </button>
 							</td>
 							<td>

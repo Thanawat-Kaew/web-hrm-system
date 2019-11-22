@@ -29,8 +29,7 @@
 							<th>รหัสพนักงาน</th>
 							<th>วันที่ลงเวลาย้อนหลัง</th>
 							<th>รายละเอียด</th>
-							<th></th>
-							<th></th>
+							<th style="width: 20px"></th>
 							<th>สถานะ</th>
 						</tr>
 						<?php $count = 0;?>
@@ -48,12 +47,10 @@
 							<td>
 								<i class="fa fa-eye fa-lg btn view-data-request-time-stamp" data-id="<?php echo $value['id']?>"></i>
 							</td>
-							<td>
-								<button class="btn btn-primary form-control btn-confirm-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
+							<td style="width: 20px">
+								<button style="width: auto;" class="btn btn-primary form-control btn-confirm-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
                                 </button>
-							</td>
-							<td>
-								<button class="btn btn-danger form-control btn-cancel-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">ไม่อนุมัติ
+								<button style="width: auto;" class="btn btn-danger form-control btn-cancel-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">ไม่อนุมัติ
                                 </button>
 							</td>
 							<td>

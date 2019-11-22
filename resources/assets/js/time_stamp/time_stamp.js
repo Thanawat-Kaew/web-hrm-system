@@ -1,18 +1,14 @@
 function msg_success(){
-	Swal.fire(
-						{
-							title: 'บันทึกข้อมูลสำเร็จ',
-							text: "",
-							type: 'success',
-							
-						}).then((result) =>{
-
-							if (result.value) 
-
-							{
-								window.location.reload(); 
-							}
-						})
+	Swal.fire({
+		title: 'บันทึกข้อมูลสำเร็จ',
+		text: "",
+		type: 'success',
+	}).then((result) =>{
+		if (result.value) 
+		{
+			window.location.reload(); 
+		}
+	})
 }
 $(document).ready(function() {
 

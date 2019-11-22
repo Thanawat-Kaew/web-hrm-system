@@ -106,6 +106,7 @@
 <script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
 <!-- icheck -->
 <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
+
 <!-- main function -->
 <script src="/resources/assets/js/main.js"></script>
 
