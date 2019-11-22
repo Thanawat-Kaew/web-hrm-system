@@ -253,7 +253,7 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 			approvers_id  : $('#approved-id-edit').val(),
 		},
 		success: function(response){
-			var data_resp = jQuery.parseJSON(response);
+			/*var data_resp = jQuery.parseJSON(response);
 			if(data_resp.status == "success"){
 				alert("success");
 				//alert(response.message);
@@ -266,7 +266,37 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 				var data_resp = jQuery.parseJSON(response);
 				showEditDialog(form, title, oldValue,oldCheck, data_resp.message);
 
+			}*/
+
+
+			if(response.status == "failed_t_in_ts"){
+				alert("ไม่สามารถลง time_in เพราะมีวันที่และ time_in อยู่ใน timestamp");
+			}else if(response.status == "failed_b_out_ts"){
+				alert("ไม่สามารถลง break_out เพราะมีวันที่และ break_out อยู่ใน timestamp");
+			}else if(response.status == "failed_b_in_ts"){
+				alert("ไม่สามารถลง break_in เพราะมีวันที่และ break_in อยู่ใน timestamp");
+			}else if(response.status == "failed_t_out_ts"){
+				alert("ไม่สามารถลง time_out เพราะมีวันที่และ time_out อยู่ใน timestamp");
+			}else if(response.status == "success_timein"){
+				alert("แก้ไขการลงเวลา time_in สำเร็จ");
+			}else if(response.status == "failed_t_in_q"){
+				alert("ไม่สามารถลงเวลา time_in ได้ เพราะมีวันที่และ time_in อยู่ใน request_time_stamp");
+			}else if(response.status == "success_breakout"){
+				alert("แก้ไขการลงเวลา break_out สำเร็จ");
+			}else if(response.status == "failed_b_out_q"){
+				alert("ไม่สามารถลงเวลา break_out ได้ เพราะมีวันที่และ break_out อยู่ใน request_time_stamp");
+			}else if(response.status == "success_breakin"){
+				alert("แก้ไขการลงเวลา break_in สำเร็จ");
+			}else if(response.status == "failed_b_in_q"){
+				alert("ไม่สามารถลงเวลา break_in ได้ เพราะมีวันที่และ break_in อยู่ใน request_time_stamp");
+			}else if(response.status == "success_timeout"){
+				alert("แก้ไขการลงเวลา time_out สำเร็จ");
+			}else if(response.status == "failed_b_out_q"){
+				alert("ไม่สามารถลงเวลา time_out ได้ เพราะมีวันที่และ time_out อยู่ใน request_time_stamp");
 			}
+
+
+
 		},
 		error: function(error){
 			alert('Edit data not save to request time stamp');

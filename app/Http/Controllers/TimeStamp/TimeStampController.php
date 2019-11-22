@@ -769,7 +769,8 @@ class TimeStampController extends Controller
         if(!empty($verify_timestamp)){ // ถ้า ว/ด/ป ใน timestamp มี
             if(!empty($time_in)){ // ถ้า user กรอก time_in มา
                 if(!empty($verify_timestamp['time_in'])){ // ถ้า timestamp มี time_in แล้ว
-                    $error['t_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี time_in แล้ว"; //1
+                    //$error['t_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี time_in แล้ว"; //1
+                    return ['status' => 'failed_t_in_ts','message' => "failed"];
                 }else{
                     if($count_data !== 0){
                         if(in_array('time_in', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
@@ -784,8 +785,10 @@ class TimeStampController extends Controller
                                 $update->status          = 2;
                                 $update->save();
                                 //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง"; //4
+                                return ['status' => 'success_timein','message' => "success"];
                             }else{
-                                $error['t_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_in มีอยู่ใน request"; // 5
+                                //$error['t_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_in มีอยู่ใน request"; // 5
+                                return ['status' => 'failed_t_in_q','message' => "failed"];
                             }
                         }else{
                             //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp และมีวันที่ใน request แต่ไม่มี time_in"; //3
@@ -798,6 +801,7 @@ class TimeStampController extends Controller
                             $update->approvers       = $approvers;
                             $update->status          = 2;
                             $update->save();
+                            return ['status' => 'success_timein','message' => "success"];
                         }
                     }else{
                         //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp แต่ใน request ไม่มีวันที่"; //2
@@ -810,57 +814,13 @@ class TimeStampController extends Controller
                         $update->approvers       = $approvers;
                         $update->status          = 2;
                         $update->save();
-                    }
-                }
-            }else if(!empty($break_in)){
-                if(!empty($verify_timestamp['break_in'])){ // ถ้า timestamp มี break_in แล้ว
-                    $error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี break_in แล้ว"; //1
-                }else{
-                    if($count_data !== 0){
-                        if(in_array('break_in', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
-                            if(in_array($id, $request_id)){
-                                $update                  = RequestTimeStamp::find($id);
-                                $update->id_employee     = $current_employee['id_employee'];
-                                $update->request_date    = $request_date;
-                                $update->request_type    = "break_in";
-                                $update->request_time    = $break_in;
-                                $update->reason          = $reason;
-                                $update->approvers       = $approvers;
-                                $update->status          = 2;
-                                $update->save();
-                                //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง"; //4
-                            }else{
-                                $error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ break_in มีอยู่ใน request"; // 5
-                            }
-                        }else{
-                            //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp และมีวันที่ใน request แต่ไม่มี break_in"; //3
-                            $update                  = RequestTimeStamp::find($id);
-                            $update->id_employee     = $current_employee['id_employee'];
-                            $update->request_date    = $request_date;
-                            $update->request_type    = "break_in";
-                            $update->request_time    = $break_in;
-                            $update->reason          = $reason;
-                            $update->approvers       = $approvers;
-                            $update->status          = 2;
-                            $update->save();
-                        }
-                    }else{
-                        //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp แต่ใน request ไม่มีวันที่"; //2
-                        $update                  = RequestTimeStamp::find($id);
-                        $update->id_employee     = $current_employee['id_employee'];
-                        $update->request_date    = $request_date;
-                        $update->request_type    = "break_in";
-                        $update->request_time    = $break_in;
-                        $update->reason          = $reason;
-                        $update->approvers       = $approvers;
-                        $update->status          = 2;
-                        $update->save();
-
+                        return ['status' => 'success_timein','message' => "success"];
                     }
                 }
             }else if(!empty($break_out)){
                 if(!empty($verify_timestamp['break_out'])){ // ถ้า timestamp มี break_out แล้ว
-                    $error['b_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี break_out แล้ว";
+                    //$error['b_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี break_out แล้ว"; //1
+                    return ['status' => 'failed_b_out_ts','message' => "failed"];
                 }else{
                     if($count_data !== 0){
                         if(in_array('break_out', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
@@ -875,11 +835,13 @@ class TimeStampController extends Controller
                                 $update->status          = 2;
                                 $update->save();
                                 //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง"; //4
+                                return ['status' => 'success_breakout','message' => "success"];
                             }else{
-                                $error['b_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ break_out มีอยู่ใน request"; // 5
+                                //$error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ break_in มีอยู่ใน request"; // 5
+                                return ['status' => 'failed_b_out_q','message' => "failed"];
                             }
                         }else{
-                            //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp และมีวันที่ใน request แต่ไม่มี break_out";
+                            //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp และมีวันที่ใน request แต่ไม่มี break_out"; //3
                             $update                  = RequestTimeStamp::find($id);
                             $update->id_employee     = $current_employee['id_employee'];
                             $update->request_date    = $request_date;
@@ -889,9 +851,10 @@ class TimeStampController extends Controller
                             $update->approvers       = $approvers;
                             $update->status          = 2;
                             $update->save();
+                            return ['status' => 'success_breakout','message' => "success"];
                         }
                     }else{
-                        //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp แต่ใน request ไม่มีวันที่";
+                        //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp แต่ใน request ไม่มีวันที่"; //2
                         $update                  = RequestTimeStamp::find($id);
                         $update->id_employee     = $current_employee['id_employee'];
                         $update->request_date    = $request_date;
@@ -901,11 +864,64 @@ class TimeStampController extends Controller
                         $update->approvers       = $approvers;
                         $update->status          = 2;
                         $update->save();
+                        return ['status' => 'success_breakout','message' => "success"];
+
+                    }
+                }
+            }else if(!empty($break_in)){
+                if(!empty($verify_timestamp['break_in'])){ // ถ้า timestamp มี break_in แล้ว
+                    //$error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี break_in แล้ว";
+                    return ['status' => 'failed_b_in_ts','message' => "failed"];
+                }else{
+                    if($count_data !== 0){
+                        if(in_array('break_in', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
+                            if(in_array($id, $request_id)){
+                                $update                  = RequestTimeStamp::find($id);
+                                $update->id_employee     = $current_employee['id_employee'];
+                                $update->request_date    = $request_date;
+                                $update->request_type    = "break_in";
+                                $update->request_time    = $break_in;
+                                $update->reason          = $reason;
+                                $update->approvers       = $approvers;
+                                $update->status          = 2;
+                                $update->save();
+                                //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง"; //4
+                                return ['status' => 'success_breakin','message' => "success"];
+                            }else{
+                                //$error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ break_in มีอยู่ใน request"; // 5
+                                return ['status' => 'failed_b_in_q','message' => "failed"];
+                            }
+                        }else{
+                            //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp และมีวันที่ใน request แต่ไม่มี break_in";
+                            $update                  = RequestTimeStamp::find($id);
+                            $update->id_employee     = $current_employee['id_employee'];
+                            $update->request_date    = $request_date;
+                            $update->request_type    = "break_in";
+                            $update->request_time    = $break_in;
+                            $update->reason          = $reason;
+                            $update->approvers       = $approvers;
+                            $update->status          = 2;
+                            $update->save();
+                            return ['status' => 'success_breakin','message' => "success"];
+                        }
+                    }else{
+                        //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp แต่ใน request ไม่มีวันที่";
+                        $update                  = RequestTimeStamp::find($id);
+                        $update->id_employee     = $current_employee['id_employee'];
+                        $update->request_date    = $request_date;
+                        $update->request_type    = "break_in";
+                        $update->request_time    = $break_in;
+                        $update->reason          = $reason;
+                        $update->approvers       = $approvers;
+                        $update->status          = 2;
+                        $update->save();
+                        return ['status' => 'success_breakin','message' => "success"];
                     }
                 }
             }else if(!empty($time_out)){
                 if(!empty($verify_timestamp['time_out'])){ // ถ้า timestamp มี time_out แล้ว
-                    $error['t_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี time_out แล้ว";
+                    //$error['t_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี time_out แล้ว";
+                    return ['status' => 'failed_t_out_ts','message' => "failed"];
                 }else{
                     if($count_data !== 0){
                         if(in_array('time_out', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
@@ -920,8 +936,10 @@ class TimeStampController extends Controller
                                 $update->status          = 2;
                                 $update->save();
                                 //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง"; //4
+                                return ['status' => 'success_timeout','message' => "success"];
                             }else{
-                                $error['t_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_out มีอยู่ใน request"; // 5
+                                //$error['t_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_out มีอยู่ใน request"; // 5
+                                return ['status' => 'failed_t_out_q','message' => "failed"];
                             }
                         }else{
                             //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp และมีวันที่ใน request แต่ไม่มี time_out";
@@ -934,6 +952,7 @@ class TimeStampController extends Controller
                             $update->approvers       = $approvers;
                             $update->status          = 2;
                             $update->save();
+                            return ['status' => 'success_timeout','message' => "success"];
                         }
                     }else{
                         //$error[] = "สามารถแก้ไขได้แม้จะมีวันที่ใน timestamp แต่ใน request ไม่มีวันที่";
@@ -946,6 +965,7 @@ class TimeStampController extends Controller
                         $update->approvers       = $approvers;
                         $update->status          = 2;
                         $update->save();
+                        return ['status' => 'success_timeout','message' => "success"];
                     }
                 }
             }
@@ -964,9 +984,11 @@ class TimeStampController extends Controller
                             $update->status          = 2;
                             $update->save();
                             //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง ไม่มีวันที่ใน timestamp "; //3
+                            return ['status' => 'success_timein','message' => "success"];
                         }else{
                             //$error[] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_in มีอยู่ใน request และไม่มีวันที่ใน timestamp"; //4
-                            $error['t_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาเข้าแล้ว";
+                            //$error['t_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาเข้าแล้ว";
+                            return ['status' => 'failed_t_in_q','message' => "failed"];
                         }
                     }else{
                         //$error[] = "สามารถแก้ไขได้แม้จะไม่มีวันที่ใน timestamp แต่มีวันที่ใน request แต่ไม่มี time_in"; //2
@@ -979,6 +1001,7 @@ class TimeStampController extends Controller
                         $update->approvers       = $approvers;
                         $update->status          = 2;
                         $update->save();
+                        return ['status' => 'success_timein','message' => "success"];
                     }
                 }else{
                     $update                  = RequestTimeStamp::find($id);
@@ -991,49 +1014,7 @@ class TimeStampController extends Controller
                     $update->status          = 2;
                     $update->save();
                     //$error[] = "แก้ไขได้ เพราะไม่มีวันที่ใน timestamp และไม่มีวันที่ใน request"; //1
-                }
-            }
-            else if(!empty($break_in)){
-                if($count_data !== 0){
-                    if(in_array('break_in', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
-                        if(in_array($id, $request_id)){
-                            $update                  = RequestTimeStamp::find($id);
-                            $update->id_employee     = $current_employee['id_employee'];
-                            $update->request_date    = $request_date;
-                            $update->request_type    = "break_in";
-                            $update->request_time    = $break_in;
-                            $update->reason          = $reason;
-                            $update->approvers       = $approvers;
-                            $update->status          = 2;
-                            $update->save();
-                            //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง ไม่มีวันที่ใน timestamp "; //3
-                        }else{
-                            //$error[] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_in มีอยู่ใน request และไม่มีวันที่ใน timestamp"; //4
-                            $error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาเข้าแล้ว";
-                        }
-                    }else{
-                        //$error[] = "สามารถแก้ไขได้แม้จะไม่มีวันที่ใน timestamp แต่มีวันที่ใน request แต่ไม่มี time_in"; //2
-                        $update                  = RequestTimeStamp::find($id);
-                        $update->id_employee     = $current_employee['id_employee'];
-                        $update->request_date    = $request_date;
-                        $update->request_type    = "break_in";
-                        $update->request_time    = $break_in;
-                        $update->reason          = $reason;
-                        $update->approvers       = $approvers;
-                        $update->status          = 2;
-                        $update->save();
-                    }
-                }else{
-                    $update                  = RequestTimeStamp::find($id);
-                    $update->id_employee     = $current_employee['id_employee'];
-                    $update->request_date    = $request_date;
-                    $update->request_type    = "break_in";
-                    $update->request_time    = $break_in;
-                    $update->reason          = $reason;
-                    $update->approvers       = $approvers;
-                    $update->status          = 2;
-                    $update->save();
-                    //$error[] = "แก้ไขได้ เพราะไม่มีวันที่ใน timestamp และไม่มีวันที่ใน request"; //1
+                    return ['status' => 'success_timein','message' => "success"];
                 }
             }else if(!empty($break_out)){
                 if($count_data !== 0){
@@ -1049,12 +1030,14 @@ class TimeStampController extends Controller
                             $update->status          = 2;
                             $update->save();
                             //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง ไม่มีวันที่ใน timestamp "; //3
+                            return ['status' => 'success_breakout','message' => "success"];
                         }else{
                             //$error[] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_in มีอยู่ใน request และไม่มีวันที่ใน timestamp"; //4
-                            $error['b_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาเข้าแล้ว";
+                            //$error['b_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาพักกลางวันแล้ว";
+                            return ['status' => 'failed_b_out_q','message' => "failed"];
                         }
                     }else{
-                        //$error[] = "สามารถแก้ไขได้แม้จะไม่มีวันที่ใน timestamp แต่มีวันที่ใน request แต่ไม่มี time_in"; //2
+                        //$error[] = "สามารถแก้ไขได้แม้จะไม่มีวันที่ใน timestamp แต่มีวันที่ใน request แต่ไม่มี time_out"; //2
                         $update                  = RequestTimeStamp::find($id);
                         $update->id_employee     = $current_employee['id_employee'];
                         $update->request_date    = $request_date;
@@ -1064,6 +1047,7 @@ class TimeStampController extends Controller
                         $update->approvers       = $approvers;
                         $update->status          = 2;
                         $update->save();
+                        return ['status' => 'success_breakout','message' => "success"];
                     }
                 }else{
                     $update                  = RequestTimeStamp::find($id);
@@ -1076,6 +1060,53 @@ class TimeStampController extends Controller
                     $update->status          = 2;
                     $update->save();
                     //$error[] = "แก้ไขได้ เพราะไม่มีวันที่ใน timestamp และไม่มีวันที่ใน request"; //1
+                    return ['status' => 'success_breakout','message' => "success"];
+                }
+            }else if(!empty($break_in)){
+                if($count_data !== 0){
+                    if(in_array('break_in', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
+                        if(in_array($id, $request_id)){
+                            $update                  = RequestTimeStamp::find($id);
+                            $update->id_employee     = $current_employee['id_employee'];
+                            $update->request_date    = $request_date;
+                            $update->request_type    = "break_in";
+                            $update->request_time    = $break_in;
+                            $update->reason          = $reason;
+                            $update->approvers       = $approvers;
+                            $update->status          = 2;
+                            $update->save();
+                            //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง ไม่มีวันที่ใน timestamp "; //3
+                            return ['status' => 'success_breakin','message' => "success"];
+                        }else{
+                            //$error[] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_in มีอยู่ใน request และไม่มีวันที่ใน timestamp"; //4
+                            //$error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาเข้าแล้ว";
+                            return ['status' => 'failed_b_in_q','message' => "failed"];
+                        }
+                    }else{
+                        //$error[] = "สามารถแก้ไขได้แม้จะไม่มีวันที่ใน timestamp แต่มีวันที่ใน request แต่ไม่มี time_in"; //2
+                        $update                  = RequestTimeStamp::find($id);
+                        $update->id_employee     = $current_employee['id_employee'];
+                        $update->request_date    = $request_date;
+                        $update->request_type    = "break_in";
+                        $update->request_time    = $break_in;
+                        $update->reason          = $reason;
+                        $update->approvers       = $approvers;
+                        $update->status          = 2;
+                        $update->save();
+                        return ['status' => 'success_breakin','message' => "success"];
+                    }
+                }else{
+                    $update                  = RequestTimeStamp::find($id);
+                    $update->id_employee     = $current_employee['id_employee'];
+                    $update->request_date    = $request_date;
+                    $update->request_type    = "break_in";
+                    $update->request_time    = $break_in;
+                    $update->reason          = $reason;
+                    $update->approvers       = $approvers;
+                    $update->status          = 2;
+                    $update->save();
+                    //$error[] = "แก้ไขได้ เพราะไม่มีวันที่ใน timestamp และไม่มีวันที่ใน request"; //1
+                    return ['status' => 'success_breakin','message' => "success"];
                 }
             }else if(!empty($time_out)){
                 if($count_data !== 0){
@@ -1091,9 +1122,11 @@ class TimeStampController extends Controller
                             $update->status          = 2;
                             $update->save();
                             //$error[] = "สามารถแก้ไขได้ เพราะแก้ไขของวันที่ของตัวเอง ไม่มีวันที่ใน timestamp "; //3
+                            return ['status' => 'success_timeout','message' => "success"];
                         }else{
                             //$error[] = "ไม่สามารถแก้ไขได้ เพราะวันที่มีการร้องขอ time_in มีอยู่ใน request และไม่มีวันที่ใน timestamp"; //4
-                            $error['t_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาเข้าแล้ว";
+                            //$error['t_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีการร้องขอลงเวลาเข้าแล้ว";
+                            return ['status' => 'failed_t_out_q','message' => "failed"];
                         }
                     }else{
                         //$error[] = "สามารถแก้ไขได้แม้จะไม่มีวันที่ใน timestamp แต่มีวันที่ใน request แต่ไม่มี time_in"; //2
@@ -1106,6 +1139,7 @@ class TimeStampController extends Controller
                         $update->approvers       = $approvers;
                         $update->status          = 2;
                         $update->save();
+                        return ['status' => 'success_timeout','message' => "success"];
                     }
                 }else{
                     $update                  = RequestTimeStamp::find($id);
@@ -1118,15 +1152,16 @@ class TimeStampController extends Controller
                     $update->status          = 2;
                     $update->save();
                     //$error[] = "แก้ไขได้ เพราะไม่มีวันที่ใน timestamp และไม่มีวันที่ใน request"; //1
+                    return ['status' => 'success_timeout','message' => "success"];
                 }
             }
         }
-        $count_error = count($error);
+        /*$count_error = count($error);
         if($count_error > 0){
             return json_encode(['status' => 'failed','message' => $error]);
         }else{
             return json_encode(['status' => 'success', 'message' => 'success']);
-        }
+        }*/
         //sd($error);
     }
 
