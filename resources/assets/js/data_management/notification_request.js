@@ -42,14 +42,6 @@ $(function(){
 		//alert("confirm");
 		var id = $(this).data('id');
 		console.log(id);
-		$.ajax({
-			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-			type: "POST",
-			url: $('#confirm-ajax-center-url').data('url'),
-			data: {'method' : 'getViewDataRequest',
-			'id'	    : id
-		}
-	});
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะอนุมัติการแก้ไขข้อมูลนี้ !",
@@ -61,6 +53,14 @@ $(function(){
 			confirmButtonText: 'ใช่, อนุมัติ!'
 		}).then((result) => {
 			if (result.value) {
+					$.ajax({
+						headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+						type: "POST",
+						url: $('#confirm-ajax-center-url').data('url'),
+						data: {'method' : 'getViewDataRequest',
+						'id'	    : id
+					}
+				});
 				Swal.fire(
 					'อนุมัติ!',
 					'คุณได้ทำการอนุมัติเรียบร้อย',

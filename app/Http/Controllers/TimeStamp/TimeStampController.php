@@ -687,27 +687,16 @@ class TimeStampController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $id      = $request->get('id');
-        //sd($id);
         $confirm = RequestTimeStamp::find($id);
-        //sd($confirm->toArray());
         $confirm->status  = 1;
         $confirm->save();
-
         $request_date = $confirm->request_date;
-        //sd($request_date);
         $request_type = $confirm->request_type;
-        //sd($request_type);
         $request_time = $confirm->request_time;
-        //sd($request_time);
-        /*$time_in      = $confirm->time_in;
-        $break_out    = $confirm->break_out;
-        $break_in     = $confirm->break_in;
-        $time_out     = $confirm->time_out;
-        */
 
         $request      = TimeStamp::where('date', $request_date)->first();
-        //sd($request);
-        if(isset($request)){
+
+        if(!empty($request)){
             if($request_type        == "break_out"){
                 $request->break_out = $request_time;
             }
@@ -721,6 +710,7 @@ class TimeStampController extends Controller
         }else{
             $add                = new TimeStamp();
             $add->id_employee   = $current_employee['id_employee'];
+            $add->date          = $request_date;
             if($request_type    == "time_in"){
                 $add->time_in   = $request_time;
             }
@@ -735,20 +725,6 @@ class TimeStampController extends Controller
             }
             $add->save();
         }
-
-        /*if(!empty($time_in)){
-            $request->time_in   = $time_in;
-        }
-        if(!empty($break_out)){
-            $request->break_out = $break_out;
-        }
-        if(!empty($break_in)){
-            $request->break_in  = $break_in;
-        }
-        if(!empty($time_out)){
-            $request->time_out  = $time_out;
-        }*/
-        //$request->save();
     }
 
     public function cancelDataRequestTimeStamp(Request $request)  // กดไม่อนุมัติ

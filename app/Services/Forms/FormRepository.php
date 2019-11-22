@@ -1185,6 +1185,7 @@ class FormRepository
                             $form_new_time_clock .= 'ลงเวลาเข้า-ออก งาน';
                         $form_new_time_clock .= '</label>';*/
 
+                        /*$form_new_time_clock .= '<div class="col-md-12">';
 
                          //$form_new_time_clock .= '<div class="col-md-12">';
 
@@ -1205,7 +1206,9 @@ class FormRepository
                         $form_new_time_clock .= '<br>';
                           $form_new_time_clock .= '<label class="text-error" id="edit-t_out-text-error">';
                         $form_new_time_clock .= '</label>';
-                        
+
+                        }*/
+
                         /*$form_new_time_clock .= '</div>';*/
 
                         /*$form_new_time_clock .= '<br>';
@@ -1219,8 +1222,9 @@ class FormRepository
                         //     $form_new_time_clock .= 'ลงเวลาพัก';
                         // $form_new_time_clock .= '</label>';
 
-                        // $form_new_time_clock .= '<div class="col-md-12">';
-                        }else if($data['request_type'] == "break_out"){
+                        //$form_new_time_clock .= '<div class="col-md-12">';
+                        /*else if($data['request_type'] == "break_out"){
+
                          $form_new_time_clock .= '<label class="group-display">';
                             $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_break_in" class="flat-red" id="edit-br_in"  '.($data['request_type'] == "break_out" ? 'checked' : '').'> ';
                             $form_new_time_clock .= ' พักกลางวัน';
@@ -1232,7 +1236,7 @@ class FormRepository
                             $form_new_time_clock .= ' เข้าทำงานช่วงบ่าย';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<br>';
-                        }
+                        }*/
                         /*$form_new_time_clock .= '</div>';*/
 
                         /*$form_new_time_clock .= '<br>';
@@ -1249,7 +1253,7 @@ class FormRepository
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="time_in" id="edit-input-t_in" class="form-control" value="'.($data['request_type'] == "time_in" ? $data['request_time'] : '' ).'">';
+                    $form_new_time_clock .= '<input type="text" name="time_in" id="edit-input-t_in" class="form-control '.($data['request_type'] == "time_in" ? 'required' : '' ).'" value="'.($data['request_type'] == "time_in" ? $data['request_time'] : '' ).'">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<label class="text-error" id="edit-input-t_in-text-error">';
@@ -1261,7 +1265,7 @@ class FormRepository
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="t_out" id="edit-input-t_out" class="form-control" id="time_out" value="'.($data['request_type'] == "time_out" ? $data['request_time'] : '' ).'">';
+                    $form_new_time_clock .= '<input type="text" name="t_out" id="edit-input-t_out" class="form-control '.($data['request_type'] == "time_out" ? 'required' : '' ).'" id="time_out" value="'.($data['request_type'] == "time_out" ? $data['request_time'] : '' ).'">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<label class="text-error" id="edit-input-t_out-text-error">';
@@ -1274,7 +1278,7 @@ class FormRepository
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="break_in" id="edit-input-b_in" class="form-control" value="'.($data['request_type'] == "break_out" ? $data['request_time'] : '' ).'">';
+                    $form_new_time_clock .= '<input type="text" name="break_in" id="edit-input-b_in" class="form-control '.($data['request_type'] == "break_out" ? 'required' : '' ).'" value="'.($data['request_type'] == "break_out" ? $data['request_time'] : '' ).'">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<label class="text-error" id="edit-input-b_in-text-error">';
@@ -1285,7 +1289,7 @@ class FormRepository
                     $form_new_time_clock .= '<div class="input-group-addon">';
                         $form_new_time_clock .= '<i class="fa fa-clock-o"></i>';
                     $form_new_time_clock .= '</div>';
-                    $form_new_time_clock .= '<input type="text" name="break_out" id="edit-input-b_out" class="form-control" value="'.($data['request_type'] == "break_in" ? $data['request_time'] : '' ).'">';
+                    $form_new_time_clock .= '<input type="text" name="break_out" id="edit-input-b_out" class="form-control '.($data['request_type'] == "break_in" ? 'required' : '' ).'" value="'.($data['request_type'] == "break_in" ? $data['request_time'] : '' ).'">';
                 $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<label class="text-error" id="edit-input-b_out-text-error">';
