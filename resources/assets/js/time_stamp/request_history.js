@@ -114,10 +114,10 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 		 	$('.datepicker').datepicker({autoclose: true,format: 'yyyy-mm-dd'})
 
 		// Checkbox add new Record
-		$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+/*		$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
 			checkboxClass: 'icheckbox_flat-green',
 			radioClass   : 'iradio_flat-green'
-		})
+		})*/
 
 		/*$('#edit-t_in_out').on('ifChecked', function(event){
 			$('#edit-t_in').iCheck('enable');
@@ -129,7 +129,7 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 			$('#edit-t_out').iCheck('disable').iCheck('uncheck');
 		});*/
 
-		$('#edit-t_in').on('ifChecked', function(event){
+		/*$('#edit-t_in').on('ifChecked', function(event){
 			$('.input-t_in').removeClass('hide')
 			$('#edit-input-t_in').addClass('required')
 		}).on('ifUnchecked', function(event){
@@ -143,7 +143,7 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 		}).on('ifUnchecked', function(event){
 			$('.input-t_out').addClass('hide')
 			$('#edit-input-t_out').removeClass('required')
-		});
+		});*/
 
 		/*$('#edit-br_in_out').on('ifChecked', function(event){
 			$('#edit-br_in').iCheck('enable');
@@ -155,7 +155,7 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 			$('#edit-br_out').iCheck('disable').iCheck('uncheck');
 		});*/
 
-		$('#br_in').on('ifChecked', function(event){ // ออกจากไปพัก
+		/*$('#edit-br_in').on('ifChecked', function(event){ // ออกจากไปพัก
 			$('.input-b_in').removeClass('hide')
 			$('#edit-input-b_in').addClass('required')
 			//alert("ออกไปพัก");
@@ -171,7 +171,7 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 		}).on('ifUnchecked', function(event){
 			$('.input-b_out').addClass('hide')
 			$('#edit-input-b_out').removeClass('required')
-		});
+		});*/
 		// end Checkbox
 
 		$('body').addClass('modal-open');
