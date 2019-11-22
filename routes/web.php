@@ -37,7 +37,8 @@ Route::post('/timestamp/add_timestamp', 'TimeStamp\TimeStampController@addTimeSt
 
 Route::post('/time_stamp/add_time_stamp', 'TimeStamp\TimeStampController@add_time_stamp')->name('time_stamp.add_time_stamp.post');
 Route::post('/time_stamp/add_request_time_stamp', 'TimeStamp\TimeStampController@addRequestTimeStamp')->name('time_stamp.add_request_time_stamp.post'); //add-request-timestamp
-Route::post('/time_stamp/edit_request_time_stamp', 'TimeStamp\TimeStampController@editRequestTimeStamp')->name('time_stamp.edit_request_time_stamp.post'); //edit-request-timestamp
+Route::post('/time_stamp/edit_request_time_stamp', 'TimeStamp\TimeStampController@editRequestTimeStamp')->name('request_history.edit_request_time_stamp.post'); //edit-request-timestamp
+Route::post('/time_stamp/view_request_timestamp', 'TimeStamp\TimeStampController@ajaxCenter')->name('request_history.ajax_center.post');
 
 
 

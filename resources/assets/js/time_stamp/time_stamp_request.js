@@ -48,9 +48,9 @@ $(function(){
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: "POST",
 			url: $('#confirm-data-request-time-stamp').data('url'),
-			data: {'id'	    : id
-		}
-	});
+			data: {'id'	    : id,
+			}
+		});
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะอนุมัติการแก้ไขข้อมูลนี้ !",
@@ -68,7 +68,7 @@ $(function(){
 					'success').then((result) =>{
 						if (result.value)
 						{
-							//window.location.reload();
+							window.location.reload();
 						}
 					})
 				}

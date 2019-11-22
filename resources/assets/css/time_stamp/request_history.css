@@ -1,0 +1,80 @@
+.picker-opened > .picker-dialog {
+  /*bottom: 0; */
+  top: 5% !important;
+}
+
+.picker-confirm{
+	background-color: #0074d9;
+	color: white;
+}
+.picker-confirm:hover{
+	background-color: #0074d9a6;
+	color: white;
+}
+.picker-cancel{
+	background-color: #dd4b39;
+	color: white;
+}
+.picker-cancel:hover{
+	background-color: #c9302c;
+	color: white;
+}
+.picker-dialog{
+	background-color: black !important;
+}
+.picker-body, .picker-footer{
+	background-color: white !important;
+}
+.select-hour{
+	margin: 0px !important;
+	padding: 0px !important;
+	cursor: pointer;
+	max-height: 150px;
+	overflow-y: scroll;
+	border-right: 1px solid lightgray;
+}
+.select-hour>li:hover{
+	background-color: lightgray;
+}
+.selected-hour{
+	background-color: lightgray;
+}
+.select-minutes{
+	margin: 0px !important;
+	padding: 0px !important;
+	cursor: pointer;
+	max-height: 150px;
+	overflow-y: scroll;
+}
+.select-minutes>li:hover{
+	background-color: lightgray;
+}
+.selected-minutes{
+	background-color: lightgray;
+}
+
+.select-minutes::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+.select-minutes::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
+}
+.select-hour::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+.select-hour::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
+}
+.swal2-popup{
+	font-size: 18px !important;
+}
