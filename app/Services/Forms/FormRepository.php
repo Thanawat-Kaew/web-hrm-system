@@ -1185,7 +1185,6 @@ class FormRepository
                             $form_new_time_clock .= 'ลงเวลาเข้า-ออก งาน';
                         $form_new_time_clock .= '</label>';*/
 
-                        $form_new_time_clock .= '<div class="col-md-12">';
 
                         if($data['request_type'] == "time_in"){
                         $form_new_time_clock .= '<label class="group-display">';
