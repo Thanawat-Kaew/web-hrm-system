@@ -44,6 +44,8 @@ Route::post('/time_stamp/view_request_timestamp', 'TimeStamp\TimeStampController
 
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 
+Route::get('/leave/history', 'Leave\LeaveController@leave_history')->name('leave.leave_history.get');
+
 Route::get('/personal_info', 'Employee\EmployeeController@personal_info')->name('personal_info.personal_info.get');
 Route::post('/personal_info/amendment', 'Employee\EmployeeController@ajaxCenter')->name('personal_info.ajax_center.post');
 
@@ -85,6 +87,8 @@ Route::get('/data_manage/request', 'DataManagement\DataManageController@notifica
 Route::post('personal_info/dalete/{id}','Employee\EmployeeController@postDeleteRequestChangeData')->name('personal_info.delete_employee.post');
 
 Route::post('/data_manage/delete/{id_employee}','DataManagement\DataManageController@postDeleteData')->name('data_manage.delete_employee.post');
+
+Route::post('/request_history/delete/{id}','TimeStamp\TimeStampController@postDeleteRequestHistory')->name('timestamp.delete_request_history.post');
 
 
 Auth::routes();

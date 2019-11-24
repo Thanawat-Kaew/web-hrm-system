@@ -752,18 +752,26 @@ class TimeStampController extends Controller
         //sd($error);
     }
 
-    function array_push_associative(&$arr) {
-        $args = func_get_args();
-        foreach ($args as $arg) {
-            if (is_array($arg)) {
-                foreach ($arg as $key => $value) {
-                    $arr[$key] = $value;
-                    $ret++;
-                }
-            }else{
-                $arr[$arg] = "";
-            }
+      public function postDeleteRequestHistory($id)
+        {
+
+        $request_history          = RequestTimeStamp::with('employee')->where('id', $id)->first();
+
+        // date_default_timezone_set('Asia/Bangkok');
+        // $date = date('Y-m-d H:i:s');
+        // sd($date );
+        if(!empty($request_history))
+        {
+            $request_history->delete();
+
+            return ['status' => 'success', 'message' => 'Delete complete.'];
+
         }
-        return $ret;
+        else
+        {
+            return['status' => 'failed','message' =>'Not found.'];
+        }
     }
+
+
 }

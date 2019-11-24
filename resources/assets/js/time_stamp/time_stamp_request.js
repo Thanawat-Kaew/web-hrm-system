@@ -1,4 +1,5 @@
 $(function(){
+	// $('#mydatatables').DataTable();
 	$('.view-data-request-time-stamp').click(function(){
 		msg_waiting()
 		var	id = $(this).data('id');

@@ -14,6 +14,11 @@ class LeaveController extends Controller
         return $this->useTemplate('leave.leave');
     }
 
+    public function leave_history()
+    {
+        return $this->useTemplate('leave.leave_history');
+    }
+
      public function ajaxCenter(Request $request)
     {
     	$method = $request->get('method');

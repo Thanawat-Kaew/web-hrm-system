@@ -53,6 +53,30 @@ $(document).ready(function(){
 		}
 	})
 	});
+
+	$('.delete-data').on("click", function()
+	{
+		var url=$(this).data('href');
+		Swal.fire(
+		{
+			title: 'คุณแน่ใจหรือไม่?',
+			text: "ที่จะลบรายการนี้ !",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'ไม่ลบ',
+			confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
+		}).then((result) => 
+		{
+			if (result.value) 
+
+			{
+				postDelete(url); 
+			}
+		})
+		
+	});
 });
 
 function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
@@ -492,6 +516,44 @@ function getTimePicker(obj_input)
 			var hh =  $('.select-hour>li.selected-hour').text();
 			var mm = $('.select-minutes>li.selected-minutes').text();
 			$(obj_input).val(hh+":"+mm);
+		}
+	});
+}
+
+function postDelete(url)
+{
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type: "POST",
+		url: url,
+		success: function(result)
+		{
+			if(result.status == "success")
+			{
+				Swal.fire(
+				{
+					title: 'คุณลบรายการนี้เรียบร้อย',
+					type: 'success',
+					showCancelButton: false,
+					confirmButtonText: 'ปิด'
+
+				}).then((result) =>{
+
+					if (result.value) 
+					{
+						window.location.reload();
+					}
+				})
+
+			}
+			else
+			{
+				alert(result.message);
+			}
+		},	
+		error : function(errors)
+		{
+			console.log(errors);
 		}
 	});
 }

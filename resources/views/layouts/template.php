@@ -34,6 +34,7 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Kanit:300&display=swap" rel="stylesheet">
 
+
   <link rel="stylesheet" href="/resources/assets/css/main.css">
   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
   <link rel="stylesheet" href="/resources/assets/css/full_picker/picker.css">
@@ -104,6 +105,7 @@
 <script src="/resources/assets/js/core/bootbox/bootbox.min.js"></script>
 <script src="/resources/assets/js/core/full_picker/picker.min.js"></script>
 <script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
+
 <!-- icheck -->
 <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
 

@@ -234,11 +234,20 @@ function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึ
 				// alert("success");
 				//alert(response.message);
 				//msg_close();
-				msg_success();
+				//msg_success();
 				//window.location.reload();
+				Swal.fire({
+					title: 'บันทึกข้อมูลสำเร็จ',
+					text: "",
+					type: 'success',
+				}).then((result) =>{
+					if (result.value)
+					{
+						window.location.reload();
+					}
+				})
 			}else{
-				// alert("error");
-				// alert(response);
+				alert(response);
 				var data_resp = jQuery.parseJSON(response);
 				showDialog(form, title, oldValue,oldCheck, data_resp.message);
 

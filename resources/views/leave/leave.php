@@ -7,7 +7,7 @@
 <section class="content">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="box box-danger">
+		<!-- 	<div class="box box-danger">
 				<div class="box-header">
 					<h3 class="box-title">ตารางการลาประจำปี</h3>
 				</div>
@@ -145,15 +145,19 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row">
 				<div class="btn-group dropup pull-right ">
-					<button href="" type="button" name="add-leave" class='btn btn-success dropdown-toggle add-leave'><i class="fa fa-plus"></i> New Record
+					<button type="button" name="add-leave" class='btn btn-success dropdown-toggle add-leave'><i class="fa fa-plus"></i> New Record
 					</button>
+					<a href="<?php echo route('leave.leave_history.get');?>">
+						<button href="" type="button" name="view-history" class='btn btn-warning dropdown-toggle view-history'><i class="fa fa-history"></i> History
+						</button>
+					</a>
 				</div>
 			</div>
 			<div class="box box-info">
@@ -186,46 +190,27 @@
 							<td>ลาป่วย</td>
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-							<td><span class="label label-success">Approved</span></td>
-							<td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
-							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button>
-							</td>
+							<td><span class="label label-success">อนุมัติ</span></td>
+							<td><i class="fa fa-pencil btn"></i></td>
+							<td><i class="fa fa-trash btn"></i></td>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
 							<td>ลาป่วย</td>
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-							<td><span class="label label-info">Waiting</span></td>
-							<td><span class="btn btn-warning form-control"><i class="fa fa-pencil btn"></i></span></td>
-							<td><span class="btn btn-danger form-control"><i class="fa fa-trash btn"></i></span></td>
+							<td><span class="label label-warning">กำลังรอ</span></td>
+							<td><i class="fa fa-pencil btn"></i></td>
+							<td><i class="fa fa-trash btn"></i></td>
 						</tr>
 						<tr>
 							<td>11-7-2014</td>
 							<td>ลากิจ</td>
 							<td>11-7-2014</td>
 							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-							<td><span class="label label-info">Waiting</span></td>
-							<td><button class="btn btn-warning form-control"><i class="fa fa-pencil btn"></i></button></td>
-							<td><button class="btn btn-danger form-control"><i class="fa fa-trash btn"></i></button></td>
-						</tr>
-						<tr>
-							<td>11-7-2014</td>
-							<td>ลากิจ</td>
-							<td>11-7-2014</td>
-							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-							<td><span class="label label-danger">Cancel</span></td>
-							<td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
-							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button></td>
-						</tr>
-						<tr>
-							<td>11-7-2014</td>
-							<td>ลากิจ</td>
-							<td>11-7-2014</td>
-							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-							<td><span class="label label-danger">Cancel</span></td>
-							<td><button class="btn btn-warning form-control disabled"><i class="fa fa-pencil btn disabled"></i></button></td>
-							<td><button class="btn btn-danger form-control disabled"><i class="fa fa-trash btn disabled"></i></button></td>
+							<td><span class="label label-danger">ไม่อนุมัติ</span></td>
+							<td><i class="fa fa-pencil btn"></i></td>
+							<td><i class="fa fa-trash btn"></i></td>
 						</tr>
 					</table>
 				</div>
