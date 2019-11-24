@@ -4,9 +4,9 @@ function msg_success(){
 		text: "",
 		type: 'success',
 	}).then((result) =>{
-		if (result.value) 
+		if (result.value)
 		{
-			window.location.reload(); 
+			window.location.reload();
 		}
 	})
 }
@@ -32,37 +32,10 @@ $(document).ready(function() {
 				'pass'      : pass
 			},
 			success: function (result) {
-				if(result.status == "failed_password"){
-					Swal.fire(
-						'คุณกรอกรหัสผ่านผิด!','กรุณาลองไหมอีกครั้ง','error')
-				}
-				if(result.status == "failed_timein"){
-					Swal.fire(
-						'คุณลงเวลาเข้าทำงานแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
-
-				}else if(result.status == "success_timein"){
-					msg_success()
-				}else if(result.status == "failed_breakout"){
-					Swal.fire(
-						'คุณลงเวลาพักกลางวันแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
-
-				}else if(result.status == "success_breakout"){
-					msg_success()
-
-				}else if(result.status == "failed_breakin"){
-					Swal.fire(
-						'คุณลงเวลาเข้าทำงานช่วงบ่ายแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
-
-				}else if(result.status == "success_breakin"){
-					msg_success()
-
-				}else if(result.status == "failed_timeout"){
-					Swal.fire(
-						'คุณลงเวลาออกงานแล้ว!','กรุณาเลือกรูปแบบอื่น','error')
-
-				}else if(result.status == "success_timeout"){
-					msg_success()
-
+				if(result.status == "failed"){
+					Swal.fire(result.message1, result.message2,'error');
+				} else{
+					msg_success();
 				}
 
 			},

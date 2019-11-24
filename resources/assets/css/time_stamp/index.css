@@ -7,7 +7,7 @@
 }
 
 .add-leave-time-clock{
-	margin-bottom: 5px; 
+	margin-bottom: 5px;
 }
 
 .button-confirm{
@@ -15,7 +15,7 @@
 }
 
 .button-cancel{
-	margin-bottom: 5px; 
+	margin-bottom: 5px;
 }
 
 .request-time_stamp{
@@ -104,4 +104,8 @@
 }
 .swal2-popup{
 	font-size: 18px !important;
+}
+
+.text-warning{
+	color: #ebae00 !important;
 }

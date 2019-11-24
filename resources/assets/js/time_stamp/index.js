@@ -60,19 +60,19 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 		 	});
 
 		 	// Open time picker custom.
-		 	$('#input-t_in').on('click', function(){
+		 	$('#input-time_in').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
-		 	$('#input-t_out').on('click', function(){
+		 	$('#input-time_out').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
-		 	$('#input-b_in').on('click', function(){
+		 	$('#input-break_in').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
-		 	$('#input-b_out').on('click', function(){
+		 	$('#input-break_out').on('click', function(){
 		 		getTimePicker($(this));
 		 	});
 
@@ -96,18 +96,21 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		$('#t_in').on('ifChecked', function(event){
 			$('.input-t_in').removeClass('hide')
-			$('#input-t_in').addClass('required')
+			$('#input-time_in').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-t_in').addClass('hide')
-			$('#input-t_in').removeClass('required')
+			$('#input-time_in').removeClass('required')
+			$('#input-time_in-text-error').html("").hide();
 		});
 
 		$('#t_out').on('ifChecked', function(event){
 			$('.input-t_out').removeClass('hide')
-			$('#input-t_out').addClass('required')
+			$('#input-time_out').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-t_out').addClass('hide')
-			$('#input-t_out').removeClass('required')
+			$('#input-time_out').removeClass('required')
+			$('#input-time_out-text-error').html("").hide();
+
 		});
 
 		$('#br_in_out').on('ifChecked', function(event){
@@ -122,18 +125,20 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		$('#br_in').on('ifChecked', function(event){
 			$('.input-b_in').removeClass('hide')
-			$('#input-b_in').addClass('required')
+			$('#input-break_in').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-b_in').addClass('hide')
-			$('#input-b_in').removeClass('required')
+			$('#input-break_in').removeClass('required')
+			$('#input-break_in-text-error').html("").hide();
 		});
 
 		$('#br_out').on('ifChecked', function(event){
 			$('.input-b_out').removeClass('hide')
-			$('#input-b_out').addClass('required')
+			$('#input-break_out').addClass('required')
 		}).on('ifUnchecked', function(event){
 			$('.input-b_out').addClass('hide')
-			$('#input-b_out').removeClass('required')
+			$('#input-break_out').removeClass('required')
+			$('#input-break_out-text-error').html("").hide();
 		});
 		// end Checkbox
 
@@ -141,11 +146,11 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		if(oldValue !== ""){
 			$.each(oldValue, function(key, value) {
-				$('#'+key).val(value);
+				$('#input-'+key).val(value);
 				if(value == "") {
-					$('#'+key + "-text-error").html("* Required").show();
+					$('#input-'+key + "-text-error").html("* Required").show();
 				} else {
-					$('#'+key + "-text-error").html("").hide();
+					$('#input-'+key + "-text-error").html("").hide();
 				}
 			});
 		}
@@ -180,7 +185,7 @@ function sendRequest(form, title){
 	var count 			 = 0;
 	var oldValue 		 = {};
 	jQuery.each($('.required'),function(){
-		var name = $(this).attr('id');
+		var name = $(this).attr('name');
 		oldValue[name]= $(this).val();
 		if ($(this).val() =="") {
 			count++
@@ -215,12 +220,12 @@ function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึ
 		type : 'POST',
 		url  : $('#add-request-time-stamp').data('url'),
 		data : {
-			request_date  : $('#date-request-timestamp').val(),
-			time_in 	  : $('#input-t_in').val(),
-			time_out 	  : $('#input-t_out').val(),
-			break_out 	  : $('#input-b_in').val(),
-			break_in 	  : $('#input-b_out').val(),
-			reason 	      : $('#reason-request-time-stamp').val(),
+			request_date  : $('#input-request_timestamp').val(),
+			time_in 	  : $('#input-time_in').val(),
+			time_out 	  : $('#input-time_out').val(),
+			break_out 	  : $('#input-break_in').val(),
+			break_in 	  : $('#input-break_out').val(),
+			reason 	      : $('#input-reason').val(),
 			approvers_id  : $('#approved-id').val(),
 		},
 		success: function(response){
@@ -232,7 +237,7 @@ function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึ
 				msg_success();
 				//window.location.reload();
 			}else{
-				alert("error");
+				// alert("error");
 				// alert(response);
 				var data_resp = jQuery.parseJSON(response);
 				showDialog(form, title, oldValue,oldCheck, data_resp.message);

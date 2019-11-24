@@ -91,15 +91,22 @@
                             <th>Break-In</th>
                             <th>Time-Out</th>
                         </tr>
-                        <tr>
-                            <td><?php echo $current_data['first_name']?> <?php echo $current_data['last_name']?></td>
-                            <td><?php echo $current_data_position['name']?></td>
-                            <td><?php echo $current_data_time['date']?></td>
-                            <td><?php echo $current_data_time['time_in']?></td>
-                            <td><?php echo $current_data_time['break_out']?></td>
-                            <td><?php echo $current_data_time['break_in']?></td>
-                            <td><?php echo $current_data_time['time_out']?></td>
-                        </tr>
+                        <?php if(!empty($current_data_time)): ?>
+                            <tr>
+                                <td><?php echo $current_data_time->employee['first_name']?> <?php  echo $current_data_time->employee['last_name']?></td>
+                                <td><?php  echo $current_data_time->employee->position['name']?></td>
+                                <td><?php echo $current_data_time['date']?></td>
+                                <td><?php echo $current_data_time['time_in']?></td>
+                                <td><?php echo $current_data_time['break_out']?></td>
+                                <td><?php echo $current_data_time['break_in']?></td>
+                                <td><?php echo $current_data_time['time_out']?></td>
+                            </tr>
+                            <?php else:?>
+                                 <tr>
+                                <td colspan="7" style="text-align: center;"> Data not found.</td>
+                            </tr>
+                        <?php endif ?>
+
                     </table>
                 </div>
             </div>

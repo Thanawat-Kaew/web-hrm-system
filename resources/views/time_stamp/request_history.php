@@ -36,10 +36,19 @@
 							  $date  = explode(" ", $value['created_at']);
 							  $created_date = $date[0];
 							  $created_time = $date[1];
+							  if($value['request_type'] == "time_in"){
+							  	$type = "การลงเวลาเข้าทำงาน";
+							  }else if($value['request_type'] == "break_out"){
+							  	$type = "การลงเลาพักกลางวัน";
+							  }else if($value['request_type'] == "break_in"){
+							  	$type = "การลงเวลาเข้าทำงานช่วงบ่าย";
+							  }else if($value['request_type'] == "time_out"){
+							  	$type = "การลงเวลาออกงาน";
+							  }
 						?>
 						<tr>
 							<td><?php echo $value['request_date'] ?></td>
-							<td><?php echo $value['request_type']?></td>
+							<td><?php echo $type?></td>
 							<td><?php echo $created_time?></td>
 							<td><?php echo $value['reason']?></td>
 							<td>
