@@ -171,6 +171,7 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		if(errors !== ""){
 			jQuery.each(errors, function(k, v){
+				//console.log('#input-'+k+'-text-error');
 				$('#input-'+k+'-text-error').html(v).show();
 			})
 		}
@@ -237,9 +238,12 @@ function addRequestTimeStamp(form, title, oldValue,oldCheck){ // บันทึ
 				msg_success();
 				//window.location.reload();
 			}else{
+					//alert("error");
+					//console.log(response);
+				//Swal.fire(data_resp.message1, data_resp.message2,'error');
 				// alert("error");
 				// alert(response);
-				var data_resp = jQuery.parseJSON(response);
+				//var data_resp = jQuery.parseJSON(response);
 				showDialog(form, title, oldValue,oldCheck, data_resp.message);
 
 			}

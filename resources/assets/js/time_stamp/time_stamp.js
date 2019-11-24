@@ -19,6 +19,7 @@ $(document).ready(function() {
   	$('.submit-add-timestamp').click(function(){
   		var selectedOptions = $('.type-time option:selected');
   		var type_time       = selectedOptions.val();
+  		//alert(type_time);
   		var pass            = $('#pass_emp').val();
 		/*console.log(pass);
 		alert(pass);

@@ -65,7 +65,7 @@
                         <div class="form-group ">
                             <label>รูปแบบ</label>
                             <select class="form-control select2 type-time" style="width: 100%;">
-                                <option>กรุณาเลือกรูปแบบ</option>
+                                <option value="please_choice">กรุณาเลือกรูปแบบ</option>
                                 <option class="time_in ti" value="time_in">ลงเวลาเข้า  (Time In)</option>
                                 <option class="break_out ti" value="break_out">ออกพักกลางวัน  (Break Out)</option>
                                 <option class="break_in ti" value="break_in">เข้าพักกลางวัน  (Break In)</option>

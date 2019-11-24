@@ -144,6 +144,10 @@ class TimeStampController extends Controller
         if($pass !== $current_employee['password']){
             return ['status' => 'failed','message1' => "คุณกรอกรหัสผ่านผิด!" , 'message2' => "กรุณาลองไหมอีกครั้ง"];
         }
+        if($type_time == "please_choice"){
+            return ['status' => 'failed','message1' => "กรุณาเลือกรูปแบบ" , 'message2' => "กรุณาลองไหมอีกครั้ง"];
+        }
+
         $date_today   = date('Y-m-d');
         $current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->where('date', $date_today)->first();
 
@@ -200,6 +204,12 @@ class TimeStampController extends Controller
             'break_in' => $break_in,
             'break_out' => $break_out,
         ];
+        $date_today   = date('Y-m-d');
+        if($request_date > $date_today){
+            $error_date =   ["request_timestamp" => "ไม่สามารถลงเวลาเกินวันที่ปุจจุบัน"];
+            return json_encode(['status' => 'failed', 'message' => $error_date]);
+        }
+
         // $verify_timestamp = TimeStamp::with('requesttimestamp')->where('date', $request_date)->where('id_employee', $current_employee['id_employee'])->first();
         $employee  = Employee::with(['timestamp_hasone' => function($q) use($request_date){
             $q->where('date', $request_date);
