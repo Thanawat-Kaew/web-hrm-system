@@ -42,7 +42,7 @@
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover">
                     <tr>
-                        <th>ครั้งที่</th>
+                        <th>ครั้งที่ dgdgdgdgdgdgd</th>
                         <th>วันที่</th>
                         <th>สถานะ</th>
                         <th>แก้ไข</th>
