@@ -1,6 +1,6 @@
 <section class="content-header">
 	<h3>
-		การจัดการคำร้อง/// |
+		การจัดการคำร้อง |
 		<small> Amendment Manage</small>
 	</h3>
 </section>
