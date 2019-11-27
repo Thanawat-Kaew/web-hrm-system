@@ -145,7 +145,7 @@ class TimeStampController extends Controller
             return ['status' => 'failed','message1' => "คุณกรอกรหัสผ่านผิด!" , 'message2' => "กรุณาลองไหมอีกครั้ง"];
         }
         if($type_time == "please_choice"){
-            return ['status' => 'failed','message1' => "กรุณาเลือกรูปแบบ" , 'message2' => "กรุณาลองไหมอีกครั้ง"];
+            return ['status' => 'failed','message1' => "กรุณาเลือกรูปแบบ" , 'message2' => "ลองไหมอีกครั้ง"];
         }
 
         $date_today   = date('Y-m-d');
@@ -206,7 +206,7 @@ class TimeStampController extends Controller
         ];
         $date_today   = date('Y-m-d');
         if($request_date > $date_today){
-            $error_date =   ["request_timestamp" => "ไม่สามารถลงเวลาเกินวันที่ปุจจุบัน"];
+            $error_date =   ["request_timestamp" => "ไม่สามารถลงเวลาเกินวันที่ปัจจุบันได้"];
             return json_encode(['status' => 'failed', 'message' => $error_date]);
         }
 

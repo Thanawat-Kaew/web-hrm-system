@@ -27,7 +27,7 @@ function showDialog(form,title){
                 label: 'บันทึก',
                 className: 'btn-info',
                 callback: function(){
-
+                    // getDateToInteger()
                 }
             },
             fum: {
@@ -47,9 +47,43 @@ function showDialog(form,title){
         })
 
         // date time picker
-        $(".form_datetime").datetimepicker();
+        $(".form_datetime").datepicker();
+        $(".form_datetime1").datepicker();
+
+
+        $('.form_datetime , .form_datetime1').on("change",function(){
+            
+            var getDate1 = $(".form_datetime").datepicker('getDate');
+            var getDate2 = $(".form_datetime1").datepicker('getDate');
+
+            var diffDays = Math.ceil((getDate2.getTime() - getDate1.getTime())/1000/3600/24);
+
+
+            $('.result').html(diffDays);
+            // alert(diffDays);
+        })
+
+        // $(".form_datetime").datetimepicker({
+        //     onSelect: function(dateText) {
+        //         console.log("Selected date: " + dateText + "; input's current value: " + this.value);
+        //         $(this).change();
+        //     }
+        // })
+        // .on("change", function() {
+        //     console.log("Got change event from field");
+        // });
     });
 };
+
+function getDateToInteger(){
+    // var getDate1 = $(".form_datetime").datetimepicker('getDate');
+    // var getDate2 = $(".form_datetime1").datetimepicker('getDate');
+
+    // var diffDays = Math.ceil((getDate2.getTime() - getDate1.getTime())/1000/3600/24);
+
+    // $('.result').html(diffDays);
+    // // alert(diffDays);
+}
 
 // $('.dropup').on('click', '.add-leave', function(){
 //     bootbox.dialog({ 

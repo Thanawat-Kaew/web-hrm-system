@@ -1,3 +1,4 @@
+ <!-- <meta http-equiv="refresh" content="15" /> -->
 <section class="content-header">
 	<h3>
 		การลงเวลา |

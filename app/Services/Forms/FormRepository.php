@@ -217,9 +217,9 @@ class FormRepository
                 $form_leave .= '<div class="input-group-addon">';
                         $form_leave .= '<i class="fa fa-calendar"></i>';
                 $form_leave .='</div>';
-                $form_leave .= '<input type="text" value="" readonly class="form_datetime form-control">';
+                $form_leave .= '<input type="text" value="" readonly class="form_datetime1 form-control">';
         $form_leave .='</div>';
-        $form_leave .= 'รวมจำนวน <i style="font-size: 30px; color: red"> 3 </i> วัน<br><hr>';
+        $form_leave .= 'รวมจำนวน <i style="font-size: 30px; color: red" class="result" value=""> 0 </i> วัน<br><hr>';
           $form_leave .='เหตุผลการลา<br>';
           $form_leave .='<textarea class="form-control textarea g-disable-input" name="live-preview" placeholder="Type..." rows="5"></textarea>';
 
@@ -736,7 +736,8 @@ class FormRepository
                  $form .= '<input class="form-control required" readonly type="text" value="'.$employee['reason'].'" placeholder="เหตุผล..." id="reason">';
              $form .= '</div>';
              $form .= '<label class="text-error" id="reason-text-error"></label>';
-            $form .= 'เหตุผลที่อนุมัติ/ไม่อนุมัติ';
+          if(!empty($employee['reason_approvers'])){
+           $form .= 'เหตุผลที่ไม่อนุมัติ';
             $form .= '<div class="input-group reason">';
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-commenting"></i>';
@@ -745,6 +746,7 @@ class FormRepository
              $form .= '</div>';
              $form .= '<label class="text-error" id="reason_approvers-text-error"></label>';
              $form .= '<br>';
+         }
          $form .= '</div>';
          $form .= '</div>';
          $form .= '</div>';
@@ -1079,6 +1081,14 @@ class FormRepository
             $form .='<textarea class="form-control textarea g-disable-input required"  readonly rows="5" id="reason-request-time-stamp" >'.$data["reason"].'</textarea>';
             $form .='<label class="text-error" id="reason-request-time-stamp-text-error"></label>';
             $form .='<br>';
+              if(!empty($data["reason_approvers"])){
+            $form .='เหตุผลที่ไม่อนุมัติ';
+            $form .='<br>';            
+            $form .='<textarea class="form-control textarea g-disable-input required"  readonly rows="5" id="reason-request-time-stamp" >'.$data["reason_approvers"].'</textarea>';
+            $form .='<label class="text-error" id="reason-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+            }
+
 
         $form .='</div>';
         return $form;
