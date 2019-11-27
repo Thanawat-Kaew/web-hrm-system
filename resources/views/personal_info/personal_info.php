@@ -46,7 +46,6 @@
                         <th>วันที่</th>
                         <th>สถานะ</th>
                         <th>แก้ไข</th>
-                        <th>ลบ</th>
                         <th></th>
                     </tr>
                     <?php $count = 0; ?>
@@ -64,8 +63,6 @@
                                 <i class="fa fa-pencil btn <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 2 ? '' : 'hide')); ?>" >
                                 </i>
                             </button>
-                        </td>
-                        <td>
                             <button class="btn btn-danger form-control delete-data <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 2 ? '' : 'hide')); ?>" data-id="<?php echo $value['id']?>" data-href="<?php echo route('personal_info.delete_employee.post',$value['id']);?>">
                                 <i class="fa fa-trash btn <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 2 ? '' : 'hide')); ?>" >
                                 </i>
@@ -76,14 +73,6 @@
                         </td>
                     </tr>
                 <?php endforeach?>
-                <tr>
-                    <td>2</td>
-                    <td>11-7-2014 09:48:30</td>
-                    <td><span class="label label-warning">กำลังรอ</span></td>
-                    <td><span class="btn btn-warning form-control"><i class="fa fa-pencil btn"></i></span></td>
-                    <td><span class="btn btn-danger form-control"><i class="fa fa-trash btn"></i></span></td>
-                    <td><i class="fa fa-eye fa-lg btn"></i></td>
-                </tr>
             </table>
         </div>
     </div>

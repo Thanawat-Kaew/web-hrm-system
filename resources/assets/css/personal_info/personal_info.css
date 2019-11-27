@@ -1,3 +1,7 @@
 body {
 	padding-right: 0px !important;
 }
+
+.delete-data,.edit-data{
+	width: auto;
+}
