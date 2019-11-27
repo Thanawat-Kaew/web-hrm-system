@@ -736,8 +736,9 @@ class FormRepository
                  $form .= '<input class="form-control required" readonly type="text" value="'.$employee['reason'].'" placeholder="เหตุผล..." id="reason">';
              $form .= '</div>';
              $form .= '<label class="text-error" id="reason-text-error"></label>';
-          if(!empty($employee['reason_approvers'])){
-           $form .= 'เหตุผลที่ไม่อนุมัติ';
+
+            if(!empty($employee['reason_approvers'])){
+            $form .= 'เหตุผลที่ไม่อนุมัติ';
             $form .= '<div class="input-group reason">';
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-commenting"></i>';
@@ -746,7 +747,8 @@ class FormRepository
              $form .= '</div>';
              $form .= '<label class="text-error" id="reason_approvers-text-error"></label>';
              $form .= '<br>';
-         }
+
+            }
          $form .= '</div>';
          $form .= '</div>';
          $form .= '</div>';
@@ -1089,6 +1091,14 @@ class FormRepository
             $form .='<br>';
             }
 
+
+            if(!empty($data["reason_approvers"])){
+            $form .='เหตุผลที่ไม่อนุมัติ';
+            $form .='<br>';
+            $form .='<textarea class="form-control textarea g-disable-input required"  readonly rows="5" id="reason-request-time-stamp" >'.$data["reason_approvers"].'</textarea>';
+            $form .='<label class="text-error" id="reason-request-time-stamp-text-error"></label>';
+            $form .='<br>';
+            }
 
         $form .='</div>';
         return $form;
