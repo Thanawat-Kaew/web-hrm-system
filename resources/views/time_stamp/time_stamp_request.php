@@ -50,9 +50,9 @@
 										<i class="fa fa-eye fa-lg btn view-data-request-time-stamp" data-id="<?php echo $value['id']?>"></i>
 									</td>
 									<td style="width: 20px">
-										<button style="width: auto;" class="btn btn-primary form-control btn-confirm-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
+										<button style="width: auto;" class="btn btn-primary form-control btn-confirm-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 3 ? 'hide' : '')); ?>" data-id="<?php echo $value['id']?>">อนุมัติ
 										</button>
-										<button style="width: auto;" class="btn btn-danger form-control btn-cancel-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 3 ? 'disabled' : '')); ?>" data-id="<?php echo $value['id']?>">ไม่อนุมัติ
+										<button style="width: auto;" class="btn btn-danger form-control btn-cancel-data-request-time-stamp <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 3 ? 'hide' : '')); ?>" data-id="<?php echo $value['id']?>">ไม่อนุมัติ
 										</button>
 									</td>
 									<td>

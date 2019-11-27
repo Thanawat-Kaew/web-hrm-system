@@ -56,7 +56,7 @@
                                 </span>
 							</td>
 							<td>
-								<i class="btn fa <?php echo ($value['status'] == 2 ? 'fa-pencil' : ''); ?> edit-data-request-timestamp" data-id="<?php echo $value['id'] ?>"></i>
+								<i class="btn fa <?php echo ($value['status'] == 2 ? 'fa-pencil' : 'hide'); ?> edit-data-request-timestamp" data-id="<?php echo $value['id'] ?>"></i>
 								<i class="btn fa fa-trash delete-data" data-href="<?php echo route('timestamp.delete_request_history.post',$value['id']);?>"></i>
 								<i class="btn fa fa-eye view-request-timestamp" data-id="<?php echo $value['id'] ?>"></i>
 							</td>

@@ -60,14 +60,14 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-warning form-control edit-data <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" data-id="<?php echo $value['id']?>">
-                                <i class="fa fa-pencil btn <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" >
+                            <button class="btn btn-warning form-control edit-data <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 2 ? '' : 'hide')); ?>" data-id="<?php echo $value['id']?>">
+                                <i class="fa fa-pencil btn <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 2 ? '' : 'hide')); ?>" >
                                 </i>
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-danger form-control delete-data <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" data-id="<?php echo $value['id']?>" data-href="<?php echo route('personal_info.delete_employee.post',$value['id']);?>">
-                                <i class="fa fa-trash btn <?php echo ($value['status'] == 1 ? 'disabled' : ($value['status'] == 2 ? '' : 'disabled')); ?>" >
+                            <button class="btn btn-danger form-control delete-data <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 2 ? '' : 'hide')); ?>" data-id="<?php echo $value['id']?>" data-href="<?php echo route('personal_info.delete_employee.post',$value['id']);?>">
+                                <i class="fa fa-trash btn <?php echo ($value['status'] == 1 ? 'hide' : ($value['status'] == 2 ? '' : 'hide')); ?>" >
                                 </i>
                             </button>
                         </td>
