@@ -27,7 +27,6 @@ function showDialog(form,title){
                 label: 'บันทึก',
                 className: 'btn-info',
                 callback: function(){
-                    // getDateToInteger()
                 }
             },
             fum: {
@@ -46,32 +45,15 @@ function showDialog(form,title){
             radioClass   : 'iradio_flat-green'
         })
 
-        // date time picker
+        // datepicker for leave full day
         $(".form_datetime").datepicker();
         $(".form_datetime1").datepicker();
-
-
         $('.form_datetime , .form_datetime1').on("change",function(){
-            
             var getDate1 = $(".form_datetime").datepicker('getDate');
             var getDate2 = $(".form_datetime1").datepicker('getDate');
-
-            var diffDays = Math.ceil((getDate2.getTime() - getDate1.getTime())/1000/3600/24);
-
-
+            var diffDays = Math.ceil(((getDate2 - getDate1)/1000/3600/24)+1);
             $('.result').html(diffDays);
-            // alert(diffDays);
         })
-
-        // $(".form_datetime").datetimepicker({
-        //     onSelect: function(dateText) {
-        //         console.log("Selected date: " + dateText + "; input's current value: " + this.value);
-        //         $(this).change();
-        //     }
-        // })
-        // .on("change", function() {
-        //     console.log("Got change event from field");
-        // });
     });
 };
 

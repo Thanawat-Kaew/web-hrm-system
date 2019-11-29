@@ -5,7 +5,11 @@ namespace App\Http\Controllers\DataManagement;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Services\Forms\FormRepository;
+use App\Services\Forms\FormEmployee;
+use App\Services\Forms\FormChangeDepartment;
+use App\Services\Forms\FormManageData;
+use App\Services\Forms\FormDataPersonal;
+use App\Services\Forms\FormViewDataRequest;
 use App\Services\Department\Department;
 use App\Services\Position\Position;
 use App\Services\Employee\Employee;
@@ -44,7 +48,7 @@ class DataManageController extends Controller
                     $department = $request->get('department');
                     //sd($department); // en0001
                     $employee   = Employee::where('id_department', $department)->get();
-                    $form_repo      = new FormRepository;
+                    $form_repo      = new FormChangeDepartment;
                     $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
                      return response()->json(['status'=> 'success','data'=> $get_form_emp]);
             break;
@@ -52,7 +56,7 @@ class DataManageController extends Controller
             case 'getManageData':
                 $employee_id           = $request->get('employee_id');
                 $get_data_employee = Employee::with('position', 'department')->where('id_employee', $employee_id)->first();
-                $form_repo          = new FormRepository;
+                $form_repo          = new FormManageData;
                 $form_manage_data   = $form_repo->getManageData($get_data_employee);
                 return response()->json(['status'=> 'success','data'=> $form_manage_data]);
                 break;
@@ -80,7 +84,7 @@ class DataManageController extends Controller
             case 'getDataPersonal':
                 $id             = $request->get('id');
                 $employee       = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
-                $form_repo      = new FormRepository;
+                $form_repo      = new FormDataPersonal;
                 $form_view_emp   = $form_repo->getDataPersonal( $employee);
                 return response()->json(['status'=> 'success','data'=> $form_view_emp]);
             break;
@@ -92,7 +96,7 @@ class DataManageController extends Controller
                 $emp_department    = Department::where('id_department', $employee['id_department'])->first();
                 $emp_position      = Position::where('id_position', $employee['id_position'])->first();
                 $emp_education     = Education::where('id_education', $employee['id_education'])->first();
-                $form_repo      = new FormRepository;
+                $form_repo      = new FormViewDataRequest;
                 $form_view_date_request   = $form_repo->getViewDataRequest($employee, $emp_department, $emp_position, $emp_education);
                 return response()->json(['status'=> 'success','data'=> $form_view_date_request]);
             break;

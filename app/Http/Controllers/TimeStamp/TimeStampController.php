@@ -5,7 +5,12 @@ namespace App\Http\Controllers\TimeStamp;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Services\Forms\FormRepository;
+use App\Services\Forms\FormEmployee;
+use App\Services\Forms\FormNewTimeClock;
+use App\Services\Forms\FormRequestTimeStamp;
+use App\Services\Forms\FormViewDataRequestTimeStamp;
+use App\Services\Forms\FormViewRequestTimeStamp;
+use App\Services\Forms\FormEditRequestTimeStamp;
 use App\Services\TimeStamp\TimeStamp;
 use App\Services\Employee\Employee;
 use App\Services\Department\Department;
@@ -69,7 +74,7 @@ class TimeStampController extends Controller
             }
                 // $employee = TimeStamp::where('id_employee', $current_employee['id_employee'])->get();
             $header = Employee::where('id_position', 2)->where('id_department', $current_employee['id_department'])->first();
-            $form_repo = new FormRepository;
+            $form_repo = new FormNewTimeClock;
             $form_new_time_clock = $form_repo->getFormNewTimeClock($header);
             return response()->json(['status'=> 'success','data'=> $form_new_time_clock]);
             break;
@@ -79,7 +84,7 @@ class TimeStampController extends Controller
                 $current_employee = \Session::get('current_employee');
             }
             $header = Employee::where('id_position', 2)->where('id_department', $current_employee['id_department'])->first();
-            $form_repo = new FormRepository;
+            $form_repo = new FormRequestTimeStamp;
             $form_request_timestamp = $form_repo->getRequestTimeStamp($header);
             return response()->json(['status'=> 'success','data'=> $form_request_timestamp]);
             break;
@@ -89,7 +94,7 @@ class TimeStampController extends Controller
                 //sd($id);
             $data           = RequestTimeStamp::where('id', $id)->first();
                 //sd($data->toArray());
-            $form_repo = new FormRepository;
+            $form_repo = new FormViewDataRequestTimeStamp;
             $form_view_data_request_timestamp = $form_repo->getViewDataRequestTimeStamp($data);
                 //sd($form_view_request_timestamp);
             return response()->json(['status'=> 'success','data'=> $form_view_data_request_timestamp]);
@@ -101,7 +106,7 @@ class TimeStampController extends Controller
             //$data           = TimeStamp::where('id', $id)->first();
             $data           = RequestTimeStamp::where('id', $id)->first();
                 //sd($data->toArray());
-            $form_repo = new FormRepository;
+            $form_repo = new FormViewRequestTimeStamp;
             $form_view_request_timestamp = $form_repo->getViewRequestTimeStamp($data);
             return response()->json(['status'=> 'success','data'=> $form_view_request_timestamp]);
             break;
@@ -119,7 +124,7 @@ class TimeStampController extends Controller
             //sd($data->toArray());
                 //sd($data->toArray());
                 //sd($data['time_in']);
-            $form_repo = new FormRepository;
+            $form_repo = new FormEditRequestTimeStamp;
             $form_edit_request_timestamp = $form_repo->getEditRequestTimeStamp($header, $data);
             return response()->json(['status'=> 'success','data'=> $form_edit_request_timestamp]);
             break;
