@@ -18,7 +18,7 @@ use App\Services\TimeStamp\TimeStamp;
 
 class EmployeeController extends Controller
 {
-	public function personal_info()
+	public function personal_info() //หน้าแสดงข้อมูลส่วนตัว
     {
     	//$current_id = Employee::with('position', 'department')->where('id_employee', $this->employee)->first();
         //return view('personal_info.personal_info', ['current_id' => $current_id]);

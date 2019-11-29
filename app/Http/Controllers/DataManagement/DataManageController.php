@@ -40,7 +40,7 @@ class DataManageController extends Controller
                 $position       = Position::all();
                 $education      = Education::all();
                 //sd($education->toArray());
-                $form_repo      = new FormRepository;
+                $form_repo      = new FormEmployee;
                 $form_add_emp   = $form_repo->getFormEmployee($department,$position,$education);
                 return response()->json(['status'=> 'success','data'=> $form_add_emp]);
             break;
@@ -70,7 +70,7 @@ class DataManageController extends Controller
                 $department     = Department::all();
                 $position       = Position::all();
                 $education       = Education::all();
-                $form_repo      = new FormRepository;
+                $form_repo      = new FormEmployee;
                 $form_edit_emp   = $form_repo->getFormEmployee($department,$position, $education, $employee);
                 return response()->json(['status'=> 'success','data'=> $form_edit_emp]);
             break;

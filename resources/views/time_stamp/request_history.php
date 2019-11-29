@@ -70,6 +70,6 @@
 		</div>
 	</div>
 </section>
-<div id="ajax-center-url" data-url="<?php echo route('request_history.ajax_center.post')?>"></div>
+<div id="ajax-center-url" data-url="<?php echo route('time_stamp.ajax_center.post')?>"></div>
 <div id="edit-request-time-stamp" data-url="<?php echo route('request_history.edit_request_time_stamp.post')?>"></div>
 <?php echo csrf_field()?>

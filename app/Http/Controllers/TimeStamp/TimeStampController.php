@@ -43,7 +43,7 @@ class TimeStampController extends Controller
     }
 
 
-    public function time_stamp() // ขึ้นข้อมูลปัจจุบัน
+    public function time_stamp() // ขึ้นข้อมูลเมื่อลงเวลาหน้า new window
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
@@ -758,13 +758,6 @@ class TimeStampController extends Controller
                 }
             }
         }
-        /*$count_error = count($error);
-        if($count_error > 0){
-            return json_encode(['status' => 'failed','message' => $error]);
-        }else{
-            return json_encode(['status' => 'success', 'message' => 'success']);
-        }*/
-        //sd($error);
     }
 
       public function postDeleteRequestHistory($id)
