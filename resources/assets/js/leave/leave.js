@@ -27,7 +27,6 @@ function showDialog(form,title){
                 label: 'บันทึก',
                 className: 'btn-info',
                 callback: function(){
-
                 }
             },
             fum: {
@@ -46,10 +45,27 @@ function showDialog(form,title){
             radioClass   : 'iradio_flat-green'
         })
 
-        // date time picker
-        $(".form_datetime").datetimepicker();
+        // datepicker for leave full day
+        $(".form_datetime").datepicker();
+        $(".form_datetime1").datepicker();
+        $('.form_datetime , .form_datetime1').on("change",function(){
+            var getDate1 = $(".form_datetime").datepicker('getDate');
+            var getDate2 = $(".form_datetime1").datepicker('getDate');
+            var diffDays = Math.ceil(((getDate2 - getDate1)/1000/3600/24)+1);
+            $('.result').html(diffDays);
+        })
     });
 };
+
+function getDateToInteger(){
+    // var getDate1 = $(".form_datetime").datetimepicker('getDate');
+    // var getDate2 = $(".form_datetime1").datetimepicker('getDate');
+
+    // var diffDays = Math.ceil((getDate2.getTime() - getDate1.getTime())/1000/3600/24);
+
+    // $('.result').html(diffDays);
+    // // alert(diffDays);
+}
 
 // $('.dropup').on('click', '.add-leave', function(){
 //     bootbox.dialog({ 

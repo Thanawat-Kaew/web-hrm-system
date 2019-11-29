@@ -34,9 +34,10 @@ $(document).ready(function() {
 			},
 			success: function (result) {
 				if(result.status == "failed"){
-					Swal.fire(result.message1, result.message2,'error');
+					Swal.fire(result.message1, result.message2,'warning');
 				} else{
-					msg_success();
+					msg_success()
+
 				}
 
 			},

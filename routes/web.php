@@ -18,8 +18,6 @@ Route::get('/', function () {
 });
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout.index.post');
 
-
-
 // Route::post('/login', 'Auth\LoginController@login')->name('login');
 // Route::get('/main', 'Main\MainController@main')->name('main');
 Route::get('/index', 'TimeStamp\TimeStampController@index')->name('time_stamp.index.get');

@@ -8,7 +8,10 @@ use App\Services\Employee\Employee;
 use App\Services\Employee\EmployeeObject;
 use App\Services\Position\Position;
 use App\Services\Department\Department;
-use App\Services\Forms\FormRepository;
+use App\Services\Forms\FormEmployee;
+use App\Services\Forms\FormAmendment;
+use App\Services\Forms\FormHistoryChangeData;
+use App\Services\Forms\FormEditAgainPersonalInfo;
 use App\Services\Request\RequestChangeData;
 use App\Services\Education\Education;
 use App\Services\TimeStamp\TimeStamp;
@@ -46,7 +49,7 @@ class EmployeeController extends Controller
                 $department     = Department::all();
                 $position       = Position::all();
                 $education      = Education::all();
-                $form_repo              = new FormRepository;
+                $form_repo              = new FormAmendment;
                 $form_amendment_emp     = $form_repo->getFormAmendment($department, $position ,$employee, $education);
                 return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
             break;
@@ -61,7 +64,7 @@ class EmployeeController extends Controller
                 $emp_education     = Education::where('id_education', $employee['id_education'])->first();
                 //sd($emp_position->position['id_position']);
                 //sd($emp_position);
-                $form_repo              = new FormRepository;
+                $form_repo              = new FormHistoryChangeData;
                 $form_amendment_emp     = $form_repo->getHistoryChangeData($emp_department, $emp_position ,$employee, $emp_education);
                 return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
             break;
@@ -80,7 +83,7 @@ class EmployeeController extends Controller
                 $department        = Department::all();
                 $position          = Position::all();
                 $education         = Education::all();
-                $form_repo              = new FormRepository;
+                $form_repo              = new FormEditAgainPersonalInfo;
                 $form_amendment_emp     = $form_repo->getEditAgain($emp_department, $emp_position ,$employee, $position, $department, $emp_education, $education);
                 return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
             break;

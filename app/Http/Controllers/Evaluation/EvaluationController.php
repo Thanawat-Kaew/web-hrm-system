@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Employee\Employee;
 use App\Services\Position\Position;
 use App\Services\Department\Department;
-use App\Services\Forms\FormRepository;
+use App\Services\Forms\FormEvaluation;
 
 class EvaluationController extends Controller
 {
@@ -36,7 +36,7 @@ class EvaluationController extends Controller
     	$method = $request->get('method');
         switch ($method) {
             case 'getFormEvaluation':
-               	$form_repo = new FormRepository;
+               	$form_repo = new FormEvaluation;
 				$form_evaluation = $form_repo->getFormEvaluation();
                 return response()->json(['status'=> 'success','data'=> $form_evaluation]);
                 break;
