@@ -67,15 +67,15 @@ $(document).ready(function(){
 			cancelButtonColor: '#d33',
 			cancelButtonText: 'ไม่ลบ',
 			confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-		}).then((result) => 
+		}).then((result) =>
 		{
-			if (result.value) 
+			if (result.value)
 
 			{
-				postDelete(url); 
+				postDelete(url);
 			}
 		})
-		
+
 	});
 });
 
@@ -463,7 +463,7 @@ function postDelete(url)
 
 				}).then((result) =>{
 
-					if (result.value) 
+					if (result.value)
 					{
 						window.location.reload();
 					}
@@ -474,7 +474,7 @@ function postDelete(url)
 			{
 				alert(result.message);
 			}
-		},	
+		},
 		error : function(errors)
 		{
 			console.log(errors);

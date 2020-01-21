@@ -13,6 +13,7 @@ use App\Services\Forms\FormViewDataRequest;
 use App\Services\Department\Department;
 use App\Services\Position\Position;
 use App\Services\Employee\Employee;
+use App\Services\Employee\EmployeeMenu;
 use App\Services\Education\Education;
 use App\Services\Request\RequestChangeData;
 
@@ -111,21 +112,32 @@ class DataManageController extends Controller
     {
         // get value from ajax function saveAddEmployee(oldValue)
 
-        $id_department      = $request->get('department');
-        $id_position        = $request->get('position');
-        $first_name         = $request->get('fname');
-        $last_name          = $request->get('lname');
-        $email              = $request->get('email');
-        $password           = $request->get('password');
-        $address            = $request->get('address');
-        $gender             = $request->get('gender');
-        $tel                = $request->get('tel');
-        $age                = $request->get('age');
-        $education          = $request->get('education');
-        $salary             = $request->get('salary');
+        $id_department           = $request->get('department');
+        $id_position             = $request->get('position');
+        $first_name              = $request->get('fname');
+        $last_name               = $request->get('lname');
+        $email                   = $request->get('email');
+        $password                = $request->get('password');
+        $address                 = $request->get('address');
+        $gender                  = $request->get('gender');
+        $tel                     = $request->get('tel');
+        $age                     = $request->get('age');
+        $education               = $request->get('education');
+        $salary                  = $request->get('salary');
+
+        $check_email             = Employee::all();
+        $error = [];
+        foreach ($check_email as $value) {
+            $error[] = $value->email;
+        }
+
+        if(in_array($email, $error)){
+            $error_email =   ["email" => "email ของคุณซ้ำกรุณากรอกemailใหม่"];
+            return json_encode(['status' => 'failed', 'message' => $error_email]);
+        }
 
         // save data to database
-        $employee = new Employee();
+        $employee                = new Employee();
         $employee->id_department = $id_department;
         $employee->id_position   = $id_position ;
         $employee->first_name    = $first_name;
@@ -138,18 +150,73 @@ class DataManageController extends Controller
         $employee->age           = $age;
         $employee->id_education  = $education;
         $employee->salary        = $salary;
+        //var_dump($id_position);
 
-        if($employee->id_department == 'en0001' || 'fa0001' || 'pm0001' || 'ss0001' && $employee->id_position == 1){
+        /*$check_department        = Department::all();
+        $array_department        = [];
+        foreach ($check_department as $value) {
+            $array_department[]  = $value->id_department;
+        }*/
+        //if(in_array('hr0001', haystack))
+        $general_department = array("en0001", "fa0001", "pm0001", "ss0001");
+        $humen_department   = array("hr0001");
+
+        if(in_array($employee->id_department, $general_department) && $employee->id_position == "1"){
             $employee->id_role = 1;
-        }else if($employee->id_department == 'en0001' || 'fa0001' || 'pm0001' || 'ss0001' && $employee->id_position == 2){
+        }else if(in_array($employee->id_department, $general_department) && $employee->id_position == "2"){
             $employee->id_role = 2;
-        }else if($employee->id_department == 'hr0001' && $employee->id_position == 1){
+        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "1"){
             $employee->id_role = 3;
-        }else if($employee->id_department == 'hr0001' && $employee->id_position == 4){
+        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "2"){
             $employee->id_role = 4;
         }
+
+
+        /*if($employee->id_department == "en0001" || "fa0001" || "pm0001" || "ss0001" && $employee->id_position == 1){
+            $employee->id_role = 1;
+        }else if($employee->id_department == "en0001" || "fa0001" || "pm0001" || "ss0001" && $employee->id_position == 2){
+            $employee->id_role = 2;
+        }else if($employee->id_department == "hr0001" && $employee->id_position == 1){
+            $employee->id_role = 3;
+        }else if($employee->id_department == "hr0001" && $employee->id_position == 2){
+            $employee->id_role = 4;
+        }*/
         //sd($employee->id_department);
         $employee->save();
+
+        $find_email  = Employee::where('email', $email)->first();
+        //sd($find_email->toArray());
+        if($find_email->id_role == 1){ // general_employee
+            for($i=1; $i<=3; $i++){
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $find_email->id_employee;
+                $employee_menu->id_menu         = $i;
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }else if($find_email->id_role == 3){ // humen_employee
+            for($i=1; $i<=5; $i++){
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $find_email->id_employee;
+                if($i == 5){
+                    $employee_menu->id_menu     = 6;
+                }else{
+                    $employee_menu->id_menu     = $i;
+                }
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }else{ // header_employee
+            for($i=1; $i<=6; $i++){
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $find_email->id_employee;
+                $employee_menu->id_menu         = $i;
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }
+
+        return json_encode(['status' => 'success', 'message' => 'success']);
     }
 
     public function notificationRequest()
@@ -190,6 +257,55 @@ class DataManageController extends Controller
         $confirm->reason_approvers     = $reason_reject;
         $confirm->save();
     }
+
+    public function editEmployee(Request $request)
+    {
+        $id_employee                = $request->get('id_employee');
+        $id_department              = $request->get('department');
+        $id_position                = $request->get('position');
+        $first_name                 = $request->get('fname');
+        $last_name                  = $request->get('lname');
+        $email                      = $request->get('email');
+        $password                   = $request->get('password');
+        $address                    = $request->get('address');
+        $gender                     = $request->get('gender');
+        $tel                        = $request->get('tel');
+        $age                        = $request->get('age');
+        $education                  = $request->get('education');
+        $salary                     = $request->get('salary');
+
+        // save data to database
+        $employee                   = Employee::find($id_employee);
+        $employee->id_department    = $id_department;
+        $employee->id_position      = $id_position ;
+        $employee->first_name       = $first_name;
+        $employee->last_name        = $last_name;
+        $employee->email            = $email;
+        $employee->password         = $password;
+        $employee->address          = $address;
+        $employee->gender           = $gender;
+        $employee->tel              = $tel;
+        $employee->age              = $age;
+        $employee->id_education     = $education;
+        $employee->salary           = $salary;
+
+        $general_department = array("en0001", "fa0001", "pm0001", "ss0001");
+        $humen_department   = array("hr0001");
+
+        if(in_array($employee->id_department, $general_department) && $employee->id_position == "1"){
+            $employee->id_role = 1;
+        }else if(in_array($employee->id_department, $general_department) && $employee->id_position == "2"){
+            $employee->id_role = 2;
+        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "1"){
+            $employee->id_role = 3;
+        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "2"){
+            $employee->id_role = 4;
+        }
+        //sd($employee->id_department);
+        $employee->save();
+    }
+
+
 
     public function postDeleteData($id_employee)
         {

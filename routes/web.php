@@ -59,6 +59,7 @@ Route::post('/data_manage/add_employee', 'DataManagement\DataManageController@ad
 Route::post('/data_manage/confirm', 'DataManagement\DataManageController@confirmDataRequest')->name('data_manage.confirm_data_request.post'); //confirm-request-change-data
 Route::post('/data_manage/cancel', 'DataManagement\DataManageController@cancelDataRequest')->name('data_manage.cancel_data_request.post'); // cancel-request-change-data
 Route::post('/data_manage/delete/{id_employee}','DataManagement\DataManageController@postDeleteData')->name('data_manage.delete_employee.post'); // delete-request-change-data
+Route::post('/data_manage/edit_employee', 'DataManagement\DataManageController@editEmployee')->name('data_manage.edit_employee.post');// แก้ไขข้อมูลพนักงาน
 Route::get('/data_manage/request', 'DataManagement\DataManageController@notificationRequest')->name('data_management.notification_request.get'); // notification
 /***********************************************EndDataManagement***************************************************************/
 
@@ -81,6 +82,10 @@ Route::get('/evaluation/create_evaluations', 'Evaluation\EvaluationController@cr
 Route::get('/evaluation/human_assessment/assessment', 'Evaluation\EvaluationController@assessment')->name('evaluation.assessment.get');
 Route::get('/evaluation/human_assessment', 'Evaluation\EvaluationController@human_assessment')->name('evaluation.human_assessment.get');
 Route::post('/evaluation/ajax_center', 'Evaluation\EvaluationController@ajaxCenter')->name('evaluation.ajax_center.post');
+Route::post('/evaluation/post_add', 'Evaluation\EvaluationController@postAddEvaluations')->name('evaluation.post_add.post');
+Route::get('/evaluation/view_create_evaluation/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation')->name('evaluation.view_create_evaluations.get'); // view-create-evaluation
+Route::get('/evaluation/edit_evaluation/{id}', 'Evaluation\EvaluationController@editEvaluation')->name('evaluation.edit_evaluations.get'); // edit-evaluation //page
+Route::post('/evaluation/post_edit', 'Evaluation\EvaluationController@postEditEvaluations')->name('evaluation.post_edit.post'); // edit to database
 Route::get('/evaluation', 'Evaluation\EvaluationController@index')->name('evaluation.index.get');
 /************************************************End Evaluation*******************************************************************/
 
