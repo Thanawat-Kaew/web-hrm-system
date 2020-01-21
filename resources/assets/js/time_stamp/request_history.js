@@ -133,68 +133,6 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		 	$('.datepicker').datepicker({autoclose: true,format: 'yyyy-mm-dd'})
 
-		// Checkbox add new Record
-/*		$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-			checkboxClass: 'icheckbox_flat-green',
-			radioClass   : 'iradio_flat-green'
-		})*/
-
-		/*$('#edit-t_in_out').on('ifChecked', function(event){
-			$('#edit-t_in').iCheck('enable');
-			$('#edit-t_out').iCheck('enable');
-		});*/
-
-		/*$('#edit-t_in_out').on('ifUnchecked', function(event){
-			$('#edit-t_in').iCheck('disable').iCheck('uncheck');
-			$('#edit-t_out').iCheck('disable').iCheck('uncheck');
-		});*/
-
-		/*$('#edit-t_in').on('ifChecked', function(event){
-			$('.input-t_in').removeClass('hide')
-			$('#edit-input-t_in').addClass('required')
-		}).on('ifUnchecked', function(event){
-			$('.input-t_in').addClass('hide')
-			$('#edit-input-t_in').removeClass('required')
-		});
-
-		$('#edit-t_out').on('ifChecked', function(event){
-			$('.input-t_out').removeClass('hide')
-			$('#edit-input-t_out').addClass('required')
-		}).on('ifUnchecked', function(event){
-			$('.input-t_out').addClass('hide')
-			$('#edit-input-t_out').removeClass('required')
-		});*/
-
-		// $('#edit-br_in_out').on('ifChecked', function(event){
-		// 	$('#edit-br_in').iCheck('enable');
-		// 	$('#edit-br_out').iCheck('enable');
-		// });
-
-		// $('#edit-br_in_out').on('ifUnchecked', function(event){
-		// 	$('#edit-br_in').iCheck('disable').iCheck('uncheck');
-		// 	$('#edit-br_out').iCheck('disable').iCheck('uncheck');
-		// });
-
-
-		/*$('#edit-br_in').on('ifChecked', function(event){ // ออกจากไปพัก
-			$('.input-b_in').removeClass('hide')
-			$('#edit-input-b_in').addClass('required')
-			//alert("ออกไปพัก");
-		}).on('ifUnchecked', function(event){
-			$('.input-b_in').addClass('hide')
-			$('#edit-input-b_in').removeClass('required')
-		});
-
-		$('#edit-br_out').on('ifChecked', function(event){
-			$('.input-b_out').removeClass('hide')
-			$('#edit-input-b_out').addClass('required')
-			//alert("เข้าทำงานช่วงบ่าย");
-		}).on('ifUnchecked', function(event){
-			$('.input-b_out').addClass('hide')
-			$('#edit-input-b_out').removeClass('required')
-		});*/
-		// end Checkbox
-
 		$('body').addClass('modal-open');
 
 		if(oldValue !== ""){
@@ -276,22 +214,8 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 			reason 	      : $('#edit-reason-request-time-stamp').val(),
 			approvers_id  : $('#approved-id-edit').val(),
 		},
+
 		success: function(response){
-			/*var data_resp = jQuery.parseJSON(response);
-			if(data_resp.status == "success"){
-				alert("success");
-				//alert(response.message);
-				//msg_close();
-				msg_success();
-				//window.location.reload();
-			}else{
-				alert("error");
-				// alert(response);
-				var data_resp = jQuery.parseJSON(response);
-				showEditDialog(form, title, oldValue,oldCheck, data_resp.message);
-
-			}*/
-
 
 			if(response.status == "failed_t_in_ts"){
 				//alert("ไม่สามารถลง time_in เพราะมีวันที่และ time_in อยู่ใน timestamp");

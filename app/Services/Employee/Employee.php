@@ -50,4 +50,16 @@ class Employee extends Model
     {
         return $this->hasMany("App\Services\Request\RequestTimeStamp", 'id_employee', 'id_employee');
     }
+
+    public function leaves()
+    {
+        return $this->hasMany("App\Services\leaves\leaves", 'id_employee', 'id_employee'); // one to many
+
+    }
+
+    public function company()
+    {
+        return $this->hasOne("App\Services\Company\Company", 'id_company', 'id_company'); // one to many
+
+    }
 }

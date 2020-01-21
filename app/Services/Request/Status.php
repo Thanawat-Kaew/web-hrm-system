@@ -16,6 +16,11 @@ class Status extends Model
     public function requesttimestamp()
     {
     	return $this->hasOne("App\Services\Request\RequestTimeStamp", 'id', 'status');
+    } 
+
+    public function requestleaves()
+    {
+        return $this->hasOne("App\Services\Request\RequestLeaves", 'status_leave', 'status');
     }
 
 }

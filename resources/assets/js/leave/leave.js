@@ -1,25 +1,27 @@
-$('.dropup').on('click', '.add-leave', function(){
-    $.ajax({
-        headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-        type: 'POST',
-        url: $('#ajax-center-url').data('url'),
-        data: {method : 'getFormLeave'},
-        success: function (result) {
-            var title = "<h4 style='color: red;'>แบบฟอร์มลา <small> | Leave Form</small></h4>"
-            showDialog(result.data,title)
-        },
-        error : function(errors)
-        {
-            console.log(errors);
-        }
+$(document).ready(function(){
+    $('.dropup').on('click', '.add-leave', function(){
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+            type: 'POST',
+            url: $('#ajax-center-url').data('url'),
+            data: {method : 'getFormLeave'},
+            success: function (result) {
+                var title = "<h4 style='color: red;'>แบบฟอร์มลา <small> | Leave Form</small></h4>"
+                showDialog(result.data,title)
+            },
+            error : function(errors)
+            {
+                console.log(errors);
+            }
+        })
     })
 })
 
-function showDialog(form,title){
+function showDialog(form,title,oldValue='',oldCheck='',errors=''){
     var box = bootbox.dialog({ 
         title: title,
         message: form,
-        size: 'large',
+        size: 'xlarge',
         onEscape: true,
         backdrop: 'static',
         buttons: {
@@ -27,6 +29,7 @@ function showDialog(form,title){
                 label: 'บันทึก',
                 className: 'btn-info',
                 callback: function(){
+                    sendRequest(form, title);
                 }
             },
             fum: {
@@ -45,151 +48,173 @@ function showDialog(form,title){
             radioClass   : 'iradio_flat-green'
         })
 
-        // datepicker for leave full day
-        $(".form_datetime").datepicker();
-        $(".form_datetime1").datepicker();
-        $('.form_datetime , .form_datetime1').on("change",function(){
-            var getDate1 = $(".form_datetime").datepicker('getDate');
-            var getDate2 = $(".form_datetime1").datepicker('getDate');
-            var diffDays = Math.ceil(((getDate2 - getDate1)/1000/3600/24)+1);
-            $('.result').html(diffDays);
-        })
-    });
-};
+        $('#start_time_hour').on('click', function(){
+                getTimePicker($(this));
+        });
 
-function getDateToInteger(){
-    // var getDate1 = $(".form_datetime").datetimepicker('getDate');
-    // var getDate2 = $(".form_datetime1").datetimepicker('getDate');
+        $('#end_time_hour').on('click', function(){
+                getTimePicker($(this));
+        });
 
-    // var diffDays = Math.ceil((getDate2.getTime() - getDate1.getTime())/1000/3600/24);
+        $(".form_datetime").datepicker({format: 'yyyy-mm-dd'});
+        $(".form_datetime1").datepicker({format: 'yyyy-mm-dd'});
+        $(".form_datetime2").datepicker({format: 'yyyy-mm-dd'});
+        $(".form_datetime3").datepicker({format: 'yyyy-mm-dd'});
 
-    // $('.result').html(diffDays);
-    // // alert(diffDays);
+        $('.full_day').on('ifChecked', function(event){
+            $('.full_day_leave').removeClass('hide');
+            $('.form_datetime').addClass('required');
+            $('.form_datetime1').addClass('required');
+            $('.half_morning_leave').addClass('hide');
+            $('.half_afternoon_leave').addClass('hide');
+            $('.total_num').removeClass('hide');
+        }).on('ifUnchecked', function(event){
+            $('.full_day_leave').addClass('hide');
+            $('.form_datetime').removeClass('required');
+            $('.form_datetime1').removeClass('required')});
+
+        $('.half').on('ifChecked', function(event){
+            $('.half_morning_leave').removeClass('hide');
+            $('.form_datetime2').addClass('required');
+            $('.full_day_leave').addClass('hide');
+            $('.half_afternoon_leave').addClass('hide');
+            $('.total_num').addClass('hide');
+        }).on('ifUnchecked', function(event){
+            $('.half_morning_leave').addClass('hide');
+            $('.form_datetime2').removeClass('required')});
+
+        $('.hour').on('ifChecked', function(event){
+            $('.half_afternoon_leave').removeClass('hide');
+            $('.form_datetime3').addClass('required');
+            $('.full_day_leave').addClass('hide');
+            $('.half_morning_leave').addClass('hide');
+            $('.total_num').addClass('hide');
+        }).on('ifUnchecked', function(event){
+            $('.half_afternoon_leave').addClass('hide');
+            $('.form_datetime3').removeClass('required')});
+
+        $('body').addClass('modal-open');
+
+        if(oldValue !== ""){
+            $.each(oldValue, function(key, value) {
+                $('#'+key).val(value);
+                if(value == "") {
+                    $('#'+key + "-text-error").html("* Required").show();
+                } else {
+                    $('#'+key + "-text-error").html("").hide();
+                }
+            });
+        }
+
+        if (oldCheck !== "") {
+            $.each(oldCheck, function(key, value){
+                if (value) {
+                    $('#'+key).iCheck('check');
+                    $('#edit-input-'+key).addClass('required');
+                }else{
+                    $('#'+key).iCheck('uncheck')
+                    $('#edit-input-'+key).removeClass('required');
+                }
+            })
+        }
+
+        if(errors !== ""){
+            jQuery.each(errors, function(k, v){
+                $('#edit-input-'+k+'-text-error').html(v).show();
+            })
+        }
+    })
 }
 
-// $('.dropup').on('click', '.add-leave', function(){
-//     bootbox.dialog({ 
-//         title: 'แบบฟอร์มลา | Leave Form',
-//         message: '<div class="box-body">'+ 
-//         'ประเภท'+
-//         '<div class="input-group name_user">'+
-//         '<div class="input-group-addon">'+
-//         '<i class="fa fa-navicon"></i>'+
-//         '</div>'+
-//         '<select class="form-control select2" style="width: 100%;">'+
-//         '<option selected="selected">เลือกประเภท...</option>'+
-//         '<option>ลากิจส่วนตัว</option>'+
-//         '<option>ลาป่วย</option>'+
-//         '<option>ลาคลอดบุตร</option>'+
-//         '<option>ลาไปช่วยเหลือภริยาหลังคลอด</option>'+
-//         '<option>ลาพักผ่อน</option>'+
-//         '<option>ลาอุปสมบท</option>'+
-//         '<option>ลาไปประกอบพิธีฮัจญ์</option>'+
-//         '<option>ลาเกี่ยวกับราชการทหาร</option>'+
-//         '<option>ลาติดตามคู่สมรส</option>'+
-//         '<option>การไปถือศีลปฏิบัติธรรม</option>'+
-//         '</select>'+
-//         '</div><br>'+
-//         'รูปแบบ<br>'+
-//         '<div class="form-group">'+
-//         '<div class="col-sm-9">'+
-//         '<label class="group-display">'+
-//         '<input type="checkbox" name="repeatday[]" value="sunday" class="flat-red"> ลาเต็มวัน'+
-//         '</label>&nbsp&nbsp'+
-//         '<label class="group-display">'+
-//         '<input type="checkbox" name="repeatday[]" value="monday" class="flat-red"> ลาครึ่งเช้า'+
-//         '</label>&nbsp&nbsp'+
-//         '<label class="group-display"> '+
-//         '<input type="checkbox" name="repeatday[]" value="tuesday" class="flat-red"> ลาครึ่งบ่าย'+
-//         '</label>&nbsp&nbsp'+
-//         '</div>'+
-//         '</div><br>'+
-//         'ว/ด/ป'+
-//         '<div class="form-group">'+ 
-//         '<div class="input-group">'+
-//         '<div class="input-group-addon">'+
-//         '<i class="fa fa-calendar"></i>'+
-//         '</div>'+
-//         '<input type="text" name="daterangepicker" class="form-control pull-right" id="reservationtime">'+
-//         '</div>'+
-//         '</div><br>'+
-//         'รวมจำนวน <i style="font-size: 30px; color: red"> 3 </i> วัน<br><hr>'+
-//         'เหตุผลการลา<br>'+
-//         '<textarea class="form-control textarea g-disable-input" name="live-preview" placeholder="Type..." rows="5"></textarea>',
-//         size: 'large',
-//         onEscape: true,
-//         backdrop: true,
-//         buttons: {
-//             fi: {
-//                 label: 'บันทึก',
-//                 className: 'btn-info',
-//                 callback: function(){
+function sendRequest(form, title){
+    msg_waiting();
+    var getDate1 = $(".form_datetime").datepicker('getDate');
+    var getDate2 = $(".form_datetime1").datepicker('getDate');
+    var getDate3 = $(".form_datetime2").datepicker('getDate');
+    var getDate4 = $(".form_datetime3").datepicker('getDate');
+    var getTime1  = parseInt($('#start_time_hour').val());
+    var getTime2  = parseInt($('#end_time_hour').val());
+    var diff_full_d = Math.ceil(((getDate2 - getDate1)/1000/3600/24)+1);
+    var diff_full   = Math.ceil((diff_full_d)*8);
+    var diffDays1   = Math.ceil(((getDate3 - getDate3)/1000/3600/24)+1);
+    var diff_half_m_a = parseFloat((diffDays1 - 0.5)*8);
+    var diff_leave_hour   = Math.ceil(getTime2 - getTime1);
+       
+    var count            = 0;
+    var oldValue         = {};
+    jQuery.each($('.required'),function(){
+        var name = $(this).attr('id');
+        oldValue[name]= $(this).val();
+        if ($(this).val() =="") {
+            count++
+            $(this).css({"border" : "1px solid red"});
+        } else {
+            $(this).css({"border" : "1px solid lightgray"});
+        }
+    })
 
-//                 }
-//             },
+    var oldCheck = {};
+    jQuery.each($('.flat-red'),function(){
+        var id = $(this).attr('id');
+        var checked = $(this).prop('checked');
+        oldCheck[id] = checked;
 
-//             fum: {
-//                 label: 'ยกเลิก',
-//                 className: 'btn-warning',
-//                 callback: function(){
+    })
 
-//                 }
-//             }
-//         }
+    if(count > 0) {
+        showDialog(form, title, oldValue,oldCheck);
+    } else {
 
-//     })
-//     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-//         checkboxClass: 'icheckbox_flat-green',
-//         radioClass   : 'iradio_flat-green'
-//     })
-//     $('input[name="daterangepicker"]').daterangepicker({
-//         timePicker: true,
-//         startDate: moment().startOf('hour'),
-//             // endDate: moment().startOf('hour').add(32, 'hour'),
-//             locale: {
-//                 format: 'M/DD hh:mm A'
-//             }
-//     })
-// });
+        addRequestLeave(form, title, oldValue,oldCheck,diff_full,diff_half_m_a,diff_leave_hour);
+    }
+}
 
+function addRequestLeave(form, title, oldValue,oldCheck,diff_full,diff_half_m_a,diff_leave_hour){ //_f(full day), _h_m(half morning), _h_a(half afternoon)
+    $.ajax({
+        headers : {'X-CSRF-TOKEN': $('input[name=_token').attr('value')},
+        type    : 'POST',
+        url     : $('#add-request-leave').data('url'),
+        data    : {
+            leave_type          : $('#edit-input-leave-type').val(),
+            format_leaves       : $('input[name=format_leaves]:checked').val(),
+            format_leave_m_a    : $('input[name=format_leave]:checked').val(),
+            start_date_f        : $('#input-form_datetime').val(),
+            end_date_f          : $('#input-form_datetime1').val(),
+            start_time_f        : $('#start_time_f').val(),
+            end_time_f          : $('#end_time_f').val(),
+            half_morning_date   : $('#input-form_datetime2').val(),
+            start_time_h_m      : $('#start_time_h_m').val(),
+            end_time_h_m        : $('#end_time_h_m').val(),
+            start_time_h_a      : $('#start_time_h_a').val(),
+            end_time_h_a        : $('#end_time_h_a').val(),
+            half_afternoon_date : $('#input-form_datetime3').val(),
+            start_time_hour     : $('#start_time_hour').val(),
+            end_time_hour       : $('#end_time_hour').val(),
+            reason_leave        : $('#edit-input-reason-leave-reason').val(),
+            approvers           : $('#approved-id').val(),
+            total_num_f         : diff_full,
+            total_num_m_a       : diff_half_m_a,
+            total_num_hour      : diff_leave_hour,
+        },
+        success: function(response){
+            var data_resp = jQuery.parseJSON(response);
+            if(data_resp.status == "success"){
+                Swal.fire({
+                    title: 'บันทึกข้อมูลได้',
+                    text: "",
+                    type: 'success',
+                })
+            }else if(data_resp.status == "failed"){
+                Swal.fire({
+                    title: 'บันทึกข้อมูลไม่ได้',
+                    text: 'กรุณาตรวจสอบข้อมูล',
+                    type: 'error',
+                })
 
-
-
-
-
-
-  // $('input[name="datetimes"]').daterangepicker({
-  //   timePicker: true,
-  //   startDate: moment().startOf('hour'),
-  //   endDate: moment().startOf('hour').add(32, 'hour'),
-  //   locale: {
-  //     format: 'M/DD hh:mm A'
-  //   }
-  // });
-
-
-    // bootbox.dialog({ 
-    //     title: 'แบบฟอร์มลา | Leave Form',
-    //     message: '',
-    //     size: 'large',
-    //     onEscape: true,
-    //     backdrop: true,
-    //     buttons: {
-    //         fi: {
-    //             label: 'บันทึก',
-    //             className: 'btn-info',
-    //             callback: function(){
-
-    //             }
-    //         },
-
-    //         fum: {
-    //             label: 'ยกเลิก',
-    //             className: 'btn-warning',
-    //             callback: function(){
-
-    //             }
-    //         }
-    //     }
-
-    // })
+            }
+        },
+        error: function(errors){
+            console.log(errors);
+        },
+    })
+}

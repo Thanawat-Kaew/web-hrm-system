@@ -87,6 +87,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- PC -->
                     <div class="col-md-6">
                         <div class="lockscreen-wrapper pull-left hidden-xs">
                             <div class="text-center" style="margin-top: 130px;">
@@ -97,6 +99,16 @@
                                 <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
                                     <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
                                 </a>
+                                <!-- Notifications: style can be found in dropdown.less -->
+         
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="fa fa-lg fa-bell-o"></i>
+                                  <span class="label label-warning"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li class="header">คุณมี 0 การแจ้งเตือน</li>
+                                </ul>
+       
                                 <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
                                     <?php echo csrf_field() ?>
                                 </form>

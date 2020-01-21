@@ -760,8 +760,7 @@ class TimeStampController extends Controller
         }
     }
 
-      public function postDeleteRequestHistory($id)
-        {
+      public function postDeleteRequestHistory($id){
 
         $request_history          = RequestTimeStamp::with('employee')->where('id', $id)->first();
 

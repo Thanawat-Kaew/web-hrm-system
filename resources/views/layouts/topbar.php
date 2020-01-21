@@ -39,7 +39,7 @@
                     </a>
                   </li>
                    <li class="view-request-leave">
-                    <a href="<?php echo route('leave.leave_history.get');?>">
+                    <a href="<?php echo route('leave.leave_request.get');?>">
                       <i class="fa fa-calendar-o text-aqua"></i> รายการคำร้องขอลา
                     </a>
                   </li>

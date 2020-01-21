@@ -67,6 +67,12 @@ Route::get('/data_manage/request', 'DataManagement\DataManageController@notifica
 Route::post('/leave/ajax_center', 'Leave\LeaveController@ajaxCenter')->name('leave.ajax_center.post');
 Route::get('/leave', 'Leave\LeaveController@leave')->name('leave.leave.get');
 Route::get('/leave/history', 'Leave\LeaveController@leave_history')->name('leave.leave_history.get');
+Route::get('/leave/request', 'Leave\LeaveController@leave_request')->name('leave.leave_request.get');
+Route::post('/leave/add_request_leave', 'Leave\LeaveController@addRequestLeave')->name('leave.add_request_leave.post');
+Route::post('/leave/request/confirm', 'Leave\LeaveController@confirmDataRequestLeave')->name('leaves.confirm-data-request-leave.post');
+Route::post('/leave/request/cancel', 'Leave\LeaveController@cancelDataRequestLeave')->name('leaves.cancel-data-request-leave.post');
+Route::post('/leaves_history/delete/{id}','Leave\LeaveController@postDeleteLeaveHistory')->name('leaves.delete_leave_history.post');
+Route::post('/leave/edit_request_leave', 'Leave\LeaveController@editRequestLeave')->name('request_history.edit_request_leave.post');
 /**************************************************EndLeave********************************************************************/
 
 

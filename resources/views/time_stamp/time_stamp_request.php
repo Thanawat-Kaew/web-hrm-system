@@ -1,6 +1,6 @@
 <section class="content-header">
 	<h3>
-		การลงเวลาย้อนหลัง |
+		การขอลงเวลาย้อนหลัง |
 		<small> Time Stamp Request</small>
 	</h3>
 </section>

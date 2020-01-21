@@ -43,8 +43,7 @@ $(function(){
 	$('.btn-confirm-data-request-time-stamp').click(function(){  // กด อนุมัติ
 		//alert("confirm");
 		var id = $(this).data('id');
-		//console.log(id);
-		//alert(id);
+
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะอนุมัติการแก้ไขข้อมูลนี้ !",

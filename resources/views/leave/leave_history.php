@@ -23,60 +23,66 @@
 
 				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
-					<table class="table table-hover">
+					<table id="example" class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>วันที่ดำเนินการ</th>
+								<th>ประเภทการลา</th>
+								<th>เวลา</th>
+								<th>เหตุผล</th>
+								<th>สถานะ</th>
+								<th></th>
+							</tr>
+						</thead>
+						<?php $count = 0;?>
+						<?php foreach($request as $key => $value) : ?>
+							<?php $count = $count +1;
+							$date  = explode(" ", $value['created_at']);
+							$created_date = $date[0];
+							$created_time = $date[1]; ?>
+							<?php if(\Session::has('current_employee')) :?>
+								<tbody>	
+									<tr>
+										<?php $current_employee = \Session::get('current_employee') ?>
+										<td><?php echo $count?></td>
+										<td><?php echo $created_date?></td>
+										<td><?php echo $value->leaves_type->leaves_name?></td>
+										<td><?php echo $created_time?></td>
+										<td><?php echo $value['reason']?></td>
+										<td>
+											<span class="label <?php echo ($value['status_leave'] == 1 ? 'label-primary' : ($value['status_leave'] == 3 ? 'label-danger' : 'label-warning')); ?>"><?php echo ($value['status_leave'] == 1 ? 'อนุมัติ' : ($value['status_leave'] == 3 ? 'ไม่อนุมัติ' : 'กำลังรอ')); ?>
+											</span>
+										</td>
+										<td style="text-align: end;">
+											<i class="btn fa fa-lg <?php echo ($value['status_leave'] == 2 ? 'fa-pencil' : 'hide'); ?> edit-data-request-leave" data-id="<?php echo $value['id_leave'] ?>"></i>
+											<i class="btn fa fa-lg fa-trash delete-data" data-href="<?php echo route('leaves.delete_leave_history.post',$value['id_leave']);?>" style="color: red;"></i>
+											<i class="btn fa fa-lg fa-eye view-request-leave" data-id="<?php echo $value['id_leave'] ?>"></i>
+										</td>
+								</tr>
+							</tbody>
+						<?php endif ?>
+					<?php endforeach?>
+					<!-- <tfoot>
 						<tr>
 							<th>#</th>
-							<th>วันที่</th>
-							<th>ชื่อ-สกุล</th>
+							<th>วันที่ดำเนินการ</th>
 							<th>ประเภทการลา</th>
+							<th>เวลา</th>
 							<th>เหตุผล</th>
 							<th>สถานะ</th>
 							<th></th>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>11/11/2019</td>
-							<td>ธนวัฒน์ แก้วล้อมวัง</td>
-							<td>ลาป่วย</td>
-							<td>ไอค๊อก ไอแค๊ก</td>
-							<td><span class="label label-warning">waiting</span></td>
-							<td>
-								<i class="btn fa fa-pencil"></i>
-								<i class="btn fa fa-trash"></i>
-								<i class="btn fa fa-eye"></i>
-							</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>12/11/2019</td>
-							<td>ชนะชัย ชุ่มชื่น</td>
-							<td>ลากิจ</td>
-							<td>น้องชายบวช</td>
-							<td><span class="label label-success">success</span></td>
-							<td>
-								<i class="btn fa fa-pencil"></i>
-								<i class="btn fa fa-trash"></i>
-								<i class="btn fa fa-eye"></i>
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>13/11/2019</td>
-							<td>สุดใจ  ฤทัย</td>
-							<td>ลาพักร้อน</td>
-							<td>พักเที่ยวสงกรานต์</td>
-							<td><span class="label label-danger">reject</span></td>
-							<td>
-								<i class="btn fa fa-pencil"></i>
-								<i class="btn fa fa-trash"></i>
-								<i class="btn fa fa-eye"></i>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<!-- /.box-body -->
+					</tfoot> -->
+
+				</table>
 			</div>
-			<!-- /.box -->
+			<!-- /.box-body -->
 		</div>
+		<!-- /.box -->
 	</div>
+</div>
 </section>
+<div id="ajax-center-url" data-url="<?php echo route('leave.ajax_center.post')?>"></div>
+<div id="edit-request-leave" data-url="<?php echo route('request_history.edit_request_leave.post')?>"></div>
+<?php echo csrf_field()?>

@@ -35,6 +35,7 @@
   <link href="https://fonts.googleapis.com/css?family=Kanit:300&display=swap" rel="stylesheet">
 
 
+
   <link rel="stylesheet" href="/resources/assets/css/main.css">
   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
   <link rel="stylesheet" href="/resources/assets/css/full_picker/picker.css">
@@ -111,7 +112,6 @@
 
 <!-- main function -->
 <script src="/resources/assets/js/main.js"></script>
-
 <?php if (file_exists(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js')): ?>
 <script src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
 <?php endif ?>
