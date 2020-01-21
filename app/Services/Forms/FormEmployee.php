@@ -8,6 +8,7 @@ class FormEmployee
         $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
+                $form .= '<input type="hidden" value="'.((!empty($employee['id_employee']) ? $employee['id_employee'] : '')).'" id="id_employee">';
                     $form .= '<div class="profile-picture">';
                         $form .= '<div class="form-group">';
                             $form .= '<label for="exampleInputFile">Profile Picture</label>';

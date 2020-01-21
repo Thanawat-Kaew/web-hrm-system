@@ -2,13 +2,13 @@ $(function(){
 
 	$('#header, #employee').on('click', '.manage-employee', function(){
 		msg_waiting();
-		var id 		= $(this).data('form_id'); 
+		var id 		= $(this).data('form_id');
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
 			data: {'method'   : 'getManageData',
-			'employee_id' : id 
+			'employee_id' : id
 		},
 		success: function (result) {
 			var box = bootbox.dialog({
@@ -80,7 +80,7 @@ $(function(){
 
 					$('.delete_data').on('click', function(event) {
 						msg_waiting();
-						
+
 						var url=$(this).data('href');
 						// console.log(url)
 						Swal.fire(
@@ -95,10 +95,10 @@ $(function(){
 							confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
 						}).then((result) =>{
 
-							if (result.value) 
+							if (result.value)
 
 							{
-								postDelete(url); 
+								postDelete(url);
 							}
 						})
 					});
@@ -159,7 +159,7 @@ $(function(){
 	});
 });
 
-function showDialog(form,title, oldValue='',not_match){
+function showDialog(form,title, oldValue='',not_match, errors=''){
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
@@ -175,7 +175,7 @@ function showDialog(form,title, oldValue='',not_match){
 						addEmployee(form, title);
 						//alert("add");
 					}else{
-						//editEmployee(form, title);
+						editEmployee(form, title);
 						//alert("edit");
 					}
 				}
@@ -203,13 +203,18 @@ function showDialog(form,title, oldValue='',not_match){
 				}
 			});
 		}
+
 		if(not_match){
 			$('#confirm_password-text-error').html("Please try password again").show();
 		}else{
 			$('#confirm_password-text-error').html("Please try password again").hide();
 		}
 
-
+		if(errors !== ""){
+			jQuery.each(errors, function(k, v){
+				$('#'+k+'-text-error').html(v).show();
+			})
+		}
 	})
 };
 
@@ -239,14 +244,13 @@ function addEmployee(form, title){
 			showDialog(form, title, oldValue,not_match);
 		}else{
 			if(password == confirm_password) {
-				saveAddEmployee(oldValue);
+				saveAddEmployee(form, title, oldValue,not_match);
 			}
 		}
 	}
-
 }
 
-function saveAddEmployee(oldValue){
+function saveAddEmployee(form, title, oldValue,not_match){
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
@@ -266,7 +270,8 @@ function saveAddEmployee(oldValue){
 			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-			
+			var data_resp = jQuery.parseJSON(response);
+			if(data_resp.status == "success"){
 				Swal.fire(
 				{
 					title: 'คุณเพิ่มรายการนี้เรียบร้อย',
@@ -278,10 +283,87 @@ function saveAddEmployee(oldValue){
 
 					window.location.reload();
 
-				})	
+				})
+			}else{
+				showDialog(form, title, oldValue,not_match, data_resp.message);
+			}
 		},
 		error: function(error){
 			alert('Data not save');
+			msg_close();
+		}
+	});
+}
+
+function editEmployee(form, title){
+	msg_waiting();
+	var count 			 = 0;
+	var oldValue 		 = {};
+	var password         = $('#password').val();
+	var confirm_password = $('#confirm_password').val();
+	jQuery.each($('.required'),function(){
+		var name = $(this).attr('id');
+		oldValue[name]= $(this).val();
+		if ($(this).val() =="") {
+			count++
+			$(this).css({"border" : "1px solid red"});
+		}else{
+			$(this).css({"border" : "1px solid lightgray"});
+		}
+	})
+
+	// check match password
+	var not_match = true;
+	if(password != confirm_password) {
+		showDialog(form, title, oldValue,not_match);
+	}else{
+		if(count > 0) {
+			showDialog(form, title, oldValue,not_match);
+		}else{
+			if(password == confirm_password) {
+				saveEditEmployee(oldValue);
+			}
+		}
+	}
+}
+
+function saveEditEmployee(oldValue){
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type : 'POST',
+		url  : $('#edit-employee-url').data('url'),
+		data : {
+			id_employee : $('#id_employee').val(),
+			department 	: $('#add-emp-department').val(),
+			position 	: $('#position').val(),
+			fname 		: $('#fname').val(),
+			lname 		: $('#lname').val(),
+			email      	: $('#email').val(),
+			password 	: $('#confirm_password').val(),
+			address 	: $('#address').val(),
+			gender 		: $('#gender').val(),
+			tel 		: $('#tel').val(),
+			age 		: $('#age').val(),
+			education 	: $('#education').val(),
+			salary 		: $('#salary').val(),
+		},
+		success: function(response){
+
+				Swal.fire(
+				{
+					title: 'แก้ไขข้อมูลสำเร็จ',
+					type: 'success',
+					showCancelButton: false,
+					confirmButtonText: 'ปิด'
+
+				}).then((response) =>{
+
+					window.location.reload();
+
+				})
+		},
+		error: function(error){
+			alert('Data not save edit employee');
 			msg_close();
 		}
 	});
@@ -293,7 +375,7 @@ function postDelete(url)
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type: "POST",
 		url: url,
-		
+
 		success: function(result)
 		{
 			if(result.status == "success")
@@ -307,7 +389,7 @@ function postDelete(url)
 
 				}).then((result) =>{
 
-					if (result.value) 
+					if (result.value)
 					{
 						window.location.reload();
 					}
@@ -317,7 +399,7 @@ function postDelete(url)
 			{
 				alert(result.message);
 			}
-		},	
+		},
 		error : function(errors)
 		{
 			console.log(errors);

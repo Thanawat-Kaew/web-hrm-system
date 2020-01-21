@@ -93,7 +93,7 @@ class EmployeeController extends Controller
         }
     }
 
-    public function editDataEmployee(Request $request){
+    public function editDataEmployee(Request $request){  // แก้ไขครังแรก
         $id_employee = $request->get('id_employee');
         $fname       = $request->get('fname');
         $lname       = $request->get('lname');
@@ -126,7 +126,7 @@ class EmployeeController extends Controller
         $edit->save();
     }
 
-    public function updateEditDataEmployee(Request $request){
+    public function updateEditDataEmployee(Request $request){ // แก้ไขครั้งที่2
         $id          = $request->get('id');
         $id_employee = $request->get('id_employee');
         $fname       = $request->get('fname');

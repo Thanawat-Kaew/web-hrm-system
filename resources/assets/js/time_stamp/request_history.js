@@ -67,15 +67,15 @@ $(document).ready(function(){
 			cancelButtonColor: '#d33',
 			cancelButtonText: 'ไม่ลบ',
 			confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-		}).then((result) => 
+		}).then((result) =>
 		{
-			if (result.value) 
+			if (result.value)
 
 			{
-				postDelete(url); 
+				postDelete(url);
 			}
 		})
-		
+
 	});
 });
 
@@ -132,68 +132,6 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 		 	});
 
 		 	$('.datepicker').datepicker({autoclose: true,format: 'yyyy-mm-dd'})
-
-		// Checkbox add new Record
-/*		$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-			checkboxClass: 'icheckbox_flat-green',
-			radioClass   : 'iradio_flat-green'
-		})*/
-
-		/*$('#edit-t_in_out').on('ifChecked', function(event){
-			$('#edit-t_in').iCheck('enable');
-			$('#edit-t_out').iCheck('enable');
-		});*/
-
-		/*$('#edit-t_in_out').on('ifUnchecked', function(event){
-			$('#edit-t_in').iCheck('disable').iCheck('uncheck');
-			$('#edit-t_out').iCheck('disable').iCheck('uncheck');
-		});*/
-
-		/*$('#edit-t_in').on('ifChecked', function(event){
-			$('.input-t_in').removeClass('hide')
-			$('#edit-input-t_in').addClass('required')
-		}).on('ifUnchecked', function(event){
-			$('.input-t_in').addClass('hide')
-			$('#edit-input-t_in').removeClass('required')
-		});
-
-		$('#edit-t_out').on('ifChecked', function(event){
-			$('.input-t_out').removeClass('hide')
-			$('#edit-input-t_out').addClass('required')
-		}).on('ifUnchecked', function(event){
-			$('.input-t_out').addClass('hide')
-			$('#edit-input-t_out').removeClass('required')
-		});*/
-
-		// $('#edit-br_in_out').on('ifChecked', function(event){
-		// 	$('#edit-br_in').iCheck('enable');
-		// 	$('#edit-br_out').iCheck('enable');
-		// });
-
-		// $('#edit-br_in_out').on('ifUnchecked', function(event){
-		// 	$('#edit-br_in').iCheck('disable').iCheck('uncheck');
-		// 	$('#edit-br_out').iCheck('disable').iCheck('uncheck');
-		// });
-
-
-		/*$('#edit-br_in').on('ifChecked', function(event){ // ออกจากไปพัก
-			$('.input-b_in').removeClass('hide')
-			$('#edit-input-b_in').addClass('required')
-			//alert("ออกไปพัก");
-		}).on('ifUnchecked', function(event){
-			$('.input-b_in').addClass('hide')
-			$('#edit-input-b_in').removeClass('required')
-		});
-
-		$('#edit-br_out').on('ifChecked', function(event){
-			$('.input-b_out').removeClass('hide')
-			$('#edit-input-b_out').addClass('required')
-			//alert("เข้าทำงานช่วงบ่าย");
-		}).on('ifUnchecked', function(event){
-			$('.input-b_out').addClass('hide')
-			$('#edit-input-b_out').removeClass('required')
-		});*/
-		// end Checkbox
 
 		$('body').addClass('modal-open');
 
@@ -539,7 +477,7 @@ function postDelete(url)
 
 				}).then((result) =>{
 
-					if (result.value) 
+					if (result.value)
 					{
 						window.location.reload();
 					}
@@ -550,7 +488,7 @@ function postDelete(url)
 			{
 				alert(result.message);
 			}
-		},	
+		},
 		error : function(errors)
 		{
 			console.log(errors);
