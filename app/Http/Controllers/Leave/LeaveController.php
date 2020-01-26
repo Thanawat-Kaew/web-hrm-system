@@ -5,6 +5,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\Forms\FormLeave;
 use App\Services\Leaves\Leaves;
+use App\Services\Leaves\DayOffYears;
+use App\Services\Leaves\DetailDayOffYear;
 use App\Services\Leaves\LeavesType;
 use App\Services\Leaves\LeavesFormat;
 use App\Services\Employee\Employee;
@@ -59,6 +61,52 @@ class LeaveController extends Controller
                             ->get();
        
         return $this->useTemplate('leave.leave_request',compact('request'));
+    }
+
+    public function leave_set_holiday()
+    {
+        $day_off_year = DayOffYears::all();
+        // // d($day_off_year->toArray());
+        // $de_day_off_year = DetailDayOffYear::all();
+        // d($de_day_off_year->toArray());
+
+        // $detail_day_off_year = DetailDayOffYear::with('day_off_year')
+        //                                             ->where('id_day_off_year','id')
+        //                                             ->get();
+        $detail_day_off_year = DetailDayOffYear::all();
+
+
+        //sd($detail_day_off_year->toArray());
+
+        return view('leave.set_holiday',compact('day_off_year','detail_day_off_year'));
+    }
+
+    public function addSetHoliday(Request $request)
+    {
+        if(\Session::has('current_employee')){
+                    $current_employee   = \Session::get('current_employee');
+        }
+
+        $set_year            = $request->get('set_year');
+        $set_holiday_day     = $request->get('set_holiday_day');
+        $set_date            = $request->get('set_date');
+
+
+        $check_set_holiday = DetailDayOffYear::where('id_day_off_year',$set_holiday_day)->where('year',$set_year)->first();
+
+        if (!empty($check_set_holiday)) {
+
+            return json_encode(['status' => 'failed', 'message' => "errors"]);
+        }
+
+        $request_set_holiday                            = new DetailDayOffYear;
+        $request_set_holiday->id_day_off_year           = $set_holiday_day;
+        $request_set_holiday->date                      = $set_date; 
+        $request_set_holiday->year                      = $set_year;
+        $request_set_holiday->save();
+
+        return json_encode(['status' => 'success', 'message' => "success"]);
+
     }
 
     public function ajaxCenter(Request $request)

@@ -127,7 +127,7 @@ class EvaluationController extends Controller
         //sd($id);
         //return response()->json(['status'=> 'success']);
         //redirect('cre')
-        return $this->useTemplate('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
         //echo "555";
     }
 

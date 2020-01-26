@@ -12,7 +12,7 @@
 					<h3 class="box-title">ประวัติการลา</h3>
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="Search">
 
 							<div class="input-group-btn">
 								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -23,7 +23,7 @@
 
 				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
-					<table id="example" class="table table-striped table-bordered" style="width:100%">
+					<table id="myTable" class="table table-striped table-bordered" style="width:100%">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -52,13 +52,13 @@
 										<td><?php echo $value['reason']?></td>
 										<td>
 											<span class="label <?php echo ($value['status_leave'] == 1 ? 'label-primary' : ($value['status_leave'] == 3 ? 'label-danger' : 'label-warning')); ?>"><?php echo ($value['status_leave'] == 1 ? 'อนุมัติ' : ($value['status_leave'] == 3 ? 'ไม่อนุมัติ' : 'กำลังรอ')); ?>
-											</span>
-										</td>
-										<td style="text-align: end;">
-											<i class="btn fa fa-lg <?php echo ($value['status_leave'] == 2 ? 'fa-pencil' : 'hide'); ?> edit-data-request-leave" data-id="<?php echo $value['id_leave'] ?>"></i>
-											<i class="btn fa fa-lg fa-trash delete-data" data-href="<?php echo route('leaves.delete_leave_history.post',$value['id_leave']);?>" style="color: red;"></i>
-											<i class="btn fa fa-lg fa-eye view-request-leave" data-id="<?php echo $value['id_leave'] ?>"></i>
-										</td>
+										</span>
+									</td>
+									<td style="text-align: end;">
+										<i class="btn fa fa-lg <?php echo ($value['status_leave'] == 2 ? 'fa-pencil' : 'hide'); ?> edit-data-request-leave" data-id="<?php echo $value['id_leave'] ?>"></i>
+										<i class="btn fa fa-lg fa-trash delete-data" data-href="<?php echo route('leaves.delete_leave_history.post',$value['id_leave']);?>" style="color: red;"></i>
+										<i class="btn fa fa-lg fa-eye view-request-leave" data-id="<?php echo $value['id_leave'] ?>"></i>
+									</td>
 								</tr>
 							</tbody>
 						<?php endif ?>
@@ -80,6 +80,7 @@
 			<!-- /.box-body -->
 		</div>
 		<!-- /.box -->
+		
 	</div>
 </div>
 </section>

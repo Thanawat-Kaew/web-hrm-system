@@ -15,6 +15,10 @@ $(document).ready(function(){
             }
         })
     })
+
+    $('#myInput').keyup(function(){
+        search_data_tbl();
+    })
 })
 
 function showDialog(form,title,oldValue='',oldCheck='',errors=''){
@@ -39,7 +43,10 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
                 }
             }
         }
+
+        
     })
+    //.css({'background-color': '#222d32'});
 
     box.on("shown.bs.modal", function() {
         // checkbox
@@ -217,4 +224,23 @@ function addRequestLeave(form, title, oldValue,oldCheck,diff_full,diff_half_m_a,
             console.log(errors);
         },
     })
+}
+
+function search_data_tbl() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
+    }
 }

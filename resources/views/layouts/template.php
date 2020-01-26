@@ -46,6 +46,7 @@
   <!-- <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css"> -->
   <link rel="stylesheet" href="/resources/assets/css/data_management/index.css">
   <link rel="stylesheet" href="/resources/assets/css/time_stamp/request_history.css">
+  <link rel="stylesheet" href="/resources/assets/css/leave/leave_history.css">
 
   <?php if (file_exists(base_path().'/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css')): ?>
   <link rel="stylesheet" href="<?php echo '/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css?='.time() ?>">

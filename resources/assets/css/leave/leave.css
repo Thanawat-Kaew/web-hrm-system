@@ -20,13 +20,12 @@ section{
 	background: #262626;
 }
 
-.add-leave>li>a{
-	font-size: 16px;
-	color: white;
+.add-leave,.view-history,.set-holidays{
+	margin-right: 2px !important;
 }
 
 button.dropdown-toggle{
-	margin-right: 15px ;
+	margin-right: auto ;
 	margin-bottom: 3px; 
 }
 

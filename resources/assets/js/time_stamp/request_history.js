@@ -7,31 +7,31 @@ $(document).ready(function(){
 			url: $('#ajax-center-url').data('url'),
 			data: {'method' : 'getViewRequestTimeStamp',
 			'id'	: id
-		},
-		success: function (result) {
-			var title = "<h4 style='color: red;'>แก้ไขข้อมูล <small> | Edit Employee</small></h4>"
-			bootbox.dialog({
-				title: title,
-				message: result.data,
-				size: 'small',
-				onEscape: true,
-				backdrop: 'static',
-				buttons: {
-					fum: {
-						label: 'ปิด',
-						className: 'btn-warning',
-						callback: function(){
+			},
+			success: function (result) {
+				var title = "<h4 style='color: red;'>แก้ไขข้อมูล <small> | Edit Employee</small></h4>"
+				bootbox.dialog({
+					title: title,
+					message: result.data,
+					size: 'small',
+					onEscape: true,
+					backdrop: 'static',
+					buttons: {
+						fum: {
+							label: 'ปิด',
+							className: 'btn-warning',
+							callback: function(){
+							}
 						}
 					}
-				}
-			})
-			msg_close();
-		},
-		error : function(errors)
-		{
-			console.log(errors);
-		}
-	})
+				})
+				msg_close();
+			},
+			error : function(errors)
+			{
+				console.log(errors);
+			}
+		})
 	});
 
 	$('.edit-data-request-timestamp').click(function(){
@@ -43,15 +43,15 @@ $(document).ready(function(){
 			url: $('#ajax-center-url').data('url'),
 			data: {method : 'getEditRequestTimeStamp',
 			'id'    : id,
-		},
-		success: function (result) {
-			var title = "<h4 style='color: red;'>แก้ไขข้อมูลการขอลงเวลาย้อนหลัง</h4>";
-			showEditDialog(result.data,title)
-		},
-		error: function(errors){
-			console.log(errors)
-		}
-	})
+			},
+			success: function (result) {
+				var title = "<h4 style='color: red;'>แก้ไขข้อมูลการขอลงเวลาย้อนหลัง</h4>";
+				showEditDialog(result.data,title)
+			},
+			error: function(errors){
+				console.log(errors)
+			}
+		})
 	});
 
 	$('.delete-data').on("click", function()
@@ -76,7 +76,7 @@ $(document).ready(function(){
 			}
 		})
 
-	});
+	})
 });
 
 function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
@@ -133,37 +133,37 @@ function showEditDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		 	$('.datepicker').datepicker({autoclose: true,format: 'yyyy-mm-dd'})
 
-		$('body').addClass('modal-open');
+		 	$('body').addClass('modal-open');
 
-		if(oldValue !== ""){
-			$.each(oldValue, function(key, value) {
-				$('#'+key).val(value);
-				if(value == "") {
-					$('#'+key + "-text-error").html("* Required").show();
-				} else {
-					$('#'+key + "-text-error").html("").hide();
-				}
-			});
-		}
+		 	if(oldValue !== ""){
+		 		$.each(oldValue, function(key, value) {
+		 			$('#'+key).val(value);
+		 			if(value == "") {
+		 				$('#'+key + "-text-error").html("* Required").show();
+		 			} else {
+		 				$('#'+key + "-text-error").html("").hide();
+		 			}
+		 		});
+		 	}
 
-		if (oldCheck !== "") {
-			$.each(oldCheck, function(key, value){
-				if (value) {
-					$('#'+key).iCheck('check');
-					$('#edit-input-'+key).addClass('required');
-				}else{
-					$('#'+key).iCheck('uncheck')
-					$('#edit-input-'+key).removeClass('required');
-				}
-			})
-		}
+		 	if (oldCheck !== "") {
+		 		$.each(oldCheck, function(key, value){
+		 			if (value) {
+		 				$('#'+key).iCheck('check');
+		 				$('#edit-input-'+key).addClass('required');
+		 			}else{
+		 				$('#'+key).iCheck('uncheck')
+		 				$('#edit-input-'+key).removeClass('required');
+		 			}
+		 		})
+		 	}
 
-		if(errors !== ""){
-			jQuery.each(errors, function(k, v){
-				$('#edit-input-'+k+'-text-error').html(v).show();
-			})
-		}
-	});
+		 	if(errors !== ""){
+		 		jQuery.each(errors, function(k, v){
+		 			$('#edit-input-'+k+'-text-error').html(v).show();
+		 		})
+		 	}
+		 });
 };
 
 
@@ -220,22 +220,22 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 			if(response.status == "failed_t_in_ts"){
 				//alert("ไม่สามารถลง time_in เพราะมีวันที่และ time_in อยู่ใน timestamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 
 			}else if(response.status == "failed_b_out_ts"){
 				//alert("ไม่สามารถลง break_out เพราะมีวันที่และ break_out อยู่ใน timestamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "พักกลางวัน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "พักกลางวัน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 
 			}else if(response.status == "failed_b_in_ts"){
 				//alert("ไม่สามารถลง break_in เพราะมีวันที่และ break_in อยู่ใน timestamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงานช่วงบ่าย" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงานช่วงบ่าย" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 
 			}else if(response.status == "failed_t_out_ts"){
 				//alert("ไม่สามารถลง time_out เพราะมีวันที่และ time_out อยู่ใน timestamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "ออกงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "ออกงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 
 			}else if(response.status == "success_timein"){
 				//alert("แก้ไขการลงเวลา time_in สำเร็จ");
@@ -247,7 +247,7 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 			}else if(response.status == "failed_t_in_q"){
 				//alert("ไม่สามารถลงเวลา time_in ได้ เพราะมีวันที่และ time_in อยู่ใน request_time_stamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 
 			}else if(response.status == "success_breakout"){
 				//alert("แก้ไขการลงเวลา break_out สำเร็จ");
@@ -259,7 +259,7 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 			}else if(response.status == "failed_b_out_q"){
 				//alert("ไม่สามารถลงเวลา break_out ได้ เพราะมีวันที่และ break_out อยู่ใน request_time_stamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "พักกลางวัน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "พักกลางวัน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 
 			}else if(response.status == "success_breakin"){
 				//alert("แก้ไขการลงเวลา break_in สำเร็จ");
@@ -271,7 +271,7 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 			}else if(response.status == "failed_b_in_q"){
 				//alert("ไม่สามารถลงเวลา break_in ได้ เพราะมีวันที่และ break_in อยู่ใน request_time_stamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงานช่วงบ่าย" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "เข้าทำงานช่วงบ่าย" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 
 			}else if(response.status == "success_timeout"){
 				//alert("แก้ไขการลงเวลา time_out สำเร็จ");
@@ -283,7 +283,7 @@ function editRequestTimeStamp(oldValue){ // แก้ไข request_time_stamp
 			}else if(response.status == "failed_b_out_q"){
 				//alert("ไม่สามารถลงเวลา time_out ได้ เพราะมีวันที่และ time_out อยู่ใน request_time_stamp");
 				Swal.fire(
-						'ไม่สามารถแก้ไขการลงเวลา "ออกงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
+					'ไม่สามารถแก้ไขการลงเวลา "ออกงาน" ได้!','เนื่องจากมีการแก้ไขข้อมูลนี้ในระบบแล้ว','error')
 			}
 
 		},

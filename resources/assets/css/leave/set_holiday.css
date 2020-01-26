@@ -1,0 +1,62 @@
+body {
+	background-color: #222d32;
+	font-family: kanit;
+	font-size: 20px;
+	color: white ;
+}
+
+.topic,.content-header,.text-head-small{
+	color: white !important;
+}
+
+input,select {
+	border-radius: 10px !important;
+	height: 50px !important;
+	font-size: 18px !important;
+	color: black !important;
+
+}
+
+.row {
+	margin-top: 10%;
+}
+
+.datepicker,.yearpicker {
+	color: black !important;
+	text-align: center;
+}
+
+.save,.cancel {
+	margin-top: 15%;
+	margin-right: 5px;
+}
+
+.set_holiday_day {
+	color: gray !important;
+}
+
+.page-footer {
+	margin-top: 25% !important;
+}
+
+.mobile-show {
+	font-size: 10px;
+
+}
+
+.mobile-head-show>h3 {
+	font-size: 23px !important;
+}
+
+.table-show {
+	margin-top: 5% !important;
+	font-size: 15px !important;
+}
+
+.btn-trash:hover {
+	background-color: red;
+}
+
+.btn-trash {
+	border-color: red;
+}

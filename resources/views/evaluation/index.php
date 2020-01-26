@@ -12,10 +12,10 @@
 					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
 					</button>
 				</div>
-				<div class="btn-group pull-right assess-evaluation">
+				<!-- <div class="btn-group pull-right assess-evaluation">
 					<button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน
 					</button>
-				</div>
+				</div> -->
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
@@ -39,6 +39,7 @@
 							<th>ชื่อแบบประเมิน</th>
 							<th>วันที่สร้าง</th>
 							<th>สถานะ</th>
+							<th></th>
 							<th>ดู</th>
 							<th>แก้ไข</th>
 							<th>ลบ</th>
@@ -54,9 +55,10 @@
 									<td><?php echo $evaluation->topic_name?></td>
 									<td><?php echo $evaluation->years?></td>
 									<td><span class="label label-success">Approved</span></td>
-									<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><button class="btn btn-info form-control view-create-evaluation"  data-id="<?php echo $evaluation["id_topic"]?>"><i class="fa fa-eye"></i></button></a></td>
-									<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><button class="btn btn-warning form-control"><i class="fa fa-pencil"></i></button></a></td>
-									<td><button class="btn btn-danger form-control"><i class="fa fa-trash"></i></button>
+									<td><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></td>
+									<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
+									<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
+									<td><i class="fa fa-trash fa-lg" style="color: red;"></i>
 									</td>
 								</tr>
 							<?php endforeach?>

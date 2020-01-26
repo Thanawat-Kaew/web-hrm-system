@@ -13,11 +13,15 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row">
-				<div class="btn-group dropup pull-right ">
-					<button type="button" name="add-leave" class='btn btn-success dropdown-toggle add-leave'><i class="fa fa-plus"></i> New Record
+				<div class="col-md-12 btn-group dropup pull-right ">
+					<button type="button" name="add-leave" class='btn btn-success dropdown-toggle pull-right add-leave'><i class="fa fa-plus"></i> New Record
 					</button>
 					<a href="<?php echo route('leave.leave_history.get');?>">
-						<button href="" type="button" name="view-history" class='btn btn-warning dropdown-toggle view-history'><i class="fa fa-history"></i> History
+						<button href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
+						</button>
+					</a>
+					<a href="<?php echo route("leave.set_holiday.get")?>">
+						<button href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
 						</button>
 					</a>
 				</div>
@@ -25,9 +29,9 @@
 			<div class="box box-info">
 				<div class="box-header">
 					<h3 class="box-title">ประวัติการลา</h3>
-	<div class="box-tools">
+					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="Search">
 
 							<div class="input-group-btn">
 								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -36,7 +40,7 @@
 					</div>
 				</div>
 				<div class="box-body table-responsive no-padding">
-					<table id="example" class="table table-striped table-bordered" style="width:100%">
+					<table id="myTable" class="table table-striped table-bordered" style="width:100%">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -55,7 +59,7 @@
 									<td><?php echo $count?></td>
 									<td><?php echo $value['start_leave']?> ถึง <?php echo $value['end_leave']?></td>
 									<td><?php echo $value->leaves_type['leaves_name']?></td>
-									<td><?php echo $value['total_leave']*0.125?></td>
+									<td><?php echo $value['total_leave']*0.125*8?></td>
 									<td><?php echo $value['reason']?>.</td>
 								</tr>
 							</tbody>
@@ -69,14 +73,14 @@
 									<th>เหตุผลการลา</th>
 								</tr>
 							</tfoot> -->
-					</table>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
-<!-- data -->
-<div id="ajax-center-url" data-url="<?php echo route('leave.ajax_center.post')?>"></div>
-<div id="add-request-leave" data-url="<?php echo route('leave.add_request_leave.post')?>"></div>
-<?php echo csrf_field()?>
+	<!-- data -->
+	<div id="ajax-center-url" data-url="<?php echo route('leave.ajax_center.post')?>"></div>
+	<div id="add-request-leave" data-url="<?php echo route('leave.add_request_leave.post')?>"></div>
+	<?php echo csrf_field()?>
