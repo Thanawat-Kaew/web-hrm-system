@@ -36,7 +36,7 @@
 				<div class="new-part">
                 <div class="panel panel-default">
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool btn-remove-part" data-widget="remove"><i class="fa fa-remove"></i></button>
+                    <button type="button" class="btn btn-box-tool btn-remove-part" data-widget="remove" data-id="<?php echo $value->id_part; ?>"><i class="fa fa-remove"></i></button>
                 </div>
                     <div class="panel-body">
                     	<input type="hidden" name="id_evaluation" value="<?php echo $id_new_evaluation ?>">

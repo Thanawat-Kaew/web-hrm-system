@@ -406,6 +406,26 @@ class EvaluationController extends Controller
                 return response()->json(['status'=> 'success', 'data' => $id]);
                 break;
 
+            case 'deleteParts':
+                $id          = $request->get('id');
+                //sd($id);
+                $id_part     = Part::with('question')->where('id_part', $id)->first();
+                //sd($id);
+                //sd($id_question->toArray());
+                $id_part->delete();
+                return response()->json(['status'=> 'success', 'data' => $id]);
+                break;
+
+            case 'deleteCreateEvaluation':
+                $id          = $request->get('id');
+                //sd($id);
+                $id_topic    = CreateEvaluation::with('parts', 'parts.question')->where('id_topic', $id)->first();
+                //sd($id_topic->toArray());
+                //sd($id_question->toArray());
+                $id_topic ->delete();
+                return response()->json(['status'=> 'success', 'data' => $id]);
+                break;
+
             default:
                 # code...
                 break;

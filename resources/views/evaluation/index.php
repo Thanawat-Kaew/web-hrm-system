@@ -49,16 +49,18 @@
 								$year = explode('-', $evaluation->years);
 								//sd($year[0]);
 							?>
-								<tr>
+								<tr class="row-create-evaluation">
 									<td><?php echo sprintf("%06d", $evaluation->id_topic); ?></td>
 									<td><?php echo $year[0]?></td>
 									<td><?php echo $evaluation->topic_name?></td>
 									<td><?php echo $evaluation->years?></td>
 									<td><span class="label label-success">Approved</span></td>
+
 									<td><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></td>
 									<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
 									<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
-									<td><i class="fa fa-trash fa-lg" style="color: red;"></i>
+									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" style="color: red;" data-id="<?php echo $evaluation->id_topic; ?>"></i></a>
+
 									</td>
 								</tr>
 							<?php endforeach?>

@@ -25,6 +25,26 @@ $(document).ready(function(){
 			}
 		})
 	})*/
+	$(".content").on('click',".btn-remove-topic", function(){ // ลบการประเมิน
+		var id = $(this).data('id');
+		//console.log(id);
+		//$(this).parents(".row-create-evaluation").remove();
+		//alert("ok");
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {method : 'deleteCreateEvaluation',
+				   id  : id},
+			success: function (result) {
+                console.log(result);
+            },
+            error : function(error)
+            {
+            	console.log(error);
+            }
+		})
+	});
 
 })
 

@@ -41,7 +41,7 @@
 				<div class="new-part">
                 <div class="panel panel-default">
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool btn-remove-part" data-widget="remove"><i class="fa fa-remove"></i></button>
+                    <button type="button" class="btn btn-box-tool btn-remove-part" data-widget="remove" data-id="<?php echo $value->id_part; ?>"><i class="fa fa-remove"></i></button>
                 </div>
                     <div class="panel-body">
                     	<input type="hidden" name="id_evaluation" value="<?php echo $edit_evaluation['id_topic'] ?>">
@@ -72,7 +72,11 @@
                         <div class="control-group input-group" style="margin-top:10px">
                              <input type="text" name="name-question-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter.'-'.$name_question['number_order']; ?>[]" id="name-question-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter.'-'.$name_question['number_order']; ?>[]" class="form-control required question" value="<?php echo $name_question['question_name']?>" >
                              <div class="input-group-btn">
+                                <?php if($name_question['number_order'] == "1"){?> <!-- คำถามที่1 ลบไม่ได้ -->
                                  <button class="btn btn-warning " type="button" data-id="<?php echo $name_question['id_question']?>"><i class="glyphicon glyphicon-remove"></i> ลบ</button>
+                                <?php }else{ ?>
+                                <button class="btn btn-warning remove" type="button" data-id="<?php echo $name_question['id_question']?>"><i class="glyphicon glyphicon-remove"></i> ลบ</button>
+                                <?php } ?>
                              </div>
                          </div>
                          <label class="text-error name-question-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter.'-'.$name_question['number_order']; ?>-text-error" id="name-question-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter.'-'.$name_question['number_order']; ?>-text-error"></label>
