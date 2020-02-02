@@ -1,7 +1,24 @@
 $(document).ready(function(){
 	msg_waiting()
-	$('.assess-evaluation').on('click', '.assessment', function(){
-		window.open('/evaluation/human_assessment','_self','location=yes,left=400,top=30,height=700,width=950,scrollbars=yes,status=yes');
+	$('.assessment').click(function(){
+		/*var id = $(this).data('id');
+		//console.log(id);
+		//window.open('/evaluation/human_assessment','_self','location=yes,left=400,top=30,height=700,width=950,scrollbars=yes,status=yes');
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {method : 'peopleBeginEvaluation',
+					id    : id},
+			success: function (result) {
+				window.open('/evaluation/human_assessment','_self','location=yes,left=400,top=30,height=700,width=950,scrollbars=yes,status=yes');
+				//console.log(result);
+			},
+			error : function(error)
+			{
+				console.log(error);
+			}
+		})*/
 	});
 
 	$('.add-evaluation').on('click', function() {

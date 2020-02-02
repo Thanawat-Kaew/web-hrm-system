@@ -62,4 +62,10 @@ class Employee extends Model
         return $this->hasOne("App\Services\Company\Company", 'id_company', 'id_company'); // one to many
 
     }
+
+    public function createevaluation()
+    {
+        return $this->hasOne("App\Services\Evaluation\CreateEvaluation", 'id_employee', 'id_employee'); // one to many
+
+    }
 }

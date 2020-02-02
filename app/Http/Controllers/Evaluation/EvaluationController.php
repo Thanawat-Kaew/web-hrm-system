@@ -13,6 +13,7 @@ use App\Services\Evaluation\Part;
 use App\Services\Evaluation\Question;
 use App\Services\Evaluation\AnswerFormat;
 use App\Services\Employee\EmployeeObject;
+use App\Services\Evaluation\AnswerDetails;
 
 class EvaluationController extends Controller
 {
@@ -100,14 +101,32 @@ class EvaluationController extends Controller
         }
     }
 
-    public function assessment()
+    public function assessment(Request $request, $id, $id_topic)
     {
-        return view('evaluation.assessment');
+        $id_assessor_person          = $id;
+        $id_evaluation               = $id_topic;
+        //sd($id_evaluation);
+        //sd($id_assessor_person);
+        $data_assessor_person        = Employee::with('department', 'position')->where('id_employee', $id_assessor_person)->first();
+        //sd($data_assessor_person->toArray());
+        $data_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat', 'parts.answerformat.answerdetails')->where('id_topic', $id_evaluation)->first();
+        //sd($data_evaluation->toArray());
+        //sd($data_evaluation->parts[0]->question->count());
+        //sd($data_evaluation->parts->count());
+        //$value_desc                  = AnswerDetails::with()->orderBy('value', 'DESC')->get();
+        return view('evaluation.assessment', compact('data_assessor_person', 'data_evaluation'));
     }
 
-    public function human_assessment()
+    public function human_assessment(Request $request, $id)
     {
-        return $this->useTemplate('evaluation.human_assessment');
+        $id_assessor                = $id;
+        $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_assessor)->first();
+        //sd($id_topic->toArray());
+        //sd($id_topic->employee->id_department);
+        $list_name   = Employee::where('id_department', $id_topic->employee->id_department)->where('id_position', '1')->get();
+        //sd($list_name->toArray());
+
+        return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic'));
     }
 
     public function viewCreateEvaluation(Request $request, $id)
@@ -143,6 +162,8 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.edit_evaluations', compact('edit_evaluation', 'answer_type'));
 
     }
+
+
 
      public function postEditEvaluations(Request $request)
     {
@@ -425,6 +446,18 @@ class EvaluationController extends Controller
                 $id_topic ->delete();
                 return response()->json(['status'=> 'success', 'data' => $id]);
                 break;
+
+            /*case 'peopleBeginEvaluation':
+                $id          = $request->get('id');
+                //sd($id);
+                $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id)->first();
+                //sd($id_topic->toArray());
+                //sd($id_topic->employee->id_department);
+                $list_name   = Employee::where('id_department', $id_topic->employee->id_department)->where('id_position', '1')->get();
+                //sd($list_name->toArray());
+
+                return response()->json(['status'=> 'success', 'data' => $list_name]);
+                break;*/
 
             default:
                 # code...
