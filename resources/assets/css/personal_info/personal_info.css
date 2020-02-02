@@ -5,3 +5,16 @@ body {
 .delete-data,.edit-data{
 	width: auto;
 }
+
+.created_at {
+	text-align: left;
+}
+
+img {
+	width: 70px;
+	height: 70px;
+}
+
+td {
+	font-size: 14px;
+}

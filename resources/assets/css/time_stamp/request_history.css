@@ -3,6 +3,10 @@
   top: 5% !important;
 }
 
+.delete-data {
+	border-color: red;
+}
+
 .picker-confirm{
 	background-color: #0074d9;
 	color: white;

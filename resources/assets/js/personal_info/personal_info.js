@@ -41,7 +41,7 @@ $(function(){
 					bootbox.dialog({
 						title: title,
 						message: result.data,
-						size: 'large',
+						size: 'xlarge',
 						onEscape: true,
 						backdrop: 'static',
 						buttons: {
@@ -114,7 +114,7 @@ function showDialog(form,title, oldValue=''){
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
-		size: 'large',
+		size: 'xlarge',
 		onEscape: true,
 		backdrop: 'static',
 		buttons: {

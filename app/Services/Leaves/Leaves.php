@@ -21,5 +21,5 @@ class Leaves extends Model
     public function leaves_format()
     {
     	return $this->belongsTo("App\Services\leaves\LeavesFormat", 'id_leaves_format', 'id_leaves_format');
-    }
+    } 
 }

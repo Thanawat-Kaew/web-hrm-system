@@ -76,6 +76,7 @@ Route::post('/leave/request/cancel', 'Leave\LeaveController@cancelDataRequestLea
 Route::post('/leaves_history/delete/{id}','Leave\LeaveController@postDeleteLeaveHistory')->name('leaves.delete_leave_history.post');
 Route::post('/leave/edit_request_leave', 'Leave\LeaveController@editRequestLeave')->name('request_history.edit_request_leave.post');
 Route::post('/leave/add_set_holiday', 'Leave\LeaveController@addSetHoliday')->name('leave.add_set_holiday.post');
+Route::post('/leaves/delete_set_holiday/{id}','Leave\LeaveController@postDeleteSetHoliday')->name('leaves.delete_set_holiday.post');
 /**************************************************EndLeave********************************************************************/
 
 
@@ -89,6 +90,8 @@ Route::get('/evaluation/view_create_evaluation/{id}', 'Evaluation\EvaluationCont
 Route::get('/evaluation/edit_evaluation/{id}', 'Evaluation\EvaluationController@editEvaluation')->name('evaluation.edit_evaluations.get'); // edit-evaluation //page
 Route::post('/evaluation/post_edit', 'Evaluation\EvaluationController@postEditEvaluations')->name('evaluation.post_edit.post'); // edit to database
 Route::get('/evaluation', 'Evaluation\EvaluationController@index')->name('evaluation.index.get');
+
+Route::post('/evaluation/delete/{id}','Evaluation\EvaluationController@postDeleteCreateEvaluation')->name('evaluation.index.post');
 /************************************************End Evaluation*******************************************************************/
 
 /******************************************************Report*********************************************************************/

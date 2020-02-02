@@ -2,17 +2,21 @@ body {
 	background-color: #222d32;
 	font-family: kanit;
 	font-size: 20px;
-	color: white ;
+	/*color: white ;*/
 }
 
 .topic,.content-header,.text-head-small{
-	color: white !important;
+	/*color: white !important;*/
 }
 
-input,select {
+.box {
+	margin-top: 20px !important;
+}
+
+input,select,option {
 	border-radius: 10px !important;
 	height: 50px !important;
-	font-size: 18px !important;
+	font-size: 15px !important;
 	color: black !important;
 
 }
@@ -24,19 +28,22 @@ input,select {
 .datepicker,.yearpicker {
 	color: black !important;
 	text-align: center;
+	background-color: white !important;
+	border-color: gray !important;
 }
 
 .save,.cancel {
-	margin-top: 15%;
+	margin-top: 10%;
 	margin-right: 5px;
 }
 
 .set_holiday_day {
 	color: gray !important;
+	border-color: gray !important;
 }
 
 .page-footer {
-	margin-top: 25% !important;
+	margin-top: 10% !important;
 }
 
 .mobile-show {
@@ -50,7 +57,7 @@ input,select {
 
 .table-show {
 	margin-top: 5% !important;
-	font-size: 15px !important;
+	font-size: 18px !important;
 }
 
 .btn-trash:hover {
@@ -59,4 +66,25 @@ input,select {
 
 .btn-trash {
 	border-color: red;
+}
+
+
+.btn-app {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.btn-app:hover {
+  background-color: #555;
 }

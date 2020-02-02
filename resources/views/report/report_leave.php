@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="row add-leave-time-clock">
-				<div class="btn-group dropup-new-record pull-right ">
+				<div class="btn-group dropup-new-record pull-right">
 					<button href="" type="button" class='btn btn-danger dropdown-toggle add-new-record' data-toggle="dropdown"><i class="fa fa-file-pdf-o"></i> Export to PDF
 					</button>
 				</div>

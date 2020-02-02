@@ -5,3 +5,12 @@
 body{
 	font-family: Kanit;
 }
+
+.btn-remove-topic {
+	color: red !important;
+	cursor: pointer !important;
+}
+
+.new-evaluation {
+	margin-right: 15px !important;
+}
