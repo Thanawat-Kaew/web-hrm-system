@@ -26,64 +26,43 @@ $(document).ready(function() {
 	})
 
 
-	//var theTotal = 0;
+	var _sub_total 		= 0;
+	var _part 			= "";
 	$('.score').on('ifChecked', function(event){
-		//alert(Number($(this).val()));
-		var group = $(this).attr("data-group");
-		//alert(group);
-		$('#total-question-'+group).text($(this).val());
-		//var name = $(this).attr("name");
-		//alert(name);
-		//theTotal = Number(theTotal) + Number($(this).val());
+		var _total_part			= 0;
+		var checkd_name = $(this).attr('name');
+		// var group_data = $(this).data('group');
+		var part 			= $(this).data('part');
+		var question 		= $(this).data('question');
+		var total_question 	= $(this).closest('table').find('input[name=total-question]').val();
+		var total_part 		= $(this).closest('table').find('input[name=total-part]').val();
+		$("#total-question-"+part+"-"+question).html($(this).val());
 
-		var parts    = $(this).attr("data-part");
-		//alert(parts);
-		//console.log("parts"+parts);
-		/*$.each(parts).each(function(){
-			alert($(this).val());
-		})*/
-		var question = $(this).attr("data-question");
-		//alert(question);
-		//console.log("question"+question);
-		//alert(theTotal);
-		var theTotal = 0;
-		var s = $('#total-question-'+parts+'-'+question).val();
-		alert(s);
-		var a = theTotal + parseInt(s);
-		//alert(a);
-		/*$.each($("input[name='format_answer-"+parts+'-'+question+"']:checked"), function(){
-			theTotal = theTotal + $(this).val();
-		})
-		$('#total-part-'+parts).text(theTotal);*/
-		//$(this).val();
+		if (part != _part) {
+			_part  = part;
+			_sub_total  = 0;
+		}
 
-		//var total = 0;
-    	/*$("input[name='format_answer-"+parts+'-'+question+"']").each(function() {
-        	total += parseFloat($(this).val());
-    	});*/
+		for (var i=0; i < total_question; i++) {
+			if( checkd_name == "format_answer-"+part+"-"+i) {
+				var answer = parseInt($(this).val());
+				_total_part = _total_part + answer;
+				// _sub_total = _sub_total + answer;
+			} else {
+				var answer = $("input[name=format_answer-"+part+"-"+i+"]:checked").val();
+				if(typeof(answer) !== "undefined") {
+					_total_part = parseInt(_total_part) + parseInt(answer);
+					// _sub_total = parseInt(_sub_total) + parseInt(answer);
+				}
+			}
+		}
+		$("#total-part-"+part).html(_total_part);
+		var sum_total = 0;
+		for (var j = 0; j < total_part; j++) {
+			sum_total = sum_total+parseInt($("#total-part-"+j).html());
+		}
+		$("#total-evluation").html(sum_total);
 
-
-
-    	//$('#total-part-'+parts).text(total);
-
-		//var a = $(this).ifChanged($(this).val());
-		//alert(a);
-		//var parts = $(this).val();
-		//alert(parts);
-		//var radioValue = $("input[name='format_answer-"+parts+'-'+question+"']:checked").val();
-		//alert(radioValue);
-
-		/*$(this).each(function(){*/
-      		//lert($(this).val())
-      		//theTotal = Number(theTotal) + $("input[name='format_answer-"+parts+'-'+question+"']:checked").val();
-    	/*});*/
-		//$('#total-part-'+parts).text(theTotal);
-
-
-		/*theTotal = Number(theTotal) + Number($(this).val());  // ถ้า value แล้วเอามา+ ไม่ใช่ กดแล้วบวก
-		$("#sum").val(Number($("#num1").val()) + Number($("#num2").val()));
-		//$('#part-total-'+parts).text($(this).val());
-		$('#part-total-'+parts).text($(this).val());*/
 	});
 
 

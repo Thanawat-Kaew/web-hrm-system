@@ -106,7 +106,11 @@
 						<?php if($data_evaluation->parts[$i]->id_answer_format == '1'){?> <!-- กรณีเป็นรุปแบบที่1 -->
 							<table class="table table-bordered table-condensed" id="type_one">
 								<tr>
-									<th>ข้อที่</th>
+
+									<th>ข้อที่
+										<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
+										<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
+									</th>
 									<th>ความเข้าใจ ,ความสามารถ <?php echo $data_evaluation->parts[$i]->percent;?>%</th>
 									<?php echo $count_answerdeatils;?>
 									<th>1</th>
@@ -126,7 +130,7 @@
 									?>
 									<td><label><input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>" id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>"></label></td>
 									<?php }?>
-									<td id="total-question-<?php echo $i;?>-<?php echo $j;?>"></td>
+									<td id="total-question-<?php echo $i;?>-<?php echo $j;?>">0</td>
 								</tr>
 								<?php } ?>
 							</table>
@@ -150,17 +154,17 @@
 										?>
 										<td><label><input type="radio" name="format_answer<?php echo $j;?>" id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>"></label></td>
 										<?php }?>
-										<td class="total"></td>
+										<td class="total">0</td>
 									</tr>
 									<?php } ?>
 								</table>
 						<?php }?>
-						<label class="pull-right">คะแนนรวม : <label id="total-part-<?php echo $i;?>"></label></label>
+						<label class="pull-right">คะแนนรวม : <label id="total-part-<?php echo $i;?>">0</label></label>
 					</div>
 					<?php } ?>
 
 					<div class="box-header">
-						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : <label id="total-evluation-<?php echo $i;?>"></label> </label>
+						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : <label id="total-evluation">0</label> </label>
 					</div>
 				</div>
 
