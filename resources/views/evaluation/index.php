@@ -52,7 +52,7 @@
 									<td><?php echo $evaluation->years?></td>
 									<td><span class="label label-success">Approved</span></td>
 
-									<td><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></td>
+									<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
 									<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
 									<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
 									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>

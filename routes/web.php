@@ -82,8 +82,8 @@ Route::post('/leaves/delete_set_holiday/{id}','Leave\LeaveController@postDeleteS
 
 /**************************************************Evaluation*******************************************************************/
 Route::get('/evaluation/create_evaluations', 'Evaluation\EvaluationController@create_evaluations')->name('evaluation.create_evaluations.get');
-Route::get('/evaluation/human_assessment/assessment', 'Evaluation\EvaluationController@assessment')->name('evaluation.assessment.get');
-Route::get('/evaluation/human_assessment', 'Evaluation\EvaluationController@human_assessment')->name('evaluation.human_assessment.get');
+Route::get('/evaluation/human_assessment/assessment/{id}/topic/{id_topic}', 'Evaluation\EvaluationController@assessment')->name('evaluation.assessment.get'); // ข้อมูลผู้ถูกประเมิน
+Route::get('/evaluation/human_assessment/{id}', 'Evaluation\EvaluationController@human_assessment')->name('evaluation.human_assessment.get'); // หน้ารายชื่อผู้ถูกประเมิน
 Route::post('/evaluation/ajax_center', 'Evaluation\EvaluationController@ajaxCenter')->name('evaluation.ajax_center.post');
 Route::post('/evaluation/post_add', 'Evaluation\EvaluationController@postAddEvaluations')->name('evaluation.post_add.post');
 Route::get('/evaluation/view_create_evaluation/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation')->name('evaluation.view_create_evaluations.get'); // view-create-evaluation

@@ -14,5 +14,10 @@ class AnswerFormat extends Model
     	return $this->belongsTo("App\Services\Evaluation\Part", 'id_answer_format', 'id_answer_format');  // OnetoOne ไปยังตาราง Part
     }
 
+    public function answerdetails()
+    {
+    	return $this->hasMany("App\Services\Evaluation\AnswerDetails", 'id_answer_format', 'id_answer_format');  // OnetoOne ไปยังตาราง answerdetails
+    }
+
 
 }

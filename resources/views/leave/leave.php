@@ -84,8 +84,10 @@
 							<?php foreach($leaves_type as $value ):?>
 								<tr>
 									<td style="text-align: left; font-size: 13px;"><?php echo $value->leaves_name?></td>
-									<td style="font-size: 13px;"><?php echo $value->max_day?></td>
-									<td style="color: red; font-size: 13px;">15</td>
+									<td style="font-size: 13px; color: red;"><?php echo $value->max_day?></td>
+									<?php foreach($leaves_info as $value2):?>
+										<td value="000" style="color: red; font-size: 13px;"></td>
+									<?php endforeach ?>
 									<td style="color: red; font-size: 13px;">5</td>
 								</tr>
 							<?php endforeach ?>

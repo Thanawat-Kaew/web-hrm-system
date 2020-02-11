@@ -57,19 +57,19 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>รหัสพนักงาน / ID Emp.</h4>
-							<input type="text" class="form-control assess_id_emp input_box" readonly value="5951001063">
+							<input type="text" class="form-control assess_id_emp input_box" readonly value="<?php echo $data_assessor_person->id_employee?>">
 						</div>
 					</div>
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>ชื่อ-นามสกุล / Full Name.</h4>
-							<input type="text" class="form-control assess_fullname input_box" readonly value="ธนวัฒน์  แก้วล้อมวัง">
+							<input type="text" class="form-control assess_fullname input_box" readonly value="<?php echo $data_assessor_person->first_name?> <?php echo $data_assessor_person->last_name?>">
 						</div>
 					</div>
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>แผนก / Dept.</h4>
-							<input type="text" class="form-control assess_department input_box" readonly value="Engineer">
+							<input type="text" class="form-control assess_department input_box" readonly value="<?php echo $data_assessor_person->department->name?>">
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -83,105 +83,88 @@
 
 			<div class="col-md-9">
 				<div class="content-header">
-					<h3>แบบประเมินผลการปฏิบัติงานของพนักงาน ประจำปี 2019</h3>
+					<h3><?php echo $data_evaluation->topic_name ?></h3>
 				</div>
+				<?php $count_part 	     = $data_evaluation->parts->count(); // นับจำนวนตอน
+					  //$count_parts = $part + 1;
+				?>
 				<div class="box box-info">
+					<?php for($i=0; $i < $count_part; $i++){ // i = part
+						  $part_no = $i+1;
+						  $count_question      = $data_evaluation->parts[$i]->question->count(); //นับจำนวนคำถามต่อตอน
+						  $count_answerdeatils = $data_evaluation->parts[$i]->answerformat->answerdetails->count(); //นับจำนวนรูปแบบคำตอบต่อตอน
+						  //sd($count_answerdeatils);
 
+					?>
 					<div class="box-header with-border">
 						<div class="col-md-8">
-							<h4>ส่วนที่ 1</h4>
+							<h4>ส่วนที่ <?php echo $part_no; ?> <?php echo $data_evaluation->parts[$i]->part_name;?></h4>
 						</div>
 						<div class="col-md-4 hidden-xs">
 							<h4>คะแนนประเมิน / Score</h4>
 						</div>
+						<?php if($data_evaluation->parts[$i]->id_answer_format == '1'){?> <!-- กรณีเป็นรุปแบบที่1 -->
+							<table class="table table-bordered table-condensed" id="type_one">
+								<tr>
 
-						<table class="table table-bordered table-condensed">
-							<tr>
-								<th>ข้อที่</th>
-								<th>ความเข้าใจ ,ความสามารถ 30%</th>
-								<th>5</th>
-								<th>4</th>
-								<th>3</th>
-								<th>2</th>
-								<th>1</th>
-								<th>รวม</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td class="name_title">ความคิดริเริ่มและสามารถนาเสนอความคิดเห็นในเรื่องที่เกี่ยวข้องกับงานที่รับผิดชอบ</td>
-								<td><label><input type="radio" name="ss" id="5" class="flat-red"></label></td>
-								<td><label><input type="radio" name="ss" id="4" class="flat-red"></label></td>
-								<td><label><input type="radio" name="ss" id="3" class="flat-red"></label></td>
-								<td><label><input type="radio" name="ss" id="2" class="flat-red"></label></td>
-								<td><label><input type="radio" name="ss" id="1" class="flat-red"></label></td>
-								<td></td>
-							</tr>
-						</table>
-						<label class="pull-right">คะแนนรวม : </label>
+									<th>ข้อที่
+										<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
+										<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
+									</th>
+									<th>ความเข้าใจ ,ความสามารถ <?php echo $data_evaluation->parts[$i]->percent;?>%</th>
+									<?php echo $count_answerdeatils;?>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>4</th>
+									<th>5</th>
+									<th>รวม</th>
+								</tr>
+								<?php for($j=0; $j < $count_question; $j++){ // j = question
+									  $question_no = $j+1;
+								?>
+								<tr>
+									<td><?php echo $question_no; ?></td>
+									<td class="name_title"><?php echo $data_evaluation->parts[$i]->question[$j]->question_name;?></td>
+									<?php for($k=0; $k < $count_answerdeatils; $k++){ //k = answer_details
+									?>
+									<td><label><input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>" id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>"></label></td>
+									<?php }?>
+									<td id="total-question-<?php echo $i;?>-<?php echo $j;?>">0</td>
+								</tr>
+								<?php } ?>
+							</table>
+						<?php }else if($data_evaluation->parts[$i]->id_answer_format == '2'){?> <!-- กรณีเป็นรุปแบบที่2 -->
+								<table class="table table-bordered table-condensed" id="type_two">
+									<tr>
+										<th>ข้อที่</th>
+										<th>ความเข้าใจ ,ความสามารถ <?php echo $data_evaluation->parts[$i]->percent;?>%</th>
+										<?php echo $count_answerdeatils;?>
+										<th>ใช่</th>
+										<th>ไม่ใช่</th>
+										<th>รวม</th>
+									</tr>
+									<?php for($j=0; $j < $count_question; $j++){
+										  $question_no = $j+1;
+									?>
+									<tr>
+										<td><?php echo $question_no; ?></td>
+										<td class="name_title"><?php echo $data_evaluation->parts[$i]->question[$j]->question_name;?></td>
+										<?php for($k=0; $k < $count_answerdeatils; $k++){
+										?>
+										<td><label><input type="radio" name="format_answer<?php echo $j;?>" id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>"></label></td>
+										<?php }?>
+										<td class="total">0</td>
+									</tr>
+									<?php } ?>
+								</table>
+						<?php }?>
+						<label class="pull-right">คะแนนรวม : <label id="total-part-<?php echo $i;?>">0</label></label>
 					</div>
-
-					<div class="box-header with-border">
-						<div class="col-md-8">
-							<h4>ส่วนที่ 2</h4>
-						</div>
-						
-						<table class="table table-bordered table-condensed">
-							<tr>
-								<th>ข้อที่</th>
-								<th>ประสิทธิภาพในการทำงาน 60%</th>
-								<th>5</th>
-								<th>4</th>
-								<th>3</th>
-								<th>2</th>
-								<th>1</th>
-								<th>รวม</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td class="name_title">ความคิดริเริ่มและสามารถนาเสนอความคิดเห็นในเรื่องที่เกี่ยวข้องกับงานที่รับผิดชอบ</td>
-								<td><label><input type="radio" name="st" id="5" class="flat-red"></label></td>
-								<td><label><input type="radio" name="st" id="4" class="flat-red"></label></td>
-								<td><label><input type="radio" name="st" id="3" class="flat-red"></label></td>
-								<td><label><input type="radio" name="st" id="2" class="flat-red"></label></td>
-								<td><label><input type="radio" name="st" id="1" class="flat-red"></label></td>
-								<td></td>
-							</tr>
-						</table>
-						<label class="pull-right">คะแนนรวม : </label>
-					</div>
-
-					<div class="box-header with-border">
-						<div class="col-md-8">
-							<h4>ส่วนที่ 3</h4>
-						</div>
-						
-						<table class="table table-bordered table-condensed">
-							<tr>
-								<th>ข้อที่</th>
-								<th>ความร่วมมือ 20%</th>
-								<th>5</th>
-								<th>4</th>
-								<th>3</th>
-								<th>2</th>
-								<th>1</th>
-								<th>รวม</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td class="name_title">ความคิดริเริ่มและสามารถนาเสนอความคิดเห็นในเรื่องที่เกี่ยวข้องกับงานที่รับผิดชอบ</td>
-								<td><label><input type="radio" name="su" id="5" class="flat-red"></label></td>
-								<td><label><input type="radio" name="su" id="4" class="flat-red"></label></td>
-								<td><label><input type="radio" name="su" id="3" class="flat-red"></label></td>
-								<td><label><input type="radio" name="su" id="2" class="flat-red"></label></td>
-								<td><label><input type="radio" name="su" id="1" class="flat-red"></label></td>
-								<td></td>
-							</tr>
-						</table>
-						<label class="pull-right">คะแนนรวม : </label>
-					</div>
+					<?php } ?>
 
 					<div class="box-header">
-						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : 85 </label>
+						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : <label id="total-evluation">0</label> </label>
 					</div>
 				</div>
 
@@ -200,7 +183,7 @@
 			<div class="col-md-12">
 				<hr>
 				<strong style="margin-left: 10px;">Copyright &copy; 2019 <a href="">EngCom-RU</a>.</strong> All rights
-				reserved.					
+				reserved.
 			</div>
 		</div>
 	</div>

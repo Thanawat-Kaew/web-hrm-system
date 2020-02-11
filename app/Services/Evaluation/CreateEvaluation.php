@@ -15,4 +15,9 @@ class CreateEvaluation extends Model
     {
         return $this->hasMany("App\Services\Evaluation\Part", 'id_topic', 'id_topic');
     }
+
+    public function employee()
+    {
+        return $this->belongsTo("App\Services\Employee\Employee", 'id_employee', 'id_employee');
+    }
 }

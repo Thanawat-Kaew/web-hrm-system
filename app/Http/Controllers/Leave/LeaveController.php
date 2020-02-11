@@ -13,6 +13,7 @@ use App\Services\Employee\Employee;
 use App\Services\Department\Department;
 use App\Services\Position\Position;
 use App\Services\Employee\EmployeeObject;
+use App\Services\Company\Company;
 use App\Services\Forms\FormViewDataRequestLeaves;
 use App\Services\Forms\FormViewRequestLeaves;
 use App\Services\Forms\FormEditRequestLeaves;
@@ -32,10 +33,20 @@ class LeaveController extends Controller
                             ->orderBy('id_leave', 'desc')
                             ->get();
 
-        $leaves_type = LeavesType::all();
+        $leaves_type    = LeavesType::all();
+        $header         = Employee::with('company','leaves')
+                                                ->where('id_position', 2)
+                                                ->where('id_department', $current_employee['id_department'])
+                                                ->first();
+                                                // d($header->toArray());
+                                                
+        $leaves_info    = $header->leaves;
+        // $company_info   = !empty($company->info)? json_decode($company->info): [];
+        // $leaves_info    = $company_info->leaves_info;
+        // sd($leaves_info->toArray());
 
         
-        return $this->useTemplate('leave.leave' ,compact('data','leaves_type'));
+        return $this->useTemplate('leave.leave' ,compact('data','leaves_type','leaves_info'));
     }
 
     public function leave_history()
@@ -279,9 +290,7 @@ class LeaveController extends Controller
             if ($check_holiday) {
                 return json_encode(['status' => 'failed', 'message' => "errors"]);
                 
-            } 
-
-            
+            }      
 
         // SWITCH CASE
         if ($format_leaves == 1 ) {
