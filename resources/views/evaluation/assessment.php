@@ -30,6 +30,8 @@
 </head>
 <body class="content_assessment">
 	<section class="content">
+	<form action="<?php echo route('evaluation.post_record_evaluation.post'); ?>" method="POST" id="save-evaluation">
+	<?php echo csrf_field()?>
 		<div class="row">
 				<div class="col-md-3">
 					<div class="content-header">
@@ -49,6 +51,7 @@
 						</span>
 					</div>
 				</div> -->
+				<input type="hidden" name="datetime_of_evaluation" value="<?php echo $data_evaluation['years'];?>">
 				<div class="text-center">
 					<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-imaged img-circle" alt="User Image">
 				</div>
@@ -57,7 +60,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>รหัสพนักงาน / ID Emp.</h4>
-							<input type="text" class="form-control assess_id_emp input_box" readonly value="<?php echo $data_assessor_person->id_employee?>">
+							<input type="text" class="form-control assess_id_emp input_box" readonly value="<?php echo $data_assessor_person->id_employee?>" name="id_assessor_person">
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -84,6 +87,7 @@
 			<div class="col-md-9">
 				<div class="content-header">
 					<h3><?php echo $data_evaluation->topic_name ?></h3>
+					<input type="hidden" name="id_topic" value="<?php echo $data_evaluation->id_topic;?>">
 				</div>
 				<?php $count_part 	     = $data_evaluation->parts->count(); // นับจำนวนตอน
 					  //$count_parts = $part + 1;
@@ -92,6 +96,7 @@
 					<?php for($i=0; $i < $count_part; $i++){ // i = part
 						  $part_no = $i+1;
 						  $count_question      = $data_evaluation->parts[$i]->question->count(); //นับจำนวนคำถามต่อตอน
+						  //sd($count_question);
 						  $count_answerdeatils = $data_evaluation->parts[$i]->answerformat->answerdetails->count(); //นับจำนวนรูปแบบคำตอบต่อตอน
 						  //sd($count_answerdeatils);
 
@@ -99,20 +104,23 @@
 					<div class="box-header with-border">
 						<div class="col-md-8">
 							<h4>ส่วนที่ <?php echo $part_no; ?> <?php echo $data_evaluation->parts[$i]->part_name;?></h4>
+							<input type="hidden" name="id_part-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->id_part;?>">
 						</div>
 						<div class="col-md-4 hidden-xs">
 							<h4>คะแนนประเมิน / Score</h4>
 						</div>
 						<?php if($data_evaluation->parts[$i]->id_answer_format == '1'){?> <!-- กรณีเป็นรุปแบบที่1 -->
 							<table class="table table-bordered table-condensed" id="type_one">
-								<tr>
 
+								<tr>
 									<th>ข้อที่
 										<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
+										<input type="hidden" name="count-question-<?php echo $i;?>" value="<?php echo $count_question;?>">
 										<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
 									</th>
 									<th>ความเข้าใจ ,ความสามารถ <?php echo $data_evaluation->parts[$i]->percent;?>%</th>
 									<?php echo $count_answerdeatils;?>
+									<input type="hidden" name="percent-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->percent;?>">
 									<th>1</th>
 									<th>2</th>
 									<th>3</th>
@@ -122,15 +130,20 @@
 								</tr>
 								<?php for($j=0; $j < $count_question; $j++){ // j = question
 									  $question_no = $j+1;
+
 								?>
-								<tr>
+
+								<input type="hidden" name="id_question-<?php echo $i;?>-<?php echo $j;?>" value="<?php echo $data_evaluation->parts[$i]->question[$j]->id_question;?>">
+								<tr class="g-question">
 									<td><?php echo $question_no; ?></td>
 									<td class="name_title"><?php echo $data_evaluation->parts[$i]->question[$j]->question_name;?></td>
 									<?php for($k=0; $k < $count_answerdeatils; $k++){ //k = answer_details
 									?>
-									<td><label><input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>" id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>"></label></td>
+									<td><label><input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>"  id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>"></label></td>
 									<?php }?>
 									<td id="total-question-<?php echo $i;?>-<?php echo $j;?>">0</td>
+									<input type="hidden" name="total-question-<?php echo $i;?>-<?php echo $j;?>" value="" class="required">
+
 								</tr>
 								<?php } ?>
 							</table>
@@ -152,7 +165,7 @@
 										<td class="name_title"><?php echo $data_evaluation->parts[$i]->question[$j]->question_name;?></td>
 										<?php for($k=0; $k < $count_answerdeatils; $k++){
 										?>
-										<td><label><input type="radio" name="format_answer<?php echo $j;?>" id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>"></label></td>
+										<td><label><input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>" id="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->parts[$i]->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>"></label></td>
 										<?php }?>
 										<td class="total">0</td>
 									</tr>
@@ -160,11 +173,13 @@
 								</table>
 						<?php }?>
 						<label class="pull-right">คะแนนรวม : <label id="total-part-<?php echo $i;?>">0</label></label>
+						<input type="hidden" name="total-part-<?php echo $i;?>" value="" class="">
 					</div>
 					<?php } ?>
 
 					<div class="box-header">
 						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : <label id="total-evluation">0</label> </label>
+						<input type="hidden" name="total-evluation" value="" class="">
 					</div>
 				</div>
 
@@ -173,10 +188,10 @@
 					</button>
 				</div>
 				<div class="btn-group pull-right btn_success_evaluation">
-					<a href="">
+
 						<button type="button" class='btn btn-success success_evaluation'> บันทึกผล
 						</button>
-					</a>
+
 				</div>
 		</div><br><br>
 		<div class="row hidden-xs hidden-sm">
@@ -187,6 +202,7 @@
 			</div>
 		</div>
 	</div>
+</form>
 </section>
 <!-- jQuery 3 -->
 <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
@@ -204,3 +220,5 @@
 
 </body>
 </html>
+<div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
+<?php echo csrf_field()?>

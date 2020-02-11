@@ -88,6 +88,7 @@ Route::post('/evaluation/post_add', 'Evaluation\EvaluationController@postAddEval
 Route::get('/evaluation/view_create_evaluation/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation')->name('evaluation.view_create_evaluations.get'); // view-create-evaluation
 Route::get('/evaluation/edit_evaluation/{id}', 'Evaluation\EvaluationController@editEvaluation')->name('evaluation.edit_evaluations.get'); // edit-evaluation //page
 Route::post('/evaluation/post_edit', 'Evaluation\EvaluationController@postEditEvaluations')->name('evaluation.post_edit.post'); // edit to database
+Route::post('/evaluation/post_record_evaluation', 'Evaluation\EvaluationController@postRecordEvaluation')->name('evaluation.post_record_evaluation.post'); // evaluation // บันทึกแบบประเมิน
 Route::get('/evaluation', 'Evaluation\EvaluationController@index')->name('evaluation.index.get');
 /************************************************End Evaluation*******************************************************************/
 
