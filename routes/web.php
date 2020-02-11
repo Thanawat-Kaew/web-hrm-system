@@ -93,6 +93,7 @@ Route::post('/evaluation/post_record_evaluation', 'Evaluation\EvaluationControll
 Route::get('/evaluation', 'Evaluation\EvaluationController@index')->name('evaluation.index.get');
 
 Route::post('/evaluation/delete/{id}','Evaluation\EvaluationController@postDeleteCreateEvaluation')->name('evaluation.index.post');
+Route::get('/evaluation/request_created_evaluation', 'Evaluation\EvaluationController@viewCreateEvaluationRequest')->name('evaluation.create_evaluation_reauest.get');
 /************************************************End Evaluation*******************************************************************/
 
 /******************************************************Report*********************************************************************/

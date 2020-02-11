@@ -26,6 +26,11 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.index', compact('evaluations'));
     }
 
+    public function viewCreateEvaluationRequest()
+    {
+        return $this->useTemplate('evaluation.create_evaluations_request');
+    }
+
     public function create_evaluations()
     {
         $id_new_evaluation  = \Session::has('id_evaluation') ? \Session::get('id_evaluation') : '';
