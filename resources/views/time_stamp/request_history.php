@@ -23,7 +23,7 @@
 
 				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
-					<table class="table table-hover">
+					<table class="table table-hover" id="myTable">
 						<tr>
 							<th>วันที่</th>
 							<th>ประเภท</th>

@@ -26,6 +26,11 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.index', compact('evaluations'));
     }
 
+    public function viewCreateEvaluationRequest()
+    {
+        return $this->useTemplate('evaluation.create_evaluations_request');
+    }
+
     public function create_evaluations()
     {
         $id_new_evaluation  = \Session::has('id_evaluation') ? \Session::get('id_evaluation') : '';
@@ -509,6 +514,19 @@ class EvaluationController extends Controller
                 # code...
                 break;
         }
+    }
 
+    public function postDeleteCreateEvaluation($id)
+    {
+        $id_topic    = CreateEvaluation::with('parts', 'parts.question')->where('id_topic', $id)->first();
+
+        if(!empty($id_topic)){
+
+            $id_topic->delete();
+
+            return['status'     => 'success', 'message' => 'Delete complete.'];
+        } else {
+            return['status'     => 'failed','message'   =>'Not found.'];
+        }
     }
 }

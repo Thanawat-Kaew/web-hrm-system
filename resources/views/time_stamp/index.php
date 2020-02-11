@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row add-leave-time-clock">
-				<div class="btn-group dropup-new-record pull-right ">
+				<div class="btn-group pull-right dropup-new-record">
 					<button href="" type="button" class='btn btn-danger dropdown-toggle add-new-record' data-toggle="dropdown"><i class="fa fa-plus"></i> New Record
 					</button>
 				</div>
@@ -18,7 +18,7 @@
 					</button>
 				</div>
 				<div class="btn-group pull-right ">
-					<a href="<?php echo route('time_stamp.request_history.get')?>">
+					<a class="histry_time_stamp" href="<?php echo route('time_stamp.request_history.get')?>">
 						<button type="button" class="btn btn-warning dropdown-toggle"><i class="fa fa-history"></i> History
 						</button>
 					</a>
@@ -27,16 +27,6 @@
 			<div class="box box-info">
 				<div class="box-header">
 					<h3 class="box-title">ประวัติการลงเวลา</h3>
-
-					<!-- <div class="box-tools">
-						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-							</div>
-						</div>
-					</div> -->
 				</div>
 
 				<!-- /.box-header -->
@@ -71,7 +61,7 @@
 							</tr>
 						<?php endforeach ?>
 					</table> -->
-					<table id="example" class="table table-striped table-bordered" style="width:100%">
+					<table id="example" class="table table-striped table-bordered table-hover" style="width:100%">
 				        <thead>
 				            <tr>
 				                <th>Name</th>

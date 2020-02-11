@@ -12,10 +12,6 @@
 					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
 					</button>
 				</div>
-				<!-- <div class="btn-group pull-right assess-evaluation">
-					<button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน
-					</button>
-				</div> -->
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
@@ -23,7 +19,7 @@
 
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
 
 							<div class="input-group-btn">
 								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -32,7 +28,7 @@
 					</div>
 				</div>
 				<div class="box-body table-responsive no-padding">
-					<table class="table table-hover">
+					<table class="table table-hover" id="myTable">
 						<tr>
 							<th>รหัสแบบประเมิน</th>
 							<th>ประจำปี</th>
@@ -59,7 +55,7 @@
 									<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
 									<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
 									<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
-									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" style="color: red;" data-id="<?php echo $evaluation->id_topic; ?>"></i></a>
+									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
 
 									</td>
 								</tr>
@@ -78,3 +74,5 @@
 <div id="add-evaluation-url" data-url="<?php echo route('evaluation.create_evaluations.get')?>"></div>
 <div id="view-create-evaluation-url" data-url="<?php //echo route('evaluation.view_create_evaluations.get')?>"></div>
 <?php echo csrf_field() ?>
+
+ <!-- data-href="<?php echo $evaluation->id_topic; ?>" -->

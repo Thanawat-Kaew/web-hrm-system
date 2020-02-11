@@ -1,5 +1,30 @@
-.time-clock{
-	margin-right: 10px;
+.add-new-record {
+	margin-right: 15px !important;
+}
+
+.form-control-sm {
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+.reason_request {
+	border-radius: 5px;
+}
+
+.dataTables_length,.dataTables_info {
+	margin-left: 10px;
+}
+
+.pagination {
+	margin-right: 10px !important;
+}
+
+.time_stamp {
+	margin-right: 1px;
+}
+
+.histry_time_stamp {
+	margin-right: 1px;
 }
 
 .history_record{

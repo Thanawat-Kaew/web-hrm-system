@@ -43,10 +43,11 @@
   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
   <link rel="stylesheet" href="/resources/assets/css/full_picker/picker.css">
   <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
-  <!-- <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css"> -->
+  <link rel="stylesheet" href="/resources/assets/css/time_stamp/index.css">
   <link rel="stylesheet" href="/resources/assets/css/data_management/index.css">
   <link rel="stylesheet" href="/resources/assets/css/time_stamp/request_history.css">
   <link rel="stylesheet" href="/resources/assets/css/leave/leave_history.css">
+  <link rel="stylesheet" href="/resources/assets/css/report/report_leave.css">
 
   <?php if (file_exists(base_path().'/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css')): ?>
   <link rel="stylesheet" href="<?php echo '/resources/assets/css/'.helperGetModule().'/'.helperGetAction().'.css?='.time() ?>">

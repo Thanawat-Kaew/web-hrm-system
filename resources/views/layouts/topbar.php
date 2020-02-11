@@ -43,6 +43,11 @@
                       <i class="fa fa-calendar-o text-aqua"></i> รายการคำร้องขอลา
                     </a>
                   </li>
+                  <li class="view-request-create-evaluation">
+                    <a href="<?php echo route('evaluation.create_evaluation_reauest.get')?>">
+                      <i class="fa fa-clipboard text-aqua"></i>รายการขออนุมัติสร้างแบบประเมิน
+                    </a>
+                  </li>
                 </ul>
               </li>
             </ul>

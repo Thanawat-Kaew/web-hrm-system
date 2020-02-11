@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	$('.view-request-timestamp').click(function(){
 		var	id = $(this).data('id');
 		$.ajax({

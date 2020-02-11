@@ -10,14 +10,14 @@
 					<div class="content ">
 						<div class="box-body">
 							<div class="input-group col-md-3 pull-right">
-								<input type="text" name="q" class="form-control" placeholder="Search...">
-								<span class="input-group-btn">
+								<input type="text" id="myInput" name="q" class="form-control search" placeholder="ค้นหาชื่อ..." style="border-radius: 5px;">
+								<!-- <span class="input-group-btn">
 									<button type="submit" name="search" id="search-btn" class="btn btn-flat">
 										<i class="fa fa-search"></i>
 									</button>
-								</span>
+								</span> -->
 							</div><br><br>
-							<table class="table table-bordered table-hover">
+							<table class="table table-bordered table-hover" id="myTable">
 								<tbody>
 									<tr>
 										<th style="width: 10px">รหัสพนักงาน</th>

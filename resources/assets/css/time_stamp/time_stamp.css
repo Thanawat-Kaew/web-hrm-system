@@ -43,3 +43,7 @@ table{
 tr>th{
 	color: red;
 }
+
+.type-time {
+	border-radius: 5px;
+}

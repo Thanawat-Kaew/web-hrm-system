@@ -10,6 +10,6 @@ class DetailDayOffYear extends Model
 
     public function day_off_year()
     {
-    	return $this->hasMany("App\Services\Leaves\DayOffYears",'id','id_day_off_year');
+    	return $this->belongsTo("App\Services\Leaves\DayOffYears",'id_day_off_year','id');
     }
 }
