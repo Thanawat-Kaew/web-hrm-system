@@ -14,6 +14,8 @@ use App\Services\Evaluation\Question;
 use App\Services\Evaluation\AnswerFormat;
 use App\Services\Employee\EmployeeObject;
 use App\Services\Evaluation\AnswerDetails;
+use App\Services\Evaluation\Evaluation;
+use App\Services\Evaluation\ResultEvaluation;
 
 class EvaluationController extends Controller
 {
@@ -111,7 +113,7 @@ class EvaluationController extends Controller
         //sd($data_assessor_person->toArray());
         $data_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat', 'parts.answerformat.answerdetails')->where('id_topic', $id_evaluation)->first();
         //sd($data_evaluation->toArray());
-        //sd($data_evaluation->parts[0]->question->count());
+        //sd($data_evaluation->parts[1]->question->count());
         //sd($data_evaluation->parts->count());
         //$value_desc                  = AnswerDetails::with()->orderBy('value', 'DESC')->get();
         return view('evaluation.assessment', compact('data_assessor_person', 'data_evaluation'));
@@ -119,12 +121,18 @@ class EvaluationController extends Controller
 
     public function human_assessment(Request $request, $id)
     {
-        $id_assessor                = $id;
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        $id_assessor                = $id; // รหัสหัวเรื่อง
         $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_assessor)->first();
         //sd($id_topic->toArray());
         //sd($id_topic->employee->id_department);
-        $list_name   = Employee::where('id_department', $id_topic->employee->id_department)->where('id_position', '1')->get();
+        $list_name   = Employee::with('evaluation')->where('id_department', $id_topic->employee->id_department)->where('id_position', '1')->get();
         //sd($list_name->toArray());
+        //$check_evaluation = Employee::with('evaluation')->where('id_employee', $list_name['id_employee'])->get();
+        //$check_evaluation = Evaluation::with('result_evaluation')->where('id_assessor', '86')->get();
+        //sd($check_evaluation->toArray());
 
         return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic'));
     }
@@ -371,6 +379,44 @@ class EvaluationController extends Controller
                 }
             }
         }
+    }
+
+    public function postRecordEvaluation(Request $request)
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        //sd($current_employee->id_employee);
+        $data                               = $request->all();
+        //sd($data);
+        $evaluation                         = new Evaluation;
+        $evaluation->id_assessor            = $data['id_assessor_person'];
+        $evaluation->id_assessment_person   = $current_employee->id_employee;
+        $evaluation->result_evaluation      = $data['total-evluation'];
+        $evaluation->date                   = date("Y-m-d");
+        $evaluation->save();
+
+        $find_id_evaluation                 = Evaluation::where('id_assessor', $data['id_assessor_person'])->where('id_assessment_person', $current_employee->id_employee)->where('result_evaluation', $data['total-evluation'])->where('date', date("Y-m-d"))->first();
+        //sd($find_id_evaluation['id_evaluation']);
+
+        for($i=0; $i<$data['total-part']; $i++){
+            for($j=0; $j<$data['count-question-'.$i]; $j++){
+                $result_evaluation                  = new ResultEvaluation;
+                $result_evaluation->id_evaluation   = $find_id_evaluation['id_evaluation'];
+                $result_evaluation->id_part         = $data['id_part-'.$i];
+                $result_evaluation->id_question     = $data['id_question-'.$i.'-'.$j];
+                $result_evaluation->answer          = $data['total-question-'.$i.'-'.$j];
+                $result_evaluation->percent_of_part = $data['percent-'.$i];
+                $result_evaluation->status          = 1;
+                $result_evaluation->save();
+            }
+
+        }
+
+        //$result_evaluation->
+
+        //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+
     }
 
     public function ajaxCenter(Request $request)

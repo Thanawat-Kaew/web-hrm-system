@@ -33,10 +33,14 @@ $(document).ready(function() {
 		var checkd_name = $(this).attr('name');
 		// var group_data = $(this).data('group');
 		var part 			= $(this).data('part');
+		//console.log(part);
 		var question 		= $(this).data('question');
 		var total_question 	= $(this).closest('table').find('input[name=total-question]').val();
+		//console.log(total_question);
 		var total_part 		= $(this).closest('table').find('input[name=total-part]').val();
-		$("#total-question-"+part+"-"+question).html($(this).val());
+		$("#total-question-"+part+"-"+question).html($(this).val()); // คะแนนของแต่ละคำถาม
+		$("input[name=total-question-"+part+"-"+question+"]").val($(this).val());
+		//console.log($("#total-question-"+part+"-"+question).html($(this).val()));
 
 		if (part != _part) {
 			_part  = part;
@@ -57,24 +61,63 @@ $(document).ready(function() {
 			}
 		}
 		$("#total-part-"+part).html(_total_part);
+		$("input[name=total-part-"+part+"]").val(_total_part);
 		var sum_total = 0;
 		for (var j = 0; j < total_part; j++) {
 			sum_total = sum_total+parseInt($("#total-part-"+j).html());
 		}
 		$("#total-evluation").html(sum_total);
+		$("input[name=total-evluation]").val(sum_total);
 
 	});
 
-
-
-		//$('#part-total-'+parts).text($(this).val());
-	/*$('input[data-part="'+parts+'"]:radio').on('ifChanged', function(event){
-		alert("55");
-		$('input:radio:checkbox').each(function(){
-			theTotal += parseInt($(this).val());
-		});
-		$('#part-total-'+parts).text(theTotal);
-	});*/
-
-	//$('.total').text($(this).val());
+	$('.success_evaluation').click(function(){
+		checkData();
+	});
 });
+
+function checkData(){
+	//msg_waiting();
+	var count    = 0;
+	var oldValue = {}; // object
+
+
+	jQuery.each($('.required'),function(){
+		var name = $(this).attr('name');
+		//console.log("name="+name);
+		name = name.replace('[', "");
+		name = name.replace(']', "");
+		oldValue[name]= $(this).val();
+		//console.log(total_question);
+		//console.log(oldValue[name]);
+		if ($(this).val() == "") {
+			count++
+			$(this).css({"border" : "1px solid red"});
+			//console.log("empty");
+		}else{
+			$(this).css({"border" : "1px solid lightgray"});
+			//console.log("not empty");
+		}
+	})
+
+	if(count > 0) {
+		if(oldValue !== ""){
+			$.each(oldValue, function(key, value) {
+				//console.log('#'+key+'-text-error');
+				//console.log(key);
+				//console.log(value);
+				/*$('#'+key).val(value);
+				if(value == "") {
+					$('#'+key + "-text-error").html("* Required").show();
+					console.log(key);
+				} else {
+					$('#'+key + "-text-error").html("").hide();
+				}*/
+			});
+			alert("กรุณาใส่คะแนนให้ครบทุกช่อง");
+		}
+	}else{
+		alert("success");
+		document.getElementById("save-evaluation").submit();
+	}
+}
