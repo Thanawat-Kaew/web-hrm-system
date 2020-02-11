@@ -100,6 +100,8 @@ function checkData(){
 		}
 	})
 
+
+
 	if(count > 0) {
 		if(oldValue !== ""){
 			$.each(oldValue, function(key, value) {

@@ -16,7 +16,7 @@
 						<label>ชื่อแบบการประเมิน </label>
 						<input type="hidden" name="id_topic" value="<?php echo $id_new_evaluation ?>">
 						<input type="text" name="name-evaluation-<?php echo $id_new_evaluation; ?>" class="form-control required" placeholder="ชื่อแบบการประเมิน...">
-						<label class="text-error name-evaluation<?php echo $id_new_evaluation; ?>-text-error" id="name-evaluation<?php echo $id_new_evaluation; ?>-text-error"></label>
+						<label class="text-error name-evaluation<?php echo $id_new_evaluation;?>-text-error" id="name-evaluation-<?php echo $id_new_evaluation; ?>-text-error"></label>
 						<br>
 					</div>
 				</div>
@@ -69,8 +69,8 @@
                             <label class="text-error type_answer-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error" id="type_answer-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error"></label>
                             <br>
                             <label>เปอร์เซนต์คะแนน (%)</label>
-                            <input type="number" name="percent-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>" class="form-control required" placeholder="30">
-                            <label class="text-error percent-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error" id="percent-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error"></label>
+                            <input type="number" name="percent-<?php echo $id_new_evaluation.'-'.$value->chapter;?>" class="form-control required percent" placeholder="30" value="">
+                            <label class="text-error percent-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error" id="percent-<?php echo $id_new_evaluation.'-'.$value->chapter;?>-text-error"></label>
                     </div>
                 </div>
             </div>

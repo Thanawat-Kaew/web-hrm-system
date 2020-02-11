@@ -116,6 +116,7 @@ function sendData(){
 	msg_waiting();
 	var count    = 0;
 	var oldValue = {};
+	var c_p      = 0;
 	jQuery.each($('.required'),function(){
 		var name = $(this).attr('name');
 		name = name.replace('[', "");
@@ -128,7 +129,9 @@ function sendData(){
 		}else{
 			$(this).css({"border" : "1px solid lightgray"});
 		}
+		var c_p = $(this).closest('.panel-body').find('.percent').val();
 	})
+	console.log(c_p);
 
 	if(count > 0) {
 		if(oldValue !== ""){
