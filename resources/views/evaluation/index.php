@@ -12,6 +12,13 @@
 					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
 					</button>
 				</div>
+				<div class="btn-group pull-right history_create_evaluations">
+					<div class="btn-group pull-right">
+						<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">
+							<button class="btn btn-info dropdown-toggle" type="button"><i class="fa fa-history"></i> ประวัติการสร้าง</button>
+						</a>
+					</div>
+				</div>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
@@ -42,30 +49,30 @@
 						</tr>
 						<?php if(!empty($evaluations)):?>
 							<?php foreach($evaluations as $evaluation): //sd($evaluation->toArray());
-								$year = explode('-', $evaluation->years);
+							$year = explode('-', $evaluation->years);
 								//sd($year[0]);
 							?>
-								<tr class="row-create-evaluation">
-									<td><?php echo sprintf("%06d", $evaluation->id_topic); ?></td>
-									<td><?php echo $year[0]?></td>
-									<td><?php echo $evaluation->topic_name?></td>
-									<td><?php echo $evaluation->years?></td>
-									<td><span class="label label-success">Approved</span></td>
+							<tr class="row-create-evaluation">
+								<td><?php echo sprintf("%06d", $evaluation->id_topic); ?></td>
+								<td><?php echo $year[0]?></td>
+								<td><?php echo $evaluation->topic_name?></td>
+								<td><?php echo $evaluation->years?></td>
+								<td><span class="label label-success">Approved</span></td>
 
-									<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
-									<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
-									<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
-									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
+								<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
+								<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
+								<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
+								<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
 
-									</td>
-								</tr>
-							<?php endforeach?>
-						<?php endif?>
-					</table>
-				</div>
+								</td>
+							</tr>
+						<?php endforeach?>
+					<?php endif?>
+				</table>
 			</div>
 		</div>
 	</div>
+</div>
 </section>
 
 

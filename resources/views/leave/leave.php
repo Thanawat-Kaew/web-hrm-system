@@ -53,7 +53,7 @@
 										<?php $current_employee = \Session::get('current_employee') ?>
 										<?php $count = $count +1;?>
 										<td><?php echo $count?></td>
-										<td><?php echo $value['start_leave']?> ถึง <?php echo $value['end_leave']?></td>
+										<td style="width: 30%;"><?php echo $value['start_leave']?> ถึง <?php echo $value['end_leave']?></td>
 										<td><?php echo $value->leaves_type['leaves_name']?></td>
 										<td><?php echo $value['total_leave']*0.125*8?></td>
 										<td><?php echo $value['reason']?>.</td>
@@ -67,7 +67,7 @@
 			<div class="col-md-4">
 				<div class="box box-default">
 					<div class="box-header with-border">
-						<h3 class="box-title">วันลาคงเหลือ</h3>
+						<h3 class="box-title">Summary Leaves</h3>
 						<div class="box-tools pull-right">
 							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
 							</button>
@@ -84,11 +84,9 @@
 							<?php foreach($leaves_type as $value ):?>
 								<tr>
 									<td style="text-align: left; font-size: 13px;"><?php echo $value->leaves_name?></td>
-									<td style="font-size: 13px; color: red;"><?php echo $value->max_day?></td>
-									<?php foreach($leaves_info as $value2):?>
-										<td value="000" style="color: red; font-size: 13px;"></td>
-									<?php endforeach ?>
-									<td style="color: red; font-size: 13px;">5</td>
+									<td style="font-size: 13px; color: red; width: 10%;"><?php echo $value->max_day?></td>
+									<td></td>
+									<td style="color: red; font-size: 13px; width: 18%;">5</td>
 								</tr>
 							<?php endforeach ?>
 						</tbody>

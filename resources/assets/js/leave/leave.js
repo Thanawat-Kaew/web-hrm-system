@@ -19,11 +19,6 @@ $(document).ready(function(){
     $('#myInput').keyup(function(){
         search_data_tbl();
     })
-
-     $(function () {
-    $('#myTable').DataTable()
-  })
-    $('#example2').DataTable()
 })
 
 
