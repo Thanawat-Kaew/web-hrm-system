@@ -36,8 +36,33 @@
 								<th>สถานะ</th>
 							</tr>
 						</thead>
-									
+
 						<tbody>
+							<?php $no = 0;?>
+							<?php foreach($evaluations as $value):?>
+							<?php $no++;?>
+							<?php $year = explode('-', $value->years);?>
+							<tr>
+								<td><?php echo $no;?></td>
+								<td><?php echo $value->employee->first_name;?> <?php echo $value->employee->last_name;?></td>
+								<td><?php echo sprintf("%06d", $value->id_topic);?></td>
+								<td><?php echo $year[0]?></td>
+								<td><?php echo $value->topic_name;?></td>
+								<td><?php echo $value->years?></td>
+								<td><i class="fa fa-eye fa-lg btn"></i></td>
+								<td style="width: 20px">
+									<?php if($value->status == 2):?>
+										<button style="width: auto;" class="btn btn-primary form-control btn-confrim" data-id="<?php echo $value->id_topic;?>">อนุมัติ
+										</button>
+										<button style="width: auto;" class="btn btn-danger form-control btn-cancel" data-id="<?php echo $value->id_topic;?>">ไม่อนุมัติ
+										</button>
+									<?php endif ?>
+								</td>
+								<td><span class="label <?php echo ($value['status'] == 1 ? 'label-success' : ($value['status'] == 3 ? 'label-danger' : 'label-warning')); ?>"><?php echo ($value['status'] == 1 ? 'อนุมัติ' : ($value['status'] == 3 ? 'ไม่อนุมัติ' : 'กำลังรอ')); ?>
+									</span>
+								</td>
+							</tr>
+							<?php endforeach ?>
 							<tr>
 								<td>1</td>
 								<td>ประชา สันติ</td>
@@ -54,6 +79,7 @@
 								</td>
 								<td><span class="label label-warning">กำลังรอ</span></td>
 							</tr>
+
 							<tr>
 								<td>2</td>
 								<td>ประชา สันติ</td>
@@ -93,3 +119,6 @@
 		</div>
 	</div>
 </section>
+<div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
+<div id="confirm-create-evaluation" data-url="<?php echo route('evaluation.confirm-create-evaluation.post')?>"></div>
+<?php echo csrf_field()?>

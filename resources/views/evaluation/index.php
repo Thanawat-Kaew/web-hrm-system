@@ -7,6 +7,7 @@
 <section class="content">
 	<div class="row">
 		<div class="col-xs-12">
+			<?php if($current_employee->id_department == "hr0001"){?>
 			<div class="row">
 				<div class="btn-group pull-right new-evaluation">
 					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
@@ -20,10 +21,10 @@
 					</div>
 				</div>
 			</div>
+			<?php } ?>
 			<div class="box box-info">
 				<div class="box-header">
 					<h4 class="box-title">ประวัติการสร้างแบบประเมิน</h4>
-
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
 							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
@@ -41,11 +42,14 @@
 							<th>ประจำปี</th>
 							<th>ชื่อแบบประเมิน</th>
 							<th>วันที่สร้าง</th>
-							<th>สถานะ</th>
+						<?php if($current_employee->id_position == 2):?>
 							<th></th>
+						<?php endif ?>
 							<th>ดู</th>
+						<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
 							<th>แก้ไข</th>
 							<th>ลบ</th>
+						<?php endif ?>
 						</tr>
 						<?php if(!empty($evaluations)):?>
 							<?php foreach($evaluations as $evaluation): //sd($evaluation->toArray());
@@ -57,14 +61,18 @@
 								<td><?php echo $year[0]?></td>
 								<td><?php echo $evaluation->topic_name?></td>
 								<td><?php echo $evaluation->years?></td>
-								<td><span class="label label-success">Approved</span></td>
 
+								<?php if($current_employee->id_position == 2):?>
 								<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
-								<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
-								<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
-								<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
+								<?php endif ?>
 
+								<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
+								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
+								<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
+
+								<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
 								</td>
+								<?php endif ?>
 							</tr>
 						<?php endforeach?>
 					<?php endif?>

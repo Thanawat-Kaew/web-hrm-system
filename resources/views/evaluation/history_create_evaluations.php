@@ -34,7 +34,33 @@
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>	
+						<tbody>
+							<?php $no = 0;?>
+							<?php foreach($create_evaluation as $value):?>
+							<?php $no++; ?>
+							<?php $year = explode('-', $value->years);?>
+							<tr>
+								<td><?php echo $no;?></td>
+								<td><?php echo sprintf("%06d", $value->id_topic);?></td>
+								<td><?php echo $year[0]?></td>
+								<td><?php echo $value->topic_name;?></td>
+								<td><?php echo $value->years?></td>
+								<td><span class="label <?php echo ($value['status'] == 1 ? 'label-primary' : ($value['status'] == 3 ? 'label-danger' : 'label-warning')); ?>"><?php echo ($value['status'] == 1 ? 'อนุมัติ' : ($value['status'] == 3 ? 'ไม่อนุมัติ' : 'กำลังรอ')); ?>
+									</span>
+								</td>
+								<td style="text-align: end;">
+									<a href="<?php echo route('evaluation.edit_evaluations.get', $value->id_topic)?>">
+										<i class="btn fa fa-lg <?php echo ($value['status'] == 2 ? 'fa-pencil' : 'hide'); ?> edit-create-evaluation" data-id="<?php echo $value['id_topic'] ?>"></i>
+									</a>
+									<a><i class="btn fa fa-lg fa-trash delete-id_topic" style="color: red;" data-href="<?php echo route('evaluation.index.post', $value['id_topic']);?>"></i>
+									</a>
+
+									<a href="<?php echo route('evaluation.view_create_evaluations.get', $value->id_topic)?>"><i class="btn fa fa-lg fa-eye view-create-evaluation" data-id="<?php echo $value['id_topic'] ?>"></i>
+									</a>
+
+								</td>
+							</tr>
+							<?php endforeach ?>
 							<tr>
 								<td>1</td>
 								<td>000020</td>
@@ -81,3 +107,6 @@
 		</div>
 	</div>
 </section>
+<div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
+<div id="edit-request-leave" data-url="<?php echo route('request_history.edit_request_leave.post')?>"></div>
+<?php echo csrf_field()?>

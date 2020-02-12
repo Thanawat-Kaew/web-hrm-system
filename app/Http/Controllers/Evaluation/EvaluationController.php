@@ -21,19 +21,34 @@ class EvaluationController extends Controller
 {
 	public function index()
     {
-        $evaluations = CreateEvaluation::all();
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        //$evaluations = CreateEvaluation::all();
+        $evaluations = CreateEvaluation::where('status', 1)->get();
 
-        return $this->useTemplate('evaluation.index', compact('evaluations'));
+        return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee'));
     }
 
     public function viewCreateEvaluationRequest()
     {
-        return $this->useTemplate('evaluation.create_evaluations_request');
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        $evaluations = CreateEvaluation::with('employee')->get();
+        //sd($evaluations[0]->employee->first_name);
+        //sd($evaluations->toArray());
+        return $this->useTemplate('evaluation.create_evaluations_request', compact('evaluations'));
     }
 
     public function viewHistoryCreateEvaluation()
     {
-        return $this->useTemplate('evaluation.history_create_evaluations');
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->get();
+        //sd($create_evaluation->toArray());
+        return $this->useTemplate('evaluation.history_create_evaluations', compact('current_employee','create_evaluation'));
     }
 
     public function create_evaluations()
@@ -63,6 +78,9 @@ class EvaluationController extends Controller
 
     public function postAddEvaluations(Request $request)
     {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
         $data                          = $request->all();
         //sd($data);
         //sd($data['name-question-'.$data['id_evaluation'].'-'.'1'.'-'.'3'][0]);
@@ -71,6 +89,11 @@ class EvaluationController extends Controller
         $create_evaluation             = CreateEvaluation::where('id_topic', $data['id_topic'])->first();
         $create_evaluation->topic_name = $data['name-evaluation-'.$data['id_topic'].''];
         $create_evaluation->years      = date("Y-m-d");
+        if($current_employee->id_position == 1){ // ถ้าเป็นหัวหน้า Hr ให้เป็น 1 แต่ถ้าไม่ก็เป็น 2
+            $create_evaluation->status     = 2;
+        }else{
+            $create_evaluation->status     = 1;
+        }
         $create_evaluation->save();
 
         if(isset($data['chapter'])){ // ตรวจสอบว่ามีตอนไหม
@@ -134,15 +157,27 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
+        //sd($current_employee->id_department);
         $id_assessor                = $id; // รหัสหัวเรื่อง
         $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_assessor)->first();
         //sd($id_topic->toArray());
         //sd($id_topic->employee->id_department);
-        $list_name   = Employee::with('evaluation')->where('id_department', $id_topic->employee->id_department)->where('id_position', '1')->get();
+        $list_name   = Employee::with('evaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
         //sd($list_name->toArray());
-        //$check_evaluation = Employee::with('evaluation')->where('id_employee', $list_name['id_employee'])->get();
-        //$check_evaluation = Evaluation::with('result_evaluation')->where('id_assessor', '86')->get();
+        //$count_list_name = $list_name->count();
+        //$check_evaluation = [];
+        //print_r($check_evaluation);
+        //exit();
+        /*for($i=0; $i<$count_list_name; $i++){
+            $check_evaluation[] = Evaluation::with('result_evaluation')->where('id_employee', $list_name[$i]->id_employee)->get();
+        }*/
         //sd($check_evaluation->toArray());
+        //$check_evaluation = Evaluation::with('result_evaluation')->where('id_assessor', '86')->get();
+        //print_r($check_evaluation['id_employee']);
+        //var_dump($check_evaluation['id_employee']);
+        //echo "<br>";
+        //exit();
+        //sd($check_evaluation);
 
         return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic'));
     }
@@ -426,7 +461,18 @@ class EvaluationController extends Controller
         //$result_evaluation->
 
         //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+    }
 
+    public function confirmCreateEvaluation(Request $request)
+    {
+        if(\Session::has('current_employee')){
+            $current_employee   = \Session::get('current_employee');
+        }
+        $id                     = $request->get('id');
+        $confirm                = CreateEvaluation::find($id);
+        $confirm->status        = 1;
+        $confirm->id_approve    = $current_employee->id_employee;
+        $confirm->save();
     }
 
     public function ajaxCenter(Request $request)

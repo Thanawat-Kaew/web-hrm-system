@@ -44,7 +44,7 @@
                     </a>
                   </li>
                   <li class="view-request-create-evaluation">
-                    <a href="<?php echo route('evaluation.create_evaluation_reauest.get')?>">
+                    <a href="<?php echo route('evaluation.create_evaluations_request.get')?>">
                       <i class="fa fa-clipboard text-aqua"></i>รายการขออนุมัติสร้างแบบประเมิน
                     </a>
                   </li>
