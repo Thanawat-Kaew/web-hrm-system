@@ -21,7 +21,6 @@
 					</div>
 				</div>
 
-				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
 					<table id="myTable" class="table table-striped table-bordered" style="width:100%">
 						<thead>
@@ -63,24 +62,9 @@
 							</tbody>
 						<?php endif ?>
 					<?php endforeach?>
-					<!-- <tfoot>
-						<tr>
-							<th>#</th>
-							<th>วันที่ดำเนินการ</th>
-							<th>ประเภทการลา</th>
-							<th>เวลา</th>
-							<th>เหตุผล</th>
-							<th>สถานะ</th>
-							<th></th>
-						</tr>
-					</tfoot> -->
-
 				</table>
 			</div>
-			<!-- /.box-body -->
 		</div>
-		<!-- /.box -->
-		
 	</div>
 </div>
 </section>

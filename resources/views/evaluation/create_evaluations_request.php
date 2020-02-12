@@ -12,7 +12,7 @@
 					รายการขออนุมัติ
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
+							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อแบบประเมิน" style="width: auto;">
 
 							<div class="input-group-btn">
 								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -22,7 +22,7 @@
 				</div>
 
 				<div class="box-body table-responsive no-padding">
-					<table id="mydatatables" class="table table-hover table-striped table-bordered">
+					<table id="myTable" class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -46,8 +46,8 @@
 								<td><?php echo $no;?></td>
 								<td><?php echo $value->employee->first_name;?> <?php echo $value->employee->last_name;?></td>
 								<td><?php echo sprintf("%06d", $value->id_topic);?></td>
-								<td><?php echo $year[0]?></td>
 								<td><?php echo $value->topic_name;?></td>
+								<td><?php echo $year[0]?></td>
 								<td><?php echo $value->years?></td>
 								<td><i class="fa fa-eye fa-lg btn"></i></td>
 								<td style="width: 20px">

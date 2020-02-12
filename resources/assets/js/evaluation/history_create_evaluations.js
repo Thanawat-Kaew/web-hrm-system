@@ -3,26 +3,6 @@ $(document).ready(function() {
         search_data_tbl();
     })
 
-    $('.delete-id_topic').click(function(){
-        var url = $(this).data('href');
-        Swal.fire(
-        {
-            title: 'คุณแน่ใจหรือไม่?',
-            text: "ที่จะลบรายการนี้ !",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'ไม่ลบ',
-            confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-        }).then((result) =>
-        {
-            if (result.value){
-                postDelete(url);
-            }
-        })
-    })
-
     $(".content").on('click',".btn-remove-topic", function(){ // ลบการประเมิน
         var id = $(this).data('id');
         //console.log(id);
@@ -60,9 +40,60 @@ $(document).ready(function() {
             }
         })
     });
+
+    $('.delete-id_topic').click(function(){
+    var url=$(this).data('href');
+    Swal.fire(
+    {
+        title: 'คุณแน่ใจหรือไม่?',
+        text: "ที่จะลบรายการนี้ !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'ไม่ลบ',
+        confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
+    }).then((result) => 
+        {
+            if (result.value) 
+
+            {
+                postDelete(url); 
+            }
+        })
+    })
 })
 
+function postDelete(url)
+{
+    $.ajax({
+        headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+        type: "POST",
+        url: url,
+        success: function(result){
+            if(result.status == "success"){
+                Swal.fire(
+                {
+                    title: 'คุณลบรายการนี้เรียบร้อย',
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonText: 'ปิด'
 
+                }).then((result) =>{
+
+                    if (result.value){
+                        window.location.reload();
+                    }
+                })
+            } else {
+                alert(result.message);
+            }
+        },  
+        error : function(errors){
+            console.log(errors);
+        }
+    });
+}
 
 function search_data_tbl() {
     var input, filter, table, tr, td, i, txtValue;
@@ -82,4 +113,3 @@ function search_data_tbl() {
         }
     }
 }
-

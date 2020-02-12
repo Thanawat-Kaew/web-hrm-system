@@ -11,4 +11,9 @@ class LeavesType extends Model
     {
     	return $this->belongsTo("App\Services\Leaves\Leaves", 'id_leaves_type', 'id_leaves_type');
     }
+
+    public function leaves_requirements()
+    {
+    	return $this->belongsTo("App\Services\Leaves\LeavesRequirements", 'id_leaves_type', 'id_leaves_type');
+    }
 }

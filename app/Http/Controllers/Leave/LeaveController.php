@@ -9,6 +9,7 @@ use App\Services\Leaves\DayOffYears;
 use App\Services\Leaves\DetailDayOffYear;
 use App\Services\Leaves\LeavesType;
 use App\Services\Leaves\LeavesFormat;
+use App\Services\Leaves\LeavesRequirements;
 use App\Services\Employee\Employee;
 use App\Services\Department\Department;
 use App\Services\Position\Position;
@@ -34,19 +35,24 @@ class LeaveController extends Controller
                             ->get();
 
         $leaves_type    = LeavesType::all();
-        $header         = Employee::with('company','leaves')
-                                                ->where('id_position', 2)
-                                                ->where('id_department', $current_employee['id_department'])
-                                                ->first();
+        // $header         = Employee::with('company','leaves')
+        //                                         ->where('id_position', 2)
+        //                                         ->where('id_department', $current_employee['id_department'])
+        //                                         ->first();
                                                 // d($header->toArray());
                                                 
-        $leaves_info    = $header->leaves;
+        // $leaves_info    = $header->leaves;
         // $company_info   = !empty($company->info)? json_decode($company->info): [];
         // $leaves_info    = $company_info->leaves_info;
         // sd($leaves_info->toArray());
+        $www = LeavesRequirements::get();
+        // d($www->toArray());
+        // $ddd = $www->day_require;
+        // $leaves_require = LeavesRequirements::with('leaves_type')->where('id_leaves_type',$ddd)->get();
+        // sd($leaves_require->toArray());
 
         
-        return $this->useTemplate('leave.leave' ,compact('data','leaves_type','leaves_info'));
+        return $this->useTemplate('leave.leave' ,compact('data','leaves_type'/*,'leaves_info'*//*,'leaves_require'*/));
     }
 
     public function leave_history()
@@ -78,20 +84,11 @@ class LeaveController extends Controller
 
     public function leave_set_holiday()
     {
-        $day_off_year   = DayOffYears::all();
-        $id             = DayOffYears::get('id');
-        
-        // d($id->toArray());
-        // $de_day_off_year = DetailDayOffYear::all();
-        // d($de_day_off_year->toArray());
-
-        $detail_day_off_year = DetailDayOffYear::with('day_off_year')
+        $day_off_year           = DayOffYears::all();
+        $id                     = DayOffYears::get('id');
+        $detail_day_off_year    = DetailDayOffYear::with('day_off_year')
                                                     ->whereIn('id_day_off_year',$id)
                                                     ->get();
-        // $detail_day_off_year = DetailDayOffYear::all();
-
-
-        // sd($detail_day_off_year->toArray());
 
         return view('leave.set_holiday',compact('day_off_year','detail_day_off_year'));
     }
@@ -107,11 +104,11 @@ class LeaveController extends Controller
         $check_stop_compensation    = $request->get('check_stop_compensation');
         $set_date                   = $request->get('set_date');
 
-
-        $check_set_holiday = DetailDayOffYear::where('date', $set_date)->where('year',$set_year)->first();
+        $check_set_holiday          = DetailDayOffYear::where('date', $set_date)
+                                                        ->where('year',$set_year)
+                                                        ->first();
 
         if (!empty($check_set_holiday)) {
-
             return json_encode(['status' => 'failed', 'message' => "errors"]);
         }
 
@@ -189,6 +186,7 @@ class LeaveController extends Controller
                 $leaves_type        = LeavesType::all();
                 $leaves_format      = LeavesFormat::all();
                 $id                 = $request->get('id');
+
                 $data               = Leaves::with('employee','leaves_type')
                                                 ->where('id_leave',$id)
                                                 ->get();
@@ -276,7 +274,6 @@ class LeaveController extends Controller
         $strtotime_start_date_h_a   = strtotime($hour_date);
         $strtotime_end_date_h_a     = strtotime($hour_date);
 
-            // sd($check_holiday_half);
         if ($format_leaves == 1) {
             $check_holiday = $this->checkHoliday($start_date_f,$end_date_f);
         } else if($format_leaves == 2) {
@@ -327,7 +324,6 @@ class LeaveController extends Controller
                                                 $q->where('end_leave','>=',$half_date);}])->with('company')
                                                 ->where('id_employee',$current_employee['id_employee'])
                                                 ->first();
-
 
             if (!empty($leaves_check_half)) {
                 $current_leave = $leaves_check_half->leaves;
@@ -408,10 +404,11 @@ class LeaveController extends Controller
 
             $leaves_check_hour    = Employee::with(['leaves' => function($q) 
                                                 use($hour_date,$start_time_hour,$end_time_hour){
-                                                $q->where('start_leave','<=',$hour_date);
-                                                $q->where('end_leave','>=',$hour_date);
-                                                $q->where('start_time','<=',$start_time_hour);
-                                                $q->where('end_time','>=',$end_time_hour);}])->with('company')
+                                                    $q->where('start_leave','<=',$hour_date);
+                                                    $q->where('end_leave','>=',$hour_date);
+                                                    $q->where('start_time','<=',$start_time_hour);
+                                                    $q->where('end_time','>=',$end_time_hour);}])
+                                                ->with('company')
                                                 ->where('id_employee',$current_employee['id_employee'])
                                                 ->first();
 
@@ -458,12 +455,12 @@ class LeaveController extends Controller
 
     }
 
-    public function editRequestLeave(Request $request){ //แก้ไขข้อมูลที่ร้องขอการลา
+    public function editRequestLeave(Request $request){ // แก้ไขข้อมูลที่ร้องขอการลา
 
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        // sd($request->all());
+
         $id                         = $request->get('id');
         $id_leave_type              = $request->get('leave_type'); 
         $format_leave_three_time    = $request->get('format_leave_three_time');
@@ -496,8 +493,6 @@ class LeaveController extends Controller
                                             ->where('end_leave','>=',$end_date_f)
                                             ->get();
 
-            // sd($leaves_check_full_day->toArray());
-
             if (count($leaves_check_full_day) != 0 ) {
                 return json_encode(['status' => 'failed', 'message' => "errors"]);
             }
@@ -521,8 +516,9 @@ class LeaveController extends Controller
         } else if($format_leave_three_time == 2 ){
 
             $leaves_check_half    = Employee::with(['leaves' => function($q) use($half_date){
-                                                $q->where('start_leave','<=',$half_date);
-                                                $q->where('end_leave','>=',$half_date);}])->with('company')
+                                                    $q->where('start_leave','<=',$half_date);
+                                                    $q->where('end_leave','>=',$half_date);}])
+                                                ->with('company')
                                                 ->where('id_employee',$current_employee['id_employee'])
                                                 ->first();
 
@@ -605,10 +601,11 @@ class LeaveController extends Controller
 
             $leaves_check_hour    = Employee::with(['leaves' => function($q) 
                                                 use($hour_date,$start_time_hour,$end_time_hour){
-                                                $q->where('start_leave','<=',$hour_date);
-                                                $q->where('end_leave','>=',$hour_date);
-                                                $q->where('start_time','<=',$start_time_hour);
-                                                $q->where('end_time','>=',$end_time_hour);}])->with('company')
+                                                    $q->where('start_leave','<=',$hour_date);
+                                                    $q->where('end_leave','>=',$hour_date);
+                                                    $q->where('start_time','<=',$start_time_hour);
+                                                    $q->where('end_time','>=',$end_time_hour);}])
+                                                ->with('company')
                                                 ->where('id_employee',$current_employee['id_employee'])
                                                 ->first();
 
@@ -632,12 +629,14 @@ class LeaveController extends Controller
                 $request_leave->save();
 
                 return json_encode(['status' => 'success', 'message' => "success"]);
-            }
+        }
     }
 
     public function postDeleteLeaveHistory($id){
 
-        $request_leave_history  = Leaves::with('employee')->where('id_leave', $id)->first();
+        $request_leave_history  = Leaves::with('employee')
+                                            ->where('id_leave', $id)
+                                            ->first();
 
         if(!empty($request_leave_history)){
 
@@ -650,8 +649,8 @@ class LeaveController extends Controller
 
     public function postDeleteSetHoliday($id){
 
-        // $request_leave_history  = Leaves::with('employee')->where('id_leave', $id)->first();
-        $check_set_holiday = DetailDayOffYear::where('id', $id)->first();
+        $check_set_holiday = DetailDayOffYear::where('id', $id)
+                                                ->first();
 
         if(!empty($check_set_holiday)){
 
@@ -668,7 +667,6 @@ class LeaveController extends Controller
                                             ->where('date','>=',$end_date)
                                             ->get();
         if ($check_holiday->count() != 0) {
-                                            // sd($check_holiday);
             return true;
         } else {
              return false;
