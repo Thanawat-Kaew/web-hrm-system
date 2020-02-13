@@ -47,7 +47,7 @@
 						<?php endif ?>
 							<th>ดู</th>
 						<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-							<th>แก้ไข</th>
+
 							<th>ลบ</th>
 						<?php endif ?>
 						</tr>
@@ -68,7 +68,7 @@
 
 								<td><a href="<?php echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
 								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-								<td><a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>"><i class="fa fa-pencil fa-lg" style="color: black;"></i></a></td>
+
 
 								<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
 								</td>
