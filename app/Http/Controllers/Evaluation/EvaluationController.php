@@ -203,8 +203,32 @@ class EvaluationController extends Controller
         //return response()->json(['status'=> 'success']);
         //redirect('cre')
         return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        // return view('evaluation.view_create_evaluations_for_index', compact('view_create_evaluation'));
         //echo "555";
     }
+
+    public function viewCreateEvaluation_2(Request $request, $id)
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        $id_topic                = $id;
+        $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat')->where('id_topic', $id_topic )->first();
+        //sd($view_create_evaluation->toArray());
+        //sd($view_create_evaluation->parts->toArray());
+        //sd(count($view_create_evaluation->parts->toArray()));
+        //sd($id);
+
+        //sd($view_id);
+        //$id             = $request->get('id');
+        //sd($id);
+        //return response()->json(['status'=> 'success']);
+        //redirect('cre')
+        // return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        return view('evaluation.view_create_evaluations_for_index', compact('view_create_evaluation'));
+        //echo "555";
+    }
+
 
     public function editEvaluation(Request $request, $id)
     {
@@ -563,18 +587,6 @@ class EvaluationController extends Controller
                 $id_topic ->delete();
                 return response()->json(['status'=> 'success', 'data' => $id]);
                 break;
-
-            /*case 'peopleBeginEvaluation':
-                $id          = $request->get('id');
-                //sd($id);
-                $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id)->first();
-                //sd($id_topic->toArray());
-                //sd($id_topic->employee->id_department);
-                $list_name   = Employee::where('id_department', $id_topic->employee->id_department)->where('id_position', '1')->get();
-                //sd($list_name->toArray());
-
-                return response()->json(['status'=> 'success', 'data' => $list_name]);
-                break;*/
 
             default:
                 # code...

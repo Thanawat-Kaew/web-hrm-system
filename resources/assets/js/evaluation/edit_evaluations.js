@@ -110,6 +110,24 @@ $(document).ready(function(){
 	 	sendData();
 	});
 
+	$('.btn-cancel').click(function(){
+		Swal.fire({
+			title: 'คุณแน่ใจหรือไม่ ?',
+			text: "ที่จะยกเลิกการตั้งค่านี้ !",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			textSize: 20,
+			cancelButtonText: 'ไม่ใช่',
+			confirmButtonText: 'ใช่!'
+		}).then((result) =>{
+			if (result.value){
+				window.location.href = "/evaluation/history_request_created_evaluation";
+				msg_waiting()
+			}
+		})
+	});
 
 });
 

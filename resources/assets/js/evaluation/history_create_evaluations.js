@@ -1,7 +1,6 @@
 $(document).ready(function() {
-	$('#myInput').keyup(function(){
-        search_data_tbl();
-    })
+
+    // $('#myTable').DataTable();
 
     $(".content").on('click',".btn-remove-topic", function(){ // ลบการประเมิน
         var id = $(this).data('id');
@@ -53,11 +52,8 @@ $(document).ready(function() {
         cancelButtonColor: '#d33',
         cancelButtonText: 'ไม่ลบ',
         confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-    }).then((result) => 
-        {
-            if (result.value) 
-
-            {
+    }).then((result) =>{
+            if (result.value){
                 postDelete(url); 
             }
         })
@@ -93,23 +89,4 @@ function postDelete(url)
             console.log(errors);
         }
     });
-}
-
-function search_data_tbl() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
 }
