@@ -463,7 +463,7 @@ class EvaluationController extends Controller
         //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
     }
 
-    public function confirmCreateEvaluation(Request $request)
+    public function confirmCreateEvaluation(Request $request) //อนุมัติการ create evaluation
     {
         if(\Session::has('current_employee')){
             $current_employee   = \Session::get('current_employee');
@@ -471,6 +471,18 @@ class EvaluationController extends Controller
         $id                     = $request->get('id');
         $confirm                = CreateEvaluation::find($id);
         $confirm->status        = 1;
+        $confirm->id_approve    = $current_employee->id_employee;
+        $confirm->save();
+    }
+
+    public function cancelCreateEvaluation(Request $request) //ไม่อนุมัติการ create evaluation
+    {
+        if(\Session::has('current_employee')){
+            $current_employee   = \Session::get('current_employee');
+        }
+        $id                     = $request->get('id');
+        $confirm                = CreateEvaluation::find($id);
+        $confirm->status        = 3;
         $confirm->id_approve    = $current_employee->id_employee;
         $confirm->save();
     }

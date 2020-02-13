@@ -49,7 +49,8 @@
 								<td><?php echo $value->topic_name;?></td>
 								<td><?php echo $year[0]?></td>
 								<td><?php echo $value->years?></td>
-								<td><i class="fa fa-eye fa-lg btn"></i></td>
+								<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $value->id_topic)?>"></a><i class="fa fa-eye fa-lg btn-view"></i>
+								</td>
 								<td style="width: 20px">
 									<?php if($value->status == 2):?>
 										<button style="width: auto;" class="btn btn-primary form-control btn-confrim" data-id="<?php echo $value->id_topic;?>">อนุมัติ
@@ -121,4 +122,5 @@
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
 <div id="confirm-create-evaluation" data-url="<?php echo route('evaluation.confirm-create-evaluation.post')?>"></div>
+<div id="cancel-create-evaluation" data-url="<?php echo route('evaluation.cancel-create-evaluation.post')?>"></div>
 <?php echo csrf_field()?>
