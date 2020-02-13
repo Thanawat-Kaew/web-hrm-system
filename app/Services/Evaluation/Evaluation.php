@@ -19,6 +19,6 @@ class Evaluation extends Model
 
     public function resultevaluation()
     {
-        return $this->hasOne("App\Services\Evaluation\Evaluation", 'id_evaluation', 'id_evaluation');
+        return $this->hasOne("App\Services\Evaluation\ResultEvaluation", 'id_evaluation', 'id_evaluation');
     }
 }

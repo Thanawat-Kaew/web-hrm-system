@@ -49,7 +49,9 @@
 								<td><?php echo $value->topic_name;?></td>
 								<td><?php echo $year[0]?></td>
 								<td><?php echo $value->years?></td>
-								<td><a href="<?php echo route('evaluation.view_create_evaluations.get', $value->id_topic)?>"></a><i class="fa fa-eye fa-lg btn-view"></i>
+								<td>
+									<a href="<?php echo route('evaluation.view_create_evaluations.get', $value->id_topic)?>"><i class="fa fa-eye fa-lg btn-view" data-id="<?php echo $value['id_topic'] ?>"></i>
+									</a>
 								</td>
 								<td style="width: 20px">
 									<?php if($value->status == 2):?>

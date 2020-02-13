@@ -25,10 +25,18 @@
 										<th style="width: 40px">สถานะ</th>
 									</tr>
 									<?php foreach($list_name as $value):?>
+										<?php //sd($value->evaluation->resultevaluation->status);?>
 										<tr>
 											<td><?php echo $value->id_employee ?></td>
-											<td style="text-align: left;"><a href="<?php echo route('evaluation.assessment.get', [$value->id_employee, $id_topic->id_topic])?>"><b><?php echo $value->first_name ?> <?php echo $value->last_name ?></b>	</a></td>
+											<?php if(isset($value->evaluation->resultevaluation)){?> <!-- กรณีประเมินแล้ว -->
+												<td style="text-align: left;"><b><?php echo $value->first_name ?> <?php echo $value->last_name ?></b>
+												</td>
 											<td><span class="badge bg-green">สำเร็จ</span></td>
+											<?php }else{ ?> <!-- กรณียังไม่ประเมินแล้ว -->
+												<td style="text-align: left;"><a href="<?php echo route('evaluation.assessment.get', [$value->id_employee, $id_topic->id_topic])?>"><b><?php echo $value->first_name ?> <?php echo $value->last_name ?></b></a>
+												</td>
+												<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
+											<?php } ?>
 										</tr>
 									<?php endforeach ?>
 										<tr>

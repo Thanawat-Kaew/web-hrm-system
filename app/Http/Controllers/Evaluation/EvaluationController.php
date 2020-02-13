@@ -162,7 +162,7 @@ class EvaluationController extends Controller
         $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_assessor)->first();
         //sd($id_topic->toArray());
         //sd($id_topic->employee->id_department);
-        $list_name   = Employee::with('evaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
+        $list_name   = Employee::with('evaluation', 'evaluation.resultevaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
         //sd($list_name->toArray());
         //$count_list_name = $list_name->count();
         //$check_evaluation = [];
@@ -172,7 +172,10 @@ class EvaluationController extends Controller
             $check_evaluation[] = Evaluation::with('result_evaluation')->where('id_employee', $list_name[$i]->id_employee)->get();
         }*/
         //sd($check_evaluation->toArray());
-        //$check_evaluation = Evaluation::with('result_evaluation')->where('id_assessor', '86')->get();
+        //$check_evaluation = Evaluation::with('resultevaluation')->where('id_evaluation', "6")->get();
+        //sd($check_evaluation->toArray());
+        //$check_evaluation = Evaluation::with('result_evaluation')->where()
+        //$check_evaluation = ResultEvaluation::all();
         //print_r($check_evaluation['id_employee']);
         //var_dump($check_evaluation['id_employee']);
         //echo "<br>";
