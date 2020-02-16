@@ -133,8 +133,9 @@ $(document).ready(function(){
 
 function sendData(){
 	msg_waiting();
-	var count    = 0;
-	var oldValue = {};
+	var count    		= 0;
+	var oldValue 		= {};
+	var check_percent  	= 0;
 	jQuery.each($('.required'),function(){
 		var name = $(this).attr('name');
 		name = name.replace('[', "");
@@ -149,21 +150,30 @@ function sendData(){
 		}
 	})
 
-	if(count > 0) {
-		if(oldValue !== ""){
-			$.each(oldValue, function(key, value) {
-				//console.log('#'+key+'-text-error');
-				$('#'+key).val(value);
-				if(value == "") {
-					$('#'+key + "-text-error").html("* Required").show();
-					console.log(key);
-				} else {
-					$('#'+key + "-text-error").html("").hide();
-				}
-			});
+	jQuery.each($('.percent'),function(){
+		check_percent += parseInt($(this).val());
+	});
+	if(check_percent > 100){
+		Swal.fire('Fail', 'กรุณาอย่าใส่ค่า pernect ของทุกตอนรวมกันอย่าเกิน 100','warning');
+	}else if(check_percent < 100){
+		Swal.fire('Fail', 'กรุณาใส่ค่า pernect ของทุกตอนรวมกันต้องเท่ากับ 100','warning');
+	}else if(check_percent == 100){
+		if(count > 0) {
+			if(oldValue !== ""){
+				$.each(oldValue, function(key, value) {
+					//console.log('#'+key+'-text-error');
+					$('#'+key).val(value);
+					if(value == "") {
+						$('#'+key + "-text-error").html("* Required").show();
+						console.log(key);
+					} else {
+						$('#'+key + "-text-error").html("").hide();
+					}
+				});
+			}
+		}else{
+			document.getElementById("save-evaluation").submit();
 		}
-	}else{
-		document.getElementById("save-evaluation").submit();
 	}
 }
 

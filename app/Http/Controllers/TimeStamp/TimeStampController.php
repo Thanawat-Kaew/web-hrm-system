@@ -198,7 +198,9 @@ class TimeStampController extends Controller
         }
 
         $request_date                       = $request->get('request_date');
+        //sd($request_date);
         $time_in                            = $request->get('time_in');
+        //sd($time_in);
         $break_out                          = $request->get('break_out');
         $break_in                           = $request->get('break_in');
         $time_out                           = $request->get('time_out');
@@ -209,12 +211,22 @@ class TimeStampController extends Controller
             'break_in' => $break_in,
             'break_out' => $break_out,
         ];
+        //sd($array_time);
+        /*if(empty($time_in) && empty($time_out) && empty($break_out) && empty($break_in)){
+            echo "error";
+        }else{
+            echo "not error";
+        }
+        exit();*/
         $date_today   = date('Y-m-d');
         if($request_date > $date_today){
             $error_date =   ["request_timestamp" => "ไม่สามารถลงเวลาเกินวันที่ปัจจุบันได้"];
             return json_encode(['status' => 'failed', 'message' => $error_date]);
         }
-
+        if(empty($time_in) && empty($time_out) && empty($break_out) && empty($break_in)){
+            $error_check =   ["error_check" => "กรุณาเลือกรูปแบบการลงเวลา"];
+            return json_encode(['status' => 'failed', 'message' => $error_check]);
+        }
         // $verify_timestamp = TimeStamp::with('requesttimestamp')->where('date', $request_date)->where('id_employee', $current_employee['id_employee'])->first();
         $employee  = Employee::with(['timestamp_hasone' => function($q) use($request_date){
             $q->where('date', $request_date);

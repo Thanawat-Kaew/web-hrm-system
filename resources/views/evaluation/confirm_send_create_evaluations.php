@@ -62,11 +62,21 @@
 								<td><?php echo $year[0]?></td>
 								<td><?php echo $evaluation->topic_name?></td>
 								<td><?php echo $evaluation->years?></td>
+
 								<?php if($current_employee->id_position == 2):?>
 								<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
 								<?php endif ?>
+
+								<td>
+									<a href="<?php echo route('evaluation.confirm_send_create_evaluation.get', $evaluation->id_topic)?>">
+										<i class="btn fa fa-lg fa-check confirm-send-create-evaluation" data-id="<?php echo $evaluation['id_topic'] ?>"></i>
+									</a>
+								</td>
+
 								<td><a href="<?php echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
 								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
+
+
 								<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
 								</td>
 								<?php endif ?>
