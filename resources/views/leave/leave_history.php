@@ -9,16 +9,8 @@
 		<div class="col-xs-12">
 			<div class="box box-info">
 				<div class="box-header">
-					<h3 class="box-title">ประวัติการลา</h3>
-					<div class="box-tools">
-						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="Search">
-
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-							</div>
-						</div>
-					</div>
+					<h3 class="box-title">ประวัติขออนุมัติการลา</h3>
+					
 				</div>
 
 				<div class="box-body table-responsive no-padding">
@@ -41,7 +33,6 @@
 							$created_date = $date[0];
 							$created_time = $date[1]; ?>
 							<?php if(\Session::has('current_employee')) :?>
-								<tbody>	
 									<tr>
 										<?php $current_employee = \Session::get('current_employee') ?>
 										<td><?php echo $count?></td>
@@ -59,7 +50,6 @@
 										<i class="btn fa fa-lg fa-eye view-request-leave" data-id="<?php echo $value['id_leave'] ?>"></i>
 									</td>
 								</tr>
-							</tbody>
 						<?php endif ?>
 					<?php endforeach?>
 				</table>

@@ -26,7 +26,7 @@ class EvaluationController extends Controller
         }
         //$evaluations = CreateEvaluation::all();
         $evaluations = CreateEvaluation::where('status', 1)->get();
-
+        
         return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee'));
     }
 

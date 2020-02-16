@@ -38,7 +38,9 @@ $(document).ready(function(){
 		})
 	})
 
-	$('.delete-data').click(function(){
+	$('#myTable').dataTable();
+
+	$('#myTable').on("click",'.delete-data', function(){
 		var url=$(this).data('href');
 		Swal.fire(
 		{

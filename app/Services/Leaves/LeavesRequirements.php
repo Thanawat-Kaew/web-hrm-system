@@ -9,6 +9,6 @@ class LeavesRequirements extends Model
 
     public function leaves_type()
     {
-    	return $this->belongsTo("App\Services\leaves\LeavesType", 'id_leaves_type', 'id_leaves_type');
+    	return $this->hasone("App\Services\leaves\LeavesType", 'id_leaves_type', 'id_leaves_type');
     }
 }

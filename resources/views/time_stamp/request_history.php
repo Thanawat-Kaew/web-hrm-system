@@ -1,7 +1,7 @@
 <section class="content-header">
 	<h3>
-		การลงเวลา |
-		<small> Time Stamp</small>
+		ประวัติการขอลงเวลาย้อนหลัง |
+		<small> History of past time requests</small>
 	</h3>
 </section>
 <section class="content">
@@ -9,7 +9,7 @@
 		<div class="col-xs-12">
 			<div class="box box-info">
 				<div class="box-header">
-					<h3 class="box-title">ประวัติการลงเวลา</h3>
+					<h3 class="box-title">ประวัติการลงเวลาย้อนหลัง</h3>
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
 							<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -47,7 +47,7 @@
 							  }
 						?>
 						<tr>
-							<td><?php echo $value['request_date'] ?></td>
+							<td><?php echo $value['created_at'] ?></td>
 							<td><?php echo $type?></td>
 							<td><?php echo $created_time?></td>
 							<td><?php echo $value['reason']?></td>

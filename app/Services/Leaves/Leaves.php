@@ -22,4 +22,9 @@ class Leaves extends Model
     {
     	return $this->belongsTo("App\Services\leaves\LeavesFormat", 'id_leaves_format', 'id_leaves_format');
     } 
+
+    public function leaves_status()
+    {
+        return $this->belongsTo("App\Services\Request\Status", 'status_leave', 'id');
+    } 
 }

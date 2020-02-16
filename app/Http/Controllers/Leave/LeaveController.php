@@ -19,6 +19,7 @@ use App\Services\Forms\FormViewDataRequestLeaves;
 use App\Services\Forms\FormViewRequestLeaves;
 use App\Services\Forms\FormEditRequestLeaves;
 use App\Services\Request\RequestLeaves;
+use App\Services\Request\Status;
 
 class LeaveController extends Controller
 {
@@ -28,13 +29,46 @@ class LeaveController extends Controller
             $current_employee = \Session::get('current_employee');
         }
 
-        $data = Leaves::with('employee','leaves_type')
-                            ->where('id_employee', $current_employee['id_employee'])
-                            ->where('status_leave', 1)
-                            ->orderBy('id_leave', 'desc')
-                            ->get();
+        // $data = Leaves::with('employee','leaves_type')
+        //                     ->where('id_employee', $current_employee['id_employee'])
+        //                     ->where('status_leave', 1)
+        //                     ->get();
 
-        $leaves_type    = LeavesType::all();
+        $id_employee = $current_employee['id_employee'];
+        $datas = Employee::with(['leaves' => function ($q) use($id_employee) {
+                                $q->where('id_employee', $id_employee);
+                                // $q->select('id_leaves_type');
+                            }])->with('leaves.leaves_type')
+                            ->with('leaves.leaves_status')
+                            ->where('id_employee', $id_employee)->first();
+
+                            // sd($datas->toArray());
+        $leaves_type = Company::with('leaves_requirements', 'leaves_requirements.leaves_type')->first();
+        $get_status  = Status::all(); 
+        $leaves_require     = $leaves_type->leaves_requirements;
+        $leaves             = $datas->leaves;
+        
+        $history_leave = [];
+        foreach ($leaves_require as $key => $type) {
+            // sd($type->toArray());
+            $history_leave[$type->id_leaves_type]['id_leaves_type'] = $type->id_leaves_type;
+            $history_leave[$type->id_leaves_type]['leaves_name'] = $type->leaves_type->leaves_name;
+            $history_leave[$type->id_leaves_type]['max_day'] = $type->day_require;
+            foreach ($get_status as $key => $status) {
+                $count_leave = $leaves->where('id_leaves_type', $type->id_leaves_type)->where('status_leave', $status->id)->sum('total_leave');;
+                $history_leave[$type->id_leaves_type]['leave'][$status->id]['id'] = $status->id;
+                $history_leave[$type->id_leaves_type]['leave'][$status->id]['name'] = $status->name;
+                $history_leave[$type->id_leaves_type]['leave'][$status->id]['total'] = $count_leave/8;
+                
+            }
+            // d($count_leave);
+        }
+        // sd($history_leave);
+        // sd($leaves->toArray());
+        // sd($datas->leaves->where('id_leaves_type', '1')->count());
+       // $ggg = Leaves::groupBy('id_leaves_type')->get();
+             //               sd($ggg->toArray());
+        // $leaves_type    = LeavesType::all();
         // $header         = Employee::with('company','leaves')
         //                                         ->where('id_position', 2)
         //                                         ->where('id_department', $current_employee['id_department'])
@@ -45,14 +79,15 @@ class LeaveController extends Controller
         // $company_info   = !empty($company->info)? json_decode($company->info): [];
         // $leaves_info    = $company_info->leaves_info;
         // sd($leaves_info->toArray());
-        $www = LeavesRequirements::get();
-        // d($www->toArray());
+        // $leaves_require = LeavesRequirements::all();
+        // $www = LeavesType::with('leaves_requirements')->get();
+         // sd($www->toArray());
         // $ddd = $www->day_require;
         // $leaves_require = LeavesRequirements::with('leaves_type')->where('id_leaves_type',$ddd)->get();
         // sd($leaves_require->toArray());
 
         
-        return $this->useTemplate('leave.leave' ,compact('data','leaves_type'/*,'leaves_info'*//*,'leaves_require'*/));
+        return $this->useTemplate('leave.leave' ,compact('leaves_require', 'history_leave', 'leaves'));
     }
 
     public function leave_history()
@@ -245,7 +280,7 @@ class LeaveController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        sd($request->all());
+        // sd($request->all());
         $leave_type             = $request->get('leave_type');          //ประเภทการลา เช่น ลาป่วย ลาพักร้อน
         $format_leaves          = $request->get('format_leaves');       //รูปแบบการลา เช่น ลาเต็มวัน ลาครึ่งวัน
         $format_leave_m_a       = $request->get('format_leave_m_a');    //ช่วงการลา ช่วงเช้า ช่วงบ่าย
