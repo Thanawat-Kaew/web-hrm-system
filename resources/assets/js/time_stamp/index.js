@@ -102,34 +102,19 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 		$('#t_in').on('ifChecked', function(event){
 			$('.input-t_in').removeClass('hide')
 			$('#input-time_in').addClass('required')
-			/*$('.error_check').val("");
-			$('.error_check').val("1");*/
 		}).on('ifUnchecked', function(event){
 			$('.input-t_in').addClass('hide')
 			$('#input-time_in').removeClass('required')
 			$('#input-time_in-text-error').html("").hide();
-			/*if($('.error_check').val() == 1){
-				$('.error_check').val("1");
-			}else{
-				$('.error_check').val();
-			}*/
 		});
 
 		$('#t_out').on('ifChecked', function(event){
 			$('.input-t_out').removeClass('hide')
 			$('#input-time_out').addClass('required')
-			/*$('.error_check').val("");
-			$('.error_check').val("1");*/
 		}).on('ifUnchecked', function(event){
 			$('.input-t_out').addClass('hide')
 			$('#input-time_out').removeClass('required')
 			$('#input-time_out-text-error').html("").hide();
-			/*if($('.error_check').val() == 1){
-				$('.error_check').val("1");
-			}else{
-				$('.error_check').val();
-			}*/
-
 		});
 
 		$('#br_in_out').on('ifChecked', function(event){
@@ -145,33 +130,19 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 		$('#br_in').on('ifChecked', function(event){
 			$('.input-b_in').removeClass('hide')
 			$('#input-break_in').addClass('required')
-			/*$('.error_check').val("");
-			$('.error_check').val("1");*/
 		}).on('ifUnchecked', function(event){
 			$('.input-b_in').addClass('hide')
 			$('#input-break_in').removeClass('required')
 			$('#input-break_in-text-error').html("").hide();
-			/*if($('.error_check').val() == 1){
-				$('.error_check').val("1");
-			}else{
-				$('.error_check').val();
-			}*/
 		});
 
 		$('#br_out').on('ifChecked', function(event){
 			$('.input-b_out').removeClass('hide')
 			$('#input-break_out').addClass('required')
-			/*$('.error_check').val("");
-			$('.error_check').val("1");*/
 		}).on('ifUnchecked', function(event){
 			$('.input-b_out').addClass('hide')
 			$('#input-break_out').removeClass('required')
 			$('#input-break_out-text-error').html("").hide();
-			/*if($('.error_check').val() == 1){
-				$('.error_check').val("1");
-			}else{
-				$('.error_check').val();
-			}*/
 		});
 		// end Checkbox
 
