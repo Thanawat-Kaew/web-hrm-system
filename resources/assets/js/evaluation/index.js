@@ -25,6 +25,8 @@ $(document).ready(function(){
 		createNewEvaluation();
 	})
 
+    // $('#myTable').DataTable();
+
 	// Filter Year.
 	$('#myInput').keyup(function(){
 		search_data_tbl();

@@ -17,10 +17,11 @@ class FormNewTimeClock
 
             $form_new_time_clock .= '<h4>รูปแบบการลงเวลา</h4>';
             $form_new_time_clock .= '<div class="form-group">';
-                $form_new_time_clock .= '<div class="col-md-12">';
+                $form_new_time_clock .= '<div class="col-md-12 ">';
                     $form_new_time_clock .= '<div class="col-md-6">';
                         $form_new_time_clock .= '<label class="group-display">';
                             $form_new_time_clock .= '<input type="checkbox" name="time_set[]" value="stamp_in_out" class="flat-red" id="t_in_out"> ';
+
                             $form_new_time_clock .= 'ลงเวลาเข้า-ออก งาน';
                         $form_new_time_clock .= '</label>';
                         $form_new_time_clock .= '<div class="col-md-12">';
@@ -119,11 +120,13 @@ class FormNewTimeClock
             $form_new_time_clock .= '</label>';
 
             $form_new_time_clock .= '<br>';
+            $form_new_time_clock .= '<div class="reason hide">';
             $form_new_time_clock .= '<h4>เหตุผล</h4>';
             $form_new_time_clock .= '<textarea type="text" class="form-control textarea g-disable-input required reason_request"  placeholder="Type..." rows="5" id="input-reason" name="reason">';
             $form_new_time_clock .= '</textarea>';
             $form_new_time_clock .= '<label class="text-error" id="input-reason-text-error">';
             $form_new_time_clock .= '</label>';
+            $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<br>';
 
             $form_new_time_clock .= '<h4>ผู้อนุมัติ</h4>';

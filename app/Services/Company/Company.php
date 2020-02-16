@@ -12,4 +12,9 @@ class Company extends Model
     {
     	return $this->hasMany("App\Services\Employee\Employee", 'id_company', 'id_company'); 
     }
+
+    public function leaves_requirements()
+    {
+    	return $this->hasMany("App\Services\Leaves\LeavesRequirements", 'id_company', 'id_company'); 
+    }
 }

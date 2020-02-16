@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    // $('#myTable').DataTable();
+    $('#myTable').DataTable();
 
     $(".content").on('click',".btn-remove-topic", function(){ // ลบการประเมิน
         var id = $(this).data('id');
@@ -40,7 +40,7 @@ $(document).ready(function() {
         })
     });
 
-    $('.delete-id_topic').click(function(){
+    $('#myTable').on("click",'.delete-id_topic',function(){
     var url=$(this).data('href');
     Swal.fire(
     {

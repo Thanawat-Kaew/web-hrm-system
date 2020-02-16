@@ -19,6 +19,8 @@ $(document).ready(function(){
     $('#myInput').keyup(function(){
         search_data_tbl();
     })
+
+    $('#myTable').dataTable();
 })
 
 

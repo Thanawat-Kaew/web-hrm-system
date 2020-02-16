@@ -144,6 +144,7 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 			$('#input-break_out').removeClass('required')
 			$('#input-break_out-text-error').html("").hide();
 		});
+
 		// end Checkbox
 
 		$('body').addClass('modal-open');
