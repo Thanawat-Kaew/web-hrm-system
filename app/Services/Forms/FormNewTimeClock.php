@@ -115,6 +115,9 @@ class FormNewTimeClock
             $form_new_time_clock .= '<label class="text-error" id="input-break_out-text-error">';
             $form_new_time_clock .= '</label>';
 
+            /*$form_new_time_clock .= '<input type="text" value="" class="form-control error_check required" id="input-error_check" name="error_check" disabled>';*/
+            $form_new_time_clock .= '<label class="text-error" id="input-error_check-text-error">';
+            $form_new_time_clock .= '</label>';
 
             $form_new_time_clock .= '<br>';
             $form_new_time_clock .= '<div class="reason hide">';

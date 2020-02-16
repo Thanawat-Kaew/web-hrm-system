@@ -117,10 +117,10 @@
                             <?php
                         		if(!empty($value->percent)){ /* percent ของเดิม*/
                         	?>
-                            <input type="number" name="percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>" class="form-control required" value="<?php echo $value['percent'] ?>">
+                            <input type="number" name="percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>" class="form-control required percent" value="<?php echo $value['percent'] ?>">
                             <label class="text-error percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>-text-error" id="percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>-text-error"></label>
                         	<?php }else {?> <!-- กรณีกดเพิ่มตอน -->
-                        	<input type="number" name="percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>" class="form-control required" placeholder="30">
+                        	<input type="number" name="percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>" class="form-control required percent" placeholder="30">
                             <label class="text-error percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>-text-error" id="percent-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>-text-error"></label>
                         	<?php }?>
                     </div>

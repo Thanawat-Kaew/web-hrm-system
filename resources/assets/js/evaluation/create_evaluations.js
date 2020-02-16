@@ -114,42 +114,48 @@ $(document).ready(function() {
 
 function sendData(){
 	msg_waiting();
-	var count    = 0;
-	var oldValue = {};
-	var c_p      = 0;
+	var count    		= 0;
+	var oldValue 		= {};
+	var check_percent  	= 0;
 	jQuery.each($('.required'),function(){
 		var name = $(this).attr('name');
 		name = name.replace('[', "");
 		name = name.replace(']', "");
 		oldValue[name]= $(this).val();
-		console.log(name);
+		//console.log(name);
 		if ($(this).val() =="") {
 			count++
 			$(this).css({"border" : "1px solid red"});
 		}else{
 			$(this).css({"border" : "1px solid lightgray"});
 		}
-		var c_p = $(this).closest('.panel-body').find('.percent').val();
+		//var c_p = $(this).closest('.panel-body').find('.percent').val();
 	})
-	console.log(c_p);
+	//console.log(c_p);
 
-	if(count > 0) {
-		if(oldValue !== ""){
-			$.each(oldValue, function(key, value) {
-				//console.log('#'+key+'-text-error');
-				$('#'+key).val(value);
-				if(value == "") {
-					$('#'+key + "-text-error").html("* Required").show();
-				} else {
-					$('#'+key + "-text-error").html("").hide();
-				}
-			});
+	jQuery.each($('.percent'),function(){
+		check_percent += parseInt($(this).val());
+	});
+	//console.log(check_percent);
+	if(check_percent > 100){
+		Swal.fire('Fail', 'กรุณาอย่าใส่ค่า pernect ของทุกตอนรวมกันอย่าเกิน 100','warning');
+	}else if(check_percent <= 100){
+		if(count > 0) {
+			if(oldValue !== ""){
+				$.each(oldValue, function(key, value) {
+					//console.log('#'+key+'-text-error');
+					$('#'+key).val(value);
+					if(value == "") {
+						$('#'+key + "-text-error").html("* Required").show();
+					} else {
+						$('#'+key + "-text-error").html("").hide();
+					}
+				});
+			}
+		}else{
+			document.getElementById("save-evaluation").submit();
 		}
-	}else{
-		document.getElementById("save-evaluation").submit();
 	}
-
-
 }
 
 
@@ -177,37 +183,3 @@ function sendData(){
 
 
 
-	// var max_fields = 15;
-	// var x = 1;
-
-	// $(".add-part").click(function(e){
-	// 	e.preventDefault();
-	// 	if(x < max_fields){
-	// 		x++;
-	// 		$("#group-part").append('<div class="col-md-12 new-part"><div class="panel panel-default">'+
-	// 			'<div class="panel-body"><label>ชื่อตอน </label><input type="text" name="add-name" '+
-	// 			'class="form-control" placeholder="ชื่อตอน..."><br><label>คำถาม</label> '+
-	// 			'<button class="btn btn-success pull-right add-more btn-sm" type="button"><i class="glyphicon '+
-	// 			'glyphicon-plus"></i> เพิ่ม</button><div class="control-group input-group"'+
-	// 			'style="margin-top:10px"><input type="text" name="addmore[]" class="form-control"'+
-	// 			'placeholder="คำถาม"><div class="input-group-btn"><button class="btn btn-warning '+
-	// 			'remove" type="button"><i class="glyphicon glyphicon-remove"></i> ลบ</button>'+
-	// 			'</div></div><div class="selected-question"></div><div class="copy hide">'+
-	// 			'<div class="control-group input-group" style="margin-top:10px"><input type="text"'+
-	// 			'name="addmore[]" class="form-control" placeholder="คำถาม"><div class="input-group-btn"> '+
-	// 			'<button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove">'+
-	// 			'</i> ลบ</button></div></div></div><br><div class="col-md-6"><label>เลือกรูปแบบคำตอบ</label>'+
-	// 			'<select class="form-control" style="width: 100%;"><option selected="selected">เลือกรูปแบบ...'+
-	// 			'</option><option>รูปแบบ 1</option><option>รูปแบบ 2</option><option>รูปแบบ 3</option>'+
-	// 			'</select><br></div><div class="col-md-6"><label>เปอร์เซนต์ (%)</label><input type="number"'+
-	// 			'name="percen" class="form-control" placeholder="30"></div></div></div>');
-	// 	}
-	// });
-
-	// $("#group-part").on('click',".add-more", function(){
-	// 	$(this).closest(".new-part").find(".selected-question").append($(".copy").html());
-	// })
-
-	// $("#group-part").on("click",".remove", function(){
-	// 	$(this).parents('.control-group').remove(); x--;
-	// })

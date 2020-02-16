@@ -26,8 +26,12 @@ class EvaluationController extends Controller
         }
         //$evaluations = CreateEvaluation::all();
         $evaluations = CreateEvaluation::where('status', 1)->get();
-        
-        return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee'));
+        //sd($current_employee->id_position);
+        if($current_employee['id_position'] == 2){ // หัวหน้า
+            return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee'));
+        }else if($current_employee['id_position'] == 1){ // ลูกน้อง
+            return $this->useTemplate('evaluation.confirm_send_create_evaluations');
+        }
     }
 
     public function viewCreateEvaluationRequest()
@@ -35,7 +39,7 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $evaluations = CreateEvaluation::with('employee')->get();
+        $evaluations = CreateEvaluation::with('employee', 'parts')->where('confirm_send_create_evaluation', 1)->get();
         //sd($evaluations[0]->employee->first_name);
         //sd($evaluations->toArray());
         return $this->useTemplate('evaluation.create_evaluations_request', compact('evaluations'));
@@ -46,9 +50,13 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->get();
+        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->paginate(10);
+        //$count             = $create_evaluation->part->count();
         //sd($create_evaluation->toArray());
-        return $this->useTemplate('evaluation.history_create_evaluations', compact('current_employee','create_evaluation'));
+        $pag               = CreateEvaluation::paginate(10);
+        //sd($pag->toArray());
+        //sd($create_evaluation->count());
+        return $this->useTemplate('evaluation.history_create_evaluations', compact('current_employee','create_evaluation', 'count', 'pag'));
     }
 
     public function create_evaluations()
@@ -98,6 +106,15 @@ class EvaluationController extends Controller
 
         if(isset($data['chapter'])){ // ตรวจสอบว่ามีตอนไหม
             $count_chapter = $data['chapter'] + 1;
+            $non = 0;
+            for($c_p=1; $c_p<$count_chapter; $c_p++){
+                //echo $data['percent-'.$data['id_evaluation'].'-'.$c_p];
+                //echo "<br>";
+                $non += $data['percent-'.$data['id_evaluation'].'-'.$c_p];
+
+                //echo "<br>";
+            }//echo $non;
+
             for($i=1; $i < $count_chapter ; $i++){
                 $parts                      = Part::where('id_topic', $data['id_topic'])->where('chapter', $i)->first();
                 $parts->part_name           = $data['name-parts-'.$data['id_evaluation'].'-'.$i];
@@ -512,6 +529,14 @@ class EvaluationController extends Controller
         $confirm->status        = 3;
         $confirm->id_approve    = $current_employee->id_employee;
         $confirm->save();
+    }
+
+    public function postConfirmSendCreateEvaluations($id)
+    {
+        //sd($id);
+        $id_topic    = CreateEvaluation::with('parts', 'parts.question')->where('id_topic', $id)->first();
+        //sd($id_topic->toArray());
+
     }
 
     public function ajaxCenter(Request $request)

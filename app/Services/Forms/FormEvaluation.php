@@ -40,7 +40,7 @@ class FormEvaluation
                              $form .= '<label class="text-error type_answer-'.$id_evaluation.'-'.$part->chapter.'-text-error" id="type_answer-'.$id_evaluation.'-'.$part->chapter.'-text-error"></label>';
                              $form .= '<br>';
                              $form .= '<label>เปอร์เซนต์คะแนน (%)</label>';
-                             $form .= '<input type="number" name="percent-'.$id_evaluation.'-'.$part->chapter.'" class="form-control required" placeholder="30">';
+                             $form .= '<input type="number" name="percent-'.$id_evaluation.'-'.$part->chapter.'" class="form-control required percent" placeholder="30">';
                              $form .= '<label class="text-error percent-'.$id_evaluation.'-'.$part->chapter.'-text-error" id="percent-'.$id_evaluation.'-'.$part->chapter.'-text-error"></label>';
                      $form .= '</div>';
                  $form .= '</div>';

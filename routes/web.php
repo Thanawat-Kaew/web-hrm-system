@@ -90,6 +90,9 @@ Route::get('/evaluation/view_create_evaluation/{id}', 'Evaluation\EvaluationCont
 Route::get('/evaluation/view_create_evaluation_index/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation_2')->name('evaluation.view_create_evaluations_for_index.get'); // view-create-evaluation
 Route::get('/evaluation/edit_evaluation/{id}', 'Evaluation\EvaluationController@editEvaluation')->name('evaluation.edit_evaluations.get'); // edit-evaluation //page
 Route::post('/evaluation/post_edit', 'Evaluation\EvaluationController@postEditEvaluations')->name('evaluation.post_edit.post'); // edit to database
+
+Route::get('/evaluation/confirm-send-create-evaluation/{id}', 'Evaluation\EvaluationController@postConfirmSendCreateEvaluations')->name('evaluation.confirm_send_create_evaluation.get'); // confirm send create evaluation to database
+
 Route::post('/evaluation/post_record_evaluation', 'Evaluation\EvaluationController@postRecordEvaluation')->name('evaluation.post_record_evaluation.post'); // evaluation // บันทึกแบบประเมิน
 Route::get('/evaluation', 'Evaluation\EvaluationController@index')->name('evaluation.index.get');
 
