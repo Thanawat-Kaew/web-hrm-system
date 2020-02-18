@@ -153,7 +153,8 @@ class TimeStampController extends Controller
             return ['status' => 'failed','message1' => "กรุณาเลือกรูปแบบ" , 'message2' => "ลองไหมอีกครั้ง"];
         }
 
-        $date_today   = date('Y-m-d');
+        // $date_today   = date('Y-m-d');
+        $date_today   = '2020-02-01';
         $current_time = TimeStamp::where('id_employee', $current_employee['id_employee'])->where('date', $date_today)->first();
 
         if(empty($current_time)) {
@@ -161,8 +162,10 @@ class TimeStampController extends Controller
 
             $new_record = new TimeStamp;
             $new_record->id_employee    = $current_employee['id_employee'];
-            $new_record->date           = date('Y-m-d');
-            $new_record->{$type_time}   = date('H:i:s');
+            // $new_record->date           = date('Y-m-d');
+            // $new_record->{$type_time}   = date('H:i:s');
+                $new_record->date       = '2020-02-01';
+            $new_record->{$type_time}   = '09:30:00';
             $new_record->save();
         } else {
             if ($type_time == 'time_in') return ['status' => 'failed', 'message1' => 'คุณลงเวลาเข้างานแล้ว' , 'message2' =>'ไม่สามารถลงเวลาซ้ำได้'];
@@ -177,11 +180,15 @@ class TimeStampController extends Controller
                 return ['status' => 'failed', 'message1' => 'คุณลงเวลาเข้างานช่วงบ่ายแล้ว' , 'message2' =>'ไม่สามารถลงเวลาซ้ำได้'];
             }
 
+             if ($current_time->time_out != "" && $type_time == 'break_in'){
+                return ['status' => 'failed', 'message1' => 'คุณลงเวลาออกงานแล้ว' , 'message2' =>'ไม่สามารถลงเวลาพักได้ได้'];
+            }
+
             if ($current_time->time_out != "" && $type_time == 'time_out'){
                 return ['status' => 'failed', 'message1' => 'คุณลงเวลาออกงานแล้ว' , 'message2' =>'ไม่สามารถลงเวลาซ้ำได้'];
             }
 
-            $current_time->{$type_time}   = date('H:i:s');
+            $current_time->{$type_time}   = '17:30:00';
             $current_time->save();
 
             return ['status' => 'success', 'message1' => 'ลงเวลาเรียบร้อยแล้ว' , 'message2' => ''];

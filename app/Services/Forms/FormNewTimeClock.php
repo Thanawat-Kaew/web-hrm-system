@@ -120,7 +120,7 @@ class FormNewTimeClock
             $form_new_time_clock .= '</label>';
 
             $form_new_time_clock .= '<br>';
-            $form_new_time_clock .= '<div class="reason hide">';
+            $form_new_time_clock .= '<div class="reason">';
             $form_new_time_clock .= '<h4>เหตุผล</h4>';
             $form_new_time_clock .= '<textarea type="text" class="form-control textarea g-disable-input required reason_request"  placeholder="Type..." rows="5" id="input-reason" name="reason">';
             $form_new_time_clock .= '</textarea>';
