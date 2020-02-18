@@ -102,6 +102,8 @@ Route::get('/evaluation/history_request_created_evaluation', 'Evaluation\Evaluat
 Route::post('/evaluation/request_created_evaluation/confirm', 'Evaluation\EvaluationController@confirmCreateEvaluation')->name('evaluation.confirm-create-evaluation.post'); // confrim create evaluation
 Route::post('/evaluation/request_created_evaluation/cancel', 'Evaluation\EvaluationController@cancelCreateEvaluation')->name('evaluation.cancel-create-evaluation.post'); // cancel create evaluation
 Route::get('/evaluation/confirm_send_create_evaluation/', 'Evaluation\EvaluationController@confirmSendCreateEvaluation')->name('evaluation.confirm_send_create_evaluations.get'); // view-create-evaluation
+
+Route::post('/evaluation/confirm_send_create_evaluation/confirm', 'Evaluation\EvaluationController@postConfirmSendCreateEvaluation')->name('evaluation.post_confirm_send_create_evaluations.post'); // confirm confirm create evaluation
 /************************************************End Evaluation******************************************************************/
 
 /******************************************************Report*********************************************************************/

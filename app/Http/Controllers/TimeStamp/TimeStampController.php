@@ -218,12 +218,15 @@ class TimeStampController extends Controller
             echo "not error";
         }
         exit();*/
+
         $date_today   = date('Y-m-d');
         if($request_date > $date_today){
             $error_date =   ["request_timestamp" => "ไม่สามารถลงเวลาเกินวันที่ปัจจุบันได้"];
             return json_encode(['status' => 'failed', 'message' => $error_date]);
         }
+
         if(empty($time_in) && empty($time_out) && empty($break_out) && empty($break_in)){
+            //echo "error";
             $error_check =   ["error_check" => "กรุณาเลือกรูปแบบการลงเวลา"];
             return json_encode(['status' => 'failed', 'message' => $error_check]);
         }

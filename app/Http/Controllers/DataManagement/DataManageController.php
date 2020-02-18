@@ -113,6 +113,7 @@ class DataManageController extends Controller
         // get value from ajax function saveAddEmployee(oldValue)
 
         $id_department           = $request->get('department');
+        //sd($id_department);
         $id_position             = $request->get('position');
         $first_name              = $request->get('fname');
         $last_name               = $request->get('lname');

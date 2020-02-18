@@ -39,11 +39,8 @@
 									</span>
 								</td>
 								<td style="text-align: end;">
-
-
-
 									<a href="<?php echo route('evaluation.edit_evaluations.get', $value->id_topic)?>">
-										<i class="btn fa fa-lg <?php echo ($value['status'] == 2 ? 'fa-pencil' : 'hide'); ?> edit-create-evaluation" data-id="<?php echo $value['id_topic'] ?>"></i>
+										<i class="btn fa fa-lg <?php echo ($value['status'] == 2 ? 'fa-pencil' : ($value['status'] == NULL ? 'fa-pencil' : 'hide')); ?> edit-create-evaluation" data-id="<?php echo $value['id_topic'] ?>"></i>
 									</a>
 
 									<a><i class="btn fa fa-lg fa-trash delete-id_topic" style="color: red;" data-href="<?php echo route('evaluation.index.post', $value['id_topic']);?>"></i>
