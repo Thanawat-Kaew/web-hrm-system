@@ -7,21 +7,31 @@
 <section class="content">
 	<div class="row">
 		<div class="col-xs-12">
-			<?php if($current_employee->id_department == "hr0001"){?>
 			<div class="row">
-				<div class="btn-group pull-right new-evaluation">
-					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
-					</button>
-				</div>
-				<div class="btn-group pull-right history_create_evaluations">
-					<div class="btn-group pull-right">
-						<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">
-							<button class="btn btn-info dropdown-toggle" type="button"><i class="fa fa-history"></i> ประวัติการสร้าง</button>
-						</a>
+				<?php if($current_employee->id_department == "hr0001"){?>
+					<div class="btn-group pull-right new-evaluation">
+						<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
+						</button>
 					</div>
-				</div>
+					<div class="btn-group pull-right history_create_evaluations">
+						<div class="btn-group pull-right">
+							<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">
+								<button class="btn btn-info dropdown-toggle" type="button"><i class="fa fa-history"></i> ประวัติการสร้าง</button>
+							</a>
+						</div>
+					</div>
+				<?php } ?>
+				<?php if($current_employee->id_position == 2){?>
+
+					<div class="btn-group pull-right confirm_send_create_evaluations">
+						<div class="btn-group pull-right">
+							<a href="<?php echo route("evaluation.confirm_send_create_evaluations.get")?>">
+								<button class="btn btn-danger dropdown-toggle" type="button"><i class="fa fa-history"></i> ยืนยันการส่ง</button>
+							</a>
+						</div>
+					</div>
+				<?php } ?>
 			</div>
-			<?php } ?>
 			<div class="box box-info">
 				<div class="box-header">
 					<h4 class="box-title">ประวัติการสร้างแบบประเมิน</h4>
@@ -42,15 +52,15 @@
 							<th>ประจำปี</th>
 							<th>ชื่อแบบประเมิน</th>
 							<th>วันที่สร้าง</th>
-						<?php if($current_employee->id_position == 2):?>
-							<th></th>
-						<?php endif ?>
+							<?php if($current_employee->id_position == 2):?>
+								<th></th>
+							<?php endif ?>
 							<th>ยืนยันการส่ง</th>
 							<th>ดู</th>
-						<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
+							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
 
-							<th>ลบ</th>
-						<?php endif ?>
+								<th>ลบ</th>
+							<?php endif ?>
 						</tr>
 						<?php if(!empty($evaluations)):?>
 							<?php foreach($evaluations as $evaluation): //sd($evaluation->toArray());
@@ -63,12 +73,12 @@
 								<td><?php echo $evaluation->topic_name?></td>
 								<td><?php echo $evaluation->years?></td>
 								<?php if($current_employee->id_position == 2):?>
-								<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
+									<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
 								<?php endif ?>
 								<td><a href="<?php echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
 								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-								<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
-								</td>
+									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
+									</td>
 								<?php endif ?>
 							</tr>
 						<?php endforeach?>
@@ -87,4 +97,4 @@
 <div id="view-create-evaluation-url" data-url="<?php //echo route('evaluation.view_create_evaluations.get')?>"></div>
 <?php echo csrf_field() ?>
 
- <!-- data-href="<?php echo $evaluation->id_topic; ?>" -->
+<!-- data-href="<?php echo $evaluation->id_topic; ?>" -->
