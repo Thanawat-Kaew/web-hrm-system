@@ -34,7 +34,7 @@
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
-					<h4 class="box-title">ประวัติการสร้างแบบประเมิน</h4>
+					<h4 class="box-title">แบบประเมิน</h4>
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
 							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
@@ -55,7 +55,6 @@
 							<?php if($current_employee->id_position == 2):?>
 								<th></th>
 							<?php endif ?>
-							<th>ยืนยันการส่ง</th>
 							<th>ดู</th>
 							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
 

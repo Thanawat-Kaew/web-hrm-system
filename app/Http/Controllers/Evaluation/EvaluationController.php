@@ -24,34 +24,48 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        //$evaluations = CreateEvaluation::all();
-        $evaluations = CreateEvaluation::where('status', 1)->get();
-        //sd($current_employee->id_position);
         if($current_employee['id_position'] == 2){ // หัวหน้า
+            $evaluations = CreateEvaluation::where('status', 1)->get();
+            //sd($evaluations->toArray());
             return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee'));
         }else if($current_employee['id_position'] == 1){ // ลูกน้อง
-            return $this->useTemplate('evaluation.confirm_send_create_evaluations');
+            $evaluations = CreateEvaluation::where('id_employee', $current_employee['id_employee'])->where('confirm_send_create_evaluation', 0)->get();
+            //sd($evaluations->toArray());
+            return $this->useTemplate('evaluation.confirm_send_create_evaluations',compact('current_employee','evaluations'));
         }
     }
 
-    public function confirmSendCreateEvaluation()
+    public function confirmSendCreateEvaluation() //หน้า confirmSendCreateEvaluation
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        //$evaluations = CreateEvaluation::all();
-        $evaluations = CreateEvaluation::where('status', 1)->get();
+        $evaluations = CreateEvaluation::where('id_employee', $current_employee['id_employee'])->where('confirm_send_create_evaluation', 0)->get();
         return $this->useTemplate('evaluation.confirm_send_create_evaluations',compact('current_employee','evaluations'));
     }
 
-    public function viewCreateEvaluationRequest()
+    public function postConfirmSendCreateEvaluation(Request $request) // เครื่องหมายติ๊กถูก
+    {
+        if(\Session::has('current_employee')){
+            $current_employee   = \Session::get('current_employee');
+        }
+        $id                     = $request->get('id');
+        $find_id_topic          = CreateEvaluation::where('id_topic', $id)->first();
+        if($current_employee['id_position'] == 2){
+            $find_id_topic->status                         = 1;
+            $find_id_topic->confirm_send_create_evaluation = 1;
+        }
+        $find_id_topic->confirm_send_create_evaluation     = 1;
+        $find_id_topic->save();
+
+    }
+
+    public function viewCreateEvaluationRequest() // หน้าการอนุมัติ/ไม่อนุมัติการประเมิน //หัวหน้า HR เท่านั้นที่เข้าได้
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
         $evaluations = CreateEvaluation::with('employee', 'parts')->where('confirm_send_create_evaluation', 1)->get();
-        //sd($evaluations[0]->employee->first_name);
-        //sd($evaluations->toArray());
         return $this->useTemplate('evaluation.create_evaluations_request', compact('evaluations'));
     }
 
@@ -107,11 +121,7 @@ class EvaluationController extends Controller
         $create_evaluation             = CreateEvaluation::where('id_topic', $data['id_topic'])->first();
         $create_evaluation->topic_name = $data['name-evaluation-'.$data['id_topic'].''];
         $create_evaluation->years      = date("Y-m-d");
-        if($current_employee->id_position == 1){ // ถ้าเป็นหัวหน้า Hr ให้เป็น 1 แต่ถ้าไม่ก็เป็น 2
-            $create_evaluation->status     = 2;
-        }else{
-            $create_evaluation->status     = 1;
-        }
+        $create_evaluation->status     = 2;
         $create_evaluation->save();
 
         if(isset($data['chapter'])){ // ตรวจสอบว่ามีตอนไหม
@@ -539,14 +549,6 @@ class EvaluationController extends Controller
         $confirm->status        = 3;
         $confirm->id_approve    = $current_employee->id_employee;
         $confirm->save();
-    }
-
-    public function postConfirmSendCreateEvaluations($id)
-    {
-        //sd($id);
-        $id_topic    = CreateEvaluation::with('parts', 'parts.question')->where('id_topic', $id)->first();
-        //sd($id_topic->toArray());
-
     }
 
     public function ajaxCenter(Request $request)

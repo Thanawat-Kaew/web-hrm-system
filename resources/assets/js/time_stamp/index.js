@@ -177,8 +177,9 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 			jQuery.each(errors, function(k, v){
 				//console.log('#input-'+k+'-text-error');
 				$('#input-'+k+'-text-error').html(v).show();
-				console.log(errors);
-				console.log(k);
+				//console.log(errors);
+				//console.log(k);
+				//console.log(v);
 			})
 		}
 	});
