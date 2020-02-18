@@ -101,6 +101,7 @@ Route::get('/evaluation/request_created_evaluation', 'Evaluation\EvaluationContr
 Route::get('/evaluation/history_request_created_evaluation', 'Evaluation\EvaluationController@viewHistoryCreateEvaluation')->name('evaluation.history_create_evaluations.get');//หน้าประวัติการสร้างแบบประเมิน กรณีพนักงานและ HR
 Route::post('/evaluation/request_created_evaluation/confirm', 'Evaluation\EvaluationController@confirmCreateEvaluation')->name('evaluation.confirm-create-evaluation.post'); // confrim create evaluation
 Route::post('/evaluation/request_created_evaluation/cancel', 'Evaluation\EvaluationController@cancelCreateEvaluation')->name('evaluation.cancel-create-evaluation.post'); // cancel create evaluation
+Route::get('/evaluation/confirm_send_create_evaluation/', 'Evaluation\EvaluationController@confirmSendCreateEvaluation')->name('evaluation.confirm_send_create_evaluations.get'); // view-create-evaluation
 /************************************************End Evaluation******************************************************************/
 
 /******************************************************Report*********************************************************************/

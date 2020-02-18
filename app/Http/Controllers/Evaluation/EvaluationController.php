@@ -34,6 +34,16 @@ class EvaluationController extends Controller
         }
     }
 
+    public function confirmSendCreateEvaluation()
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        //$evaluations = CreateEvaluation::all();
+        $evaluations = CreateEvaluation::where('status', 1)->get();
+        return $this->useTemplate('evaluation.confirm_send_create_evaluations',compact('current_employee','evaluations'));
+    }
+
     public function viewCreateEvaluationRequest()
     {
         if(\Session::has('current_employee')){

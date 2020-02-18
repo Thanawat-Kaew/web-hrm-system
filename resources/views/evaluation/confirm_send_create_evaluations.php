@@ -8,12 +8,12 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<?php if($current_employee->id_department == "hr0001"){?>
-			<div class="row">
+			<div class="row button_group">
 				<div class="btn-group pull-right new-evaluation">
 					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
 					</button>
 				</div>
-				<div class="btn-group pull-right history_create_evaluations">
+				<div class="btn-group pull-right history_create_evaluations button_history_create_evaluations">
 					<div class="btn-group pull-right">
 						<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">
 							<button class="btn btn-info dropdown-toggle" type="button"><i class="fa fa-history"></i> ประวัติการสร้าง</button>
