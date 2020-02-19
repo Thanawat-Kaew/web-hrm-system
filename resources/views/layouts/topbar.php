@@ -54,41 +54,47 @@
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a>
               <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <?php if(\Session::has('current_employee')) :
                 $current_employee = \Session::get('current_employee');
                 ?>
                 <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
               </a>
-              <ul class="dropdown-menu">
+                  <?php endif ?>
+
+              <!-- <ul class="dropdown-menu"> -->
                 <!-- User image -->
-                <li class="user-header">
+               <!--  <li class="user-header">
                   <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                   <p>
-                    <?php echo $current_employee['first_name'];?>
-                    <?php echo $current_employee['last_name'];
-                  endif
+                    <?php /*echo $current_employee['first_name'];*/ ?>
+                    <?php /*echo $current_employee['last_name'];*/
+                  // endif
                   ?>
                   <small>Member since Nov. 2012</small>
                 </p>
-              </li>
+              </li> -->
               <!-- Menu Body -->
 
               <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="<?php echo route('personal_info.personal_info.get') ?>" class="btn btn-default">ข้อมูลส่วนตัว</a>
-                </div>
-                <div class="pull-right">
+              <!-- <li class="user-footer"> -->
+               <!--  <div class="pull-left">
+                  <a href="<?php /*echo route('personal_info.personal_info.get')*/ ?>" class="btn btn-default">ข้อมูลส่วนตัว</a>
+                </div> -->
+                <!-- <div class="pull-right">
                   <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default">ออกจากระบบ</a>
-                </div>
+                </div> -->
+              <!-- </li> -->
+            <!-- </ul> -->
+          </li>
                 <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
                   <?php echo csrf_field() ?>
                 </form>
-              </li>
-            </ul>
-          </li>
+           <div class="pull-right">
+                  <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class=""><span class="glyphicon glyphicon-log-out" style="font-size: 30px; 
+    margin-top: 6px; color: white; margin-right: 10px;"></span></a>
+                </div>
           <!-- Control Sidebar Toggle Button -->
         </ul>
       </div>
