@@ -14,7 +14,7 @@
 					</button>
 				</div>
 				<div class="btn-group pull-right time-clock">
-					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Time Clock
+					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Timestamp
 					</button>
 				</div>
 				<div class="btn-group pull-right ">
