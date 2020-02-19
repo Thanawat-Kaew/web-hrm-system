@@ -46,7 +46,7 @@
                                 <li id="point">:</li>
                                 <li id="sec"> </li>
                             </ul>
-                        </div>
+                        </div><br>
                         <div class="input-group name_employee">
                             <div class="input-group-addon">
                                 <i class="fa fa-user-secret"></i>
