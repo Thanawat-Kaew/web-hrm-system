@@ -5,28 +5,63 @@ use App\Services\Employee\EmployeeObject;
 class FormDataPersonal
 {
 	 public static function getDataPersonal($employee){
-        $form = '<div class="box-body" style="text-center">';
-            $form .= '<div class="text-center">';
-                $form .= '<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">';
-            $form .= '</div>';
-            $form .= '<div class="personal-data">';
-            $form .= '<h4>รหัสพนักงาน :  '.$employee['id_employee'].' </h4>';
-            $form .= '<h4>ชื่อ - สกุล :   '.$employee['first_name'].' '. $employee['last_name'].'</h4>';
-            $form .= '<h4>ตำแหน่ง :    '.  $employee->position["name"].'</h4>';
-            $form .= '<h4>แผนก :  '.  $employee->department['name'].'</h4>';
-            if($employee['$id_position'] == 2 ){
-            $form .= '<h4>อัตราเงินเดือน : '. $employee['salary'].' </h4>';
-            }
-            $form .= '<h4>การศึกษา :  '. $employee->education['name'].' </h4>';
-            $form .= '<h4>เพศ :  '. $employee['gender'].' </h4>';
-            $form .= '<h4>อายุ :  '. $employee['age'].' </h4>';
-            $form .= '<h4>ที่อยู่ :  '. $employee['address'].' </h4>';
-            $form .= '<h4>อีเมล์ :  '. $employee['email'].' </h4>';
-            $form .= '<h4>เบอร์โทรศัพท์ : '. $employee['tel'].' </h4>';
-        $form .= '</div>';
-        $form .= '</div>';
+                 $form = '<div class="box-body">';
+                 $form .= '<div class="text-center">';
+                     $form .= '<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image" style="width : 80px; height : 80px;">';
+                 $form .= '</div>';
+                 $form .= '<div class="box-body">';
+                     $form .= '<table class="table table-bordered">';
+                         $form .= '<tbody>';
+                             $form .= '<tr>';
+                                 $form .= '<td>รหัสพนักงาน</td>';
+                                 $form .= '<td>'.$employee['id_employee'].'</td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>ชื่อ - สกุล</td>';
+                                 $form .= '<td>'.$employee['first_name'].' '. $employee['last_name'].'</td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>ตำแหน่ง</td>';
+                                 $form .= '<td>'.  $employee->position["name"].'</td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>แผนก</td>';
+                                 $form .= '<td>'.  $employee->department['name'].'</td>';
+                             $form .= '</tr>';
+                                    if($employee['$id_position'] == 2 ){
+                             $form .= '<tr>';
+                                 $form .= '<td>อัตราเงินเดือน</td>';
+                                         $form .= '<td>'. $employee['salary'].'</td>';
+                             $form .= '</tr>';
+                                    }
+                             $form .= '<tr>';
+                                 $form .= '<td>การศึกษา</td>';
+                                 $form .= '<td>'. $employee->education['name'].'</td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>เพศ</td>';
+                                 $form .= '<td>'. $employee['gender'].'</td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>อายุ</td>';
+                                 $form .= '<td>'. $employee['age'].'</td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>ที่อยู่</td>';
+                                 $form .= '<td>'. $employee['address'].'></td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>อีเมล์</td>';
+                                 $form .= '<td>'. $employee['email'].'</td>';
+                             $form .= '</tr>';
+                             $form .= '<tr>';
+                                 $form .= '<td>เบอร์โทรศัพท์</td>';
+                                 $form .= '<td>'. $employee['tel'].'</td>';
+                             $form .= '</tr>';
+                         $form .= '</tbody></table>';
+                     $form .= '</div>';
+             $form .= '</div>';
 
     return $form;
     }
-
 }

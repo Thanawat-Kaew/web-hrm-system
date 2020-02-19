@@ -10,7 +10,7 @@ class FormChangeDepartment
 
             foreach ($employee as $key => $value) {
                if($value['id_position'] == 2) {
-                $form_head .='<div class="col-md-2 col-sm-2 ">';
+                $form_head .='<div class="col-md-3 col-sm-2 ">';
                 $form_head .='<div class="box box-widget widget-user-2">';
                 $form_head .='<div class="widget-user-header">';
                 $form_head .='<!-- /.widget-user-image -->';
@@ -40,7 +40,7 @@ class FormChangeDepartment
 
          foreach($employee as $key => $value) {
             if($value['id_position'] == 1) {
-                $form_emp .='<div class="col-md-2 col-sm-2 ">';
+                $form_emp .='<div class="col-md-3 col-sm-2 ">';
                 $form_emp .='<div class="box box-widget widget-user-2">';
                 $form_emp .='<div class="widget-user-header">';
                 $form_emp .='<!-- /.widget-user-image -->';

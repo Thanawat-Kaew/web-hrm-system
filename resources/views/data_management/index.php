@@ -45,7 +45,7 @@
         <div class="row" id="header">
             <?php foreach($employee as $key => $value):
                 if($value['id_position'] == 2) : ?>
-                    <div class="col-md-2 col-sm-2">
+                    <div class="col-md-3 col-sm-2">
                         <div class="box box-widget widget-user-2">
                             <div class="widget-user-header">
                                 <!-- /.widget-user-image -->
@@ -82,7 +82,7 @@
                 <?php foreach($employee as $key => $value):
                     if($value['id_position'] == 1) :
                         ?>
-                        <div class="col-md-2 col-sm-2 ">
+                        <div class="col-md-3 col-sm-2 ">
                             <div class="box box-widget widget-user-2">
                                 <div class="widget-user-header">
                                     <!-- /.widget-user-image -->

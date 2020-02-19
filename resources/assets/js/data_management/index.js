@@ -59,7 +59,7 @@ $(function(){
 							bootbox.dialog({
 								title: title,
 								message: result.data,
-								size: 'small',
+								size: 'xlarge',
 								onEscape: true,
 								backdrop: 'static',
 								buttons: {
