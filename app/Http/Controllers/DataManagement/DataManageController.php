@@ -51,7 +51,7 @@ class DataManageController extends Controller
                     $employee   = Employee::where('id_department', $department)->get();
                     $form_repo      = new FormChangeDepartment;
                     $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
-                     return response()->json(['status'=> 'success','data'=> $get_form_emp]);
+                    return response()->json(['status'=> 'success','data'=> $get_form_emp]);
             break;
 
             case 'getManageData':
