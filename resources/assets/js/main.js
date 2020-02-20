@@ -1,4 +1,5 @@
 msg_waiting()
+
 function msg_waiting(){
 	Swal.fire({
 		title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i>',

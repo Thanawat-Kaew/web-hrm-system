@@ -12,7 +12,7 @@
 					รายการคำร้อง
 					<div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
+							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
 
 							<div class="input-group-btn">
 								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -22,7 +22,7 @@
 				</div>
 
 				<div class="box-body table-responsive no-padding">
-					<table class="table table-hover">
+					<table id="myTable" class="table table-hover">
 						<tr>
 							<th>#</th>
 							<th>ชื่อ-สกุล</th>

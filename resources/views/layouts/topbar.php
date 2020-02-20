@@ -38,7 +38,7 @@
                       <i class="fa fa-clock-o text-aqua"></i> รายการคำร้องขอลงเวลาย้อนหลัง
                     </a>
                   </li>
-                   <li class="view-request-leave">
+                  <li class="view-request-leave">
                     <a href="<?php echo route('leave.leave_request.get');?>">
                       <i class="fa fa-calendar-o text-aqua"></i> รายการคำร้องขอลา
                     </a>
@@ -61,10 +61,10 @@
                 ?>
                 <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
               </a>
-                  <?php endif ?>
+            <?php endif ?>
 
-              <!-- <ul class="dropdown-menu"> -->
-                <!-- User image -->
+            <!-- <ul class="dropdown-menu"> -->
+              <!-- User image -->
                <!--  <li class="user-header">
                   <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                   <p>
@@ -85,19 +85,19 @@
                 <!-- <div class="pull-right">
                   <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default">ออกจากระบบ</a>
                 </div> -->
-              <!-- </li> -->
-            <!-- </ul> -->
-          </li>
-                <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
-                  <?php echo csrf_field() ?>
-                </form>
-           <div class="pull-right">
-                  <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class=""><span class="glyphicon glyphicon-log-out" style="font-size: 30px; 
-    margin-top: 6px; color: white; margin-right: 10px;"></span></a>
-                </div>
-          <!-- Control Sidebar Toggle Button -->
-        </ul>
-      </div>
+                <!-- </li> -->
+                <!-- </ul> -->
+              </li>
+              <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
+                <?php echo csrf_field() ?>
+              </form>
+              <div class="pull-right">
+                <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class=""><span class="glyphicon glyphicon-log-out glyphicon-log-out-logout" style="font-size: 30px; 
+                margin-top: 6px; color: white; margin-right: 10px;"></span></a>
+              </div>
+              <!-- Control Sidebar Toggle Button -->
+            </ul>
+          </div>
 
-    </nav>
-  </header>
+        </nav>
+      </header>
