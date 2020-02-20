@@ -189,6 +189,14 @@ class TimeStampController extends Controller
                 return ['status' => 'failed', 'message1' => 'คุณลงเวลาออกงานแล้ว' , 'message2' =>'ไม่สามารถลงเวลาซ้ำได้'];
             }
 
+            if ($current_time->time_out != "" && $type_time == 'break_in' ){
+                return ['status' => 'failed', 'message1' => 'คุณลงเวลาออกงานแล้ว' , 'message2' =>'ไม่สามารถลงเวลาพักได้'];
+            }
+
+            if ($current_time->time_out != "" && $type_time == 'break_out' ){
+                return ['status' => 'failed', 'message1' => 'คุณลงเวลาออกงานแล้ว' , 'message2' =>'ไม่สามารถลงเวลาพักได้'];
+            }
+
             $current_time->{$type_time}   = date('H:i:s');
             $current_time->save();
 

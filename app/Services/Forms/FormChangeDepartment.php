@@ -70,6 +70,4 @@ class FormChangeDepartment
 
          return ['form_head' => $form_head, 'form_emp' => $form_emp];
     }
-
-
 }

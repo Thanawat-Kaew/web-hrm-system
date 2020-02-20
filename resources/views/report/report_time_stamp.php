@@ -5,7 +5,7 @@
 	</h3>
 </section>
 <section class="content">
-	
+
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="box box-danger">
@@ -14,9 +14,12 @@
 						<div class="form-group">
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
-								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true">
-									<option>เลือกแผนก...</option>
-									<option>human resource</option>
+								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+									<option value="">เลือกแผนก...</option>
+									<option value="all">เลือกทุกแผนก</option>
+								<?php foreach($department as $departments):?>
+									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
+								<?php endforeach ?>
 								</select>
 							</div>
 						</div>
@@ -77,6 +80,7 @@
 			</div>
 			<div class="box box-info"><br>
 				<div class="box-body table-responsive no-padding">
+					<div class="row" id="data-timestamp">
 					<table id="myTable" class="table table-hover">
 						<thead>
 							<tr>
@@ -85,39 +89,39 @@
 								<th>Position</th>
 								<th>Date</th>
 								<th>Time-In</th>
-								<th>Break-In</th>
 								<th>Break-Out</th>
+								<th>Break-In</th>
 								<th>Time-Out</th>
 								<th>Total(hr)</th>
 							</tr>
 						</thead>
-						<?php for ($i=0; $i < 8; $i++) { ?>
+						<?php foreach($timestamp as $value): ?>
 							<tr>
-								<td style="color: blue">ธนวัฒน์ แก้วล้อมวัง</td>
-								<td>engineer</td>
-								<td>Web Developer</td>
-								<td>11-7-2014</td>
-								<td>09:00</td>
-								<td>-</td>
-								<td>-</td>
-								<td>18:00</td>
-								<td style="color: red">9.0</td>
+								<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
+								<td><?php echo $value->employee->department->name;?></td>
+								<td><?php echo $value->employee->Position->name;?></td>
+								<td><?php echo $value->date;?></td>
+								<td><?php echo (!empty($value->time_in) ? $value->time_in : '-');?></td>
+								<td><?php echo (!empty($value->break_out) ? $value->break_out : '-');?></td>
+								<td><?php echo (!empty($value->break_in) ? $value->break_in : '-');?></td>
+								<td><?php echo (!empty($value->time_out) ? $value->time_out : '-');?></td>
+								<?php
+									$start 	= strtotime($value->time_in);
+									$end    = strtotime($value->time_out);
+									if(!empty($end)){
+										$total_hour = intval(($end - $start)/3600);
+										$mins = (int)(($end - $start) / 60);
+									}
+								?>
+								<td style="color: red"><?php echo (!empty($total_hour) ? $total_hour : '-')?></td>
 							</tr>
-							<tr>
-								<td style="color: blue">ชนะชัย ชุ่มชื่น</td>
-								<td>human resource</td>
-								<td>Web Developer</td>
-								<td>11-7-2014</td>
-								<td>09:00</td>
-								<td>-</td>
-								<td>-</td>
-								<td>18:00</td>
-								<td style="color: red">9.0</td>
-							</tr>
-						<?php } ?>
+						<?php endforeach ?>
 					</table>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+<div id="ajax-center-url" data-url="<?php echo route('report.ajax_center.post')?>"></div>
+<?php echo csrf_field()?>
