@@ -16,7 +16,6 @@
 							<div class="form-group" data-select2-id="13">
 								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 									<option value="">เลือกแผนก...</option>
-									<option value="all">เลือกทุกแผนก</option>
 								<?php foreach($department as $departments):?>
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
 								<?php endforeach ?>
@@ -39,7 +38,7 @@
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" readonly class="form-control datepicker" placeholder="เลือกวันที่..." style="background-color: white">
+								<input type="text" readonly class="form-control datepicker" placeholder="เลือกวันที่..." style="background-color: white" id="select_start_date">
 							</div>
 						</div>
 					</div>
@@ -50,31 +49,35 @@
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" readonly class="form-control datepicker" placeholder="เลือกวันที่..." style="background-color: white">
+								<input type="text" readonly class="form-control datepicker" placeholder="เลือกวันที่..." style="background-color: white" id="select_end_date">
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>เริ่มเวลา</label>
-							<div class="input-group date">
+							<div class="input-group time">
 								<div class="input-group-addon">
 									<i class="fa fa-clock-o"></i>
 								</div>
-								<input type="text" readonly class="form-control timePicker1" placeholder="เลือกเวลา..." style="background-color: white">
+								<input type="text" readonly class="form-control timePicker1" placeholder="เลือกเวลา..." style="background-color: white" id="select_start_time" value="">
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>ถึงเวลา</label>
-							<div class="input-group date">
+							<div class="input-group time">
 								<div class="input-group-addon">
 									<i class="fa fa-clock-o"></i>
 								</div>
-								<input type="text" readonly class="form-control timePicker2" placeholder="เลือกเวลา..." style="background-color: white">
+								<input type="text" readonly class="form-control timePicker2" placeholder="เลือกเวลา..." style="background-color: white" id="select_end_time">
 							</div>
 						</div>
+					</div>
+
+					<div class="col-md-12">
+						 <button id="btn-search" class="btn btn-primary pull-right">Search</button>
 					</div>
 				</div>
 			</div>
@@ -97,7 +100,7 @@
 						</thead>
 						<?php foreach($timestamp as $value): ?>
 							<tr>
-								<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
+								<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?> <?php echo $value->id; ?></td>
 								<td><?php echo $value->employee->department->name;?></td>
 								<td><?php echo $value->employee->Position->name;?></td>
 								<td><?php echo $value->date;?></td>
@@ -125,3 +128,5 @@
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('report.ajax_center.post')?>"></div>
 <?php echo csrf_field()?>
+
+
