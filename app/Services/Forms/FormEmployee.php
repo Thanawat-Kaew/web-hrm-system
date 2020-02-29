@@ -9,12 +9,12 @@ class FormEmployee
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
                 $form .= '<input type="hidden" value="'.((!empty($employee['id_employee']) ? $employee['id_employee'] : '')).'" id="id_employee">';
-                    // $form .= '<div class="profile-picture">';
-                    //     $form .= '<div class="form-group">';
-                    //         $form .= '<label for="exampleInputFile">Profile Picture</label>';
-                    //          $form .= '<input type="file" id="exampleInputFile">';
-                    //      $form .= '</div>';
-                    //  $form .= '</div>';
+                    $form .= '<div class="profile-picture">';
+                        $form .= '<div class="form-group">';
+                            $form .= '<label for="exampleInputFile">เพิ่มรูปถ่าย</label>';
+                             $form .= '<input type="file" id="exampleInputFile" value="ssss">';
+                         $form .= '</div>';
+                     $form .= '</div>';
                      $form .= 'รหัสพนักงาน';
                     $form .= '<div class="input-group id_employee">';
                         $form .= '<div class="input-group-addon">';

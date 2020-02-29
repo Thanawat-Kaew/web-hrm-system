@@ -66,8 +66,8 @@ class LeaveController extends Controller
         // sd($history_leave);
         // sd($leaves->toArray());
         // sd($datas->leaves->where('id_leaves_type', '1')->count());
-       // $ggg = Leaves::groupBy('id_leaves_type')->get();
-             //               sd($ggg->toArray());
+        // $ggg = Leaves::groupBy('id_leaves_type')->get();
+        //               sd($ggg->toArray());
         // $leaves_type    = LeavesType::all();
         // $header         = Employee::with('company','leaves')
         //                                         ->where('id_position', 2)
