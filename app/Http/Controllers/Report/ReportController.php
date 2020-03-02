@@ -67,7 +67,7 @@ class ReportController extends Controller
                 $new_end_time        = date("H:i:s", strtotime($end_time));
                 if(empty($department)){ // กรณีเลือกทุกแผนก
                     if(!empty($start_date) && !empty($end_date) && !empty($start_time) && !empty($end_time) ){ // ใส่ค่าทั้ง 4 ช่อง
-                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
 
                     }else if(!empty($start_date) && !empty($end_date) && !empty($start_time)){
                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
@@ -79,22 +79,23 @@ class ReportController extends Controller
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '>=', $new_start_date)->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
 
                     }else if(!empty($start_date) && !empty($end_time)){
-                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '>=', $new_start_date)->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '>=', $new_start_date)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
 
                     }else if(!empty($end_time)){
-                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('time_out', '<=', $new_end_time)->orderBy('date', 'desc')->get();
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('time_out', '<=', $new_end_time)->orderBy('time_out', 'asc')->get();
 
                     }else if(!empty($start_time)){
-                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('time_in', '>=', $new_start_time)->orderBy('date', 'desc')->get();
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('time_in', '>=', $new_start_time)->orderBy('time_in', 'asc')->get();
 
                     }else if(!empty($end_date)){
-                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '<=', $new_end_time)->orderBy('date', 'desc')->get();
+                        //echo "3";
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '<=', $new_end_date)->orderBy('date', 'asc')->get();
 
                     }else if(!empty($start_date)){
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '>=', $new_start_date)->orderBy('date', 'asc')->get();
 
                     }else{
-                        $$emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
                     }
                     //$emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
                 }else{ // กรณีเลือกเฉาะแผนก
@@ -116,7 +117,7 @@ class ReportController extends Controller
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
                                         ->with(['employee.department' => function($q) use($department){
                         $q->where('id_department', $department);
-                        }])->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
+                        }])->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
 
                         /*$emp_timestamp = $emp_timestamp->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();*/
 
@@ -144,13 +145,13 @@ class ReportController extends Controller
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
                                         ->with(['employee.department' => function($q) use($department){
                         $q->where('id_department', $department);
-                        }])->where('date', '>=', $new_start_date)->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
+                        }])->where('date', '>=', $new_start_date)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
                         //echo "6";
                     }else if(!empty($end_time)){
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
                                         ->with(['employee.department' => function($q) use($department){
                         $q->where('id_department', $department);
-                        }])->where('time_out', '<=', $new_end_time)->orderBy('date', 'desc')->get();
+                        }])->where('time_out', '<', $new_end_time)->orderBy('date', 'desc')->get();
                         //echo "5";
                     }else if(!empty($start_time)){
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
