@@ -50,27 +50,22 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label>เริ่มเวลา</label>
-							<div class="input-group date">
-								<div class="input-group-addon">
-									<i class="fa fa-clock-o"></i>
-								</div>
-								<input type="text" readonly class="form-control timePicker1" placeholder="เลือกเวลา..." style="background-color: white">
+					<div class="col-md-6" style="border-style: double; border-radius: 5px; border-color: red;">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>ช่วงผลการประเมิน</label>
+								<input type="text" class="form-control" placeholder="เริ่ม" style="background-color: white; border-radius: 5px;">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label> </label>
+								<input type="text" class="form-control" placeholder="ถึง" style="background-color: white; border-radius: 5px;">
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label>ถึงเวลา</label>
-							<div class="input-group date">
-								<div class="input-group-addon">
-									<i class="fa fa-clock-o"></i>
-								</div>
-								<input type="text" readonly class="form-control timePicker2" placeholder="เลือกเวลา..." style="background-color: white">
-							</div>
-						</div>
+					<div class="col-md-12" style="margin-top: 10px;">
+						<button id="btn-search" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Search</button>
 					</div>
 				</div>
 			</div>
@@ -86,25 +81,25 @@
 							<th>Name</th>
 							<th>Department</th>
 							<th>Position</th>
-							<th>วันที่ขอลา</th>
-							<th>ประเภทการลา</th>
-							<th>เริ่มวันที่</th>
-							<th>สิ้นสุดวันที่</th>
-							<th>เหตุผลการลา</th>
+							<th>วันที่ประเมิน</th>
+							<th>ผู้ประเมิน</th>
+							<th>คะแนนการประเมิน</th>
+							<th>จากคะแนนเต็ม</th>
+							<th>คิดเป็นร้อยละ (%)</th>
 							
 						</tr>
 						<?php for ($i=0; $i < 8; $i++) { ?>
-						<tr>
-							<td style="color: blue">ธนวัฒน์ แก้วล้อมวัง</td>
-							<td>engineer</td>
-							<td>Web Developer</td>
-							<td>11-7-2014</td>
-							<td>ลาป่วย</td>
-							<td>11-7-2014</td>
-							<td>15-7-2014</td>
-							<td>อาเจียน</td>
-							
-						</tr>
+							<tr>
+								<td style="color: blue">ธนวัฒน์ แก้วล้อมวัง</td>
+								<td>engineer</td>
+								<td>Web Developer</td>
+								<td>11-7-2014</td>
+								<td>ศักดิ์ทิพย์ สมเพียร</td>
+								<td>60 (คะแนน)</td>
+								<td>60 (คะแนน)</td>
+								<td>100%</td>
+
+							</tr>
 						<?php } ?>
 					</table>
 				</div>
