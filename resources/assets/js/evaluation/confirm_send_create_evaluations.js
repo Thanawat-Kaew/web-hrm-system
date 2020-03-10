@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('.post-confirm-send-create-evaluation').click(function(){  // กด อนุมัติ
-		//alert("confirm");
-		var id = $(this).data('id');
+		alert("confirm");
+		/*var id = $(this).data('id');
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะส่งการประเมินนี้ !",
@@ -30,6 +30,10 @@ $(document).ready(function(){
 						}
 					})
 				}
-			})
-		})
+			})*/
+	})
+
+	$('.aaa').click(function(){
+		alert("55");
+	});
 });

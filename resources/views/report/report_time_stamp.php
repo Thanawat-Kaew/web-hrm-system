@@ -15,10 +15,14 @@
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+								<?php if($current_employee['id_department'] == "hr0001"){?>
 									<option value="">เลือกแผนก...</option>
 								<?php foreach($department as $departments):?>
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
 								<?php endforeach ?>
+								<?php }else{?>
+									<option value="<?php echo $current_employee['id_department']?>"><?php echo $current_employee['id_department']?></option>
+								<?php }?>
 								</select>
 							</div>
 						</div>
@@ -98,9 +102,10 @@
 								<th>Total(hr)</th>
 							</tr>
 						</thead>
-						<?php foreach($timestamp as $value): ?>
+						<?php foreach($timestamp as $value):?>
+							<?php if(isset($value->employee->department)):?>
 							<tr>
-								<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?> <?php echo $value->id; ?></td>
+								<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
 								<td><?php echo $value->employee->department->name;?></td>
 								<td><?php echo $value->employee->Position->name;?></td>
 								<td><?php echo $value->date;?></td>
@@ -118,6 +123,7 @@
 								?>
 								<td style="color: red"><?php echo (!empty($total_hour) ? $total_hour : '-')?></td>
 							</tr>
+							<?php endif?>
 						<?php endforeach ?>
 					</table>
 					</div>
