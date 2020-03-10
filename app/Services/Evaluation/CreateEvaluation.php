@@ -20,4 +20,10 @@ class CreateEvaluation extends Model
     {
         return $this->belongsTo("App\Services\Employee\Employee", 'id_employee', 'id_employee');
     }
+
+    public function evaluation()
+    {
+        return $this->hasMany("App\Services\Evaluation\Evaluation", 'id_topic', 'id_topic');
+        // OnetoMany ไปยังตาราง evaluation
+    }
 }

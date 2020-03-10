@@ -9,13 +9,28 @@
 		<div class="col-xs-12">
 			<div class="box box-danger">
 				<div class="box-header with-border">
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 									<option value="">เลือกแผนก...</option>
-									<option value="all">เลือกทุกแผนก</option>
+									<?php foreach($department as $departments):?>
+									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
+									<?php endforeach ?>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>เลือกหัวข้อการประเมิน</label>
+							<div class="form-group" data-select2-id="13">
+								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-topic-name">
+									<option value="">เลือกชื่อแบบประเมิน...</option>
+									<?php foreach($topic_name as $topic_names):?>
+									<option value="<?php echo $topic_names['id_topic']?>"><?php echo $topic_names['topic_name']?></option>
+									<?php endforeach ?>
 								</select>
 							</div>
 						</div>
@@ -35,7 +50,7 @@
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" readonly class="form-control datepicker" placeholder="เลือกวันที่..." style="background-color: white">
+								<input type="text" readonly class="form-control datepicker" id="select_start_date" placeholder="เลือกวันที่..." style="background-color: white">
 							</div>
 						</div>
 					</div>
@@ -46,7 +61,7 @@
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" readonly class="form-control datepicker" placeholder="เลือกวันที่..." style="background-color: white">
+								<input type="text" readonly class="form-control datepicker" id="select_end_date" placeholder="เลือกวันที่..." style="background-color: white">
 							</div>
 						</div>
 					</div>
@@ -54,13 +69,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>ช่วงผลการประเมิน</label>
-								<input type="text" class="form-control" placeholder="เริ่ม" style="background-color: white; border-radius: 5px;">
+								<input type="text" class="form-control" id="start_number" placeholder="เริ่ม" style="background-color: white; border-radius: 5px;">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label> </label>
-								<input type="text" class="form-control" placeholder="ถึง" style="background-color: white; border-radius: 5px;">
+								<input type="text" class="form-control" id="end_number" placeholder="ถึง" style="background-color: white; border-radius: 5px;">
 							</div>
 						</div>
 					</div>
@@ -69,7 +84,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="box box-info">
 				<div class="box-header">
 					<h3 class="box-title">ประวัติการลา</h3>
@@ -83,23 +98,31 @@
 							<th>Position</th>
 							<th>วันที่ประเมิน</th>
 							<th>ผู้ประเมิน</th>
+							<th>หัวข้อการประเมิน</th>
 							<th>คะแนนการประเมิน</th>
 							<th>จากคะแนนเต็ม</th>
 							<th>คิดเป็นร้อยละ (%)</th>
-							
-						</tr>
-						<?php for ($i=0; $i < 8; $i++) { ?>
-							<tr>
-								<td style="color: blue">ธนวัฒน์ แก้วล้อมวัง</td>
-								<td>engineer</td>
-								<td>Web Developer</td>
-								<td>11-7-2014</td>
-								<td>ศักดิ์ทิพย์ สมเพียร</td>
-								<td>60 (คะแนน)</td>
-								<td>60 (คะแนน)</td>
-								<td>100%</td>
 
+						</tr>
+						<?php $no = 0; ?>
+						<?php $count_assessor = $assessor->count();?>
+						<?php for ($i=0; $i < $count_assessor; $i++) { ?>
+							<?php if(!empty($assessor[$i]->evaluation)):?>
+								<?php $full_score = $assessor[$i]->evaluation->resultevaluation->count() * 5;?>
+								<?php $percent    = ($assessor[$i]->evaluation->result_evaluation * 100) /$full_score; ?>
+							<tr>
+								<td style="color: blue"><?php echo $assessor[$i]->first_name;?><?php echo $assessor[$i]->last_name;?></td>
+								<td><?php echo $assessor[$i]->department->name?></td>
+								<td><?php echo $assessor[$i]->position->name?></td>
+								<td><?php echo $assessor[$i]->evaluation->date?></td>
+								<td><?php echo $count_first_name[$no];?> <?php echo $count_last_name[$no];?></td>
+								<td><?php echo $count_name_evaluation[$no];?></td>
+								<td><?php echo $assessor[$i]->evaluation->result_evaluation;?></td>
+								<td><?php echo $assessor[$i]->evaluation->from_the_full_score;?></td>
+								<td><?php echo $assessor[$i]->evaluation->percent;?>%</td>
 							</tr>
+							<?php $no++; ?>
+							<?php endif ?>
 						<?php } ?>
 					</table>
 				</div>
@@ -109,3 +132,5 @@
 		</div>
 	</div>
 </section>
+<div id="ajax-center-url" data-url="<?php echo route('report.ajax_center.post')?>"></div>
+<?php echo csrf_field()?>

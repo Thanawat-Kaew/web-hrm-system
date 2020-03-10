@@ -25,6 +25,9 @@ use App\Services\Forms\FormEditRequestLeaves;
 use App\Services\Request\RequestLeaves;
 use App\Services\Request\Status;
 use App\Services\TimeStamp\TimeStamp;
+use App\Services\Evaluation\Evaluation;
+use App\Services\Evaluation\ResultEvaluation;
+use App\Services\Evaluation\CreateEvaluation;
 
 class ReportController extends Controller
 {
@@ -43,13 +46,21 @@ class ReportController extends Controller
 
     public function reportTimeStamp()
     {
-        $department      = Department::all();
-        $timestamp       = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
-        //$emp_timestamp       = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
-        //sd($timestamp[0]->employee->toArray());
-        //sd($emp_timestamp->count());
-        //sd($timestamp->count());
-    	return $this->useTemplate('report.report_time_stamp', compact('department', 'timestamp'));
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+
+        if($current_employee['id_department'] !== "hr0001"){  // ไม่ใช่แผนก hr จะมองไม่เห็น dropdown เลือกแผนก
+            $department  = $current_employee['id_department'];
+            $timestamp   = TimeStamp::with('employee', 'employee.position')
+                            ->with(['employee.department' => function($q) use($department){
+                                $q->where('id_department', $department);
+                            }])->orderBy('date', 'desc')->get();
+        }else{
+            $department      = Department::all();
+            $timestamp       = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
+        }
+    	return $this->useTemplate('report.report_time_stamp', compact('department', 'timestamp', 'current_employee'));
     }
 
     public function reportLeave()
@@ -89,7 +100,7 @@ class ReportController extends Controller
         // sd($datas->toArray());
 
         // $leaves_type = Company::with('leaves_requirements', 'leaves_requirements.leaves_type')->first();
-        // $get_status  = Status::all(); 
+        // $get_status  = Status::all();
         // $leaves_require     = $leaves_type->leaves_requirements;
         // $leaves             = $datas->leaves;
 
@@ -98,7 +109,35 @@ class ReportController extends Controller
 
     public function reportEvaluation()
     {
-    	return $this->useTemplate('report.report_evaluations');
+        //$assessor = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation')->get();
+        $department  = Department::all();
+        $assessor    = Employee::with('department', 'position', 'evaluation','evaluation.resultevaluation')->get();
+        //sd($assessor->toArray());
+        $array_assessment = array();
+        $array_id_topic   = array();
+        foreach ($assessor as $value){
+            if(!empty($value->evaluation)){
+                $array_assessment[] = $value->evaluation->id_assessment_person;
+                $array_id_topic[]   = $value->evaluation->id_topic;
+            }
+        }
+
+        $count_assessment       = count($array_assessment);
+        //$count_id_topic         = count($array_id_topic);
+        $count_first_name       = [];
+        $count_last_name        = [];
+        $count_name_evaluation  = [];
+        for($i=0; $i<$count_assessment; $i++){
+            $assessment         = Employee::where('id_employee', $array_assessment[$i])->first();
+            $count_first_name[] = $assessment->first_name;
+            $count_last_name[]  = $assessment->last_name;
+            $name_evaluation    = CreateEvaluation::where('id_topic', $array_id_topic[$i])->first();
+            $count_name_evaluation[] = $name_evaluation->topic_name;
+        }
+        //sd($count_name_evaluation);
+        $topic_name  = CreateEvaluation::where('status', 1)->get();
+        //sd($topic_name->toArray());
+    	return $this->useTemplate('report.report_evaluations', compact('assessor', 'count_first_name', 'count_last_name', 'count_name_evaluation', 'department', 'topic_name'));
     }
 
     public function reportOverview()
@@ -126,6 +165,9 @@ class ReportController extends Controller
 
                     }else if(!empty($start_date) && !empty($end_date) && !empty($start_time)){
                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
+
+                    }else if(!empty($start_date) && !empty($end_date) && !empty($end_time)){
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
 
                     }else if(!empty($start_date) && !empty($end_date)){
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->orderBy('date', 'asc')->get();
@@ -188,6 +230,12 @@ class ReportController extends Controller
                         }])->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
                         //sd($emp_timestamp->toArray());
                         //echo "9";
+                    }else if(!empty($start_date) && !empty($end_date) && !empty($end_time)){
+                        $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
+                                        ->with(['employee.department' => function($q) use($department){
+                        $q->where('id_department', $department);
+                        }])->whereBetween('date', [$new_start_date,$new_end_date])->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
+
                     }else if(!empty($start_date) && !empty($end_date)){
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
                                         ->with(['employee.department' => function($q) use($department){
@@ -240,7 +288,7 @@ class ReportController extends Controller
                         //$emp_timestamp = $emp_timestamp->orderBy('date', 'desc')->get();
                     }
                 }
-               
+
                 $form_repo       = new FormTimestampWhenChangeDepartment;
                 $get_form_emp    = $form_repo->getFormTimestampWhenChangeDepartment($emp_timestamp);
                 return response()->json(['status'=> 'success','data'=> $get_form_emp]);
@@ -262,7 +310,7 @@ class ReportController extends Controller
                     $new_start_date     = date("Y-m-d", strtotime($start_date));
                     $end_date           = $request->get('end_date');
                     $new_end_date       = date("Y-m-d", strtotime($end_date));
-                   
+
                     if(empty($department)){
                         if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
                             $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
@@ -567,10 +615,61 @@ class ReportController extends Controller
                             }
                     }
                 $form_repo       = new FormLeavesWhenChangeDepartment;
-                $get_form_leave    = $form_repo->getFormLeavesWhenChangeDepartment($emp_leaves);    
+                $get_form_leave    = $form_repo->getFormLeavesWhenChangeDepartment($emp_leaves);
                 return response()->json(['status'=> 'success','data'=> $get_form_leave]);
-
                 break;
+
+            case 'getFormEvaluationWhenChangeDepartment':
+                $department          = $request->has('department') ? $request->get('department') : '';
+                //sd($department);
+                $topic_name          = $request->get('topic_name');
+                $start_date          = $request->get('start_date');
+                $new_start_date      = date("Y-m-d", strtotime($start_date));
+                $end_date            = $request->get('end_date');
+                $new_end_date        = date("Y-m-d", strtotime($end_date));
+                $start_number        = $request->get('start_number');
+                $end_number          = $request->get('end_number');
+
+                if(empty($department)){// กรณีเลือกทุกแผนก
+                    if(empty($topic_name)){ // กรณีเลือกทุกหัวข้อ
+                        if(empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
+                            //echo "1";
+                            $emp_evaluation = Evaluation::with('employee')->get();
+                            sd($emp_evaluation->toArray());
+                        }else if(empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
+                            //echo "2";
+                        }else if(empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
+                            //echo "3";
+                        }else if(empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
+                            //echo "4";
+                        }else if(!empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
+                            //echo "5";
+                        }else if(!empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
+                            //echo "6";
+                        }else if(!empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
+                            //echo "7";
+                        }elseif(!empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
+                            //echo "8";
+                        }else if(!empty($start_date) && !empty($end_date) && empty($start_number) && !empty($end_number)){
+                            //echo "9";
+                        }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && empty($end_number)){
+                            //echo "10";
+                        }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && !empty($end_number)){
+                            //echo "11";
+                        }
+                    }else{
+
+                    }
+                }else{
+
+                }exit();
+
+
+                $form_repo       = new FormTimestampWhenChangeDepartment;
+                $get_form_emp    = $form_repo->getFormTimestampWhenChangeDepartment($emp_timestamp);
+                return response()->json(['status'=> 'success','data'=> $get_form_emp]);
+            break;
+
 
             default:
                 # code...

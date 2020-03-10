@@ -50,6 +50,7 @@ class EvaluationController extends Controller
             $current_employee   = \Session::get('current_employee');
         }
         $id                     = $request->get('id');
+        //sd($id);
         $find_id_topic          = CreateEvaluation::where('id_topic', $id)->first();
         if($current_employee['id_position'] == 2){
             $find_id_topic->status                         = 1;
@@ -199,7 +200,7 @@ class EvaluationController extends Controller
         $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_assessor)->first();
         //sd($id_topic->toArray());
         //sd($id_topic->employee->id_department);
-        $list_name   = Employee::with('evaluation', 'evaluation.resultevaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
+        $list_name   = Employee::with('evaluation', 'evaluation.resultevaluation', 'createevaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
         //sd($list_name->toArray());
         //$count_list_name = $list_name->count();
         //$check_evaluation = [];
@@ -490,15 +491,17 @@ class EvaluationController extends Controller
         }
     }
 
-    public function postRecordEvaluation(Request $request)
+    public function postRecordEvaluation(Request $request) // กดบันทึกผลเมื่อประเมินเสร็จแล้ว
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
         //sd($current_employee->id_employee);
+        $from_the_full_score                = 0;
         $data                               = $request->all();
         //sd($data);
         $evaluation                         = new Evaluation;
+        $evaluation->id_topic               = $data['id_topic'];
         $evaluation->id_assessor            = $data['id_assessor_person'];
         $evaluation->id_assessment_person   = $current_employee->id_employee;
         $evaluation->result_evaluation      = $data['total-evluation'];
@@ -518,10 +521,17 @@ class EvaluationController extends Controller
                 $result_evaluation->percent_of_part = $data['percent-'.$i];
                 $result_evaluation->status          = 1;
                 $result_evaluation->save();
+                $from_the_full_score++;
             }
-
         }
 
+        $find_evaluation     = Evaluation::where('id_evaluation', $find_id_evaluation['id_evaluation'])->first();
+        //sd($find_evaluation);
+        $find_evaluation->from_the_full_score = $from_the_full_score * 5;
+        $find_evaluation->percent             = ($data['total-evluation'] * 100) / ($from_the_full_score * 5);
+        $find_evaluation->save();
+        //sd($evaluations);
+        //sd($no);
         //$result_evaluation->
 
         //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
