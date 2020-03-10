@@ -163,7 +163,6 @@ function getTimePicker(obj_input)
 					}
 				});
 			}
-
 		}
 	}).then((result) => {
 		if (result.value) {

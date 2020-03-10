@@ -74,20 +74,21 @@
 				<div class="box-header">
 					<h3 class="box-title">ประวัติการลา</h3>
 				</div>
-				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
-					<table class="table table-hover">
-						<tr>
-							<th>Name</th>
-							<th>Department</th>
-							<th>Position</th>
-							<th>วันที่ประเมิน</th>
-							<th>ผู้ประเมิน</th>
-							<th>คะแนนการประเมิน</th>
-							<th>จากคะแนนเต็ม</th>
-							<th>คิดเป็นร้อยละ (%)</th>
-							
-						</tr>
+					<table class="table table-hover" id="myTable">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Department</th>
+								<th>Position</th>
+								<th>วันที่ประเมิน</th>
+								<th>ผู้ประเมิน</th>
+								<th>คะแนนการประเมิน</th>
+								<th>จากคะแนนเต็ม</th>
+								<th>คิดเป็นร้อยละ (%)</th>
+								
+							</tr>
+						</thead>
 						<?php for ($i=0; $i < 8; $i++) { ?>
 							<tr>
 								<td style="color: blue">ธนวัฒน์ แก้วล้อมวัง</td>
@@ -98,7 +99,6 @@
 								<td>60 (คะแนน)</td>
 								<td>60 (คะแนน)</td>
 								<td>100%</td>
-
 							</tr>
 						<?php } ?>
 					</table>

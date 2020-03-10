@@ -420,7 +420,6 @@ class ReportController extends Controller
                                                 ->orderBy('start_leave', 'asc')
                                                 ->get();
                          }
-
                         else if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) ){
                             $emp_leaves   = Leaves::with('employee', 'employee.position')
                                                 ->with(['employee.department' => function($q) use($department){
@@ -577,5 +576,4 @@ class ReportController extends Controller
             break;
         }
     }
-
 }

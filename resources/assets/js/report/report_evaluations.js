@@ -9,3 +9,5 @@ $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
 	$('.timePicker2').on('click', function(){
 		getTimePicker($(this));
 	});
+
+	$('#myTable').dataTable();
