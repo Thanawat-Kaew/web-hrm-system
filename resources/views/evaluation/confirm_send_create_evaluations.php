@@ -8,19 +8,21 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<?php if($current_employee->id_department == "hr0001"){?>
-			<div class="row button_group">
-				<div class="btn-group pull-right new-evaluation">
-					<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
-					</button>
-				</div>
-				<div class="btn-group pull-right history_create_evaluations button_history_create_evaluations">
-					<div class="btn-group pull-right">
-						<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">
-							<button class="btn btn-info dropdown-toggle" type="button"><i class="fa fa-history"></i> ประวัติการสร้าง</button>
+				<div class="row button_group">
+					<div class="btn-group pull-right new-evaluation">
+						<a href="<?php echo route("evaluation.index.get")?>">
+							<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+							</button>
 						</a>
 					</div>
+					<div class="btn-group pull-right history_create_evaluations button_history_create_evaluations">
+						<div class="btn-group pull-right">
+							<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">
+								<button class="btn btn-info dropdown-toggle" type="button"><i class="fa fa-history"></i> ประวัติการสร้าง</button>
+							</a>
+						</div>
+					</div>
 				</div>
-			</div>
 			<?php } ?>
 			<div class="box box-info">
 				<div class="box-header">
@@ -44,9 +46,9 @@
 							<th>วันที่สร้าง</th>
 							<th>ยืนยันการส่ง</th>
 							<th>ดู</th>
-						<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-							<th>ลบ</th>
-						<?php endif ?>
+							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
+								<th>ลบ</th>
+							<?php endif ?>
 						</tr>
 						<?php if(!empty($evaluations)):?>
 							<?php foreach($evaluations as $evaluation): //sd($evaluation->toArray());
@@ -66,8 +68,8 @@
 								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
 
 
-								<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
-								</td>
+									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
+									</td>
 								<?php endif ?>
 							</tr>
 						<?php endforeach?>

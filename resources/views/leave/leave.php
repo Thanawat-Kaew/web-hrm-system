@@ -64,12 +64,12 @@
 					<div class="box-body no-padding">
 						<table class=" table-striped table-bordered table-hover">
 							<tbody><tr>
-								<th style="width: 40%;font-size:6px;">ประเภทการลา</th>
-								<th style="width: 10%;font-size: 6px;">All</th>
-								<th style="width: 10%;font-size: 6px;">Approved</th>
-								<th style="width: 10%;font-size: 6px;">Waiting</th>
-								<th style="width: 10%;font-size: 6px;">Rejected</th>
-								<th style="width: 10%;font-size: 6px;">Balance</th>
+								<th style="width: 40%;font-size: 10px;">ประเภทการลา</th>
+								<th style="width: 10%;font-size: 10px;">All</th>
+								<th style="width: 10%;font-size: 10px;">Approved</th>
+								<th style="width: 10%;font-size: 10px;">Waiting</th>
+								<th style="width: 10%;font-size: 10px;">Rejected</th>
+								<th style="width: 10%;font-size: 10px;">Balance</th>
 							</tr>
 							<?php foreach($history_leave as $leave):?>
 								<tr>

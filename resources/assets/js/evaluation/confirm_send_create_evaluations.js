@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('.post-confirm-send-create-evaluation').click(function(){  // กด อนุมัติ
-		alert("confirm");
-		/*var id = $(this).data('id');
+		// alert("confirm");
+		var id = $(this).data('id');
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',
 			text: "ที่จะส่งการประเมินนี้ !",
@@ -30,10 +30,27 @@ $(document).ready(function(){
 						}
 					})
 				}
-			})*/
+			})
 	})
 
-	$('.aaa').click(function(){
-		alert("55");
-	});
+	// $('.add-evaluation').on('click', function() {
+	// 	createNewEvaluation();
+	// })
 });
+
+// function createNewEvaluation()
+// {
+// 	$.ajax({
+// 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+// 		type: 'POST',
+// 		url: $('#ajax-center-url').data('url'),
+// 		data: {method : 'createNewEvaluation' },
+// 		success: function (result) {
+// 			window.location = $("#add-evaluation-url").data('url');
+// 		},
+// 		error : function(error)
+// 		{
+// 			console.log(error);
+// 		}
+// 	})
+// }

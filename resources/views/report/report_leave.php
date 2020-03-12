@@ -20,13 +20,18 @@
 						<div class="form-group">
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
-								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
-									<option value="">เลือกแผนก...</option>
-									<?php foreach($department as $departments):?>
+								<?php if($current_employee['id_department'] == "hr0001"){?>
+									<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+										<option value="">เลือกแผนก...</option>
+										<?php foreach($department as $departments):?>
 
-										<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
-									<?php endforeach ?>
-								</select>
+											<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
+										<?php endforeach ?>
+									</select>
+								<?php }else{?>
+									
+									<input type="text" style="border-radius: 5px;" id="report-department" class="form-control"value="<?php echo $current_employee['id_department']?>">
+								<?php }?>
 							</div>
 						</div>
 					</div>
@@ -106,6 +111,7 @@
 								</tr>
 							</thead>
 							<?php foreach ($datas as $key => $value): ?>
+								<?php if(isset($value->employee->department)):?>
 								<tr>
 									<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
 									<td><?php echo $value->employee->department->name;?></td>
@@ -123,6 +129,7 @@
 										<td style="color: green;"><?php echo $value->total_leave ;?> ชั่วโมง</td>
 									<?php endif ?>
 								</tr>
+							<?php endif?>
 							<?php endforeach?>
 						</table>
 					</div>

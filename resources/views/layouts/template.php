@@ -124,5 +124,7 @@
 <?php if (file_exists(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js')): ?>
 <script src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
 <?php endif ?>
+
+<?php /*sd(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js');*/ ?>
 </body>
 </html>

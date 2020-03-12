@@ -74,37 +74,23 @@ class ReportController extends Controller
         $leaves_format      = LeavesFormat::all();
         $id_employee = $current_employee['id_employee'];
         $id_department = $current_employee['id_department'];
-        // sd($id_department);
-        // $datas = Employee::with(['leaves' => function ($q) use($id_employee) {
-        //                         $q->where('id_employee', $id_employee);
-        //                         // $q->select('id_leaves_type');
-        //                     }])->with('leaves.leaves_type')
-        //                     ->with('leaves.leaves_status')
-        //                     ->where('id_employee', $id_employee)->first();
-
-        // $datas = Employee::with('leaves')->where('id_employee', $id_employee)
-        //                     ->with('leaves.leaves_type')
-        //                     ->with('leaves.leaves_status')
-        //                     ->get();
-        // $header             = Employee::with('company')
-        //                                     ->where('id_position', 2)
-        //                                     ->where('id_department', $current_employee['id_department'])
-        //                                     ->first();
-
-        $datas = Leaves::with(['employee' => function ($q) use ($id_employee){
-                            $q->with('department')/*->where('id_department',$id_department)*/;
+    
+        if($current_employee['id_department'] !== "hr0001"){
+            $datas = Leaves::with(['employee' => function ($q) use ($id_department){
+                            $q->with('department')->where('id_department', $id_department);
                             $q->with('position');}])
                         ->with('leaves_type')
-                        /*->where('id_employee',$id_employee)*/->get();
-        // $datas = Leaves::all();
-        // sd($datas->toArray());
+                        ->get();
+                        // sd($datas->toArray());
+        }else{
+            $datas = Leaves::with(['employee' => function ($q) use ($id_employee){
+                            $q->with('department');
+                            $q->with('position');}])
+                        ->with('leaves_type')
+                        ->get();
+        }
 
-        // $leaves_type = Company::with('leaves_requirements', 'leaves_requirements.leaves_type')->first();
-        // $get_status  = Status::all();
-        // $leaves_require     = $leaves_type->leaves_requirements;
-        // $leaves             = $datas->leaves;
-
-    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format'/*,'leaves','leaves_require'*/));
+    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee'));
     }
 
     public function reportEvaluation()
@@ -310,7 +296,7 @@ class ReportController extends Controller
                     $new_start_date     = date("Y-m-d", strtotime($start_date));
                     $end_date           = $request->get('end_date');
                     $new_end_date       = date("Y-m-d", strtotime($end_date));
-
+// sd($department);
                     if(empty($department)){
                         if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
                             $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
@@ -499,6 +485,7 @@ class ReportController extends Controller
                                                 ->with('leaves_type')
                                                 ->where('id_leaves_type', '=', $leaves_type)
                                                 ->with('leaves_format')
+                                                ->where('id_leaves_format', '=', $leaves_format)
                                                 ->orderBy('start_leave', 'asc')
                                                 ->get();
                          }
@@ -538,6 +525,7 @@ class ReportController extends Controller
                                                 ->with(['employee.department' => function($q) use($department){
                                                     $q->where('id_department', $department);}])
                                                 ->with('leaves_type')
+                                                ->where('id_leaves_type', '=', $leaves_type)
                                                 ->orderBy('start_leave', 'asc')
                                                 ->get();
                          }
@@ -577,6 +565,7 @@ class ReportController extends Controller
                                                 ->with(['employee.department' => function($q) use($department){
                                                     $q->where('id_department', $department);}])
                                                 ->with('leaves_format')
+                                                ->where('id_leaves_format', '=', $leaves_format)
                                                 ->orderBy('start_leave', 'asc')
                                                 ->get();
                          }

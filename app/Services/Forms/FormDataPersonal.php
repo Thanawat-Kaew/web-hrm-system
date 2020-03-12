@@ -48,7 +48,7 @@ class FormDataPersonal
                              $form .= '</tr>';
                              $form .= '<tr>';
                                  $form .= '<td>ที่อยู่</td>';
-                                 $form .= '<td>'. $employee['address'].'></td>';
+                                 $form .= '<td>'. $employee['address'].'</td>';
                              $form .= '</tr>';
                              $form .= '<tr>';
                                  $form .= '<td>อีเมล์</td>';

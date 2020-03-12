@@ -94,35 +94,35 @@
 		var pieChartCanvas = document.getElementById("pieChart").getContext("2d");
 		var pieChart = new Chart(pieChartCanvas);
 		var PieData = [{
-			value: 700,
+			value: 100,
 			color: "#f56954",
 			highlight: "#f56954",
 			label: "Chrome",
 			labelColor: 'white',
 			labelFontSize: '16'
 		}, {
-			value: 500,
+			value: 100,
 			color: "#00a65a",
 			highlight: "#00a65a",
 			label: "IE",
 			labelColor: 'white',
 			labelFontSize: '16'
 		}, {
-			value: 400,
+			value: 100,
 			color: "#f39c12",
 			highlight: "#f39c12",
 			label: "FireFox",
 			labelColor: 'white',
 			labelFontSize: '16'
 		}, {
-			value: 600,
+			value: 100,
 			color: "#00c0ef",
 			highlight: "#00c0ef",
 			label: "Safari",
 			labelColor: 'white',
 			labelFontSize: '16'
 		}, {
-			value: 300,
+			value: 100,
 			color: "#3c8dbc",
 			highlight: "#3c8dbc",
 			label: "Opera",
