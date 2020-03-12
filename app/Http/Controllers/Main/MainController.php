@@ -12,5 +12,10 @@ class MainController extends Controller
     {
         return view('main');
     }
+
+    public function admin_main()
+    {
+        return view('admin.admin_main');
+    }
 }
 

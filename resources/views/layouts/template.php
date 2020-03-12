@@ -40,6 +40,7 @@
 
 
   <link rel="stylesheet" href="/resources/assets/css/main.css">
+  <link rel="stylesheet" href="/resources/assets/css/admin/admin_main.css">
   <link rel="stylesheet" href="/resources/assets/css/leave/leave.css">
   <link rel="stylesheet" href="/resources/assets/css/full_picker/picker.css">
   <link rel="stylesheet" href="/resources/assets/css/personal_info/personal_info.css">
@@ -118,6 +119,7 @@
 
 <!-- main function -->
 <script src="/resources/assets/js/main.js"></script>
+<script src="/resources/assets/js/admin/admin_main.js"></script>
 <!-- DataTable -->
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
@@ -125,6 +127,6 @@
 <script src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
 <?php endif ?>
 
-<?php /*sd(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js');*/ ?>
+<?php sd(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js'); ?>
 </body>
 </html>

@@ -108,7 +108,13 @@
                                 <ul class="dropdown-menu">
                                   <li class="header">คุณมี 0 การแจ้งเตือน</li>
                                 </ul>
-       
+                                <span>
+                                    <a href="<?php echo route("admin.admin_main.get")?>">
+                                        <button class="btn btn-danger">
+                                            <i class="glyphicon glyphicon-user"> Test Admin</i>
+                                        </button>
+                                    </a>
+                                </span>
                                 <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
                                     <?php echo csrf_field() ?>
                                 </form>

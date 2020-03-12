@@ -115,6 +115,13 @@ Route::get('/report/report_overview', 'Report\ReportController@reportOverview')-
 Route::post('/report/ajax_center', 'Report\ReportController@ajaxCenter')->name('report.ajax_center.post');
 /***************************************************End Report********************************************************************/
 
+// **************************************admin**************************************/
+Route::get('/admin/admin_main', 'Main\MainController@admin_main')->name('admin.admin_main.get');
+Route::get('/admin/admin_main/add_header_emp', 'Admin\AdminController@admin_add_header_emp')->name('admin.add_header_emp.get');
+Route::get('/admin/admin_main/add_department', 'Admin\AdminController@admin_add_department')->name('admin.add_department.get');
+Route::get('/admin/admin_main/log', 'Admin\AdminController@admin_log')->name('admin.log.get');
+// **************************************End Admin****************************************/
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

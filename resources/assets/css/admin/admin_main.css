@@ -1,0 +1,9 @@
+/*------------------------admin_menu---------------------------*/
+
+.image-menu-admin:hover{
+	filter: invert(1);
+}
+
+.image-menu-admin {
+	cursor: pointer;
+}
