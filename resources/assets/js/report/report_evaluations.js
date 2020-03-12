@@ -44,7 +44,7 @@ $(document).ready(function(){
 			success:function(result){
 				if(result.data !== ""){
 					//console.log(result.data);
-					//$('#data-timestamp').html(result.data.form);
+					$('#data-evaluation').html(result.data.form);
 					msg_close();
 				}
 			},

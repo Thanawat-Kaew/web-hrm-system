@@ -36,7 +36,7 @@ class Employee extends Model
 
     public function timestamp()
     {
-        return $this->hasMany("App\Services\TimeStamp\TimeStamp", 'id_employee', 'id_employee'); // one to many
+        return $this->hasMany("App\Services\TimeStamp\TimeStamp", 'id_employee', 'id_employee'); // many to many
 
     }
 
@@ -72,8 +72,13 @@ class Employee extends Model
     public function evaluation()
     {
         //return $this->hasOne("App\Services\Evaluation\Evaluation", 'id_employee', 'id_assessor', 'id_employee', 'iid_assessment_person'); // one to many
-        //return $this->hasOne("App\Services\Evaluation\Evaluation", 'id_employee', 'id_assessor'); // one to many
-        return $this->hasOne("App\Services\Evaluation\Evaluation", 'id_assessor', 'id_employee'); // one to many
+        return $this->hasOne("App\Services\Evaluation\Evaluation", 'id_employee', 'id_assessor'); // one to many
+        /*ถ้าตอน Query เอา table ไหนเป็นหลัก ตรง model ก็เอา pk ของ table นั้นขึ้นทีหลัง*/
+        //return $this->hasMany("App\Services\Evaluation\Evaluation", 'id_assessor', 'id_employee'); // one to many
+    }
 
+    public function evaluation_hasmany()
+    {
+        return $this->hasMany("App\Services\Evaluation\Evaluation", 'id_assessor', 'id_employee');
     }
 }
