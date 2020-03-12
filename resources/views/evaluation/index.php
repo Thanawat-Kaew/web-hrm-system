@@ -21,7 +21,7 @@
 						</div>
 					</div>
 				<?php } ?>
-				<?php if($current_employee->id_position == 2){?>
+				<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001"){?>
 
 					<div class="btn-group pull-right confirm_send_create_evaluations">
 						<div class="btn-group pull-right">

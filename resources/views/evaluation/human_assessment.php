@@ -24,27 +24,35 @@
 										<th style="text-align: left;">ชื่อ-สกุล</th>
 										<th style="width: 40px">สถานะ</th>
 									</tr>
-									<?php foreach($list_name as $value):?>
-										<?php //sd($value->evaluation->resultevaluation->status);?>
+									<?php $count_list_name = $list_name->count();?> <!-- นับจำนวนพนักงาน -->
+									<?php for($i=0; $i<$count_list_name; $i++){?>
 										<tr>
-											<td><?php echo $value->id_employee ?></td>
-											<?php if(isset($value->evaluation)){?> <!-- กรณีประเมินแล้ว -->
-												<?php if($value->evaluation->id_topic == $id_topic->id_topic){?> <!-- กรณีรหัสผู้ถูกประเมินตรงกับ id_topic ของหัวเรื่อง -->
-													<td style="text-align: left;"><b><?php echo $value->first_name ?> <?php echo $value->last_name ?></b>
-													</td>
-													<td><span class="badge bg-green">สำเร็จ</span></td>
-												<?php }else{ ?> <!-- !-- กรณีรหัสผู้ถูกประเมินไม่ตรงกับ id_topic ของหัวเรื่อง -->
-													<td style="text-align: left;"><a href="<?php echo route('evaluation.assessment.get', [$value->id_employee, $id_topic->id_topic])?>"><b><?php echo $value->first_name ?> <?php echo $value->last_name ?></b></a>
-												</td>
-												<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
+											<td><?php echo $list_name[$i]->id_employee ?></td>
+											<?php if($list_name[$i]->evaluation_hasmany->count() > 0){?> <!-- กรณีประเมินแล้ว จะมีค่ามากกว่า 0-->
+											<?php $count_eva_has = $list_name[$i]->evaluation_hasmany->count();?> <!-- นับจำนวนหัวข้อที่พนักงานคนที่ถูกประเมิน -->
+												<?php $count = 0;?>
+												<?php for($j=0; $j<$count_eva_has; $j++){?>
+													<?php if($list_name[$i]->evaluation_hasmany[$j]->id_topic == $id_topic->id_topic){?> <!-- กรณีรหัสผู้ถูกประเมินตรงกับ id_topic ของหัวเรื่อง -->
+														<?php $count += 1;?>
+													<?php }?>
 												<?php }?>
+												<?php if($count > 0){?> <!-- กรณีพนักงานคนนี้มีการประมินแล้วตรงกับหัวข้อการประเมินนี้ -->
+													<td style="text-align: left;"><b><?php echo $list_name[$i]->first_name ?> <?php echo $list_name[$i]->last_name ?></b>
+														</td>
+														<td><span class="badge bg-green">สำเร็จ</span></td>
+												<?php }else{?> <!-- กรณีพนักงานคนนี้มีการประมินแล้วไม่ตรงกับหัวข้อการประเมินนี้ -->
+													<td style="text-align: left;"><a href="<?php echo route('evaluation.assessment.get', [$list_name[$i]->id_employee, $id_topic->id_topic])?>"><b><?php echo $list_name[$i]->first_name ?> <?php echo $list_name[$i]->last_name ?></b></a>
+													</td>
+													<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
+												<?php } ?>
+												<?php //echo $count;?>
 											<?php }else{ ?> <!-- กรณียังไม่ประเมินแล้ว -->
-												<td style="text-align: left;"><a href="<?php echo route('evaluation.assessment.get', [$value->id_employee, $id_topic->id_topic])?>"><b><?php echo $value->first_name ?> <?php echo $value->last_name ?></b></a>
+												<td style="text-align: left;"><a href="<?php echo route('evaluation.assessment.get', [$list_name[$i]->id_employee, $id_topic->id_topic])?>"><b><?php echo $list_name[$i]->first_name ?> <?php echo $list_name[$i]->last_name ?></b></a>
 												</td>
 												<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
 											<?php } ?>
 										</tr>
-									<?php endforeach ?>
+									<?php } ?>
 										<tr>
 											<td>1</td>
 											<td style="text-align: left;"><b>ธนวัฒน์  แก้วล้อมวัง</b>	</td>

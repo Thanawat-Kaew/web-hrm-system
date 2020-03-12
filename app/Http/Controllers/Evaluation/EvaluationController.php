@@ -17,6 +17,7 @@ use App\Services\Evaluation\AnswerDetails;
 use App\Services\Evaluation\Evaluation;
 use App\Services\Evaluation\ResultEvaluation;
 
+
 class EvaluationController extends Controller
 {
 	public function index()
@@ -196,11 +197,77 @@ class EvaluationController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         //sd($current_employee->id_department);
-        $id_assessor                = $id; // รหัสหัวเรื่อง
-        $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_assessor)->first();
+        $id_topic                = $id; // รหัสหัวเรื่อง
+        //sd($id_assessor);
+        $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_topic)->first(); // ไป query หัวเรื่องนั้นมา
         //sd($id_topic->toArray());
         //sd($id_topic->employee->id_department);
-        $list_name   = Employee::with('evaluation', 'evaluation.resultevaluation', 'createevaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
+        //$list_name   = Employee::where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
+        //sd($list_name->toArray());
+        //$list_name_evaluation = Evaluation::get();
+        $list_name = Employee::with('evaluation_hasmany')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get(); // เอารายชื่อพนักงานมา
+        //$list_name = Employee::with('evaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
+        //$list_name = Evaluation::with('employee')->get();
+        //$list_name = Evaluation::get();
+        //sd($list_name->toArray());
+        //sd($list_name->count());
+        //sd($list_name[0]->evaluation_hasmany->count());
+        /*if($list_name[]->evaluation_hasmany->count() > 0){
+            echo "ไม่ว่าง";
+        }else{
+            echo "ว่าง";
+        }exit();*/
+        //echo $list_name[5]->id_employee."<br>";
+        //exit();
+        $count_list_name = $list_name->count();
+        $array_list_name = []; // เก็บ id_employee ที่ตรงกับ id_topic
+        for($i=0; $i<$count_list_name; $i++){
+            if($list_name[$i]->evaluation_hasmany->count() > 0){
+                //echo "id_employee=".$list_name[$i]->id_employee."<br>";
+                $count_eva_has = $list_name[$i]->evaluation_hasmany->count();
+                for($j=0; $j<$count_eva_has; $j++){
+                    //echo $list_name[$i]->evaluation_hasmany[$j]->id_evaluation."<br>";
+                    //echo $list_name[$i]->evaluation_hasmany[$j]->id_topic."<br>";
+                    if($list_name[$i]->evaluation_hasmany[$j]->id_topic == $id_topic->id_topic){
+                        //echo "id_assessor=".$list_name[$i]->evaluation_hasmany[$j]->id_assessor."<br>";
+                        //echo "id_topic=".$list_name[$i]->evaluation_hasmany[$j]->id_topic."<br>";
+                        $array_list_name[] = $list_name[$i]->evaluation_hasmany[$j]->id_assessor;
+                    }
+                }
+                //sd($array_list_name);
+                //echo "--------------------------------<br>";
+            }
+        }//var_dump($array_list_name);
+        $count_array_list_name = count($array_list_name);
+        //sd($count_array_list_name);
+        $keep_array_list_name  = [];
+        for($i=0; $i<$count_array_list_name; $i++){
+            $name_assessor_finish  = Employee::where('id_employee', $array_list_name[$i])->first();
+            //echo $name_assessor_finish->id_employee."<br>";
+
+            $keep_array_list_name[] = $name_assessor_finish;
+        }//exit();
+        /*for($i=0; $i<$count_list_name; $i++){*/
+            /*if(in_array($list_name[0]->id_employee, $keep_array_list_name[0])){
+                echo "1";
+                echo "<br>";
+            }exit();*/
+        /*}exit();*/
+        //sd($name_assessor_finish->toArray());
+        //exit();//sd($count_eva_has);
+        /*foreach ($list_name as $value) {
+            if(isset($value->evaluation_hasmany)){
+                echo "ประเมินแล้ว".$value->evaluation_hasmany->id_employee;
+            }else{
+                echo "ยังไม่ได้ประเมิน".$value->evaluation_hasmany->id_employee;
+            }
+        }*/
+        //sd($list_name->toArray());
+        /*$list_name   = Evaluation::with(['employee' => function($q) use($current_employee){
+                        $q->where('id_department', $current_employee->id_department);
+                        $q->where('id_position', '1');
+                        }])->get();*/
+        //$list_name     = Employee::with('evaluation')->get();
         //sd($list_name->toArray());
         //$count_list_name = $list_name->count();
         //$check_evaluation = [];
@@ -220,7 +287,7 @@ class EvaluationController extends Controller
         //exit();
         //sd($check_evaluation);
 
-        return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic'));
+        return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic', 'count_array_list_name', 'keep_array_list_name'));
     }
 
     public function viewCreateEvaluation(Request $request, $id)

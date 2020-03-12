@@ -13,8 +13,8 @@ class Evaluation extends Model
     public function employee()
     {
         //return $this->belongsTo("App\Services\Employee\Employee", 'id_assessor', 'id_employee', 'id_assessment_person', 'id_employee');
-        //return $this->belongsTo("App\Services\Employee\Employee", 'id_assessor', 'id_employee');
-        return $this->belongsTo("App\Services\Employee\Employee", 'id_employee', 'id_assessor');
+        return $this->belongsTo("App\Services\Employee\Employee", 'id_assessor', 'id_employee');
+        //return $this->belongsTo("App\Services\Employee\Employee", 'id_employee', 'id_assessor');
     }
 
     public function resultevaluation()
@@ -22,7 +22,7 @@ class Evaluation extends Model
         return $this->hasMany("App\Services\Evaluation\ResultEvaluation", 'id_evaluation', 'id_evaluation');
     }
 
-    public function createevalucation()
+    public function createevaluation()
     {
         return $this->belongsTo("App\Services\Evaluation\CreateEvaluation", 'id_topic', 'id_topic');
     }
