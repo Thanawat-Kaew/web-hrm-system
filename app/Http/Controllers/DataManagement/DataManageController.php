@@ -33,12 +33,14 @@ class DataManageController extends Controller
 
     public function ajaxCenter(Request $request)
     {
-
     	$method = $request->get('method');
         switch ($method) {
             case 'getFormAddEmployee':
+
                 $department     = Department::all();
-                $position       = Position::all();
+                //sd($current_employee['id_employee']);
+                $position       = Position::where('id_position', 1)->first();
+                //sd($position->id_position);
                 $education      = Education::all();
                 //sd($education->toArray());
                 $form_repo      = new FormEmployee;
@@ -69,7 +71,9 @@ class DataManageController extends Controller
                 //sd($employee->position['name']);
                 //sd($employee->toArray());
                 $department     = Department::all();
-                $position       = Position::all();
+                //$position       = Position::all();
+                $position       = Position::where('id_position', $employee['id_position'])->first();
+                //sd($position->name);
                 $education       = Education::all();
                 $form_repo      = new FormEmployee;
                 $form_edit_emp   = $form_repo->getFormEmployee($department,$position, $education, $employee);

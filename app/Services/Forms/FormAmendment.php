@@ -30,11 +30,13 @@ class FormAmendment
                         $form .= '<div class="input-group-addon">';
                              $form .= '<i class="fa fa-briefcase"></i>';
                          $form .= '</div>';
-                         $form .= '<select class="form-control required select2" style="width: 100%;" id="position">';
+                         /*$form .= '<select class="form-control required select2" style="width: 100%;" id="position">';
                             foreach ($position as $value) {
                             $form .= '<option value="'.$value["id_position"].'" '.(($value["id_position"] == $employee['id_position']) ? 'selected' : '').'>'.$value["name"].'</option>';
                      }
-                     $form .= '</select>';
+                     $form .= '</select>';*/
+                     $form .= '<input class="form-control" type="text" value="'.$position->name.'" readonly>';
+                        $form .= '<input class="form-control" type="hidden" value="'.$position->id_position.'" id="position">';
                  $form .= '</div>';
                  $form .= '<label class="text-error" id="position-text-error"></label>';
                  $form .= 'แผนก';

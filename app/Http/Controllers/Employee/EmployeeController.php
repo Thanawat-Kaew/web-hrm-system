@@ -43,11 +43,12 @@ class EmployeeController extends Controller
             case 'getFormAmendmentEmployee': // แก้ไขข้อมูลครั้งแรก
                 $id             = $request->get('id');
                 $employee       = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
-                // sd($employee->toArray());
+                //sd($employee->toArray());
                 //sd($employee['gender']);
                 //sd($employee->education['name']);
                 $department     = Department::all();
-                $position       = Position::all();
+                //$position       = Position::all();
+                $position       = Position::where('id_position', $employee['id_position'])->first();
                 $education      = Education::all();
                 $form_repo              = new FormAmendment;
                 $form_amendment_emp     = $form_repo->getFormAmendment($department, $position ,$employee, $education);

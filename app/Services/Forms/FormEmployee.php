@@ -23,7 +23,7 @@ class FormEmployee
                          $form .= '<input class="form-control" type="text" value="" readonly placeholder="Auto Generate" id="id_employee">';
                      $form .= '</div>';
                     $form .= '<label class="text-error" id="text-error"></label>';
-                     $form .= 'ชื่อ33';
+                     $form .= 'ชื่อ';
                     $form .= '<div class="input-group fname_employee">';
                         $form .= '<div class="input-group-addon">';
                              $form .= '<i class="fa fa-user-secret"></i>';
@@ -43,10 +43,11 @@ class FormEmployee
                     $form .= '<div class="input-group position_employee">';
                         $form .= '<div class="input-group-addon">';
                              $form .= '<i class="fa fa-briefcase"></i>';
-                         $form .= '</div>';
-                         $form .= '<select class="form-control required select2" style="width: 100%;" id="position">';
+                        $form .= '</div>';
+                         /*$form .= '<select class="form-control required select2" style="width: 100%;" id="position">';
                             if(!empty($employee)){ //แก้ไข
                                 foreach($position as $value){
+                                    sd($value);
                                     $form .= '<option value="'.$employee->position['id_position'].'" '.(($value['id_position'] == $employee->position['id_position']) ? 'selected' : '').'>'.$value['name'].'</option>';
                                 }
                             }else{ // เพิ่มพนักงาน
@@ -55,8 +56,11 @@ class FormEmployee
                                     $form .= '<option value="'.$value['id_position'].'">'.$value['name'].'</option>';
                                 }
                             }
-                     $form .= '</select>';
-                 $form .= '</div>';
+                            //sd($position[0]);
+                     $form .= '</select>';*/
+                        $form .= '<input class="form-control" type="text" value="'.$position->name.'" readonly>';
+                        $form .= '<input class="form-control" type="hidden" value="'.$position->id_position.'" id="position">';
+                    $form .= '</div>';
                 $form .= '<label class="text-error" id="position-text-error"></label>';
                 $form .= 'แผนก';
             $form .= '<div class="input-group department_employee">';
