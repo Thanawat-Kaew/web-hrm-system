@@ -17,8 +17,10 @@ Route::get('/', function () {
     // return view('main');
 });
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout.index.post');
+Route::get('/logout_admin', 'Auth\LoginController@logout_admin')->name('logout_admin.index.post');
 
-Route::get('/admin_login', 'Auth\LoginController@admin_login')->name('admin_login');
+Route::get('/admin_login', 'Auth\LoginController@admin_login_')->name('admin_login');
+Route::post('/admin_login_', 'Auth\LoginController@admin_login_')->name('admin_login_');
 // Route::get('/main', 'Main\MainController@main')->name('main');
 
 /*****************************************************Timestamp***************************************************************/

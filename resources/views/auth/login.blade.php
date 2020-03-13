@@ -29,7 +29,7 @@
         <p>{{ \Session::get('success') }}</p>
     </div>
     @endif
-  
+
   <div class="login-logo">
     <a style="color: white;"><b>HR-</b>MANAGEMENT</a>
   </div>

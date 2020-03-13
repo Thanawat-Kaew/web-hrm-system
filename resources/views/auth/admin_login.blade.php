@@ -29,14 +29,14 @@
         <p>{{ \Session::get('success') }}</p>
     </div>
     @endif
-  
+
   <div class="login-logo">
     <a style="color: white;"><b>ADMIN-</b>HRM</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body" style="border-radius: 5px;">
     <p class="login-box-msg">Sign in to start your session</p>
-    <form action="{{ route('login') }}" method="post">
+    <form action="{{ route('admin_login_') }}" method="post">
       {{ csrf_field() }}
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="username" name="username" style="border-radius: 5px;">
@@ -57,7 +57,10 @@
         <!-- /.col -->
         <div class="col-xs-4">
           <button type="submit" class="btn btn-success btn-block btn-flat" style="border-radius: 5px;">Sign In</button>
-        </div>
+        </div><br><br>
+        <a href="<?php echo route("login")?>" class="pull-right"  style="margin-right: 15px;">
+          <span class="label label-primary">For User</span>
+        </a>
         <!-- /.col -->
       </div>
     </form>

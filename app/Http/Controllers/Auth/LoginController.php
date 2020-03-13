@@ -9,6 +9,7 @@ use DB;
 use App\Services\Employee\Employee;
 use App\Services\Employee\EmployeeObject;
 use Illuminate\Support\Facades\Session;
+use App\Services\Admin\Admin;
 
 
 
@@ -70,8 +71,30 @@ class LoginController extends Controller
 
     }
 
-    public function admin_login(){
+    public function admin_login_(Request $req){
+        $username    = $req->input('username');
+        $password    = $req->input('password');
+        //sd($username);
 
+        $checkLogin   = Admin::where('user_admin',$username)->where('pass_admin',$password)->first(); // first() เป็นการ get ข้อมูลrecord เดียว
+        //sd($checkLogin);
+        if(!empty($checkLogin)){
+            //sd($checkLogin);
+            // echo "success";
+            // exit();
+            //$employee_object = new EmployeeObject;
+            //$employee_object->setUp($checkLogin);
+            //$employee_object->setupMenu($checkLogin->id_employee);
+            return redirect()->route('admin.admin_main.get');
+        }else{
+
+            return view('auth.admin_login');
+        }
+
+    }
+    public function logout_admin(){
+            \Session::forget('current_employee');
+            \Session::forget('current_menu');
             return view('auth.admin_login');
 
     }

@@ -22,7 +22,7 @@ function confirm(){
         cancelButtonText: 'ไม่'
     }).then((result) => {
         if (result.value) {
-            window.location.href = 'http://hrm.system.io/logout';
+            window.location.href = 'http://hrm.system.io/logout_admin';
         }
     })
 }

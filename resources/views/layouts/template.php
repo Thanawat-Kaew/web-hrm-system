@@ -123,6 +123,7 @@
 <!-- main function -->
 <script src="/resources/assets/js/main.js"></script>
 <script src="/resources/assets/js/admin/admin_main.js"></script>
+<script src="/resources/assets/js/admin_login.js"></script>
 <?php if (file_exists(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js')): ?>
 <script src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
 <?php endif ?>

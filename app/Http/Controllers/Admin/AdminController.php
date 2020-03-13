@@ -22,12 +22,12 @@ class AdminController extends Controller
     public function admin_add_header_emp()
     {
         $department      = Department::all();
-        if(\Session::has('current_employee')){
+        /*if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
-        $employee   = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
-        return $this->useTemplate('admin.add_header_emp', compact('department', 'employee'));
+        $header     = Employee::with('department')->where('id_department', )->get();
+        $employee   = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();*/
+        return $this->useTemplate('admin.add_header_emp', compact('department'));
     }
 
     public function admin_add_department()
