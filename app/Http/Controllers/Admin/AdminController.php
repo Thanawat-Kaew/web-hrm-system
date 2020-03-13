@@ -24,10 +24,9 @@ class AdminController extends Controller
         $department      = Department::all();
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
-            $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
-            $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
-
         }
+        $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
+        $employee   = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
         return $this->useTemplate('admin.add_header_emp', compact('department', 'employee'));
     }
 

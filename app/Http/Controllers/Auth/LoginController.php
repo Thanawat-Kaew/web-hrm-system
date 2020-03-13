@@ -49,6 +49,7 @@ class LoginController extends Controller
     {
         $email    = $req->input('email');
         $password = $req->input('password');
+        //sd($email);
 
         $checkLogin   = Employee::where('email',$email)->where('password',$password)->first(); // first() เป็นการ get ข้อมูลrecord เดียว
 
