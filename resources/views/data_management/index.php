@@ -33,12 +33,6 @@
             <?php endif ?>
         <?php endif ?>
     </div>
-
-<div class="row form-group text-center">
-        <label id="text-result-search"></label>
-    </div>
-
-
     <h4 class="box-title show-data">หัวหน้าแผนก </h4>
     <hr>
     <div class="box-body show" id="group-employee">
