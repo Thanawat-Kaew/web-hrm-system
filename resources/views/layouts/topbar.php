@@ -88,11 +88,8 @@
                 <!-- </li> -->
                 <!-- </ul> -->
               </li>
-              <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
-                <?php echo csrf_field() ?>
-              </form>
               <div class="pull-right">
-                <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class=""><span class="glyphicon glyphicon-log-out glyphicon-log-out-logout" style="font-size: 30px; 
+                <a href="#" class=""><span class="glyphicon glyphicon-log-out glyphicon-log-out-logout" style="font-size: 30px; 
                 margin-top: 6px; color: white; margin-right: 10px;"></span></a>
               </div>
               <!-- Control Sidebar Toggle Button -->
@@ -101,3 +98,6 @@
 
         </nav>
       </header>
+      <!-- data -->
+<div id="logout-form" data-url="<?php echo route('logout.index.post') ?>"></div>
+                <?php echo csrf_field() ?>

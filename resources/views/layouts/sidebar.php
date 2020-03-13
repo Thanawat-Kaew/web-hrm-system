@@ -44,6 +44,20 @@
             </li>
           <?php endforeach ?>
         <?php endif ?>
+      <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cubes fa-lg"></i>
+            <span>Admin Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left fa-lg pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/charts/chartjs.html"><i class="fa fa-user-plus"></i> Manage Employee</a></li>
+            <li><a href="pages/charts/morris.html"><i class="fa fa-list-ul"></i> Manage Department</a></li>
+            <li><a href="pages/charts/flot.html"><i class="fa fa-sticky-note-o"></i> Manage Log</a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

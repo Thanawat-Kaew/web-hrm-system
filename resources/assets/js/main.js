@@ -1,5 +1,34 @@
 msg_waiting()
 
+$(document).ready(function(){
+
+    $('.glyphicon-log-out-logout').click(function(){
+        confirm_logout();
+    })
+})
+
+function confirm_logout(){
+    $.ajax({
+        headers : {'X-CSRF-TOKEN': $('input[name=_token').attr('value')},
+        type    : 'POST',
+        url     : $('#logout-form').data('url'),
+    });
+    Swal.fire({
+        title: 'ต้องการออกจากระบบใช่หรือไม่?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ใช่, ออกเดี๋ยวนี้!',
+        cancelButtonText: 'ไม่'
+    }).then((result) => {
+        if (result.value) {
+            window.location.href = 'http://hrm.system.io/logout';
+        }
+    })
+}
+
 function confirm(){
   Swal.fire({
     title: 'Are you sure?',

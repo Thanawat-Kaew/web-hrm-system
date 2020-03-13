@@ -370,8 +370,7 @@ function saveEditEmployee(oldValue){
 	});
 }
 
-function postDelete(url)
-{
+function postDelete(url){
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type: "POST",
