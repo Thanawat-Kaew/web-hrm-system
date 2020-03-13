@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 </head>
-<body class="hold-transition login-page" style="background-color: #222d32;">
+<body class="hold-transition login-page" style="background-color: #585858;">
 <div class="login-box">
 
     @if(\Session::has('success'))
@@ -31,7 +31,7 @@
     @endif
   
   <div class="login-logo">
-    <a style="color: white;"><b>HR-</b>MANAGEMENT</a>
+    <a style="color: white;"><b>ADMIN-</b>HRM</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body" style="border-radius: 5px;">
@@ -39,8 +39,8 @@
     <form action="{{ route('login') }}" method="post">
       {{ csrf_field() }}
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email" name="email" style="border-radius: 5px;">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="username" name="username" style="border-radius: 5px;">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Password" name="password" style="border-radius: 5px;">
@@ -56,11 +56,8 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat" style="border-radius: 5px;">Sign In</button>
-        </div><br><br>
-        <a href="<?php echo route("admin_login")?>" class="pull-right"  style="margin-right: 15px;">
-          <span class="label label-danger">For Admin</span>
-        </a>
+          <button type="submit" class="btn btn-success btn-block btn-flat" style="border-radius: 5px;">Sign In</button>
+        </div>
         <!-- /.col -->
       </div>
     </form>

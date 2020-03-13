@@ -117,12 +117,12 @@
 <!-- icheck -->
 <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
 
-<!-- main function -->
-<script src="/resources/assets/js/main.js"></script>
-<script src="/resources/assets/js/admin/admin_main.js"></script>
 <!-- DataTable -->
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<!-- main function -->
+<script src="/resources/assets/js/main.js"></script>
+<script src="/resources/assets/js/admin/admin_main.js"></script>
 <?php if (file_exists(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js')): ?>
 <script src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
 <?php endif ?>

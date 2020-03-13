@@ -53,9 +53,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-user-plus"></i> Manage Employee</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-list-ul"></i> Manage Department</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-sticky-note-o"></i> Manage Log</a></li>
+            <li><a href="<?php echo route('admin.add_header_emp.get')?>"><i class="fa fa-user-plus"></i> Manage Employee</a></li>
+            <li><a href="<?php echo route('admin.add_department.get')?>"><i class="fa fa-list-ul"></i> Manage Department</a></li>
+            <li><a href="<?php echo route('admin.log.get')?>"><i class="fa fa-sticky-note-o"></i> Manage Log</a></li>
           </ul>
         </li>
       </ul>
