@@ -126,11 +126,11 @@
             </section>
             <script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
 
-            <!-- main function -->
-            <script src="/resources/assets/js/main.js"></script>
             <!-- jQuery 3 -->
             <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
             <!-- Bootstrap 3.3.7 -->
             <script src="/resources/assets/theme/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+            <!-- main function -->
+            <script src="/resources/assets/js/main.js"></script>
         </body>
         </html>

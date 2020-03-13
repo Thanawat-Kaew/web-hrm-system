@@ -68,4 +68,10 @@ class LoginController extends Controller
             return view('auth.login');
 
     }
+
+    public function admin_login(){
+
+            return view('auth.admin_login');
+
+    }
 }
