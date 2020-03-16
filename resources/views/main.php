@@ -41,12 +41,7 @@
                         </h4>
                         <hr>
                         <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-                        <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
-                        </a>
-                        <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
-                            <?php echo csrf_field() ?>
-                        </form>
+                        <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>
                     </div>
                 </div>
             </div>
@@ -96,9 +91,7 @@
                                 <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
                                 <hr>
                                 <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-                                <a href="#" onClick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                    <button class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
-                                </a>
+                                <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>
                                 <!-- Notifications: style can be found in dropdown.less -->
          
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -108,16 +101,6 @@
                                 <ul class="dropdown-menu">
                                   <li class="header">คุณมี 0 การแจ้งเตือน</li>
                                 </ul>
-                                <span>
-                                    <a href="<?php echo route("admin.admin_main.get")?>">
-                                        <button class="btn btn-danger">
-                                            <i class="glyphicon glyphicon-user"> Test Admin</i>
-                                        </button>
-                                    </a>
-                                </span>
-                                <form id="logout-form" action="<?php echo route('logout.index.post') ?>" method="POST" style="display: none;">
-                                    <?php echo csrf_field() ?>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -134,3 +117,6 @@
             <script src="/resources/assets/js/main.js"></script>
         </body>
         </html>
+<!-- data -->
+<div id="logout-form" data-url="<?php echo route('logout.index.post') ?>"></div>
+<?php echo csrf_field() ?>

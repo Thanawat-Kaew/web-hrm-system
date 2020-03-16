@@ -32,7 +32,8 @@ class AdminController extends Controller
 
     public function admin_add_department()
     {
-        return view('admin.add_department');
+        $department = Department::all();
+        return $this->useTemplate('admin.add_department',compact('department'));
     }
 
     public function admin_log()
@@ -45,20 +46,20 @@ class AdminController extends Controller
         $method = $request->get('method');
         switch ($method) {
             case 'getDataPersonal':
-                $id             = $request->get('id');
-                $employee       = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
-                $form_repo      = new FormDataPersonal;
-                $form_view_emp   = $form_repo->getDataPersonal( $employee);
-                return response()->json(['status'=> 'success','data'=> $form_view_emp]);
+            $id             = $request->get('id');
+            $employee       = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
+            $form_repo      = new FormDataPersonal;
+            $form_view_emp   = $form_repo->getDataPersonal( $employee);
+            return response()->json(['status'=> 'success','data'=> $form_view_emp]);
             break;
 
             case 'getFormEmployeeWithDepartment':
-                    $department = $request->get('department');
+            $department = $request->get('department');
                     //sd($department); // en0001
-                    $employee   = Employee::where('id_department', $department)->get();
-                    $form_repo      = new FormChangeDepartment;
-                    $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
-                    return response()->json(['status'=> 'success','data'=> $get_form_emp]);
+            $employee   = Employee::where('id_department', $department)->get();
+            $form_repo      = new FormChangeDepartment;
+            $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
+            return response()->json(['status'=> 'success','data'=> $get_form_emp]);
             break;
 
             default:
@@ -66,5 +67,28 @@ class AdminController extends Controller
             break;
         }
     }
-}
 
+    public function add_department(Request $request)
+    {
+        $get_id_department      = $request->get('id_department');
+        $get_name_department    = $request->get('name_department');
+
+        if (!empty($get_id_department) && !empty($get_name_department))  {
+
+            $check_department       = Department::where('id_department', $get_id_department)->first();
+
+            if (!empty($check_department)) {
+                return json_encode(['status' => 'failed', 'message' => "errors"]);
+            }
+
+            $request_department                     = new Department;
+            $request_department->id_department      = $get_id_department;
+            $request_department->name               = $get_name_department;
+            $request_department->save();
+            
+            return json_encode(['status' => 'success', 'message' => "success"]);
+        }
+
+        return json_encode(['status' => 'failed_fied_err', 'message' => "errors"]);
+    }
+}

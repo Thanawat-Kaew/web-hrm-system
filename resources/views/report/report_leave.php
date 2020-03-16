@@ -112,30 +112,28 @@
 							</thead>
 							<?php foreach ($datas as $key => $value): ?>
 								<?php if(isset($value->employee->department)):?>
-								<tr>
-									<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
-									<td><?php echo $value->employee->department->name;?></td>
-									<td><?php echo $value->employee->Position->name;?></td>
-									<td><?php echo $value->leaves_type->leaves_name;?></td>
-									<td><?php echo $value->start_leave;?></td>
-									<td><?php echo $value->end_leave;?></td>
-									<?php if ($value->id_leaves_format == '1'): ?>
-										<td style="color: red;"><?php echo $value->total_leave/8 ;?> วัน</td>
-									<?php endif ?>
-									<?php if ($value->id_leaves_format == '2'): ?>
-										<td style="color: orange;"><!-- <?php echo $value->total_leave ;?> -->ครึ่งวัน</td>
-									<?php endif ?>
-									<?php if ($value->id_leaves_format == '3'): ?>
-										<td style="color: green;"><?php echo $value->total_leave ;?> ชั่วโมง</td>
-									<?php endif ?>
-								</tr>
-							<?php endif?>
+									<tr>
+										<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
+										<td><?php echo $value->employee->department->name;?></td>
+										<td><?php echo $value->employee->Position->name;?></td>
+										<td><?php echo $value->leaves_type->leaves_name;?></td>
+										<td><?php echo $value->start_leave;?></td>
+										<td><?php echo $value->end_leave;?></td>
+										<?php if ($value->id_leaves_format == '1'): ?>
+											<td style="color: red;"><?php echo $value->total_leave/8 ;?> วัน</td>
+										<?php endif ?>
+										<?php if ($value->id_leaves_format == '2'): ?>
+											<td style="color: orange;"><!-- <?php echo $value->total_leave ;?> -->ครึ่งวัน</td>
+										<?php endif ?>
+										<?php if ($value->id_leaves_format == '3'): ?>
+											<td style="color: green;"><?php echo $value->total_leave ;?> ชั่วโมง</td>
+										<?php endif ?>
+									</tr>
+								<?php endif?>
 							<?php endforeach?>
 						</table>
 					</div>
-					<!-- /.box-body -->
 				</div>
-				<!-- /.box -->
 			</div>
 		</div>
 	</div>

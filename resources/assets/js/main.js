@@ -5,6 +5,10 @@ $(document).ready(function(){
     $('.glyphicon-log-out-logout').click(function(){
         confirm_logout();
     })
+
+    $('.logout').click(function(){
+        confirm_logout();
+    })
 })
 
 function confirm_logout(){
