@@ -32,33 +32,34 @@ $('.save').click(function(){
 	})
 })
 
-$('.add-employee').on('click', '.add-employee-form', function(){
-		msg_waiting();
-		$.ajax({
-			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
-			type: 'POST',
-			url: $('#ajax-center-url').data('url'),
-			data: {method : 'getFormAddEmployee'},
-			success: function (result) {
-				var title = "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>"
-				showDialog(result.data,title);
-			},
-			error : function(errors)
-			{
-				console.log(errors);
-			}
-		})
-	})
+$('.add-header').on('click', '.add-header-form', function(){
+	msg_waiting();
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type: 'POST',
+		url: $('#ajax-center-url').data('url'),
+		data: {method : 'getFormAddHeader'},
+		success: function (result) {
+			var title = "<h4 style='color: red;'>เพิ่มหัวหน้าแผนก <small> | Add Header</small></h4>"
+			showDialog(result.data,title);
+		},
+		error : function(errors)
+		{
+			console.log(errors);
+		}
+	});
+});
 
-$('#department').on('change', function(){
+$('#department').on('change', function(){ // dropdown เปลั้ยนแผนก
 	msg_waiting();
 	var department = $(this).val();
+	console.log(department);
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
 		url  : $('#ajax-center-url').data('url'),
 		data : {
-			'method' : 'getFormEmployeeWithDepartment',
+			'method' : 'getFormHeaderAndEmployeeWithDepartmentForAdmin',
 			'department': department
 		},
 		success:function(result){
@@ -102,11 +103,11 @@ $('#header, #employee').on('click', '.manage-employee', function(){
 							headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 							type: 'POST',
 							url: $('#ajax-center-url').data('url'),
-							data: { 'method' : 'getFormEditEmployee',
+							data: { 'method' : 'getFormEditHeaderAndEmployeeForAdmin',
 							'id'     : id
 						},
 						success: function (result) {
-							var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small>"+id+"</h4>"
+							var title = "<h4 style='color: red;'>แก้ไขข้อมูลหัวหน้าและพนักงาน<small> | Edit HeaderAndEmployee</small></h4>"
 							showDialog(result.data,title);
 							msg_close();
 								//console.log(id);
@@ -129,29 +130,29 @@ $('#header, #employee').on('click', '.manage-employee', function(){
 							data: {'method' : 'getDataPersonal',
 							'id'    : id
 						},
-						success: function (result) {
-							var title = "<h4 style='color: red;'>ข้อมูลพนักงาน <small> | Personal Data</small></h4>"
-							bootbox.dialog({
-								title: title,
-								message: result.data,
-								size: 'xlarge',
-								onEscape: true,
-								backdrop: 'static',
-								buttons: {
-									fum: {
-										label: 'ปิด',
-										className: 'btn-warning',
-										callback: function(){
+							success: function (result) {
+								var title = "<h4 style='color: red;'>ข้อมูลพนักงาน <small> | Personal Data</small></h4>"
+								bootbox.dialog({
+									title: title,
+									message: result.data,
+									size: 'xlarge',
+									onEscape: true,
+									backdrop: 'static',
+									buttons: {
+										fum: {
+											label: 'ปิด',
+											className: 'btn-warning',
+											callback: function(){
+											}
 										}
 									}
-								}
-							})
-						},
-						error : function(errors){
-							console.log(errors);
-						}
-					})
-				});
+								})
+							},
+							error : function(errors){
+								console.log(errors);
+							}
+						})
+					});
 
 				$('.delete_data').on('click', function(event) {
 					msg_waiting();
@@ -197,12 +198,10 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 				label: 'บันทึก',
 				className: 'btn-info',
 				callback: function(){
-					if (title == "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>") {
-						addEmployee(form, title);
-						//alert("add");
-					}else{
-						editEmployee(form, title);
-						//alert("edit");
+					if (title == "<h4 style='color: red;'>เพิ่มหัวหน้าแผนก <small> | Add Header</small></h4>") {
+						addHeader(form, title);
+					}else if(title == "<h4 style='color: red;'>แก้ไขข้อมูลหัวหน้าและพนักงาน<small> | Edit HeaderAndEmployee</small></h4>"){
+						editHeaderAndEmployee(form, title);
 					}
 				}
 			},
@@ -215,7 +214,6 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 		}
 
 	})
-	//console.log(confirm_password);
 	box.on('shown.bs.modal', function(){
 		msg_close();
 		$('body').addClass('modal-open'); //scroll mouse
@@ -237,14 +235,16 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 		}
 
 		if(errors !== ""){
+			console.log(errors);
 			jQuery.each(errors, function(k, v){
 				$('#'+k+'-text-error').html(v).show();
+				//console.log(k);
 			})
 		}
 	})
 };
 
-function addEmployee(form, title){
+function addHeader(form, title){
 	msg_waiting();
 	var count 			 = 0;
 	var oldValue 		 = {};
@@ -270,19 +270,19 @@ function addEmployee(form, title){
 			showDialog(form, title, oldValue,not_match);
 		}else{
 			if(password == confirm_password) {
-				saveAddEmployee(form, title, oldValue,not_match);
+				saveAddHeader(form, title, oldValue,not_match);
 			}
 		}
 	}
 }
 
-function saveAddEmployee(form, title, oldValue,not_match){
+function saveAddHeader(form, title, oldValue,not_match){
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
-		url  : $('#add-employee-url').data('url'),
+		url  : $('#add-header-url').data('url'),
 		data : {
-			department 	: $('#add-emp-department').val(),
+			department 	: $('#add-header-department').val(),
 			position 	: $('#position').val(),
 			fname 		: $('#fname').val(),
 			lname 		: $('#lname').val(),
@@ -321,12 +321,10 @@ function saveAddEmployee(form, title, oldValue,not_match){
 	});
 }
 
-function editEmployee(form, title){
+function editHeaderAndEmployee(form, title){ // แก้ไขตำแหน่งของหัวหน้าหรือหนักงาน
 	msg_waiting();
 	var count 			 = 0;
 	var oldValue 		 = {};
-	var password         = $('#password').val();
-	var confirm_password = $('#confirm_password').val();
 	jQuery.each($('.required'),function(){
 		var name = $(this).attr('id');
 		oldValue[name]= $(this).val();
@@ -337,44 +335,34 @@ function editEmployee(form, title){
 			$(this).css({"border" : "1px solid lightgray"});
 		}
 	})
-
-	// check match password
-	var not_match = true;
-	if(password != confirm_password) {
+	if(count > 0) {
 		showDialog(form, title, oldValue,not_match);
 	}else{
-		if(count > 0) {
-			showDialog(form, title, oldValue,not_match);
-		}else{
-			if(password == confirm_password) {
-				saveEditEmployee(oldValue);
-			}
-		}
+		saveEditHeaderAndEmployee(oldValue);
 	}
 }
 
-function saveEditEmployee(oldValue){
+function saveEditHeaderAndEmployee(oldValue){
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
-		url  : $('#edit-employee-url').data('url'),
+		url  : $('#edit-header-and-employee-url').data('url'),
 		data : {
 			id_employee : $('#id_employee').val(),
 			department 	: $('#add-emp-department').val(),
 			position 	: $('#position').val(),
-			fname 		: $('#fname').val(),
-			lname 		: $('#lname').val(),
-			email      	: $('#email').val(),
-			password 	: $('#confirm_password').val(),
-			address 	: $('#address').val(),
-			gender 		: $('#gender').val(),
-			tel 		: $('#tel').val(),
-			age 		: $('#age').val(),
-			education 	: $('#education').val(),
-			salary 		: $('#salary').val(),
 		},
 		success: function(response){
-
+			if(response.status == "failed"){
+				Swal.fire(
+				{
+					//result.message1, result.message2,'warning'
+					title: 'ไม่สามรถเปลี่ยนตำแหน่งเป็นหัวหน้าได้เนื่องจากมีหัวหน้าอยู่',
+					type: 'failed',
+					showCancelButton: false,
+					confirmButtonText: 'ปิด'
+				});
+			}else{
 				Swal.fire(
 				{
 					title: 'แก้ไขข้อมูลสำเร็จ',
@@ -384,9 +372,11 @@ function saveEditEmployee(oldValue){
 
 				}).then((response) =>{
 
-					window.location.reload();
+					//window.location.reload();
 
 				})
+			}
+			console.log(response);
 		},
 		error: function(error){
 			alert('Data not save edit employee');

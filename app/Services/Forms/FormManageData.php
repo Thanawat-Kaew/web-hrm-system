@@ -2,11 +2,26 @@
 namespace App\Services\Forms;
 
 use App\Services\Employee\EmployeeObject;
+use App\Services\Admin\AdminObject;
 class FormManageData
 {
-
-    public static function getManageData($get_data_employee){
-        if(!empty($get_data_employee)){
+    public static function getManageData($get_data_employee, $current_admin=''){
+        if(!empty($current_admin) && !empty($get_data_employee)){ //กรณี admin
+            $form = '<div class="view-menu" style="padding:0 15%; text-align: center; font-size : 18px;">';
+                    $form .= '<div class="form-group">';
+                        $form .= '<button class="btn btn-block btn-info btn-outline-primary view_data" href="#">';
+                            $form .= '<center>';
+                                $form .= '<i class="fa fa-search"></i> ดูข้อมูลส่วนตัว';
+                            $form .= '</center>';
+                        $form .= '</button>';
+                        $form .= '<button class="btn btn-block btn-warning btn-outline-success edit_data" href="#">';
+                            $form .= '<center>';
+                                $form .= '<i class="fa fa-cog"></i> แก้ไขข้อมูล';
+                            $form .= '</center>';
+                        $form .= '</button>';
+            $form .= '</div>';
+            return $form;
+        }else if(!empty($get_data_employee)){ // กรณีหัวหน้าและฝ่าย hr
             $department_employee    = $get_data_employee->department->id_department;
             $position_employee      = $get_data_employee->position->id_position;
 

@@ -40,7 +40,7 @@
 <body>
     <div class="content" style="margin-top: 10%;">
         <!-- mobile -->
-        <div class="col-md-8 col-md-offset-2 hidden-md hidden-sm hidden-lg"> 
+        <div class="col-md-8 col-md-offset-2 hidden-md hidden-sm hidden-lg">
             <section class="content-header content-admin-menu">
                 <h1>
                     Admin Management
@@ -75,7 +75,7 @@
         <div class="col-md-8 col-md-offset-2  hidden-xs">
             <section class="content-header">
                 <h1>
-                    Admin Management
+                   Admin Management
                     <small>Version 1.0.0</small>
                     <a class="pull-right logout">
                      <i class="glyphicon glyphicon-log-in"></i>

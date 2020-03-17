@@ -155,38 +155,23 @@ class DataManageController extends Controller
         $employee->age           = $age;
         $employee->id_education  = $education;
         $employee->salary        = $salary;
-        //var_dump($id_position);
 
-        /*$check_department        = Department::all();
-        $array_department        = [];
-        foreach ($check_department as $value) {
-            $array_department[]  = $value->id_department;
-        }*/
-        //if(in_array('hr0001', haystack))
-        $general_department = array("en0001", "fa0001", "pm0001", "ss0001");
-        $humen_department   = array("hr0001");
-
-        if(in_array($employee->id_department, $general_department) && $employee->id_position == "1"){
-            $employee->id_role = 1;
-        }else if(in_array($employee->id_department, $general_department) && $employee->id_position == "2"){
-            $employee->id_role = 2;
-        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "1"){
-            $employee->id_role = 3;
-        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "2"){
-            $employee->id_role = 4;
+        $array_general_department  = [];
+        $general_department = Department::where('id_department', '!=', 'hr0001')->get();
+        foreach ($general_department as $value) {
+            $array_general_department[] = $value['id_department'];
         }
+        $humen_department   = Department::where('id_department', 'hr0001')->first();
 
-
-        /*if($employee->id_department == "en0001" || "fa0001" || "pm0001" || "ss0001" && $employee->id_position == 1){
-            $employee->id_role = 1;
-        }else if($employee->id_department == "en0001" || "fa0001" || "pm0001" || "ss0001" && $employee->id_position == 2){
-            $employee->id_role = 2;
-        }else if($employee->id_department == "hr0001" && $employee->id_position == 1){
-            $employee->id_role = 3;
-        }else if($employee->id_department == "hr0001" && $employee->id_position == 2){
-            $employee->id_role = 4;
-        }*/
-        //sd($employee->id_department);
+        if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "1"){
+            $employee->id_role = 1; // general_employee
+        }else if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "2"){
+            $employee->id_role = 2; // header_general
+        }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "1"){
+            $employee->id_role = 3; // hr_employee
+        }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "2"){
+            $employee->id_role = 4; // header_hr
+        }
         $employee->save();
 
         $find_email  = Employee::where('email', $email)->first();
@@ -211,7 +196,7 @@ class DataManageController extends Controller
                 $employee_menu->permission      = '["read", "write"]';
                 $employee_menu->save();
             }
-        }else{ // header_employee
+        }else{ // header_employee // header_general
             for($i=1; $i<=6; $i++){
                 $employee_menu                  = new EmployeeMenu();
                 $employee_menu->id_employee     = $find_email->id_employee;
@@ -294,23 +279,72 @@ class DataManageController extends Controller
         $employee->id_education     = $education;
         $employee->salary           = $salary;
 
-        $general_department = array("en0001", "fa0001", "pm0001", "ss0001");
-        $humen_department   = array("hr0001");
-
-        if(in_array($employee->id_department, $general_department) && $employee->id_position == "1"){
-            $employee->id_role = 1;
-        }else if(in_array($employee->id_department, $general_department) && $employee->id_position == "2"){
-            $employee->id_role = 2;
-        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "1"){
-            $employee->id_role = 3;
-        }else if(in_array($employee->id_department, $humen_department) && $employee->id_position == "2"){
-            $employee->id_role = 4;
+        $array_general_department  = [];
+        $general_department = Department::where('id_department', '!=', 'hr0001')->get();
+        foreach ($general_department as $value) {
+            $array_general_department[] = $value['id_department'];
         }
-        //sd($employee->id_department);
+        $humen_department   = Department::where('id_department', 'hr0001')->first();
+
+        if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "1"){
+            $employee->id_role = 1; // general_employee
+            $employee_menu      = EmployeeMenu::where('id_employee', $id_employee)->get();
+            foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
+                $value->delete();
+            }
+            for($i=1; $i<=3; $i++){ // general_employee //แล้วเพิ่มเมนูใหม่เข้าไป
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $employee->id_employee;
+                $employee_menu->id_menu         = $i;
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }else if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "2"){
+            $employee->id_role = 2; // header_general
+            $employee_menu      = EmployeeMenu::where('id_employee', $id_employee)->get();
+            foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
+                $value->delete();
+            }
+            for($i=1; $i<=6; $i++){ // header_employee //แล้วเพิ่มเมนูใหม่เข้าไป
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $employee->id_employee;
+                $employee_menu->id_menu         = $i;
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "1"){
+            $employee->id_role = 3; // hr_employee
+            $employee_menu      = EmployeeMenu::where('id_employee', $id_employee)->get();
+            foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
+                $value->delete();
+            }
+            for($i=1; $i<=5; $i++){
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $employee->id_employee;
+                if($i == 5){
+                    $employee_menu->id_menu     = 6;
+                }else{
+                    $employee_menu->id_menu     = $i;
+                }
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "2"){
+            $employee->id_role = 4; // header_hr
+            $employee_menu      = EmployeeMenu::where('id_employee', $id_employee)->get();
+            foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
+                $value->delete();
+            }
+            for($i=1; $i<=6; $i++){ // header_employee //แล้วเพิ่มเมนูใหม่เข้าไป
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $employee->id_employee;
+                $employee_menu->id_menu         = $i;
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }
         $employee->save();
     }
-
-
 
     public function postDeleteData($id_employee)
         {

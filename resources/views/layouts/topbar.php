@@ -56,12 +56,19 @@
           <li class="dropdown user user-menu">
             <a>
               <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <?php if(\Session::has('current_employee')) :
-                $current_employee = \Session::get('current_employee');
+                <?php if(\Session::has('current_employee')) :
+                    $current_employee = \Session::get('current_employee');
                 ?>
                 <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
-              </a>
-            <?php endif ?>
+            </a>
+                <?php endif ?>
+
+                <?php if(\Session::has('current_admin')):
+                    $current_admin = \Session::get('current_admin');
+                ?>
+                <span class="hidden-xs"><?php echo $current_admin['user_admin']; ?></span>
+            </a>
+                <?php endif ?>
 
             <!-- <ul class="dropdown-menu"> -->
               <!-- User image -->
@@ -89,7 +96,7 @@
                 <!-- </ul> -->
               </li>
               <div class="pull-right">
-                <a href="#" class=""><span class="glyphicon glyphicon-log-out glyphicon-log-out-logout" style="font-size: 30px; 
+                <a href="#" class=""><span class="glyphicon glyphicon-log-out glyphicon-log-out-logout" style="font-size: 30px;
                 margin-top: 6px; color: white; margin-right: 10px;"></span></a>
               </div>
               <!-- Control Sidebar Toggle Button -->
@@ -100,4 +107,4 @@
       </header>
       <!-- data -->
 <div id="logout-form" data-url="<?php echo route('logout.index.post') ?>"></div>
-                <?php echo csrf_field() ?>
+<?php echo csrf_field() ?>

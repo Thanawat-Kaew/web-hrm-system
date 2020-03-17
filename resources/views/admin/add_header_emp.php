@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         เพิ่มหัวหน้าพนักงาน |
-        <small> Add Header Employee</small>
+        <small> Add Header</small>
         <div class="col-sm-3 col-xs-12 pull-right">
             <div class="input-group input-group-sm">
                 <input id="text-search" type="text" class="form-control" placeholder="Filter...">
@@ -23,8 +23,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-3 col-xs-12 pull-right input-group-sm add-employee">
-                        <button type="button" class="btn btn-sm btn-success pull-right add-employee-form"><i class="fa fa-plus"></i> พนักงาน</button>
+                    <div class="col-sm-3 col-xs-12 pull-right input-group-sm add-header">
+                        <button type="button" class="btn btn-sm btn-success pull-right add-header-form"><i class="fa fa-plus"></i> เพิ่มหัวหน้าพนักงาน</button>
                     </div>
                 </div>
     </div>
@@ -46,7 +46,7 @@
         </div>
     </div>
 </section>
-<div id="ajax-center-url" data-url="<?php echo route('data_manage.ajax_center.post')?>"></div>
-<div id="add-employee-url" data-url="<?php echo route('data_manage.add_employee.post')?>"></div>
-<div id="edit-employee-url" data-url="<?php echo route('data_manage.edit_employee.post')?>"></div>
+<div id="ajax-center-url" data-url="<?php echo route('admin.ajax_center.post')?>"></div>
+<div id="add-header-url" data-url="<?php echo route('admin.add_header.post')?>"></div>
+<div id="edit-header-and-employee-url" data-url="<?php echo route('admin.edit_header_and_employee.post')?>"></div>
 <?php echo csrf_field()?>
