@@ -372,7 +372,7 @@ function saveEditHeaderAndEmployee(oldValue){
 
 				}).then((response) =>{
 
-					//window.location.reload();
+					window.location.reload();
 
 				})
 			}

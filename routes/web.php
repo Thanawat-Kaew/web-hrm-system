@@ -129,6 +129,7 @@ Route::get('/admin/admin_main', 'Main\MainController@admin_main')->name('admin.a
 Route::get('/admin/admin_main/add_header_emp', 'Admin\AdminController@admin_add_header_emp')->name('admin.add_header_emp.get');
 Route::get('/admin/admin_main/add_department', 'Admin\AdminController@admin_add_department')->name('admin.add_department.get');
 Route::get('/admin/admin_main/log', 'Admin\AdminController@admin_log')->name('admin.log.get');
+Route::get('/admin/admin_main/log/log_history', 'Admin\AdminController@admin_log_history')->name('admin.log_history.get');
 Route::post('/admin/ajax_center', 'Admin\AdminController@ajaxCenter')->name('admin.ajax_center.post');
 Route::post('/admin/edit_header_and_employee', 'Admin\AdminController@editHeaderAndEmployee')->name('admin.edit_header_and_employee.post');// แก้ไขข้อมูลหัวหน้าหรือพนักงาน
 Route::post('/admin/add_header', 'Admin\AdminController@addHeader')->name('admin.add_header.post');// เพิ่มหนักงาน

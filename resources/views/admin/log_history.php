@@ -1,20 +1,12 @@
 <section class="content-header">
 	<div class="box-header">
 		<h3>
-			บันทึกประวัติ |
-			<small> LOG</small>
+			ประวัติการลบ |
+			<small> Delete History</small>
 		</h3>
 	</div>
 </section>
 <section class="content">
-	<div class="row">
-		<div class="col-md-12 btn-group dropup pull-right ">
-			<a href="<?php echo route("admin.log_history.get")?>">
-				<button href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
-				</button>
-			</a>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="box box-danger">
@@ -41,10 +33,7 @@
 										<td>พนักงาน</td>
 										<td>ศักดิ์ทิพย์ สมเพียร</td>
 										<td>2020-03-15</td>
-										<td><button style="width: auto;" class="btn btn-primary form-control">อนุมัติ
-										</button>
-										<button style="width: auto;" class="btn btn-danger form-control">ไม่อนุมัติ
-										</button></td>
+										<td><span class="label label-success">success</span></td>
 									</tr>
 								</tbody>
 							</table>

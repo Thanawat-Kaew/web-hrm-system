@@ -42,7 +42,12 @@ class AdminController extends Controller
 
     public function admin_log()
     {
-        return view('admin.log');
+        return $this->useTemplate('admin.log');
+    }
+
+    public function admin_log_history()
+    {
+        return $this->useTemplate('admin.log_history');
     }
 
     public function ajaxCenter(Request $request)
