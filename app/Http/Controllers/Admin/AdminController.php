@@ -284,15 +284,16 @@ class AdminController extends Controller
     {
         $get_id_department      = $request->get('id_department');
         $get_name_department    = $request->get('name_department');
+        //sd($get_name_department);
 
         if (!empty($get_id_department) && !empty($get_name_department))  {
-
             $check_department_id        = Department::where('id_department', $get_id_department)->first();
             $check_department_name      = Department::where('name', $get_name_department)->first();
-            
+
             if (!empty($check_department_id) || !empty($check_department_name)) {
                 return json_encode(['status' => 'failed', 'message' => "errors"]);
-            }
+                //echo "55";
+            }exit();
 
             $request_department                     = new Department;
             $request_department->id_department      = $get_id_department;
