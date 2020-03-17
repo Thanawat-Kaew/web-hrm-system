@@ -26,15 +26,25 @@
 									</tr>
 								</thead>
 								<tbody>
+									<?php $count_employee = $employee->count();?>
+									<?php for($i=0; $i<$count_employee; $i++){?>
+										<?php $date = date('d-m-Y', strtotime($employee[$i]->date));?>
 									<tr>
-										<th>100</th>
-										<td>ก้องแก้ง กุ๊กๆ</td>
-										<td>Driver</td>
-										<td>พนักงาน</td>
-										<td>ศักดิ์ทิพย์ สมเพียร</td>
-										<td>2020-03-15</td>
-										<td><span class="label label-success">success</span></td>
+										<th><?php echo $employee[$i]->id_employee?></th>
+										<td><?php echo $employee[$i]->employee->first_name?> <?php echo $employee[$i]->employee->last_name?></td>
+										<td><?php echo $employee[$i]->employee->department->name?></td>
+										<td><?php echo $employee[$i]->employee->position->name?></td>
+										<td><?php echo $count_first_name[$i]?> <?php echo $count_last_name[$i]?></td>
+										<td><?php echo $date;?></td>
+										<td>
+											<?php if($employee[$i]->id_status == 1){?>
+												<span class="label label-success">success</span>
+											<?php }else if($employee[$i]->id_status == 3){?>
+												<span class="label label-danger">cancel</span>
+											<?php } ?>
+										</td>
 									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>

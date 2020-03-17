@@ -34,18 +34,22 @@
 									</tr>
 								</thead>
 								<tbody>
+									<?php $count_employee = $employee->count();?>
+									<?php for($i=0; $i<$count_employee; $i++){?>
+										<?php $date = date('d-m-Y', strtotime($employee[$i]->date));?>
 									<tr>
-										<th>100</th>
-										<td>ก้องแก้ง กุ๊กๆ</td>
-										<td>Driver</td>
-										<td>พนักงาน</td>
-										<td>ศักดิ์ทิพย์ สมเพียร</td>
-										<td>2020-03-15</td>
-										<td><button style="width: auto;" class="btn btn-primary form-control">อนุมัติ
-										</button>
-										<button style="width: auto;" class="btn btn-danger form-control">ไม่อนุมัติ
-										</button></td>
+										<th><?php echo $employee[$i]->id_employee?></th>
+										<td><?php echo $employee[$i]->employee->first_name?> <?php echo $employee[$i]->employee->last_name?></td>
+										<td><?php echo $employee[$i]->employee->department->name?></td>
+										<td><?php echo $employee[$i]->employee->position->name?></td>
+										<td><?php echo $count_first_name[$i]?> <?php echo $count_last_name[$i]?></td>
+										<td><?php echo $date;?></td>
+										<td>
+											<button style="width: auto;" class="btn btn-primary form-control confirm-delete-employee" data-id="<?php echo $employee[$i]->id;?>">อนุมัติ</button>
+											<button style="width: auto;" class="btn btn-danger form-control cancel-delete-employee" data-id="<?php echo $employee[$i]->id;?>">ไม่อนุมัติ</button>
+										</td>
 									</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>
@@ -55,3 +59,6 @@
 		</div>
 	</div>
 </section>
+<div id="confirm-delete-employee-url" data-url="<?php echo route('admin.confirm-delete-employee.post')?>"></div>
+<div id="cancel-delete-employee-url" data-url="<?php echo route('admin.cancel-delete-employee.post')?>"></div>
+<?php echo csrf_field()?>

@@ -81,4 +81,14 @@ class Employee extends Model
     {
         return $this->hasMany("App\Services\Evaluation\Evaluation", 'id_assessor', 'id_employee');
     }
+
+    public function statusemployee()
+    {
+        return $this->belongsTo("App\Services\Employee\StatusEmployee", 'id_status', 'id_status');
+    }
+
+    public function recoverystatusemployee()
+    {
+        return $this->hasMany("App\Services\Admin\RecoveryStatusEmployee", 'id_employee', 'id_employee');
+    }
 }

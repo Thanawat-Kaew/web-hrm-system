@@ -133,6 +133,9 @@ Route::get('/admin/admin_main/log/log_history', 'Admin\AdminController@admin_log
 Route::post('/admin/ajax_center', 'Admin\AdminController@ajaxCenter')->name('admin.ajax_center.post');
 Route::post('/admin/edit_header_and_employee', 'Admin\AdminController@editHeaderAndEmployee')->name('admin.edit_header_and_employee.post');// แก้ไขข้อมูลหัวหน้าหรือพนักงาน
 Route::post('/admin/add_header', 'Admin\AdminController@addHeader')->name('admin.add_header.post');// เพิ่มหนักงาน
+
+Route::post('/admin/admin_main/log/confirm', 'Admin\AdminController@confirmDeleteEmployee')->name('admin.confirm-delete-employee.post'); // confirm-delete-employee
+Route::post('/admin/admin_main/log/cancel', 'Admin\AdminController@cancelDeleteEmployee')->name('admin.cancel-delete-employee.post'); // cancel-delete-employee
 // **************************************End Admin****************************************/
 
 Auth::routes();

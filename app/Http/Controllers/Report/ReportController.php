@@ -68,7 +68,7 @@ class ReportController extends Controller
         $leaves_format      = LeavesFormat::all();
         $id_employee = $current_employee['id_employee'];
         $id_department = $current_employee['id_department'];
-    
+
         if($current_employee['id_department'] !== "hr0001"){
             $datas = Leaves::with(['employee' => function ($q) use ($id_department){
                             $q->with('department')->where('id_department', $id_department);

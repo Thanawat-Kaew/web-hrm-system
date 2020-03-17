@@ -22,6 +22,8 @@ use App\Services\Admin\AdminObject;
 use App\Services\Forms\FormHeaderAndEmployeeWithDepartmentForAdmin;
 use App\Services\Forms\FormEditHeaderAndEmployeeForAdmin;
 use App\Services\Forms\FormAddHeader;
+use App\Services\Employee\StatusEmployee;
+use App\Services\Admin\RecoveryStatusEmployee;
 
 class AdminController extends Controller
 {
@@ -42,12 +44,42 @@ class AdminController extends Controller
 
     public function admin_log()
     {
-        return $this->useTemplate('admin.log');
+        $employee      = RecoveryStatusEmployee::with('employee', 'employee.position', 'employee.department')->where('id_status', 2)->get();
+
+        $array_delete_by  = array();
+        foreach ($employee as $value){
+            $array_delete_by[] = $value->delete_by_id_employee; // for loop เพื่อเก็บ id คนที่ลบ
+        }
+
+        $count_employee = $employee->count();
+        $count_first_name       = [];
+        $count_last_name        = [];
+        for($i=0; $i<$count_employee; $i++){
+            $delete_by          = Employee::where('id_employee', $array_delete_by[$i])->first();
+            $count_first_name[] = $delete_by->first_name;
+            $count_last_name[]  = $delete_by->last_name;
+        }
+        return $this->useTemplate('admin.log', compact('employee', 'count_first_name', 'count_last_name'));
     }
 
     public function admin_log_history()
     {
-        return $this->useTemplate('admin.log_history');
+        $employee      = RecoveryStatusEmployee::with('employee', 'employee.position', 'employee.department')->where('id_status', "!=", 2)->get();
+        //sd($employee->toArray());
+        $array_delete_by  = array();
+        foreach ($employee as $value){
+            $array_delete_by[] = $value->delete_by_id_employee; // for loop เพื่อเก็บ id คนที่ลบ
+        }
+
+        $count_employee = $employee->count();
+        $count_first_name       = [];
+        $count_last_name        = [];
+        for($i=0; $i<$count_employee; $i++){
+            $delete_by          = Employee::where('id_employee', $array_delete_by[$i])->first();
+            $count_first_name[] = $delete_by->first_name;
+            $count_last_name[]  = $delete_by->last_name;
+        }
+        return $this->useTemplate('admin.log_history', compact('employee', 'count_first_name', 'count_last_name'));
     }
 
     public function ajaxCenter(Request $request)
@@ -292,8 +324,7 @@ class AdminController extends Controller
 
             if (!empty($check_department_id) || !empty($check_department_name)) {
                 return json_encode(['status' => 'failed', 'message' => "errors"]);
-                //echo "55";
-            }exit();
+            }
 
             $request_department                     = new Department;
             $request_department->id_department      = $get_id_department;
@@ -304,5 +335,32 @@ class AdminController extends Controller
         }
 
         return json_encode(['status' => 'failed_fied_err', 'message' => "errors"]);
+    }
+
+    public function confirmDeleteEmployee(Request $request)
+    {
+        if(\Session::has('current_admin')){
+            $current_admin = \Session::get('current_admin');
+        }
+        $id                          = $request->get('id');
+        $find_id_recovery            = RecoveryStatusEmployee::where('id', $id)->first();
+        $find_id_recovery->id_status = 1;
+        $find_id_recovery->id_admin  = $current_admin['id_admin'];
+        $find_id_recovery->save();
+    }
+
+    public function cancelDeleteEmployee(Request $request)
+    {
+        if(\Session::has('current_admin')){
+            $current_admin = \Session::get('current_admin');
+        }
+        $id                          = $request->get('id');
+        $find_id_recovery            = RecoveryStatusEmployee::where('id', $id)->first();
+        $find_id_recovery->id_status = 3;
+        $find_id_recovery->id_admin  = $current_admin['id_admin'];
+        $find_id_recovery->save();
+        $find_id_employee            = Employee::where('id_employee', $find_id_recovery['id_employee'])->first();
+        $find_id_employee->id_status = 1;
+        $find_id_employee->save();
     }
 }

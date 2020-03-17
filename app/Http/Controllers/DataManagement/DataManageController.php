@@ -16,6 +16,8 @@ use App\Services\Employee\Employee;
 use App\Services\Employee\EmployeeMenu;
 use App\Services\Education\Education;
 use App\Services\Request\RequestChangeData;
+use App\Services\Employee\StatusEmployee;
+use App\Services\Admin\RecoveryStatusEmployee;
 
 class DataManageController extends Controller
 {
@@ -24,8 +26,8 @@ class DataManageController extends Controller
         $department      = Department::all();
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
-            $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
-            $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->get();
+            $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
+            $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
 
         }
         return $this->useTemplate('data_management.index', compact('department', 'employee'));
@@ -347,14 +349,26 @@ class DataManageController extends Controller
     }
 
     public function postDeleteData($id_employee)
-        {
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
 
-        $get_data_employee = Employee::where('id_employee', $id_employee)->first();
-        // sd($get_data_employee->toArray());
+        $get_data_employee = Employee::with('statusemployee')->where('id_employee', $id_employee)->first();
+        //sd($get_data_employee->toArray());
 
         if(!empty($get_data_employee))
         {
-            $get_data_employee->delete();
+            $get_data_employee->id_status   = 0;
+            $get_data_employee->save();
+
+            $date                                     = date('Y-m-d');
+            $delete_employee                          = new RecoveryStatusEmployee;
+            $delete_employee->id_employee             = $get_data_employee['id_employee'];
+            $delete_employee->delete_by_id_employee   = $current_employee['id_employee'];
+            $delete_employee->id_status               = 2;
+            $delete_employee->date                    = $date;
+            $delete_employee->save();
 
             return ['status' => 'success', 'message' => 'Delete complete.'];
 

@@ -53,7 +53,7 @@ class LoginController extends Controller
         $password = $req->input('password');
         //sd($email);
 
-        $checkLogin   = Employee::where('email',$email)->where('password',$password)->first(); // first() เป็นการ get ข้อมูลrecord เดียว
+        $checkLogin   = Employee::where('email',$email)->where('password',$password)->where('id_status', 1)->first(); // first() เป็นการ get ข้อมูลrecord เดียว
 
         if(!empty($checkLogin)){
             $employee_object = new EmployeeObject;
