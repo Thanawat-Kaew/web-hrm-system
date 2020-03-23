@@ -138,6 +138,14 @@ Route::post('/admin/admin_main/log/confirm', 'Admin\AdminController@confirmDelet
 Route::post('/admin/admin_main/log/cancel', 'Admin\AdminController@cancelDeleteEmployee')->name('admin.cancel-delete-employee.post'); // cancel-delete-employee
 // **************************************End Admin****************************************/
 
+Route::get('/pdf/generatePDF_leave','PDFController@generatePDF_leave')->name('report.pdf.pdf_leave.get');
+Route::post('/pdf/generatePDF_leave/POST','PDFController@generatePDF_leave')->name('report.pdf.pdf_leave.post');
+Route::get('/pdf/generatePDF_time_stamp','PDFController@generatePDF_time_stamp')->name('report.pdf.pdf_time_stamp.get');
+Route::post('/pdf/generatePDF_time_stamp/POST','PDFController@generatePDF_time_stamp')->name('report.pdf.pdf_time_stamp.post');
+Route::get('/pdf/generatePDF_Eval','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.get');
+Route::post('/pdf/generatePDF_Eval/POST','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.post');
+
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

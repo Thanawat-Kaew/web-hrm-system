@@ -1,6 +1,6 @@
 msg_waiting()
 $(document).ready(function(){
-	$('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+	$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 	$('#myTable').dataTable();
 
 
@@ -52,4 +52,14 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	$('.genPDF_time_stamp').click(function(){
+		var department  = $('#report-department').val();
+		var start_date  = $('#select_start_date').val();
+		var end_date    = $('#select_end_date').val();
+		var start_time  = $('#select_start_time').val()
+		var end_time    = $('#select_end_time').val();
+
+		window.open('/pdf/generatePDF_time_stamp?department='+department+'&start_date='+start_date+'&end_date='+end_date+"&start_time="+start_time+"&end_time="+end_time,'_blank');
+	})
 })

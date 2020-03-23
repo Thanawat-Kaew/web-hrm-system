@@ -37,8 +37,9 @@
 					</div>
 					<div class="col-md-3 pull-right"><br>
 						<div class="form-group pull-right">
-							<button href="" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" style="margin-right: 5px;"><i class="fa fa-file-pdf-o"></i> Export to PDF
-							</button>
+							<a type="button" class="btn btn-primary genPDF_leave">
+								<i class="fa fa-file-pdf-o"></i> Export to PDF
+							</a>
 						</div>
 					</div>
 				</div>
@@ -140,4 +141,5 @@
 </section>
 
 <div id="ajax-center-url" data-url="<?php echo route('report.ajax_center.post')?>"></div>
+<div id="ajax-center-url-pdf" data-url="<?php echo route('report.pdf.pdf_leave.post')?>"></div>
 <?php echo csrf_field()?>

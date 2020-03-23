@@ -1,6 +1,6 @@
 msg_waiting()
 $(document).ready(function(){
-	$('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+	$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 
 	$('.timePicker1').on('click', function(){
 		getTimePicker($(this));
@@ -54,4 +54,15 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	$('.genPDF_evaluation').click(function(){
+		var department    = $('#report-department').val();
+		var topic_name    = $('#report-topic-name').val();
+		var start_date    = $('#select_start_date').val();
+		var end_date      = $('#select_end_date').val();
+		var start_number  = $('#start_number').val()
+		var end_number    = $('#end_number').val();
+
+		window.open('/pdf/generatePDF_Eval?department='+department+'&topic_name='+topic_name+'&start_date='+start_date+"&end_date="+end_date+"&start_number="+start_number+"&end_number="+end_number,'_blank');
+	})
 });
