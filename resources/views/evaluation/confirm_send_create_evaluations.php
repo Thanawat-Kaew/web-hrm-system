@@ -9,12 +9,14 @@
 		<div class="col-xs-12">
 			<?php if($current_employee->id_department == "hr0001"){?>
 				<div class="row button_group">
+					<?php if($current_employee->id_position == "2"){?>
 					<div class="btn-group pull-right new-evaluation">
 						<a href="<?php echo route("evaluation.index.get")?>">
 							<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
 							</button>
 						</a>
 					</div>
+					<?php }?>
 					<div class="btn-group pull-right history_create_evaluations button_history_create_evaluations">
 						<div class="btn-group pull-right">
 							<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">

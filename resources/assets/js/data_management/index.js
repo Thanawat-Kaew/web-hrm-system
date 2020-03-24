@@ -174,10 +174,8 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 				callback: function(){
 					if (title == "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>") {
 						addEmployee(form, title);
-						//alert("add");
 					}else{
 						editEmployee(form, title);
-						//alert("edit");
 					}
 				}
 			},
@@ -252,24 +250,44 @@ function addEmployee(form, title){
 }
 
 function saveAddEmployee(form, title, oldValue,not_match){
+	var form_data = new FormData();
+
+	var file_picture   	= $('#inputfilepicture').prop('files')[0];
+	var department 		= $('#add-emp-department').val();
+	var position 		= $('#position').val();
+	var fname 			= $('#fname').val();
+	var lname 			= $('#lname').val();
+	var email      		= $('#email').val();
+	var password 		= $('#confirm_password').val();
+	var address 		= $('#address').val();
+	var gender 			= $('#gender').val();
+	var tel 			= $('#tel').val();
+	var age 			= $('#age').val();
+	var education 		= $('#education').val();
+	var salary 			= $('#salary').val();
+
+	form_data.append('file_picture', file_picture);
+	form_data.append('department', department);
+	form_data.append('position', position);
+	form_data.append('fname', fname);
+	form_data.append('lname', lname);
+	form_data.append('email', email);
+	form_data.append('password', password);
+	form_data.append('address', address);
+	form_data.append('gender', gender);
+	form_data.append('age', age);
+	form_data.append('tel', tel);
+	form_data.append('education', education);
+	form_data.append('salary', salary);
+
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
+		cache       : false,
+        contentType : false,
+        processData : false,
 		url  : $('#add-employee-url').data('url'),
-		data : {
-			department 	: $('#add-emp-department').val(),
-			position 	: $('#position').val(),
-			fname 		: $('#fname').val(),
-			lname 		: $('#lname').val(),
-			email      	: $('#email').val(),
-			password 	: $('#confirm_password').val(),
-			address 	: $('#address').val(),
-			gender 		: $('#gender').val(),
-			tel 		: $('#tel').val(),
-			age 		: $('#age').val(),
-			education 	: $('#education').val(),
-			salary 		: $('#salary').val(),
-		},
+		data : 		form_data,
 		success: function(response){
 			var data_resp = jQuery.parseJSON(response);
 			if(data_resp.status == "success"){
@@ -329,25 +347,45 @@ function editEmployee(form, title){
 }
 
 function saveEditEmployee(oldValue){
+	var form_data       = new FormData();
+	var id_employee     = $('#id_employee').val();
+	var file_picture   	= $('#inputfilepicture').prop('files')[0];
+	var department 		= $('#add-emp-department').val();
+	var position 		= $('#position').val();
+	var fname 			= $('#fname').val();
+	var lname 			= $('#lname').val();
+	var email      		= $('#email').val();
+	var password 		= $('#confirm_password').val();
+	var address 		= $('#address').val();
+	var gender 			= $('#gender').val();
+	var tel 			= $('#tel').val();
+	var age 			= $('#age').val();
+	var education 		= $('#education').val();
+	var salary 			= $('#salary').val();
+
+	form_data.append('id_employee', id_employee);
+	form_data.append('file_picture', file_picture);
+	form_data.append('department', department);
+	form_data.append('position', position);
+	form_data.append('fname', fname);
+	form_data.append('lname', lname);
+	form_data.append('email', email);
+	form_data.append('password', password);
+	form_data.append('address', address);
+	form_data.append('gender', gender);
+	form_data.append('age', age);
+	form_data.append('tel', tel);
+	form_data.append('education', education);
+	form_data.append('salary', salary);
+
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
+		cache       : false,
+        contentType : false,
+        processData : false,
 		url  : $('#edit-employee-url').data('url'),
-		data : {
-			id_employee : $('#id_employee').val(),
-			department 	: $('#add-emp-department').val(),
-			position 	: $('#position').val(),
-			fname 		: $('#fname').val(),
-			lname 		: $('#lname').val(),
-			email      	: $('#email').val(),
-			password 	: $('#confirm_password').val(),
-			address 	: $('#address').val(),
-			gender 		: $('#gender').val(),
-			tel 		: $('#tel').val(),
-			age 		: $('#age').val(),
-			education 	: $('#education').val(),
-			salary 		: $('#salary').val(),
-		},
+		data : form_data,
 		success: function(response){
 
 				Swal.fire(

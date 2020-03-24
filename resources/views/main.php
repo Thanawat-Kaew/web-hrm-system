@@ -52,8 +52,8 @@
                     <div class="links">
                         <div class="col-sm-12 col-xs-12">
                             <?php if(\Session::has('current_menu')) :  ?>
-                                <?php 
-                                $menu_list   = \Session::get('current_menu'); 
+                                <?php
+                                $menu_list   = \Session::get('current_menu');
                                 $count_menu  = count((array) $menu_list);
                                 ?>
                                 <?php foreach($menu_list as $key => $menu):?>
@@ -70,14 +70,14 @@
                                             </div>
                                             <?php if ($count_menu % 3 == 0 && $count_menu % 6 != 0 && $row_max != $count_menu): ?>
                                             </div>
-                                            <div class="col-sm-12 col-xs-12"> 
+                                            <div class="col-sm-12 col-xs-12">
                                                 <?php elseif($row_max == $count_menu):?>
                                                 </div>
                                             <?php endif ?>
                                         <?php endforeach ?>
                                     <?php endif ?>
                                     <?php if ($count_menu % 3 != 0 && $count_menu % 6 == 0): ?>
-                                    </div> 
+                                    </div>
                                 <?php endif ?>
                             </div>
                         </div>
@@ -87,13 +87,17 @@
                     <div class="col-md-6">
                         <div class="lockscreen-wrapper pull-left hidden-xs">
                             <div class="text-center" style="margin-top: 130px;">
+                                <?php if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
+                                <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
+                                <?php }else{?> <!-- ถ้าไม่มีรุป -->
                                 <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                                <?php } ?>
                                 <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
                                 <hr>
                                 <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
                                 <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>
                                 <!-- Notifications: style can be found in dropdown.less -->
-         
+
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                   <i class="fa fa-lg fa-bell-o"></i>
                                   <span class="label label-warning"></span>

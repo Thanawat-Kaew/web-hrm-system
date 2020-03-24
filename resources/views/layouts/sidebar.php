@@ -3,9 +3,18 @@
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
+
         <div class="pull-left image">
-          <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <?php if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+            if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
+              <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 50px; height: 50px;">
+            <?php }else{?> <!-- ถ้าไม่มีรุป -->
+              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+            <?php } ?>
+          <?php } ?>
         </div>
+
         <div class="pull-left info">
           <?php if(\Session::has('current_employee')) :
             $current_employee = \Session::get('current_employee');

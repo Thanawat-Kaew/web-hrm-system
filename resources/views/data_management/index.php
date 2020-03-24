@@ -44,7 +44,11 @@
                             <div class="widget-user-header">
                                 <!-- /.widget-user-image -->
                                 <div class="group-image" align="center" valign="center">
-                                    <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" alt="">
+                                    <?php if(!empty($value->image)){?> <!-- ถ้ามีรูป  -->
+                                            <img src="/public/image/<?php echo $value->image ?>" class="user-image img-circle" alt="User Image" style="width: 128px; height: 128px;">
+                                    <?php }else{?> <!-- ถ้าไม่มีรุป -->
+                                            <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-image img-circle" alt="User Image">
+                                    <?php } ?>
                                 </div>
                                 <div class="about-employee">
                                     <p id="header_id">รหัส  :<span><?php echo $value['id_employee']?></span></p>
@@ -81,7 +85,11 @@
                                 <div class="widget-user-header">
                                     <!-- /.widget-user-image -->
                                     <div class="group-image" align="center" valign="center">
-                                        <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">
+                                        <?php if(!empty($value->image)){?> <!-- ถ้ามีรูป  -->
+                                            <img src="/public/image/<?php echo $value->image ?>" class="user-image img-circle" alt="User Image" style="width: 120px; height: 120px;">
+                                        <?php }else{?> <!-- ถ้าไม่มีรุป -->
+                                            <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                                        <?php } ?>
                                     </div>
                                     <div class="about-employee">
                                         <p>รหัส  :<span><?php echo $value['id_employee']?></span></p>

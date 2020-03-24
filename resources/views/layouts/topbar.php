@@ -55,7 +55,14 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a>
-              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <?php if(\Session::has('current_employee')){
+                $current_employee = \Session::get('current_employee');
+                if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
+                  <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 30px; height: 30px;">
+                <?php }else{?> <!-- ถ้าไม่มีรุป -->
+                  <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                <?php } ?>
+              <?php } ?>
                 <?php if(\Session::has('current_employee')) :
                     $current_employee = \Session::get('current_employee');
                 ?>

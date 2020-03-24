@@ -18,6 +18,7 @@ use App\Services\Education\Education;
 use App\Services\Request\RequestChangeData;
 use App\Services\Employee\StatusEmployee;
 use App\Services\Admin\RecoveryStatusEmployee;
+use App\Services\Employee\EmployeeObject;
 
 class DataManageController extends Controller
 {
@@ -28,7 +29,6 @@ class DataManageController extends Controller
             $current_employee = \Session::get('current_employee');
             $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
             $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
-
         }
         return $this->useTemplate('data_management.index', compact('department', 'employee'));
     }
@@ -117,9 +117,8 @@ class DataManageController extends Controller
     public function addEmployee(Request $request)
     {
         // get value from ajax function saveAddEmployee(oldValue)
-
+        $images                  = $request->file("file_picture");
         $id_department           = $request->get('department');
-        //sd($id_department);
         $id_position             = $request->get('position');
         $first_name              = $request->get('fname');
         $last_name               = $request->get('lname');
@@ -208,6 +207,17 @@ class DataManageController extends Controller
             }
         }
 
+        $find_id_employee        = Employee::where('email', $email)->first();
+        $id_employee             = $find_id_employee['id_employee'];
+        if($_FILES['file_picture']['name'] != ''){
+            $test = explode('.', $_FILES['file_picture']['name']);
+            $extension = end($test);
+            $name = $id_employee.'.'.$extension;
+            $location = 'public/image/'.$name;
+            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        }
+        $find_id_employee->image = $name;
+        $find_id_employee->save();
         return json_encode(['status' => 'success', 'message' => 'success']);
     }
 
@@ -252,7 +262,9 @@ class DataManageController extends Controller
 
     public function editEmployee(Request $request)
     {
+        $images                     = $request->file("file_picture");
         $id_employee                = $request->get('id_employee');
+        //sd($id_employee);
         $id_department              = $request->get('department');
         $id_position                = $request->get('position');
         $first_name                 = $request->get('fname');
@@ -268,6 +280,7 @@ class DataManageController extends Controller
 
         // save data to database
         $employee                   = Employee::find($id_employee);
+        //sd($employee->id_employee);
         $employee->id_department    = $id_department;
         $employee->id_position      = $id_position ;
         $employee->first_name       = $first_name;
@@ -280,6 +293,15 @@ class DataManageController extends Controller
         $employee->age              = $age;
         $employee->id_education     = $education;
         $employee->salary           = $salary;
+
+        if($_FILES['file_picture']['name'] != ''){  // ตรวจสอบไฟล์รูปภาพ
+            $test = explode('.', $_FILES['file_picture']['name']); //แยกชื่อ
+            $extension = end($test); // นามสกุลไฟล์
+            $name = $employee->id_employee.'.'.$extension;
+            $location = 'public/image/'.$name;
+            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        }
+        $employee->image            = $name;
 
         $array_general_department  = [];
         $general_department = Department::where('id_department', '!=', 'hr0001')->get();
