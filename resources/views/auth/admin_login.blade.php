@@ -58,9 +58,9 @@
         <div class="col-xs-4">
           <button type="submit" class="btn btn-success btn-block btn-flat" style="border-radius: 5px;">Sign In</button>
         </div><br><br>
-        <a href="<?php echo route("login")?>" class="pull-right"  style="margin-right: 15px;">
+       <!--  <a href="<?php /*echo route("login")*/ ?>" class="pull-right"  style="margin-right: 15px;">
           <span class="label label-primary">For User</span>
-        </a>
+        </a> -->
         <!-- /.col -->
       </div>
     </form>

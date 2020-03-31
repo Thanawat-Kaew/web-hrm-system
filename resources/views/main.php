@@ -95,22 +95,53 @@
                                 <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
                                 <hr>
                                 <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-                                <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>
-                                <!-- Notifications: style can be found in dropdown.less -->
-
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                  <i class="fa fa-lg fa-bell-o"></i>
-                                  <span class="label label-warning"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                  <li class="header">คุณมี 0 การแจ้งเตือน</li>
-                                </ul>
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-default logout pull-right"><i class="fa fa-sign-out"></i> Logout</button>
+                                        <!-- Notifications: style can be found in dropdown.less -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                          <i class="fa fa-lg fa-bell-o"></i>
+                                          <span class="label label-warning">1</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                          <li class="header">คุณมี 0 การแจ้งเตือน</li>
+                                          <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li class="view-amendment">
+                    <a href="<?php echo route('data_management.notification_request.get')?>">
+                      <i class="fa fa-users text-aqua"></i> รายการคำร้องขอเปลี่ยนแปลงข้อมูลส่วนตัว
+                    </a>
+                  </li>
+                  <li class="view-time-stamp-request">
+                    <a href="<?php echo route('time_stamp.time_stamp_request.get')?>">
+                      <i class="fa fa-clock-o text-aqua"></i> รายการคำร้องขอลงเวลาย้อนหลัง
+                    </a>
+                  </li>
+                  <li class="view-request-leave">
+                    <a href="<?php echo route('leave.leave_request.get');?>">
+                      <i class="fa fa-calendar-o text-aqua"></i> รายการคำร้องขอลา
+                    </a>
+                  </li>
+                  <li class="view-request-create-evaluation">
+                    <a href="<?php echo route('evaluation.create_evaluations_request.get')?>">
+                      <i class="fa fa-clipboard text-aqua"></i>รายการขออนุมัติสร้างแบบประเมิน
+                    </a>
+                  </li>
+                </ul>
+              </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- /.col -->
             </section>
+
             <script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
 
             <!-- jQuery 3 -->
