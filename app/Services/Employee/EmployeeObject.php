@@ -75,6 +75,17 @@ class EmployeeObject{
          // sd((object)$menu);
     }
 
+    public static function check()
+    {
+        $result = false;
+
+        if (\Session::has('current_employee')){
+            $result = true;
+        }
+
+        return $result;
+    }
+
     public function getIdEmployee()
     {
     	return $this->id_employee;
