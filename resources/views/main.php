@@ -102,14 +102,14 @@
                                     </div>
                                     <div class="col-md-6">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                          <i class="fa fa-lg fa-bell-o"></i>
+                                          <i class="fa fa-lg fa-bell-o" style="color: black;" ></i>
                                           <span class="label label-warning">1</span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                          <li class="header">คุณมี 0 การแจ้งเตือน</li>
+                                          <li  style="margin-left: 10px;" class="header">คุณมี 0 การแจ้งเตือน</li>
                                           <li>
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
+                <div class="menu" style="width: 300px; margin-left: 30px;">
                   <li class="view-amendment">
                     <a href="<?php echo route('data_management.notification_request.get')?>">
                       <i class="fa fa-users text-aqua"></i> รายการคำร้องขอเปลี่ยนแปลงข้อมูลส่วนตัว
@@ -130,7 +130,7 @@
                       <i class="fa fa-clipboard text-aqua"></i>รายการขออนุมัติสร้างแบบประเมิน
                     </a>
                   </li>
-                </ul>
+                </div>
               </li>
                                         </ul>
                                     </div>

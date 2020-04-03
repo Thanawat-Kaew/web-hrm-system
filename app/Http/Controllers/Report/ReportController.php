@@ -123,7 +123,15 @@ class ReportController extends Controller
 
     public function reportOverview()
     {
-    	return $this->useTemplate('report.report_overview');
+        // $get_count_emp  = Employee::where('gender','ชาย')->count();
+        $get_count_emp  = Employee::all();
+        // sd($get_count_emp);
+        // $get_count_dept = Employee::with('department')->get();
+        $get_count_dept = Employee::all()->groupBy('id_department')->count();
+        // $get_count_dept = Employee::with('department')->groupBy('id_department')->get();
+        // sd($get_count_dept);
+        
+    	return $this->useTemplate('report.report_overview',compact('get_count_emp'));
     }
 
     public function ajaxCenter(Request $request)

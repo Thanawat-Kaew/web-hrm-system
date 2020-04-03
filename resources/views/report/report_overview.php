@@ -15,9 +15,6 @@
 			display: none;
 		}
 
-		#ac_layer_1w {
-			/*align-items: right;*/
-		}
 	</style>
 </head>
 <section class="content-header">
@@ -96,7 +93,7 @@
 						<div class="row" style="height: 230px;">
 							<div class="col-md-12">
 								<div style="text-align: center; margin-top: 40px;">
-									<span style="font-size: 100px;">130</span>
+									<span style="font-size: 100px;"><?php echo $get_count_emp->count() ?></span>
 								</div>
 							</div>
 							
@@ -110,16 +107,15 @@
 						<h3 class="box-title">Gender.</h3>
 					</div>
 					<div id="container" style="height: 230px;"></div>
-
 					<script type="text/javascript">anychart.onDocumentReady(function() {
 						var chart = anychart.pie();
 						chart.title('');
 						chart.data([
-							{x: 'Male', value: 60},
-							{x: 'Female', value: 40},
+							{x: 'ชาย', value: <?php echo $get_count_emp->where('gender' ,'ชาย')->count(); ?>},
+							{x: 'หญิง', value: <?php echo $get_count_emp->where('gender' ,'หญิง')->count(); ?> },
 							]);
-
 						chart.container('container');
+						chart.labels().fontSize(20);
 						chart.draw();
 					});</script>
 				</div>
@@ -129,6 +125,13 @@
 					<div class="box-header with-border">
 						<h3 class="box-title">Employees by Age Groups.</h3>
 					</div>
+					<?php $age_min_20	= $get_count_emp->where('age','>=',1)->where('age','<=',20)->count();?>
+					<?php $age_21_30	= $get_count_emp->where('age','>=',21)->where('age','<=',30)->count();?>
+					<?php $age_31_40	= $get_count_emp->where('age','>=',31)->where('age','<=',40)->count();?>
+					<?php $age_41_50	= $get_count_emp->where('age','>=',41)->where('age','<=',50)->count();?>
+					<?php $age_max_50	= $get_count_emp->where('age','>=',51)->count();?>
+					<?php $count_emp = $get_count_emp->count() ?>
+
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -140,64 +143,64 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>10-20</td>
+								<td><20</td>
 								<td>
 									<div class="progress progress-xs progress-striped active">
-										<div class="progress-bar progress-bar-success" style="width: 90%"></div>
+										<div class="progress-bar progress-bar-success" style="width: <?php echo round(($age_min_20*100)/$count_emp,2).'%'?>;"></div>
 									</div>
 								</td>
 								<td>
-									<span class="badge bg-green">90%</span>
+									<span class="badge bg-green"><?php echo round(($age_min_20*100)/$count_emp,2) ?> %</span>
 								</td>
-								<td>30</td>
+								<td><?php echo $age_min_20 ?> คน</td>
 							</tr>
 							<tr>
 								<td>21-30</td>
 								<td>
 									<div class="progress progress-xs progress-striped active">
-										<div class="progress-bar progress-bar-danger" style="width: 20%"></div>
+										<div class="progress-bar progress-bar-danger" style="width: <?php echo round(($age_21_30*100)/$count_emp,2).'%'?>;"></div>
 									</div>
 								</td>
 								<td>
-									<span class="badge bg-red">20%</span>
+									<span class="badge bg-red"><?php echo round(($age_21_30*100)/$count_emp,2) ?> %</span>
 								</td>
-								<td>30</td>
+								<td><?php echo $age_21_30 ?> คน</td>
 							</tr>
 							<tr>
 								<td>31-40</td>
 								<td>
 									<div class="progress progress-xs progress-striped active">
-										<div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+										<div class="progress-bar progress-bar-primary" style="width: <?php echo round(($age_31_40*100)/$count_emp,2).'%'?>;"></div>
 									</div>
 								</td>
 								<td>
-									<span class="badge bg-blue">30%</span>
+									<span class="badge bg-blue"><?php echo round(($age_31_40*100)/$count_emp,2) ?> %</span>
 								</td>
-								<td>30</td>
+								<td><?php echo $age_31_40 ?> คน</td>
 							</tr>
 							<tr>
 								<td>41-50</td>
 								<td>
 									<div class="progress progress-xs progress-striped active">
-										<div class="progress-bar progress-bar-info" style="width: 70%"></div>
+										<div class="progress-bar progress-bar-info" style="width: <?php echo round(($age_41_50*100)/$count_emp,2).'%'?>;"></div>
 									</div>
 								</td>
 								<td>
-									<span class="badge bg-aqua">70%</span>
+									<span class="badge bg-aqua"><?php echo round(($age_41_50*100)/$count_emp,2) ?> %</span>
 								</td>
-								<td>30</td>
+								<td><?php echo $age_41_50 ?> คน</td>
 							</tr>
 							<tr>
-								<td>51-60</td>
+								<td>>51</td>
 								<td>
 									<div class="progress progress-xs progress-striped active">
-										<div class="progress-bar progress-bar-warning" style="width: 28%"></div>
+										<div class="progress-bar progress-bar-warning" style="width: <?php echo round(($age_max_50*100)/$count_emp,2).'%'?>;"></div>
 									</div>
 								</td>
 								<td>
-									<span class="badge bg-orange">28%</span>
+									<span class="badge bg-orange"><?php echo round(($age_max_50*100)/$count_emp,2) ?> %</span>
 								</td>
-								<td>30</td>
+								<td><?php echo $age_max_50 ?> คน</td>
 							</tr>
 						</tbody>
 					</table>
@@ -215,6 +218,11 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div id="container_deptp" style="height: 400px;"></div>
+							en <?php echo $get_count_emp->where('id_department' ,'en0001')->count(); ?>
+							fa <?php echo $get_count_emp->where('id_department' ,'fa0001')->count(); ?>
+							hr <?php echo $get_count_emp->where('id_department' ,'hr0001')->count(); ?>
+							pm <?php echo $get_count_emp->where('id_department' ,'pm0001')->count(); ?>
+							ss <?php echo $get_count_emp->where('id_department' ,'ss0001')->count(); ?>
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 									var chart = anychart.pie([
