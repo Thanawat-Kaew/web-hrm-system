@@ -44,7 +44,7 @@
           //sd($request_leave[99]->leaves->count());
 
           $confirm_create_evaluation  = $current_employee->with(['createevaluation_hasmany' => function($q) use($waiting_status){
-                                              $q->where('status', $waiting_status);}])->get();
+                                              $q->where('status', $waiting_status)->where('confirm_send_create_evaluation',1);}])->get();
           //sd($confirm_create_evaluation[93]->createevaluation_hasmany->toArray());
           //sd($confirm_create_evaluation->count());
 
