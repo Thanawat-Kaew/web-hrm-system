@@ -69,7 +69,6 @@ class LoginController extends Controller
             \Session::forget('current_employee');
             \Session::forget('current_menu');
             return view('auth.login');
-
     }
 
     public function admin_login_(Request $req){

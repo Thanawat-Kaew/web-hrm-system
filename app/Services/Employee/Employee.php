@@ -69,6 +69,12 @@ class Employee extends Model
 
     }
 
+    public function createevaluation_hasmany()
+    {
+        return $this->hasMany("App\Services\Evaluation\CreateEvaluation", 'id_employee', 'id_employee'); // one to many
+
+    }
+
     public function evaluation()
     {
         //return $this->hasOne("App\Services\Evaluation\Evaluation", 'id_employee', 'id_assessor', 'id_employee', 'iid_assessment_person'); // one to many

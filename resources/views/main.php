@@ -95,46 +95,54 @@
                                 <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
                                 <hr>
                                 <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <button class="btn btn-default logout pull-right"><i class="fa fa-sign-out"></i> Logout</button>
-                                        <!-- Notifications: style can be found in dropdown.less -->
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                          <i class="fa fa-lg fa-bell-o" style="color: black;" ></i>
-                                          <span class="label label-warning">1</span>
+
+                                <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>
+                                <!-- Notifications: style can be found in dropdown.less -->
+                                <?php if($current_employee->id_position == 2){ ?>
+                                <a href="#" class="dropdown-toggle <?php //echo ($sum_request == 0 ? 'hide' : '')?>" data-toggle="dropdown">
+                                  <i class="fa fa-bell-o"></i>
+                                  <span class="label label-warning" style="width: 50px;"><?php echo $sum_request ?></span>
+                                </a>
+                                <ul class="dropdown-menu" style="width: 350px;">
+                                  <li class="header">คุณมี <?php echo $sum_request ?> การแจ้งเตือน</li>
+                                  <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <?php if($current_employee['id_department'] == "hr0001"):?>
+                                      <li class="view-amendment">
+                                        <a href="<?php echo route('data_management.notification_request.get')?>">
+                                          <i class="fa fa-users text-aqua"></i> รายการคำร้องขอเปลี่ยนแปลงข้อมูลส่วนตัว
+                                          <span class="label label-warning"><?php echo $sum_request_change_data ?></span>
                                         </a>
-                                        <ul class="dropdown-menu">
-                                          <li  style="margin-left: 10px;" class="header">คุณมี 0 การแจ้งเตือน</li>
-                                          <li>
-                <!-- inner menu: contains the actual data -->
-                <div class="menu" style="width: 300px; margin-left: 30px;">
-                  <li class="view-amendment">
-                    <a href="<?php echo route('data_management.notification_request.get')?>">
-                      <i class="fa fa-users text-aqua"></i> รายการคำร้องขอเปลี่ยนแปลงข้อมูลส่วนตัว
-                    </a>
-                  </li>
-                  <li class="view-time-stamp-request">
-                    <a href="<?php echo route('time_stamp.time_stamp_request.get')?>">
-                      <i class="fa fa-clock-o text-aqua"></i> รายการคำร้องขอลงเวลาย้อนหลัง
-                    </a>
-                  </li>
-                  <li class="view-request-leave">
-                    <a href="<?php echo route('leave.leave_request.get');?>">
-                      <i class="fa fa-calendar-o text-aqua"></i> รายการคำร้องขอลา
-                    </a>
-                  </li>
-                  <li class="view-request-create-evaluation">
-                    <a href="<?php echo route('evaluation.create_evaluations_request.get')?>">
-                      <i class="fa fa-clipboard text-aqua"></i>รายการขออนุมัติสร้างแบบประเมิน
-                    </a>
-                  </li>
-                </div>
-              </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                      </li>
+                                        <?php endif ?>
+
+                                      <li class="view-time-stamp-request">
+                                        <a href="<?php echo route('time_stamp.time_stamp_request.get')?>">
+                                          <i class="fa fa-clock-o text-aqua"></i> รายการคำร้องขอลงเวลาย้อนหลัง
+                                        <span class="label label-warning"><?php echo $sum_request_time_stamp ?></span>
+                                        </a>
+                                      </li>
+
+                                      <li class="view-request-leave">
+                                        <a href="<?php echo route('leave.leave_request.get');?>">
+                                          <i class="fa fa-calendar-o text-aqua"></i> รายการคำร้องขอลา
+                                          <span class="label label-warning"><?php echo $sum_request_leave ?></span>
+                                        </a>
+                                      </li>
+
+                                      <?php if($current_employee['id_department'] == "hr0001"):?>
+                                      <li class="view-request-create-evaluation">
+                                        <a href="<?php echo route('evaluation.create_evaluations_request.get')?>">
+                                          <i class="fa fa-clipboard text-aqua"></i>รายการขออนุมัติสร้างแบบประเมิน
+                                          <span class="label label-warning"><?php echo $sum_confirm_create_evaluation ?></span>
+                                        </a>
+                                      </li>
+                                      <?php endif ?>
+                                    </ul>
+                                  </li>
+                                </ul>
+                                <?php } ?> <!-- End if id_position == 2 -->
                             </div>
                         </div>
                     </div>
