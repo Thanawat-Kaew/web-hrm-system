@@ -184,12 +184,12 @@
                 <?php } ?> <!-- End if image -->
             <?php } ?> <!-- End of Session -->
 
-            <?php if(\Session::has('current_employee')){
+             <?php if(\Session::has('current_employee')){
                 $current_employee = \Session::get('current_employee'); ?>
                 <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
             <?php }else if(\Session::has('current_admin')){
                 $current_admin = \Session::get('current_admin'); ?>
-                <span class="hidden-xs"><?php echo $current_admin['user_admin']; ?></span>
+                 <span class="hidden-xs"><?php echo $current_admin['user_admin']; ?></span>
             <?php  } ?>
             </a>
             </li>

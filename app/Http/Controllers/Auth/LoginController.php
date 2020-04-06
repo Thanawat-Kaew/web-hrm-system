@@ -67,9 +67,9 @@ class LoginController extends Controller
     }
 
     public function logout(){
-            \Session::flush();
-            // \Session::forget(['current_employee','current_menu']);
-            // \Session::forget('current_menu');
+            // \Session::flush();
+            \Session::forget(['current_employee','current_menu']);
+            \Session::forget('current_menu');
             return view('auth.login');
     }
 
@@ -90,8 +90,8 @@ class LoginController extends Controller
     }
     
     public function logout_admin(){
-        \Session::flush();
-        // \Session::forget('current_admin');
+        // \Session::flush();
+        \Session::forget('current_admin');
         return view('auth.admin_login');
     }
 }
