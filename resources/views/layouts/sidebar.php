@@ -16,17 +16,13 @@
       </div>
 
       <div class="pull-left info">
-        <?php if(\Session::has('current_employee')) :
-          $current_employee = \Session::get('current_employee');
-          ?>
-          <p><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></p>
-        <?php endif ?>
-
-        <?php if(\Session::has('current_admin')):
-          $current_admin = \Session::get('current_admin');
-          ?>
-          <p><?php echo $current_admin['user_admin']; ?></p>
-        <?php endif ?>
+         <?php if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee'); ?>
+            <span class="hidden-xs"><?php echo $current_employee['first_name']; ?> <?php echo $current_employee['last_name']; ?></span>
+          <?php }else if(\Session::has('current_admin')){
+            $current_admin = \Session::get('current_admin'); ?>
+            <span class="hidden-xs"><?php echo $current_admin['user_admin']; ?></span>
+          <?php  } ?><br><br>
         <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a>
       </div>
     </div>

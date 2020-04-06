@@ -86,3 +86,4 @@
 </script>
 </body>
 </html>
+<?php echo csrf_field()?>
