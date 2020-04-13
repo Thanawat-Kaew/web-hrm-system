@@ -71,22 +71,22 @@
 
 
    <?php if(\Session::has('current_admin')) :?>
-           <?php $current_admin = \Session::get('current_admin');?>
-  <li class="treeview">
-    <a href="#">
-      <i class="fa fa-cubes fa-lg"></i>
-      <span>Admin Management</span>
-      <span class="pull-right-container">
-        <i class="fa fa-angle-left fa-lg pull-right"></i>
-      </span>
-    </a>
-    <ul class="treeview-menu">
-      <li><a href="<?php echo route('admin.add_header_emp.get')?>"><i class="fa fa-user-plus"></i> Manage Employee</a></li>
-      <li><a href="<?php echo route('admin.add_department.get')?>"><i class="fa fa-list-ul"></i> Manage Department</a></li>
-      <li><a href="<?php echo route('admin.log.get')?>"><i class="fa fa-sticky-note-o"></i> Manage Log</a></li>
-    </ul>
-  </li>
-<?php endif ?>
+        <?php $current_admin = \Session::get('current_admin');?>
+        <li class="treeview">
+            <a href="#">
+              <i class="fa fa-cubes fa-lg"></i>
+              <span>Admin Management</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left fa-lg pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="<?php echo route('admin.add_header_emp.get')?>"><i class="fa fa-user-plus"></i> Manage Employee</a></li>
+              <li><a href="<?php echo route('admin.add_department.get')?>"><i class="fa fa-list-ul"></i> Manage Department</a></li>
+              <li><a href="<?php echo route('admin.log.get')?>"><i class="fa fa-sticky-note-o"></i> Manage Log</a></li>
+            </ul>
+          </li>
+    <?php endif ?>
 </ul>
 </section>
 <!-- /.sidebar -->

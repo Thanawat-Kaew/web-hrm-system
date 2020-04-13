@@ -272,23 +272,13 @@
 				<div class="box-body no-padding">
 					<div class="row">
 						<div class="col-md-12">
-							<?php /*sd($get_count_dept->where('id_department','id_department')->groupBy('name')->count())*/ ?>
 							<div id="container_deptp" style="height: 400px;"></div>
-								<?php foreach ($get_count_dept as $value1) :?>
-								<?php $check_math_id_dept = $value1->id_department ?>
-								<?php endforeach ?>
-
-								
-											<!-- // ['Driver', 15],
-											// ['Engineer', 31],
-											// ['Sale and Marketing',27 ],
-											// ['Accounting',20 ],
-											// ['Procument', 18] -->
+								<?php /*sd($get_count_dept->toArray()) ;*/ ?>
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 									var chart = anychart.pie([
 										<?php foreach ($get_count_dept as $value) :?>
-											["<?php echo $value->name?>" ,30],
+											["<?php echo $value->name?>" ,20],
 										<?php endforeach ?>
 										]);
 

@@ -29,27 +29,28 @@ use App\Services\TimeStamp\TimeStamp;
 use App\Services\Evaluation\Evaluation;
 use App\Services\Evaluation\ResultEvaluation;
 use App\Services\Evaluation\CreateEvaluation;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
 	public function dashboard()
     {
     	date_default_timezone_set('Asia/Bangkok');
-		// $get_date_now = date("Y-m-d");
-		$get_date_now = '2020-01-05';
-		// $get_time_now = date('H:i:s');
-		$get_time_now = '09:00:00';
+		$get_date_now = date("Y-m-d");
+		// $get_date_now = '2020-01-05';
+		$get_time_now = date('H:i:s');
+		// $get_time_now = '09:00:00';
 		// sd($get_time_now);
 		// $get_date_now = ('2019-11-02');
 
         // $get_count_emp  = Employee::where('gender','ชาย')->count();
         $get_count_emp  = Employee::all();
-        // sd($get_count_emp);
         // $get_count_dept = Employee::with('department')->get();
         // $get_count_dept = Employee::all()->groupBy('id_department')->count();
-        $get_count_dept = Department::with('employee')->get();
+        // $get_count_dept = Department::with(['employee' => function ($q) use ($www){
+        $get_count_dept = Department::all();
         // $get_count_dept = Department::with('employee')->get();
-        // sd($get_count_dept->toArray());
+        // sd($get_count_dept->/*count('employee')*/toArray());
         $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
         $get_count_timestamp_late = TimeStamp::where('date',$get_date_now)->where('time_in','>',$get_time_now)->count(); //มาทำงานสาย
         $get_count_timestamp_on_time = TimeStamp::where('date',$get_date_now)->where('time_in','=',$get_time_now)->count(); //มาทำงานตรงเวลา
@@ -59,7 +60,25 @@ class DashboardController extends Controller
 
         $get_count_leave = Leaves::where('start_leave',$get_date_now)->count();
         // sd($get_count_leave);
-        
+
+
+
+
+        // $r = "en0001";
+        // $eee = Department::with(['employee' => function ($s) use ($r){
+        //     $s->groupBy('id_department');
+            
+        // }])->get();
+
+        // sd($eee->toArray());
+
+
+
+
+
+
+
+
     	return $this->useTemplate('dashboard.dashboard',compact('get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_timestamp_early','get_count_leave','get_count_dept'));
     }
 }

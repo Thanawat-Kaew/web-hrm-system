@@ -22,10 +22,9 @@
     <link rel="stylesheet" href="/resources/assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="/resources/assets/js/core/sweetalert2/sweetalert2.min.css">
 
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
-
+    
 </head>
 <body>
     <!-- Main content -->
@@ -100,17 +99,17 @@
                                 <!-- Notifications: style can be found in dropdown.less -->
                                 <?php if($current_employee->id_position == 2){ ?>
                                 <a href="#" class="dropdown-toggle <?php //echo ($sum_request == 0 ? 'hide' : '')?>" data-toggle="dropdown">
-                                  <i class="fa fa-bell-o"></i>
+                                  <i class="fa fa-bell-o fa-lg"></i>
                                   <span class="label label-warning" style="width: 50px;"><?php echo $sum_request ?></span>
                                 </a>
                                 <ul class="dropdown-menu" style="width: 350px;">
-                                  <li class="header">คุณมี <?php echo $sum_request ?> การแจ้งเตือน</li>
+                                  <li style="border-bottom: 1px solid #f4f4f4;" class="header">คุณมี <?php echo $sum_request ?> การแจ้งเตือน</li>
                                   <li>
                                     <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
+                                    <div class="menu">
                                         <?php if($current_employee['id_department'] == "hr0001"):?>
                                       <li class="view-amendment">
-                                        <a href="<?php echo route('data_management.notification_request.get')?>">
+                                        <a style="padding: 10px; border-bottom: 1px solid #f4f4f4;" href="<?php echo route('data_management.notification_request.get')?>">
                                           <i class="fa fa-users text-aqua"></i> รายการคำร้องขอเปลี่ยนแปลงข้อมูลส่วนตัว
                                           <span class="label label-warning"><?php echo $sum_request_change_data ?></span>
                                         </a>
@@ -118,14 +117,14 @@
                                         <?php endif ?>
 
                                       <li class="view-time-stamp-request">
-                                        <a href="<?php echo route('time_stamp.time_stamp_request.get')?>">
+                                        <a style="padding: 10px; border-bottom: 1px solid #f4f4f4;" href="<?php echo route('time_stamp.time_stamp_request.get')?>">
                                           <i class="fa fa-clock-o text-aqua"></i> รายการคำร้องขอลงเวลาย้อนหลัง
                                         <span class="label label-warning"><?php echo $sum_request_time_stamp ?></span>
                                         </a>
                                       </li>
 
                                       <li class="view-request-leave">
-                                        <a href="<?php echo route('leave.leave_request.get');?>">
+                                        <a style="padding: 10px; border-bottom: 1px solid #f4f4f4;" href="<?php echo route('leave.leave_request.get');?>">
                                           <i class="fa fa-calendar-o text-aqua"></i> รายการคำร้องขอลา
                                           <span class="label label-warning"><?php echo $sum_request_leave ?></span>
                                         </a>
@@ -133,13 +132,13 @@
 
                                       <?php if($current_employee['id_department'] == "hr0001"):?>
                                       <li class="view-request-create-evaluation">
-                                        <a href="<?php echo route('evaluation.create_evaluations_request.get')?>">
+                                        <a style="padding: 10px;" href="<?php echo route('evaluation.create_evaluations_request.get')?>">
                                           <i class="fa fa-clipboard text-aqua"></i>รายการขออนุมัติสร้างแบบประเมิน
                                           <span class="label label-warning"><?php echo $sum_confirm_create_evaluation ?></span>
                                         </a>
                                       </li>
                                       <?php endif ?>
-                                    </ul>
+                                    </div>
                                   </li>
                                 </ul>
                                 <?php } ?> <!-- End if id_position == 2 -->
