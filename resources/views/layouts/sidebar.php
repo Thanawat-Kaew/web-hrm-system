@@ -10,8 +10,10 @@
             if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
               <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 50px; height: 50px;">
             <?php }else{?> <!-- ถ้าไม่มีรุป -->
-              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image"><br><br>
             <?php } ?>
+          <?php }else if(\Session::has('current_admin')){ ?>
+                <br>
           <?php } ?>
         </div>
 
@@ -23,6 +25,7 @@
             $current_admin = \Session::get('current_admin'); ?>
             <span class="hidden-xs"><?php echo $current_admin['user_admin']; ?></span>
           <?php  } ?>
+          <br><br>
           <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a>
         </div>
       </div>
@@ -55,7 +58,10 @@
             </li>
           <?php endforeach ?>
         <?php endif ?>
-      <li class="treeview">
+        <?php if(\Session::has('current_employee')){ ?>
+
+        <?php }else if(\Session::has('current_admin')) { ?>
+          <li class="treeview">
           <a href="#">
             <i class="fa fa-cubes fa-lg"></i>
             <span>Admin Management</span>
@@ -69,6 +75,7 @@
             <li><a href="<?php echo route('admin.log.get')?>"><i class="fa fa-sticky-note-o"></i> Manage Log</a></li>
           </ul>
         </li>
+        <?php } ?>
       </ul>
     </section>
     <!-- /.sidebar -->
