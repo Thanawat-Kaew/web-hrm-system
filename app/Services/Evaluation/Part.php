@@ -19,9 +19,9 @@ class Part extends Model
     	return $this->hasMany("App\Services\Evaluation\Question", 'id_part', 'id_part'); // ManytoOne ไปยังตาราง question
     }
 
-    public function answerformat()
+    /*public function answerformat()
     {
         return $this->hasOne("App\Services\Evaluation\AnswerFormat", 'id_answer_format', 'id_answer_format'); // OnetoOne ไปยังตาราง answer_format
-    }
+    }*/
 
 }

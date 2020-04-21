@@ -93,12 +93,14 @@
 					<div class="row" id="data-evaluation">
 					<table class="table table-hover">
 						<tr>
-							<th>Name</th>
-							<th>Department</th>
-							<th>Position</th>
+							<th>รหัสพนักงาน</th>
+							<th>ชื่อ-นามสกุล</th>
+							<th>แผนก</th>
+							<th>ต่ำแหน่ง</th>
 							<th>วันที่ประเมิน</th>
 							<th>ผู้ประเมิน</th>
 							<th>หัวข้อการประเมิน</th>
+							<th>id_topic</th>
 							<th>คะแนนการประเมิน</th>
 							<th>จากคะแนนเต็ม</th>
 							<th>คิดเป็นร้อยละ (%)</th>
@@ -109,12 +111,14 @@
 						<?php for ($i=0; $i < $count_assessor; $i++) { ?>
 							<?php //if(!empty($assessor[$i])):?>
 							<tr>
-								<td style="color: blue"><?php echo $assessor[$i]->employee->first_name;?><?php echo $assessor[$i]->employee->last_name;?></td>
+								<td><?php echo $assessor[$i]->id_assessor?></td>
+								<td style="color: blue; cursor:pointer " class="name view-evaluation" data-id="<?php echo $assessor[$i]->id_evaluation?>" data-id_topic="<?php echo $assessor[$i]->id_topic?>"><?php echo $assessor[$i]->employee->first_name;?> <?php echo $assessor[$i]->employee->last_name;?></td>
 								<td><?php echo $assessor[$i]->employee->department->name?></td>
 								<td><?php echo $assessor[$i]->employee->position->name?></td>
 								<td><?php echo $assessor[$i]->date?></td>
 								<td><?php echo $count_first_name[$no];?> <?php echo $count_last_name[$no];?></td>
 								<td><?php echo $count_name_evaluation[$no];?></td>
+								<td><?php echo $assessor[$i]->id_topic?></td>
 								<td><?php echo $assessor[$i]->result_evaluation;?></td>
 								<td><?php echo $assessor[$i]->from_the_full_score;?></td>
 								<td><?php echo $assessor[$i]->percent;?>%</td>

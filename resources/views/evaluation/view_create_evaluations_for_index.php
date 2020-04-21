@@ -47,6 +47,12 @@
 										<br>
 									</div>
 								</div>
+								<div class="panel panel-default">
+									<div class="panel-body">
+									<label>รูปแบบคำตอบ</label>
+										<input type="text" name="name-question" id="type-question" class="form-control" value="<?php echo $view_create_evaluation->answerformat->answer_format_name ?>" readonly>
+									</div>
+								</div>
 							</div>
 						</div>
 						<br>
@@ -65,11 +71,7 @@
 											<div class="selected-question"></div>
 										<?php endforeach ?>
 										<br>
-										<label>รูปแบบคำตอบ</label>
 
-										<input type="text" name="name-question" id="type-question" class="form-control" value="<?php echo $value->answerformat['answer_format_name'] ?>" readonly>
-
-										<br>
 										<label>เปอร์เซนต์คะแนน (%)</label>
 										<input type="number" name="percent" class="form-control required" value="<?php echo $value['percent'] ?>" readonly>
 									</div>

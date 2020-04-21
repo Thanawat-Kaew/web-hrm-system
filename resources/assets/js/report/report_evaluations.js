@@ -65,4 +65,42 @@ $(document).ready(function(){
 
 		window.open('/pdf/generatePDF_Eval?department='+department+'&topic_name='+topic_name+'&start_date='+start_date+"&end_date="+end_date+"&start_number="+start_number+"&end_number="+end_number,'_blank');
 	})
+
+	$('.view-evaluation').click(function(){
+		msg_waiting();
+		var id       = $(this).data('id');
+		var id_topic = $(this).data('id_topic');
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {'method' 	: 'getViewEvaluarion',
+					'id'		: id,
+					'id_topic' 	: id_topic
+			},
+			success: function (result){
+				var title = "<h4 style='color: red;'>ดูลายละเอียดการประเมิน<small> | View Evaluation</small></h4>"
+					bootbox.dialog({
+						title: title,
+						message: result.data,
+						size: 'xlarge',
+						onEscape: true,
+						backdrop: 'static',
+						buttons: {
+							fum: {
+								label: 'ปิด',
+								className: 'btn-warning',
+								callback: function(){
+								}
+							}
+						}
+					})
+					msg_close();
+			},
+			error : function(errors)
+			{
+				console.log(errors);
+			}
+		})
+	});
 });

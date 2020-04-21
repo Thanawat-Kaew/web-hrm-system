@@ -22,14 +22,25 @@
 				</div>
 			</div>
 		</div>
+		<div>
+			<label>เลือกรูปแบบคำตอบ</label>
+                <select class="form-control required" name="type_answer-<?php echo $id_new_evaluation; ?>" style="width: 100%;">
+                    <option selected="selected" value="">เลือกรูปแบบ...</option>
+                        <?php foreach($answer_type as $answer) :?>
+                            <option value="<?php echo $answer->id_answer_format?>"><?php echo $answer->answer_format_name?></option>
+                    <?php endforeach ?>
+                </select>
+            <label class="text-error type_answer-<?php echo $id_new_evaluation;?>-text-error" id="type_answer-<?php echo $id_new_evaluation;?>-text-error"></label>
+        </div>
 		<div class="pull-right">
+            <br>
 			<div class="btn-group">
 				<button class="btn btn-success pull-right format-answer" type="button"><i class="fa fa-circle-thin"></i> ดูรูปแบบคำตอบ</button>
 			</div>
 			<div class="btn-group">
 				<button type="button" class="btn btn-info pull-right add-part"><i class="glyphicon glyphicon-plus"></i> เพิ่มตอน</button>
 			</div>
-		</div><br><br>
+		</div><br><br><br>
 		<?php if(!empty($check_data)){
 			foreach ($check_data->parts as $key => $value) {
 				?>
@@ -59,15 +70,7 @@
                          <div class="selected-question"></div>
 
                         <br>
-                            <label>เลือกรูปแบบคำตอบ</label>
-                            <select class="form-control required" name="type_answer-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>" style="width: 100%;">
-                                <option selected="selected" value="">เลือกรูปแบบ...</option>
-                                <?php foreach($answer_type as $answer) :?>
-                                	<option value="<?php echo $answer->id_answer_format?>"><?php echo $answer->answer_format_name?></option>
-                                <?php endforeach ?>
-                            </select>
-                            <label class="text-error type_answer-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error" id="type_answer-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error"></label>
-                            <br>
+
                             <label>เปอร์เซนต์คะแนน (%)</label>
                             <input type="number" name="percent-<?php echo $id_new_evaluation.'-'.$value->chapter;?>" class="form-control required percent" placeholder="30" value="">
                             <label class="text-error percent-<?php echo $id_new_evaluation.'-'.$value->chapter; ?>-text-error" id="percent-<?php echo $id_new_evaluation.'-'.$value->chapter;?>-text-error"></label>

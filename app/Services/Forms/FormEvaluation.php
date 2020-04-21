@@ -8,7 +8,7 @@ class FormEvaluation
         $form = '<div class="col-md-12 new-part">';
                 $form .= '<div class="panel panel-default">';
                 $form .= '<div class="box-tools pull-right">';
-                    $form .= '<button type="button" class="btn btn-box-tool btn-remove-part" data-widget="remove"><i class="fa fa-remove"></i></button>';
+                $form .= '<button type="button" class="btn btn-box-tool btn-remove-part" data-widget="remove"><i class="fa fa-remove"></i></button>';
                 $form .= '</div>';
                      $form .= '<div class="panel-body">';
                      $form .= '<input type="hidden" name="id_evaluation" value="'.$id_evaluation.'">';
@@ -30,14 +30,7 @@ class FormEvaluation
                          $form .= '<div class="selected-question"></div>';
 
                         $form .= '<br>';
-                             $form .= '<label>เลือกรูปแบบคำตอบ</label>';
-                             $form .= '<select class="form-control required" name="type_answer-'.$id_evaluation.'-'.$part->chapter.'" style="width: 100%;">';
-                                 $form .= '<option selected="selected" value="">เลือกรูปแบบ...</option>';
-                                foreach($answer_type as $answer){
-                                 $form .= '<option value='.$answer->id_answer_format.'>'.$answer->answer_format_name.'</option>';
-                                }
-                             $form .= '</select>';
-                             $form .= '<label class="text-error type_answer-'.$id_evaluation.'-'.$part->chapter.'-text-error" id="type_answer-'.$id_evaluation.'-'.$part->chapter.'-text-error"></label>';
+
                              $form .= '<br>';
                              $form .= '<label>เปอร์เซนต์คะแนน (%)</label>';
                              $form .= '<input type="number" name="percent-'.$id_evaluation.'-'.$part->chapter.'" class="form-control required percent" placeholder="30">';

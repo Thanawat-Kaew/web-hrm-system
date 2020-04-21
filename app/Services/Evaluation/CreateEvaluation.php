@@ -26,4 +26,9 @@ class CreateEvaluation extends Model
         return $this->hasMany("App\Services\Evaluation\Evaluation", 'id_topic', 'id_topic');
         // OnetoMany ไปยังตาราง evaluation
     }
+
+    public function answerformat()
+    {
+        return $this->hasOne("App\Services\Evaluation\AnswerFormat", 'id_answer_format', 'id_answer_format');
+    }
 }

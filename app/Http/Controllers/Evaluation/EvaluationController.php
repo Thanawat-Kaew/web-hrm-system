@@ -90,10 +90,6 @@ class EvaluationController extends Controller
         $id_new_evaluation  = \Session::has('id_evaluation') ? \Session::get('id_evaluation') : '';
         $check_data         = CreateEvaluation::with('parts')->where('id_topic', $id_new_evaluation)->first();
         $answer_type        = AnswerFormat::all();
-        //sd($check_data->toArray());
-        //sd($answer_type->toArray());
-        //$check_data  = CreateEvaluation::with('parts', 'parts.answerformat')->where('id_topic', $id_new_evaluation)->first();
-        //sd($check_data->parts->toArray());
         if(!empty($id_new_evaluation)){
             return $this->useTemplate('evaluation.create_evaluations', compact('id_new_evaluation', 'check_data', 'answer_type'));
         }
@@ -120,10 +116,11 @@ class EvaluationController extends Controller
         //sd($data['name-question-'.$data['id_evaluation'].'-'.'1'.'-'.'3'][0]);
 
         //sd($data['id_evaluation']);
-        $create_evaluation             = CreateEvaluation::where('id_topic', $data['id_topic'])->first();
-        $create_evaluation->topic_name = $data['name-evaluation-'.$data['id_topic'].''];
-        $create_evaluation->years      = date("Y-m-d");
-        $create_evaluation->status     = 2;
+        $create_evaluation                   = CreateEvaluation::where('id_topic', $data['id_topic'])->first();
+        $create_evaluation->topic_name       = $data['name-evaluation-'.$data['id_topic'].''];
+        $create_evaluation->years            = date("Y-m-d");
+        $create_evaluation->id_answer_format = $data['type_answer-'.$data['id_evaluation'].''];
+        $create_evaluation->status           = 2;
         $create_evaluation->save();
 
         if(isset($data['chapter'])){ // ตรวจสอบว่ามีตอนไหม
@@ -140,7 +137,7 @@ class EvaluationController extends Controller
             for($i=1; $i < $count_chapter ; $i++){
                 $parts                      = Part::where('id_topic', $data['id_topic'])->where('chapter', $i)->first();
                 $parts->part_name           = $data['name-parts-'.$data['id_evaluation'].'-'.$i];
-                $parts->id_answer_format    = $data['type_answer-'.$data['id_evaluation'].'-'.$i];
+                //$parts->id_answer_format    = $data['type_answer-'.$data['id_evaluation'].'-'.$i];
                 $parts->percent             = $data['percent-'.$data['id_evaluation'].'-'.$i];
                 $parts->save();
 
@@ -296,7 +293,7 @@ class EvaluationController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $id_topic                = $id;
-        $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat')->where('id_topic', $id_topic )->first();
+        $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
         //sd($view_create_evaluation->toArray());
         //sd($view_create_evaluation->parts->toArray());
         //sd(count($view_create_evaluation->parts->toArray()));
@@ -318,7 +315,7 @@ class EvaluationController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $id_topic                = $id;
-        $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat')->where('id_topic', $id_topic )->first();
+        $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
         //sd($view_create_evaluation->toArray());
         //sd($view_create_evaluation->parts->toArray());
         //sd(count($view_create_evaluation->parts->toArray()));
@@ -331,14 +328,13 @@ class EvaluationController extends Controller
         //redirect('cre')
         // return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
         return view('evaluation.view_create_evaluations_for_index', compact('view_create_evaluation'));
-        //echo "555";
     }
 
 
     public function editEvaluation(Request $request, $id)
     {
         $id_topic           = $id;
-        $edit_evaluation    = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat')->where('id_topic', $id_topic )->first();
+        $edit_evaluation    = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
         //sd($edit_evaluation->toArray());
         //sd($edit_evaluation->parts->toArray());
         //if($edit_evaluation)

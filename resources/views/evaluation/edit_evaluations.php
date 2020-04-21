@@ -21,6 +21,24 @@
 				</div>
 			</div>
 		</div>
+        <div>
+            <label>เลือกรูปแบบคำตอบ</label>
+                <select class="form-control required" name="type_answer-<?php echo $edit_evaluation['id_topic']?>" style="width: 100%;">
+                <?php if(isset($edit_evaluation->answerformat->id_answer_format)){ ?> <!-- กรณีมีรูปแบบคำตอบอยู่แล้ว -->
+                    <?php foreach($answer_type as $answer) :?>
+                        <option value="<?php echo $answer['id_answer_format']?>" <?php echo (($edit_evaluation->answerformat['id_answer_format']) == $answer['id_answer_format']) ? 'selected' : '' ?>><?php echo $answer['answer_format_name']?></option>
+                    <?php endforeach ?>
+                <?php }else{ ?> <!-- กรณีไม่มีรูปแบบคำตอบอยู่แล้ว (กดเพิ่มตอน) -->
+                    <option selected="selected" value="">เลือกรูปแบบ...</option>
+                    <?php foreach($answer_type as $answer) :?>
+                        <option value="<?php echo $answer->id_answer_format?>"><?php echo $answer->answer_format_name?></option>
+                    <?php endforeach ?>
+
+                <?php } ?>
+            </select>
+            <label class="text-error type_answer-<?php echo $edit_evaluation['id_topic']?>-text-error" id="type_answer-<?php echo $edit_evaluation['id_topic']?>-text-error"></label>
+            <br>
+        </div>
 		<div class="pull-right">
 			<div class="btn-group">
 				<button class="btn btn-success pull-right format-answer" type="button"><i class="fa fa-circle-thin"></i> ดูรูปแบบคำตอบ</button>
@@ -97,22 +115,7 @@
                          <div class="selected-question"></div>
                         <?php }?>
                         <br>
-                            <label>เลือกรูปแบบคำตอบ</label>
-                            	<select class="form-control required" name="type_answer-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>" style="width: 100%;">
-                                <?php if(isset($value->answerformat->id_answer_format)){ ?> <!-- กรณีมีรูปแบบคำตอบอยู่แล้ว -->
-                                	<?php foreach($answer_type as $answer) :?>
-                                		<option value="<?php echo $answer['id_answer_format']?>" <?php echo (($value->answerformat['id_answer_format']) == $answer['id_answer_format']) ? 'selected' : '' ?>><?php echo $answer['answer_format_name']?></option>
-                                	<?php endforeach ?>
-                                <?php }else{ ?> <!-- กรณีไม่มีรูปแบบคำตอบอยู่แล้ว (กดเพิ่มตอน) -->
-                                	<option selected="selected" value="">เลือกรูปแบบ...</option>
-                                	<?php foreach($answer_type as $answer) :?>
-                                		<option value="<?php echo $answer->id_answer_format?>"><?php echo $answer->answer_format_name?></option>
-                                	<?php endforeach ?>
 
-                                <?php } ?>
-                            </select>
-                            <label class="text-error type_answer-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>-text-error" id="type_answer-<?php echo $edit_evaluation['id_topic'].'-'.$value->chapter; ?>-text-error"></label>
-                            <br>
                             <label>เปอร์เซนต์คะแนน (%)</label>
                             <?php
                         		if(!empty($value->percent)){ /* percent ของเดิม*/
