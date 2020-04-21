@@ -26,11 +26,18 @@
 					<div class="btn-group pull-right confirm_send_create_evaluations">
 						<div class="btn-group pull-right">
 							<a href="<?php echo route("evaluation.confirm_send_create_evaluations.get")?>">
-								<button class="btn btn-danger dropdown-toggle" type="button"><i class="fa fa-history"></i> ยืนยันการส่ง</button>
+								<button class="btn btn-danger dropdown-toggle" type="button"><i class="fa fa-check"></i> ยืนยันการส่ง</button>
 							</a>
 						</div>
 					</div>
 				<?php } ?>
+				<div class="btn-group pull-right check_emp_evaluations">
+						<div class="btn-group pull-right">
+							<a href="<?php echo route('evaluation.check_count_evaluations_emp')?>">
+								<button class="btn btn-warning dropdown-toggle" type="button"><i class="fa fa-group (alias)"></i> ตรวจสอบพนักงาน</button>
+							</a>
+						</div>
+					</div>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">

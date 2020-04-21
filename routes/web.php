@@ -116,6 +116,7 @@ Route::group(['middleware' => ['login']], function(){
 	Route::get('/evaluation/confirm_send_create_evaluation/', 'Evaluation\EvaluationController@confirmSendCreateEvaluation')->name('evaluation.confirm_send_create_evaluations.get'); // view-create-evaluation
 
 	Route::post('/evaluation/confirm_send_create_evaluation/confirm', 'Evaluation\EvaluationController@postConfirmSendCreateEvaluation')->name('evaluation.post_confirm_send_create_evaluations.post'); // confirm confirm create evaluation // เครื่องหมายติ๊กถูก
+	Route::get('/index/check_count_eval_emp','Evaluation\EvaluationController@check_count_eval_emp')->name('evaluation.check_count_evaluations_emp');
 	/************************************************End Evaluation******************************************************************/
 
 	/********************************************Report*****************************************************/

@@ -45,6 +45,11 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.confirm_send_create_evaluations',compact('current_employee','evaluations'));
     }
 
+    public function check_count_eval_emp() //หน้าเช็คว่าหัวหน้าประเมินพนักงานครบทุกคนหรือยัง
+    {
+        return $this->useTemplate('evaluation.check_count_evaluations_emp');
+    }
+
     public function postConfirmSendCreateEvaluation(Request $request) // เครื่องหมายติ๊กถูก
     {
         if(\Session::has('current_employee')){
