@@ -100,7 +100,11 @@
 <h4 style="font-size: 20px;">Department : 
 	<?php foreach ($get_department_name as $value) { ?>
 		<span style="color: red;"><?php echo $value['name'] ?></span>
-		<?php }?> |  หัวข้อการประเมิน : <span style="color: red;"><?php echo ($topic_name == "")? "" : $topic_name ?></span>
+		<?php }?> |  
+		หัวข้อการประเมิน : 
+		<?php foreach ($topic_names as $value1) :?>
+		<span style="color: red;"><?php echo ($value1 == "")? "" : $value1['topic_name'] ?></span>
+		<?php endforeach ?>
 	</h4>
 	
 	<h4 style="font-size: 20px;">เริ่มวันที่ : <span style="color: red;"><?php echo ($start_date == "")? "" : $start_date ?></span>  |  ถึงวันที่ : <span style="color: red;"><?php echo ($end_date == "")? "" : $end_date ?></span>
@@ -112,6 +116,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th>ID</th>
 				<th>Name</th>
 				<th>Department</th>
 				<th>Position</th>
@@ -129,6 +134,9 @@
             <?php for ($i=0; $i < $count_assessor; $i++) { ?>
                 <?php if(!empty($emp_evaluation[$i]->employee->department)){?>
 				<tr>
+					<td style="color: blue; text-align: left; padding: 2px;"> 
+					<?php echo $emp_evaluation[$i]->employee->id_employee?>
+				</td>
 					<td style="color: blue; text-align: left; padding: 2px;"> 
 					<?php echo $emp_evaluation[$i]->employee->first_name ?> <?php echo $emp_evaluation[$i]->employee->last_name ?>
 				</td>

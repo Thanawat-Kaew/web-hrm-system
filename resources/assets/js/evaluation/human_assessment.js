@@ -1,10 +1,21 @@
 $(document).ready(function() {
 	msg_waiting()
 
+	$('#myTable').dataTable();
 	// Filter Year.
 	$('#myInput').keyup(function(){
 		search_data_tbl();
 	})
+
+	// $('.view_score').on('click',function () {
+	// 	bootbox.dialog({
+	// 			title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
+	// 			message: 'kkk',
+	// 			size: 'xlarge',
+	// 			onEscape: true,
+	// 			backdrop: true
+	// 	})
+	// })
 })
 
 function search_data_tbl() {

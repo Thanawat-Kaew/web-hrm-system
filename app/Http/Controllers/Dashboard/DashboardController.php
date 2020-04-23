@@ -38,8 +38,8 @@ class DashboardController extends Controller
     	date_default_timezone_set('Asia/Bangkok');
 		$get_date_now = date("Y-m-d");
 		// $get_date_now = '2020-01-05';
-		$get_time_now = date('H:i:s');
-		// $get_time_now = '09:00:00';
+		// $get_time_now = date('H:i:s');
+		$get_time_now = '09:00:00';
 		// sd($get_time_now);
 		// $get_date_now = ('2019-11-02');
 
@@ -48,7 +48,6 @@ class DashboardController extends Controller
         // $get_count_dept = Employee::with('department')->get();
         // $get_count_dept = Employee::all()->groupBy('id_department')->count();
         // $get_count_dept = Department::with(['employee' => function ($q) use ($www){
-        $get_count_dept = Department::all();
         // $get_count_dept = Department::with('employee')->get();
         // sd($get_count_dept->/*count('employee')*/toArray());
         $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
@@ -60,7 +59,7 @@ class DashboardController extends Controller
 
         $get_count_leave = Leaves::where('start_leave',$get_date_now)->count();
         // sd($get_count_leave);
-
+        $get_count_dept = Employee::groupBy('id_department')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
 
 
 

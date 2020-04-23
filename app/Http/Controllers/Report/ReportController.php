@@ -115,9 +115,9 @@ class ReportController extends Controller
             $name_evaluation    = CreateEvaluation::where('id_topic', $array_id_topic[$i])->first();
             $count_name_evaluation[] = $name_evaluation->topic_name;
         }
-        //sd($count_name_evaluation);
+        // sd($count_name_evaluation);
         $topic_name  = CreateEvaluation::where('status', 1)->get();
-        //sd($topic_name->toArray());
+        // sd($topic_name->toArray());
     	return $this->useTemplate('report.report_evaluations', compact('assessor', 'count_first_name', 'count_last_name', 'count_name_evaluation', 'department', 'topic_name'));
     }
 

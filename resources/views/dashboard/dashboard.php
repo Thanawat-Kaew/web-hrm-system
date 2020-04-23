@@ -4,6 +4,7 @@
 	<meta content="AnyChart - JavaScript Charts designed to be embedded and integrated" name="description">
 	<link href="/resources/assets/pie-chart/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
 	<link href="/resources/assets/pie-chart/css/anychart-font.css" rel="stylesheet" type="text/css">
+	<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 	<style type="text/css">
 		html, body, #container {
 			width: 100%;
@@ -115,26 +116,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-md-4">
-				<div class="box box-info">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>มาสาย</th>
-								<th>มาตรงเวลา</th>
-								<th>มาก่อนเวลา</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><?php echo $get_count_timestamp_late ?></td>
-								<td><?php echo $get_count_timestamp_on_time ?></td>
-								<td><?php echo $get_count_timestamp_early ?></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div> -->
 		</div>
 		<div class="col-md-12 no-padding">
 			<div class="box-header">
@@ -263,22 +244,20 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="col-md-12">
+		<div class="col-md-12 col-xs-12 xyz">
 			<div class="box box-warning">
 				<div class="box-header with-border">
 					<h3 class="box-title">Employees by Departments.</h3>
 				</div>
 				<div class="box-body no-padding">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 col-xs-12">
 							<div id="container_deptp" style="height: 400px;"></div>
-								<?php /*sd($get_count_dept->toArray()) ;*/ ?>
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 									var chart = anychart.pie([
 										<?php foreach ($get_count_dept as $value) :?>
-											["<?php echo $value->name?>" ,20],
+											["<?php echo $value->department->name?>" ,<?php echo $value->total?>],
 										<?php endforeach ?>
 										]);
 
