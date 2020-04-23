@@ -2,6 +2,7 @@ $(document).ready(function() {
 	msg_waiting()
 
 
+
 	$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
 		checkboxClass: 'icheckbox_flat-green',
 		radioClass   : 'iradio_flat-green'
@@ -31,15 +32,17 @@ $(document).ready(function() {
 	var _part 			= "";
 	$('.score').on('ifChecked', function(event){
 		var _total_part			= 0;
-		var checkd_name = $(this).attr('name');
+		var checkd_name = $(this).attr('name'); // เป็นพวก ตอนที่เท่าไรคำถามที่เท่าไร เช่น format_answer-0-1, format_answer-0-2, format_answer-1-0
+		//alert(checkd_name);
 		// var group_data = $(this).data('group');
-		var part 			= $(this).data('part');
+		var part 			= $(this).data('part'); // part ที่เท่าไร เช่น part ที่1 part ที่2
+
 		//console.log(part);
-		var question 		= $(this).data('question');
-		var total_question 	= $(this).closest('table').find('input[name=total-question]').val();
+		var question 		= $(this).data('question'); // question ที่เท่าไร เช่น question ที่1 question ที่2
+		var total_question 	= $(this).closest('table').find('input[name=total-question]').val(); // การประเมินนี้มีกี่คำถาม
 		//console.log(total_question);
-		var total_part 		= $(this).closest('table').find('input[name=total-part]').val();
-		$("#total-question-"+part+"-"+question).html($(this).val()); // คะแนนของแต่ละคำถาม
+		var total_part 		= $(this).closest('table').find('input[name=total-part]').val(); // การประเมินนี้มีกี่ตอน
+		$("#total-question-"+part+"-"+question).html($(this).val()); // เอาคะแนนของแต่ละคำถามไปแสดง
 		$("input[name=total-question-"+part+"-"+question+"]").val($(this).val());
 		//console.log($("#total-question-"+part+"-"+question).html($(this).val()));
 
@@ -50,25 +53,27 @@ $(document).ready(function() {
 
 		for (var i=0; i < total_question; i++) {
 			if( checkd_name == "format_answer-"+part+"-"+i) {
-				var answer = parseInt($(this).val());
+				var answer = parseInt($(this).val()); //answer เก็บคะแนประเมินเมื่อกดเลือก เช่น กด เลือก 1 answer จะเก็บค่า 1
+				//alert("1");
 				_total_part = _total_part + answer;
 				// _sub_total = _sub_total + answer;
 			} else {
 				var answer = $("input[name=format_answer-"+part+"-"+i+"]:checked").val();
+				//alert("2");
 				if(typeof(answer) !== "undefined") {
 					_total_part = parseInt(_total_part) + parseInt(answer);
 					// _sub_total = parseInt(_sub_total) + parseInt(answer);
 				}
 			}
 		}
-		$("#total-part-"+part).html(_total_part);
-		$("input[name=total-part-"+part+"]").val(_total_part);
+		$("#total-part-"+part).html(_total_part); //คะแนนของแต่ละตอนมาแสดง
+		$("input[name=total-part-"+part+"]").val(_total_part); //เอาค่าคะแนนของแต่ละตอนไปใส่ใน value
 		var sum_total = 0;
 		for (var j = 0; j < total_part; j++) {
 			sum_total = sum_total+parseInt($("#total-part-"+j).html());
 		}
-		$("#total-evluation").html(sum_total);
-		$("input[name=total-evluation]").val(sum_total);
+		$("#total-evluation").html(sum_total); //คะแนนของรวมของการประเมินนี้
+		$("input[name=total-evluation]").val(sum_total); //เอาค่าคะแนนรวมของการประเมินนี้ใส่ใน value
 
 	});
 

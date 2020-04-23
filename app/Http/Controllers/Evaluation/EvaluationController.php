@@ -16,6 +16,7 @@ use App\Services\Employee\EmployeeObject;
 use App\Services\Evaluation\AnswerDetails;
 use App\Services\Evaluation\Evaluation;
 use App\Services\Evaluation\ResultEvaluation;
+use App\Services\Forms\FormViewEvaluation;
 
 
 class EvaluationController extends Controller
@@ -180,7 +181,11 @@ class EvaluationController extends Controller
         //sd($id_assessor_person);
         $data_assessor_person        = Employee::with('department', 'position')->where('id_employee', $id_assessor_person)->first();
         //sd($data_assessor_person->toArray());
-        $data_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat', 'parts.answerformat.answerdetails')->where('id_topic', $id_evaluation)->first();
+        //$data_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'answerformat', 'answerformat.answerdetails')->where('id_topic', $id_evaluation)->first();
+
+        $data_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'answerformat', 'answerformat.answerdetails')->where('id_topic', $id_evaluation)->first();
+
+        //sd($data_evaluation->toArray());
         //sd($data_evaluation->toArray());
         //sd($data_evaluation->parts[1]->question->count());
         //sd($data_evaluation->parts->count());
@@ -188,13 +193,14 @@ class EvaluationController extends Controller
         return view('evaluation.assessment', compact('data_assessor_person', 'data_evaluation'));
     }
 
-    public function human_assessment(Request $request, $id)
+    public function human_assessment(Request $request, $id) //หน้าเช็คสถานะว่าใครยังไม่ได้ถูกประเมิน
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
         //sd($current_employee->id_department);
         $id_topic                = $id; // รหัสหัวเรื่อง
+        //sd($id_topic);
         //sd($id_assessor);
         $id_topic    = CreateEvaluation::with('employee')->where('id_topic', $id_topic)->first(); // ไป query หัวเรื่องนั้นมา
         //sd($id_topic->toArray());
@@ -287,6 +293,29 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic', 'count_array_list_name', 'keep_array_list_name'));
     }
 
+    public function editAssessment(Request $request, $id, $id_topic)
+    {
+        $id_assessor_person          = $id;  //id ผู้ถูกประเมิน
+        $id_evaluation               = $id_topic; //id_topic (id หัวเรื่อง)
+        //sd($id_evaluation);
+        //sd($id_assessor_person);
+        $data_assessor_person        = Employee::with('department', 'position')->where('id_employee', $id_assessor_person)->first();
+        //sd($data_assessor_person->toArray());
+        //$data_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'answerformat', 'answerformat.answerdetails')->where('id_topic', $id_evaluation)->first();
+
+        $data_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'answerformat', 'answerformat.answerdetails')->where('id_topic', $id_evaluation)->first();
+
+        $details_evaluation          = Evaluation::with('resultevaluation')->where('id_assessor', $id_assessor_person)->where('id_topic', $id_evaluation)->first();
+        //sd($details_evaluation->toArray());
+
+        //sd($data_evaluation->toArray());
+        //sd($data_evaluation->toArray());
+        //sd($data_evaluation->parts[1]->question->count());
+        //sd($data_evaluation->parts->count());
+        //$value_desc                  = AnswerDetails::with()->orderBy('value', 'DESC')->get();
+        return view('evaluation.edit_assessment', compact('data_assessor_person', 'data_evaluation', 'details_evaluation'));
+    }
+
     public function viewCreateEvaluation(Request $request, $id)
     {
         if(\Session::has('current_employee')){
@@ -317,6 +346,16 @@ class EvaluationController extends Controller
         $id_topic                = $id;
         $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
         //sd($view_create_evaluation->toArray());
+        /*$date_1   = date('H:i:s');
+        //var_dump($date);
+        $date_2   = date('01:46:00');
+        d($date_1);
+        d($date_2);
+        if($date_1 <= $date_2){
+            echo "true";
+        }else{
+            echo "flase";
+        }exit();*/
         //sd($view_create_evaluation->parts->toArray());
         //sd(count($view_create_evaluation->parts->toArray()));
         //sd($id);
@@ -335,11 +374,7 @@ class EvaluationController extends Controller
     {
         $id_topic           = $id;
         $edit_evaluation    = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
-        //sd($edit_evaluation->toArray());
-        //sd($edit_evaluation->parts->toArray());
-        //if($edit_evaluation)
         $answer_type        = AnswerFormat::all();
-        //sd($answer_type->toArray());
         return $this->useTemplate('evaluation.edit_evaluations', compact('edit_evaluation', 'answer_type'));
 
     }
@@ -350,12 +385,19 @@ class EvaluationController extends Controller
     {
         $data                          = $request->all();
         //sd($data);
-        $create_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat')->where('id_topic', $data['id_evaluation'])->first();
+        $create_evaluation             = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $data['id_evaluation'])->first();
+        //sd($create_evaluation->toArray());
         $find_count_part               = $create_evaluation->parts->count();
         if($create_evaluation->topic_name  !== $data['name-evaluation-'.$data['id_evaluation'].'']){ // กรณีเขียนหัวเรื่องใหม่
             $create_evaluation->topic_name = $data['name-evaluation-'.$data['id_evaluation'].''];
             $create_evaluation->years      = date("Y-m-d");
+            //$create_evaluation->id_answer_format    = $data['type_answer-'.$data['id_evaluation'].''];
             $create_evaluation->save();
+        }
+
+        if($create_evaluation->id_answer_format  !== $data['type_answer-'.$data['id_evaluation'].'']){ //กรณีเปลี่ยนรูปแบบคำตอบ
+            $create_evaluation->id_answer_format    = $data['type_answer-'.$data['id_evaluation'].''];
+             $create_evaluation->save();
         }
         $check_chapter = 0;
         $index_parts   = 0;
@@ -365,7 +407,7 @@ class EvaluationController extends Controller
             for($i=1; $i < $count_chapter ; $i++){
                 $parts                      = Part::where('id_topic', $data['id_evaluation'])->where('chapter', $i)->first();
                 $parts->part_name           = $data['name-parts-'.$data['id_evaluation'].'-'.$i];
-                $parts->id_answer_format    = $data['type_answer-'.$data['id_evaluation'].'-'.$i];
+                //$parts->id_answer_format    = $data['type_answer-'.$data['id_evaluation'].'-'.$i];
                 $parts->percent             = $data['percent-'.$data['id_evaluation'].'-'.$i];
                 $parts->save();
 
@@ -600,6 +642,67 @@ class EvaluationController extends Controller
         //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
     }
 
+
+    public function postEditRecordEvaluation(Request $request) // กดบันทึกผลเมื่อแก้ไขการลงคะแนนการประเมิน
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        //sd($current_employee->id_employee);
+        $from_the_full_score                = 0;
+        $data                               = $request->all();
+        //d($data);
+        $evaluation                         = Evaluation::where('id_evaluation', $data['id_evaluation'])->first(); //ค้นหา id การประเมิน เพื่อจะเ update ผลรวม
+        //d($evaluation->toArray());
+        $evaluation->result_evaluation      = $data['total-evluation'];
+        $evaluation->save();
+
+        /*$find_id_evaluation                 = Evaluation::where('id_assessor', $data['id_assessor_person'])->where('id_assessment_person', $current_employee->id_employee)->where('result_evaluation', $data['total-evluation'])->where('date', date("Y-m-d"))->first();*/
+        //sd($find_id_evaluation['id_evaluation']);
+        $count_question = 0;
+        $get_answer     = [];
+        for($i=0; $i<$data['total-part']; $i++){ // นับจำนวนตอน
+            for($j=0; $j<$data['count-question-'.$i]; $j++){ //นับจำนวนคำถามต่อตอน
+                //$get_answer[] = $data['total-question-'.$i.'-'.$j];
+               // $result_evaluation                  = ResultEvaluation::where('id_evaluation', $data['id_part-'.$i])->get();
+                //sd($result_evaluation->toArray());
+                /*$result_evaluation->id_evaluation   = $find_id_evaluation['id_evaluation'];
+                $result_evaluation->id_part         = $data['id_part-'.$i];
+                $result_evaluation->id_question     = $data['id_question-'.$i.'-'.$j];
+                $result_evaluation->answer          = $data['total-question-'.$i.'-'.$j];
+                $result_evaluation->percent_of_part = $data['percent-'.$i];
+                $result_evaluation->status          = 1;
+                $result_evaluation->save();*/
+                $from_the_full_score++;
+                $count_question++; // นับจำนวนคำถาม
+            }
+        }
+        //exit();
+        //sd($get_answer[0]);
+        //sd($result_evaluation[1]->answer);
+        $result_evaluation   = ResultEvaluation::where('id_evaluation', $data['id_evaluation'])->get();
+        for($k=0; $k<$count_question; $k++){
+            $result_evaluation[$i]->answer = 1;//$get_answer[$i];
+            $result_evaluation->save();
+        }
+        //$result_evaluation->answer = 1;
+        exit();
+
+
+        $find_evaluation     = Evaluation::where('id_evaluation', $find_id_evaluation['id_evaluation'])->first();
+        //sd($find_evaluation);
+        $find_evaluation->from_the_full_score = $from_the_full_score * 5;
+        $find_evaluation->percent             = ($data['total-evluation'] * 100) / ($from_the_full_score * 5);
+        $find_evaluation->save();
+
+        //sd($evaluations);
+        //sd($no);
+        //$result_evaluation->
+
+        //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        //sd($data);
+    }
+
     public function confirmCreateEvaluation(Request $request) //อนุมัติการ create evaluation
     {
         if(\Session::has('current_employee')){
@@ -696,6 +799,60 @@ class EvaluationController extends Controller
                 //sd($id_question->toArray());
                 $id_topic ->delete();
                 return response()->json(['status'=> 'success', 'data' => $id]);
+                break;
+
+            case 'viewEvaluation': // ดูการประเมิน ที่ลงคะแนนแล้ว
+                $id_employee  = $request->get('id_employee');
+                $id_topic     = $request->get('id_topic');
+
+                $evaluation_data    = CreateEvaluation::with('parts', 'parts.question', 'answerformat', 'answerformat.answerdetails')->where('id_topic', $id_topic)->first();
+                //sd($evaluation_data->toArray());
+                $evaluation_details = Evaluation::with('resultevaluation')->where('id_assessor', $id_employee)->where('id_topic', $id_topic)->first();
+                //sd($evaluation_details->toArray());
+
+                $e_d   = Evaluation::with('resultevaluation')->where('id_assessor', $id_employee)
+                        ->where('id_topic', $id_topic)->first();
+                //sd($e_d->toArray());
+
+                $e1    = ResultEvaluation::where('id_evaluation', 24)->get();
+                //d($e1->toArray());
+                //$e1    = $e1->groupBy('id_part');
+                //sd($e1->toArray());
+
+                //$e_s = [];
+                //var_dump($evaluation_details);
+                $e_s = $evaluation_details->resultevaluation->groupBy('id_part');
+                //print_r($e_s->toArray());
+                //sd($e_s->toArray());
+                //$aList  = array_chunk($e_s, 1);
+                //print_r(array_chunk($e_s,1,true));
+                //exit();
+                //sd($aList);
+                //var_dump($e_s);
+                /*sd($e_s);
+                exit();
+                sd($evaluation_details[]);*/
+                //sd($e1[237]->toArray());
+
+                //$e1    = $e1->groupBy('id_part')->count();
+                //sd($e1);
+                /*$c_e1  = $e1->count();
+                sd($c_e1);
+                for($i=0; $i<$c_e1; $i++){
+
+                }exit();*/
+
+                //sd($id_topic->toArray());
+                //sd($id_question->toArray());
+                /*if($evaluation_data->parts[0]->id_part == $evaluation_details->resultevaluation[2]->id_part){
+                    echo "true";
+                }else{
+                    echo "false";
+                }exit();*/
+
+                $form_repo           = new FormViewEvaluation;
+                $get_form_view_eva   = $form_repo->getFormViewEvaluation($evaluation_data, $evaluation_details);
+                return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
                 break;
 
             default:

@@ -23,6 +23,8 @@
 										<th style="width: 10px">รหัสพนักงาน</th>
 										<th style="text-align: left;">ชื่อ-สกุล</th>
 										<th style="width: 40px">สถานะ</th>
+										<th>ดู</th>
+										<th>แก้ไข</th>
 									</tr>
 									<?php $count_list_name = $list_name->count();?> <!-- นับจำนวนพนักงาน -->
 									<?php for($i=0; $i<$count_list_name; $i++){?>
@@ -40,6 +42,15 @@
 													<td style="text-align: left;"><b><?php echo $list_name[$i]->first_name ?> <?php echo $list_name[$i]->last_name ?></b>
 														</td>
 														<td><span class="badge bg-green">สำเร็จ</span></td>
+														<td style="color: blue; cursor:pointer" >
+															<i class="fa fa-eye fa-lg view-evaluation" style="color: black;" data-id="<?php echo $list_name[$i]->id_employee?>" data-id_topic="<?php echo $id_topic->id_topic?>">
+															</i>
+														</td>
+														<td style="color: blue; cursor:pointer" >
+															<a href="<?php echo route('evaluation.edit_assessment.get', [$list_name[$i]->id_employee, $id_topic->id_topic])?>">
+															<i class="btn fa fa-lg fa-pencil edit-evaluation"></i>
+															</a>
+														</td>
 												<?php }else{?> <!-- กรณีพนักงานคนนี้มีการประมินแล้วไม่ตรงกับหัวข้อการประเมินนี้ -->
 													<td style="text-align: left;"><a href="<?php echo route('evaluation.assessment.get', [$list_name[$i]->id_employee, $id_topic->id_topic])?>"><b><?php echo $list_name[$i]->first_name ?> <?php echo $list_name[$i]->last_name ?></b></a>
 													</td>
@@ -51,6 +62,7 @@
 												</td>
 												<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
 											<?php } ?>
+
 										</tr>
 									<?php } ?>
 										<tr>
@@ -72,3 +84,5 @@
 		</div>
 	</section>
 </body>
+<div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
+<?php echo csrf_field()?>

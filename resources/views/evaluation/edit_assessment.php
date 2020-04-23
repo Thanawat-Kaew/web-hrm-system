@@ -30,27 +30,13 @@
 </head>
 <body class="content_assessment">
 	<section class="content">
-	<form action="<?php echo route('evaluation.post_record_evaluation.post'); ?>" method="POST" id="save-evaluation">
+	<form action="<?php echo route('evaluation.post_edit_record_evaluation.post'); ?>" method="POST" id="save-evaluation">
 	<?php echo csrf_field()?>
 		<div class="row">
-				<div class="col-md-3">
-					<div class="content-header">
-						<h3>ข้อมูล</h3>
-					</div>
-				<!-- <div class="info-box bg-yellow">
-					<span class="info-box-icon"><i class="fa fa-check-square-o"></i></span>
-					<div class="info-box-content">
-						<span class="info-box-text">จำนวนพนักงานทั้งหมด</span>
-						<span class="info-box-number">85</span>
-
-						<div class="progress">
-							<div class="progress-bar" style="width: 45%"></div>
-						</div>
-						<span class="progress-description">
-							ประเมินสำเร็จ 35  คิดเป็น 45%
-						</span>
-					</div>
-				</div> -->
+			<div class="col-md-3">
+				<div class="content-header">
+					<h3>ข้อมูล</h3>
+				</div>
 				<input type="hidden" name="datetime_of_evaluation" value="<?php echo $data_evaluation['years'];?>">
 				<div class="text-center">
 					<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-imaged img-circle" alt="User Image">
@@ -88,6 +74,7 @@
 				<div class="content-header">
 					<h3><?php echo $data_evaluation->topic_name ?></h3>
 					<input type="hidden" name="id_topic" value="<?php echo $data_evaluation->id_topic;?>">
+					<input type="hidden" name="id_evaluation" value="<?php echo $details_evaluation->id_evaluation;?>">
 				</div>
 				<?php $count_part 	     = $data_evaluation->parts->count(); // นับจำนวนตอน
 					  //$count_parts = $part + 1;
@@ -95,6 +82,11 @@
 				<div class="box box-info">
 					<?php $count_answerdeatils = $data_evaluation->answerformat->answerdetails->count(); //นับจำนวนรูปแบบคำตอบ
 						//sd($count_answerdeatils);
+						$count_answer = $details_evaluation->resultevaluation->count(); // นับจำนวนคำตอบทั้งหมด
+						//sd($count_answer);
+						$sum_of_question  	= 0; /*ผมรวมของแต่ละคำถาม*/
+						$sum_of_part      	= 0; /*ผมรวมของแต่ละตอน*/
+						$sum_of_evaluation  = 0; /*ผมรวมของทุกตอนรวมกัน*/
 					?>
 					<?php for($i=0; $i < $count_part; $i++){ // i = part
 						  $part_no = $i+1;
@@ -111,7 +103,6 @@
 						</div>
 						<?php if(!empty($data_evaluation->id_answer_format)){?> <!-- กรณีเป็นมีรุปแบบคำตอบ -->
 							<table class="table table-bordered table-condensed" id="type_one">
-
 								<tr>
 									<th>ข้อที่
 										<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
@@ -138,25 +129,34 @@
 									?>
 									<td>
 										<label>
-											<input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>"  id="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>">
+											<input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>"  id="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>"
+											<?php echo ($data_evaluation->answerformat->answerdetails[$k]->value == $details_evaluation->resultevaluation[$sum_of_question]->answer) ? "checked" : "" ?> >
 										</label>
 									</td>
 									<?php }?>
-									<td id="total-question-<?php echo $i;?>-<?php echo $j;?>">0</td>
-									<input type="hidden" name="total-question-<?php echo $i;?>-<?php echo $j;?>" value="" class="required">
-
+									<?php if($data_evaluation->parts[$i]->id_part == $details_evaluation->resultevaluation[$sum_of_question]->id_part){
+									?>
+									<td id="total-question-<?php echo $i;?>-<?php echo $j;?>"><?php echo $details_evaluation->resultevaluation[$sum_of_question]->answer?></td>
+									<input type="hidden" name="total-question-<?php echo $i;?>-<?php echo $j;?>" value="<?php echo $details_evaluation->resultevaluation[$sum_of_question]->answer?>" class="required">
+									<?php
+										$sum_of_part = $sum_of_part + $details_evaluation->resultevaluation[$sum_of_question]->answer;
+									?>
+									<?php } ?>
+								<?php $sum_of_question   = $sum_of_question + 1; ?>
 								</tr>
 								<?php } ?>
 							</table>
 						<?php }?> <!-- End if check ว่ามีรูปแบบคำตอบไหม -->
-						<label class="pull-right">คะแนนรวม : <label id="total-part-<?php echo $i;?>">0</label></label>
-						<input type="hidden" name="total-part-<?php echo $i;?>" value="" class="">
+						<label class="pull-right">คะแนนรวม : <label id="total-part-<?php echo $i;?>"><?php echo $sum_of_part ?></label></label>
+						<input type="hidden" name="total-part-<?php echo $i;?>" value="<?php echo $sum_of_part ?>" class="">
 					</div>
+						<?php $sum_of_evaluation = $sum_of_evaluation + $sum_of_part; ?><!--เอา คะแนนขงแต่ละ part มาบวกกัน-->
+						<?php $sum_of_part=0; ?> <!-- set ค่า คะแนนของแต่ละตอน เป็น 0 -->
 					<?php } ?> <!-- End for loop i -->
 
 					<div class="box-header">
-						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : <label id="total-evluation">0</label> </label>
-						<input type="hidden" name="total-evluation" value="" class="">
+						<label class="pull-right grand_total">คะแนนรวมทั้งหมด : <label id="total-evluation"><?php echo $sum_of_evaluation?></label> </label>
+						<input type="hidden" name="total-evluation" value="<?php echo $sum_of_evaluation?>" class="">
 					</div>
 				</div>
 
@@ -189,7 +189,7 @@
 <script src="/resources/assets/theme/adminlte/dist/js/adminlte.min.js"></script>
 <!-- icheck -->
 <script src="/resources/assets/theme/adminlte/plugins/iCheck/icheck.min.js"></script>
-<script src="/resources/assets/js/evaluation/assessment.js"></script>
+<script src="/resources/assets/js/evaluation/edit_assessment.js"></script>
 <!-- sweet alert -->
 <script src="/resources/assets/js/core/sweetalert2/sweetalert2.min.js"></script>
 <!-- main function -->
