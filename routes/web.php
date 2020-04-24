@@ -122,27 +122,35 @@ Route::group(['middleware' => ['login']], function(){
 	Route::get('/evaluation/confirm_send_create_evaluation/', 'Evaluation\EvaluationController@confirmSendCreateEvaluation')->name('evaluation.confirm_send_create_evaluations.get'); // view-create-evaluation
 
 	Route::post('/evaluation/confirm_send_create_evaluation/confirm', 'Evaluation\EvaluationController@postConfirmSendCreateEvaluation')->name('evaluation.post_confirm_send_create_evaluations.post'); // confirm confirm create evaluation // เครื่องหมายติ๊กถูก
+	Route::get('/index/check_count_eval_emp','Evaluation\EvaluationController@check_count_eval_emp')->name('evaluation.check_count_evaluations_emp');
+	Route::get('/index/view_score/{id_topic}','PDFController@generatePDF_view_scroe')->name('evaluation.view_score');
 	/************************************************End Evaluation******************************************************************/
 
-	/******************************************************Report*********************************************************************/
+	/********************************************Report*****************************************************/
 	Route::get('/report', 'Report\ReportController@index')->name('report.index.get');
 	Route::get('/report/report_time_stamp', 'Report\ReportController@reportTimeStamp')->name('report.report_time_stamp.get');
 	Route::get('/report/report_leave', 'Report\ReportController@reportLeave')->name('report.report_leave.get');
 	Route::get('/report/report_evaluation', 'Report\ReportController@reportEvaluation')->name('report.report_evaluations.get');
 	Route::get('/report/report_overview', 'Report\ReportController@reportOverview')->name('report.report_overview.get');
 	Route::post('/report/ajax_center', 'Report\ReportController@ajaxCenter')->name('report.ajax_center.post');
-	/***************************************************End Report********************************************************************/
-
-    /********************************************** Main ************************/
-	Route::get('/main', 'Main\MainController@main')->name('main.get');
-	/********************************************** End Main *******************/
-
 	Route::get('/pdf/generatePDF_leave','PDFController@generatePDF_leave')->name('report.pdf.pdf_leave.get');
 	Route::post('/pdf/generatePDF_leave/POST','PDFController@generatePDF_leave')->name('report.pdf.pdf_leave.post');
 	Route::get('/pdf/generatePDF_time_stamp','PDFController@generatePDF_time_stamp')->name('report.pdf.pdf_time_stamp.get');
 	Route::post('/pdf/generatePDF_time_stamp/POST','PDFController@generatePDF_time_stamp')->name('report.pdf.pdf_time_stamp.post');
 	Route::get('/pdf/generatePDF_Eval','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.get');
 	Route::post('/pdf/generatePDF_Eval/POST','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.post');
+	/***************************************************End Report*******************************************/
+
+    /********************************************** Main ************************/
+	Route::get('/main', 'Main\MainController@main')->name('main.get');
+	/********************************************** End Main *******************/
+
+
+
+	// *************************************Dashboard***********************************/
+	Route::get('/main/dashboard', 'Dashboard\DashboardController@dashboard')->name('dashboard.dashboard.get');
+
+	// *************************************End Dashboard***********************************/
 
 });
 

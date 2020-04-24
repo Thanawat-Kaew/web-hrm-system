@@ -33,8 +33,43 @@ use PDF;
 
 class PDFController extends Controller
 {
+    public function generatePDF_view_scroe(Request $request, $id_topic)
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+
+        date_default_timezone_set('Asia/Bangkok');
+        $getDate            = date("Y-m-d");
+
+        $name_department    = Department::with('employee')
+                                            ->where('id_department', $current_employee['id_department'])
+                                            ->first(); 
+
+        $id_department      = $current_employee->id_employee;
+        $evaluations        = CreateEvaluation::where('status', 1)->get();
+        $id_topic_          = $id_topic;
+
+        $id_topic           = CreateEvaluation::with('employee')
+                                                    ->where('id_topic', $id_topic_)
+                                                    ->first();
+
+        $emp_evaluation     = Evaluation::with('employee', 'employee.department', 'employee.position', 
+                                                'resultevaluation', 'createevaluation')
+                                            ->where('id_assessment_person', $id_department)
+                                            ->where('id_topic',$id_topic_)
+                                            ->get();
+
+        $get_topic_detail   = CreateEvaluation::where('id_topic',$id_topic_)->first();
+
+        $pdf                = PDF::loadView('evaluation.view_score',compact('getDate','emp_evaluation','list_name','id_topic', 'count_array_list_name', 'keep_array_list_name','evaluations','get_topic_detail','current_employee','name_department'));
+
+        return $pdf->stream("view_score.pdf");
+    }
+
 	public function generatePDF_evaluation(Request $request)
-	{
+	{      
+
 		date_default_timezone_set('Asia/Bangkok');
 		$department          = $request->has('department') ? $request->get('department') : '';
         $topic_name          = $request->has('topic_name') ? $request->get('topic_name') : ''; // ส่งค่ามาเป็น id_topic
@@ -47,11 +82,16 @@ class PDFController extends Controller
         $getDate 			 = date("Y-m-d");
 		$getTime			 = date("h:i:sa");
 
+        // $name_evaluation    = CreateEvaluation::where('id_topic', $topic_name)->get();
+        // sd($name_evaluation);
+        $topic_names  = CreateEvaluation::where('status', 1)->where('id_topic',$topic_name)->get();
+        // sd($topic_names->toArray());
+
         if(empty($department)){// กรณีเลือกทุกแผนก
             if(empty($topic_name)){ // กรณีเลือกทุกหัวข้อ
                 if(empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
                     //echo "1";
-                    $emp_evaluation = Evaluation::with('employee')->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee')->orderBy('id_assessor', 'asc')->get();
                 }else if(empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
                     //echo "2";
                     $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '<=', $end_number)->orderBy('percent', 'asc')->get();
@@ -60,29 +100,29 @@ class PDFController extends Controller
                     $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '>=', $start_number)->orderBy('percent', 'asc')->get();
                 }else if(empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
                     //echo "4";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '<=', $new_end_date)->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '<=', $new_end_date)->orderBy('id_assessor', 'asc')->get();
                     //sd($emp_evaluation->toArray());
                 }else if(!empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
                     //echo "5";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->orderBy('id_assessor', 'asc')->get();
                 }else if(!empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
                     //echo "6";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '>=', $end_number)->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '>=', $end_number)->orderBy('id_assessor', 'asc')->get();
                 }else if(!empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
                     //echo "7";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '<=', $start_number)->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '<=', $start_number)->orderBy('id_assessor', 'asc')->get();
                 }elseif(!empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
                     //echo "8";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->orderBy('id_assessor', 'asc')->get();
                 }else if(!empty($start_date) && !empty($end_date) && empty($start_number) && !empty($end_number)){
                     //echo "9";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '>=', $end_number)->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '>=', $end_number)->orderBy('id_assessor', 'asc')->get();
                 }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && empty($end_number)){
                     //echo "10";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '<=', $start_number)->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '<=', $start_number)->orderBy('id_assessor', 'asc')->get();
                 }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && !empty($end_number)){
                     //echo "11";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->whereBetween('percent', [$start_number, $end_number])->orderBy('date', 'asc')->get();
+                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->whereBetween('percent', [$start_number, $end_number])->orderBy('id_assessor', 'asc')->get();
                 }
             }else{ // กรณีระบุหัวเรื่องการประเมิน
                 if(empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
@@ -263,7 +303,7 @@ class PDFController extends Controller
 
         $get_department_name = Department::where('id_department',$department)->get();
 
-		$pdf = PDF::loadView('report.pdf.pdf_evaluations', compact('emp_evaluation', 'count_first_name', 'count_last_name', 'count_name_evaluation','get_department_name','topic_name','start_date','new_start_date','end_date','new_end_date','start_number','end_number','getDate','getTime'));
+		$pdf = PDF::loadView('report.pdf.pdf_evaluations', compact('emp_evaluation', 'count_first_name', 'count_last_name', 'count_name_evaluation','get_department_name','topic_name','start_date','new_start_date','end_date','new_end_date','start_number','end_number','getDate','getTime','topic_names'));
 		$pdf->setPaper('A4', 'landscape');
 		return $pdf->stream("PDF_EVALUATION.pdf");
 

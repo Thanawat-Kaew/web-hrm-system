@@ -124,13 +124,23 @@ class ReportController extends Controller
             $count_name_evaluation[] = $name_evaluation->topic_name; /*เอาชื่อมา*/
         }
 
+        // sd($count_name_evaluation);
         $topic_name  = CreateEvaluation::where('status', 1)->get();
+        // sd($topic_name->toArray());
     	return $this->useTemplate('report.report_evaluations', compact('assessor', 'count_first_name', 'count_last_name', 'count_name_evaluation', 'department', 'topic_name'));
     }
 
     public function reportOverview()
     {
-    	return $this->useTemplate('report.report_overview');
+        // $get_count_emp  = Employee::where('gender','ชาย')->count();
+        $get_count_emp  = Employee::all();
+        // sd($get_count_emp);
+        // $get_count_dept = Employee::with('department')->get();
+        $get_count_dept = Employee::all()->groupBy('id_department')->count();
+        // $get_count_dept = Employee::with('department')->groupBy('id_department')->get();
+        // sd($get_count_dept);
+
+    	return $this->useTemplate('report.report_overview',compact('get_count_emp'));
     }
 
     public function ajaxCenter(Request $request)

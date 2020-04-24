@@ -60,13 +60,15 @@ class LoginController extends Controller
             $employee_object->setUp($checkLogin);
             $employee_object->setupMenu($checkLogin->id_employee);
             return redirect()->route('main.get');
+            // return redirect()->route('dashboard.dashboard.get');
         }else{
             return view('auth.login'/*, compact('success' ,'กรุณากรอกข้อมูลใหม่')*/);
         }
     }
 
     public function logout(){
-            \Session::forget('current_employee');
+            // \Session::flush();
+            \Session::forget(['current_employee','current_menu']);
             \Session::forget('current_menu');
             return view('auth.login');
     }
@@ -86,7 +88,9 @@ class LoginController extends Controller
         }
 
     }
+    
     public function logout_admin(){
+        // \Session::flush();
         \Session::forget('current_admin');
         return view('auth.admin_login');
     }

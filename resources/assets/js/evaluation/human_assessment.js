@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	msg_waiting()
 
+	$('#myTable').dataTable();
 	// Filter Year.
 	$('#myInput').keyup(function(){
 		search_data_tbl();

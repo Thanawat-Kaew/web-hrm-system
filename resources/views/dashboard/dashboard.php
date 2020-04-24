@@ -4,6 +4,7 @@
 	<meta content="AnyChart - JavaScript Charts designed to be embedded and integrated" name="description">
 	<link href="/resources/assets/pie-chart/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
 	<link href="/resources/assets/pie-chart/css/anychart-font.css" rel="stylesheet" type="text/css">
+	<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
 	<style type="text/css">
 		html, body, #container {
 			width: 100%;
@@ -28,62 +29,98 @@
 	<script src="/resources/assets/pie-chart/js/anychart-ui.min.js"></script>
 	<div class="row">
 		<div class="col-md-12 no-padding">
+					<?php $count_emp = $get_count_emp->count() ?>
 			<div class="box-header">
 				<div>Today</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="info-box bg-green">
+					<!-- where('date',$get_date_now)->count(); -->
+
 					<span class="info-box-icon"><i class="glyphicon glyphicon-briefcase"></i></span>
 					<div class="info-box-content">
 						<span class="info-box-text">มาทำงาน /Come to work</span>
-						<span class="info-box-number">120</span>
+
+						<span class="info-box-number"> <?php echo $get_count_timestamp ?> คน</span>
 						<div class="progress">
-							<div class="progress-bar" style="width: 90%"></div>
+							<div class="progress-bar" style="width: <?php echo round(($get_count_timestamp*100)/$count_emp,2).'%'?>;"></div>
 						</div>
+
 						<span class="progress-description">
-							90% today.
+							<?php echo round(($get_count_timestamp*100)/$count_emp,2) ?>% วันนี้ จากพนักงานทั้งหมด
 						</span>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-4">
-				<div class="info-box bg-yellow">
-					<span class="info-box-icon"><i class="glyphicon glyphicon-edit"></i></span>
+			<div class="col-md-2">
+				<div class="info-box bg-red">
+					<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>
 					<div class="info-box-content">
-						<span class="info-box-text">ลางาน /Leaves</span>
-						<span class="info-box-number">5</span>
+						<span class="info-box-text">มาสาย</span>
+						<span class="info-box-number"><?php echo $get_count_timestamp_late ?> คน</span>
 						<div class="progress">
-							<div class="progress-bar" style="width: 5%"></div>
+							<div class="progress-bar" style="width: <?php echo round(($get_count_timestamp_late*100)/$count_emp,2).'%'?>;"></div>
 						</div>
 						<span class="progress-description">
-							5% today.
+							<?php echo round(($get_count_timestamp_late*100)/$count_emp,2) ?>%
 						</span>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="box box-info">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>มาสาย</th>
-								<th>มาตรงเวลา</th>
-								<th>มาก่อนเวลา</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>10</td>
-								<td>20</td>
-								<td>30</td>
-							</tr>
-						</tbody>
-					</table>
+
+			<div class="col-md-2">
+				<div class="info-box bg-gray">
+					<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>
+					<div class="info-box-content">
+						<span class="info-box-text">มาตรงเวลา</span>
+						<span class="info-box-number"><?php echo $get_count_timestamp_on_time ?> คน</span>
+						<div class="progress">
+							<div class="progress-bar" style="width: <?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2).'%'?>;"></div>
+						</div>
+						<span class="progress-description">
+							<?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2) ?>%
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-2">
+				<div class="info-box bg-aqua">
+					<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>
+					<div class="info-box-content">
+						<span class="info-box-text">มาก่อนเวลา</span>
+						<span class="info-box-number"><?php echo $get_count_timestamp_early ?> คน</span>
+						<div class="progress">
+							<div class="progress-bar" style="width: <?php echo round(($get_count_timestamp_early*100)/$count_emp,2).'%'?>;"></div>
+						</div>
+						<span class="progress-description">
+							<?php echo round(($get_count_timestamp_early*100)/$count_emp,2) ?>%
+						</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-3">
+				<div class="info-box bg-yellow">
+					<span class="info-box-icon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<div class="info-box-content">
+						<span class="info-box-text">ลางาน /Leaves</span>
+						<span class="info-box-number"><?php echo $get_count_leave ?> คน</span>
+						<div class="progress">
+							<div class="progress-bar" style="width: <?php echo round(($get_count_leave*100)/$count_emp,2).'%'?>;"></div>
+						</div>
+						<span class="progress-description">
+							<?php echo round(($get_count_leave*100)/$count_emp,2) ?>% วันนี้ จากพนักงานทั้งหมด
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-12 no-padding">
+			<div class="box-header">
+				<div>Overview</div>
+			</div>
 			<div class="col-md-4">
 				<div class="box box-info">
 					<div class="box-header with-border">
@@ -96,7 +133,7 @@
 									<span style="font-size: 100px;"><?php echo $get_count_emp->count() ?></span>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -108,7 +145,7 @@
 					</div>
 					<div id="container" style="height: 230px;"></div>
 					<script type="text/javascript">anychart.onDocumentReady(function() {
-						var chart = anychart.pie();
+						var chart = anychart.bar();
 						chart.title('');
 						chart.data([
 							{x: 'ชาย', value: <?php echo $get_count_emp->where('gender' ,'ชาย')->count(); ?>},
@@ -207,31 +244,21 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="col-md-12">
+		<div class="col-md-12 col-xs-12 xyz">
 			<div class="box box-warning">
 				<div class="box-header with-border">
 					<h3 class="box-title">Employees by Departments.</h3>
-
 				</div>
 				<div class="box-body no-padding">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 col-xs-12">
 							<div id="container_deptp" style="height: 400px;"></div>
-							en <?php echo $get_count_emp->where('id_department' ,'en0001')->count(); ?>
-							fa <?php echo $get_count_emp->where('id_department' ,'fa0001')->count(); ?>
-							hr <?php echo $get_count_emp->where('id_department' ,'hr0001')->count(); ?>
-							pm <?php echo $get_count_emp->where('id_department' ,'pm0001')->count(); ?>
-							ss <?php echo $get_count_emp->where('id_department' ,'ss0001')->count(); ?>
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 									var chart = anychart.pie([
-										['Human resources',20 ],
-										['Driver', 15],
-										['Engineer', 31],
-										['Sale and Marketing',27 ],
-										['Accounting',20 ],
-										['Procument', 18]
+										<?php foreach ($get_count_dept as $value) :?>
+											["<?php echo $value->department->name?>" ,<?php echo $value->total?>],
+										<?php endforeach ?>
 										]);
 
 									chart.title('')

@@ -8,7 +8,7 @@
           <?php if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
             if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
-              <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 50px; height: 50px;">
+              <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image">
             <?php }else{?> <!-- ถ้าไม่มีรุป -->
               <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image"><br><br>
             <?php } ?>
@@ -46,6 +46,19 @@
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview menu-open">
         </li>
+          <?php if(\Session::has('current_employee')) :?>
+          <?php $current_employee = \Session::get('current_employee');?>
+          <?php if($current_employee['id_department'] == "hr0001") :?>
+            <li>
+              <a href="<?php echo route('dashboard.dashboard.get') ?>">
+               <i class="fa fa-dashboard (alias) fa-lg"></i><span> Dashboard</span>
+               <span class="pull-right-container">
+                <small class="label pull-right bg-green"></small>
+              </span>
+            </a>
+          </li>
+        <?php endif ?>
+      <?php endif ?>
         <?php if(\Session::has('current_menu')) :  ?>
           <?php foreach(\Session::get('current_menu') as $menu ):?>
             <li>

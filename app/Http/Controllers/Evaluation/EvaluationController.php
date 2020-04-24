@@ -46,6 +46,11 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.confirm_send_create_evaluations',compact('current_employee','evaluations'));
     }
 
+    public function check_count_eval_emp() //หน้าเช็คว่าหัวหน้าประเมินพนักงานครบทุกคนหรือยัง
+    {
+        return $this->useTemplate('evaluation.check_count_evaluations_emp');
+    }
+
     public function postConfirmSendCreateEvaluation(Request $request) // เครื่องหมายติ๊กถูก
     {
         if(\Session::has('current_employee')){
@@ -198,6 +203,7 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
+        $evaluations = CreateEvaluation::where('status', 1)->get();
         //sd($current_employee->id_department);
         $id_topic                = $id; // รหัสหัวเรื่อง
         //sd($id_topic);
@@ -290,7 +296,7 @@ class EvaluationController extends Controller
         //exit();
         //sd($check_evaluation);
 
-        return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic', 'count_array_list_name', 'keep_array_list_name'));
+        return $this->useTemplate('evaluation.human_assessment', compact('list_name', 'id_topic', 'count_array_list_name', 'keep_array_list_name','current_employee'));
     }
 
     public function editAssessment(Request $request, $id, $id_topic)

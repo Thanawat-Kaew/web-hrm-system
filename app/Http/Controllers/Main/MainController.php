@@ -43,7 +43,9 @@ class MainController extends Controller
         $sum_request_leave          = $sum_request_leave + $count_request_leave;
 
         $sum_confirm_create_evaluation = 0;
-        $confirm_create_evaluation  = CreateEvaluation::where('status', $waiting_status)->where('confirm_send_create_evaluation', 1)->get();
+
+        $confirm_create_evaluation  = CreateEvaluation::where('status', $waiting_status)->where('confirm_send_create_evaluation',1)->get();
+
         //sd($confirm_create_evaluation->toArray());
         $count_confirm_create_evaluation = $confirm_create_evaluation->count();
         //sd($count_confirm_create_evaluation);
@@ -62,4 +64,3 @@ class MainController extends Controller
         return view('admin.admin_main');
     }
 }
-
