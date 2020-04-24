@@ -112,7 +112,7 @@
 							<?php //if(!empty($assessor[$i])):?>
 							<tr>
 								<td><?php echo $assessor[$i]->id_assessor?></td>
-								<td style="color: blue; cursor:pointer" class="name view-evaluation" data-id="<?php echo $assessor[$i]->id_evaluation?>" data-id_topic="<?php echo $assessor[$i]->id_topic?>"><?php echo $assessor[$i]->employee->first_name;?> <?php echo $assessor[$i]->employee->last_name;?></td>
+								<td style="color: blue; cursor:pointer" class="name view-evaluation" data-id="<?php echo $assessor[$i]->employee->id_employee?>" data-id_topic="<?php echo $assessor[$i]->id_topic?>"><?php echo $assessor[$i]->employee->first_name;?> <?php echo $assessor[$i]->employee->last_name;?></td>
 								<td><?php echo $assessor[$i]->employee->department->name?></td>
 								<td><?php echo $assessor[$i]->employee->position->name?></td>
 								<td><?php echo $assessor[$i]->date?></td>

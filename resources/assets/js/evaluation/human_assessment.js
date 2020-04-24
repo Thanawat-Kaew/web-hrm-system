@@ -1,14 +1,15 @@
 $(document).ready(function() {
 	msg_waiting()
 
-	$('#myTable').dataTable();
+	/*$('#myTable').dataTable();
 	// Filter Year.
 	$('#myInput').keyup(function(){
 		search_data_tbl();
-	})
+	})*/
 
 	$('.view-evaluation').click(function(){
 		msg_waiting();
+		//alert('555');
 		var id_employee = $(this).data('id');
 		var id_topic    = $(this).data('id_topic');
 		$.ajax({

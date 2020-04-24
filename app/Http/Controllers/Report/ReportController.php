@@ -103,7 +103,7 @@ class ReportController extends Controller
 
         $assessor    = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')
                         ->orderBy('id_assessor', 'asc')->orderBy('id_topic', 'desc')->get();
-         /*เชื่อม Database ตั้งงื่อนไข้ว่า เรียง id จากน้อยไปมาก และเรียงจาก id_topic จากมากไปน้อย*/
+         /*เชื่อม Database ตั้งเงื่อนไขว่า เรียง id จากน้อยไปมาก และเรียงจาก id_topic จากมากไปน้อย*/
 
         $array_assessment = array();
         $array_id_topic   = array();
@@ -804,22 +804,21 @@ class ReportController extends Controller
                 return response()->json(['status'=> 'success','data'=> $get_form_emp]);
             break;
 
-            case 'getViewEvaluarion': /*ดูลายละเอียดการประเมิน*/
-                $id_evaluation       = $request->get('id');
-                $id_topic            = $request->get('id_topic');
-                $detail_evaluation   = ResultEvaluation::with('evaluation', 'evaluation.employee')->where('id_evaluation', $id_evaluation)->get();
-                //sd($detail_evaluation->toArray());
-                $evaluation_data     = CreateEvaluation::with('parts', 'parts.question', 'parts.answerformat')->where('id_topic', $id_topic)->first();
+            case 'getViewEvaluation': /*ดูลายละเอียดการประเมิน*/
+                $id_employee       = $request->get('id_employee');
+                //sd($id_employee);
+                $id_topic          = $request->get('id_topic');
+                $evaluation_data   = CreateEvaluation::with('parts', 'parts.question', 'answerformat', 'answerformat.answerdetails')->where('id_topic', $id_topic)->first();
                 //sd($evaluation_data->toArray());
-                //sd($evaluation_data->parts[0]->answerformat->id_answer_format);
-                $count_answerformat  = AnswerDetails::where('id_answer_format', $evaluation_data->answerformat->id_answer_format)->get();
+                $evaluation_details = Evaluation::with('resultevaluation')->where('id_assessor', $id_employee)->where('id_topic', $id_topic)->first();
+                //sd($evaluation_details);
 
 
 
                 //$part                = Part::with('question', 'answerformat.answerdetails')->where('id_topic', $id_topic)->get();
                 //sd($part->toArray());
                 $form_repo           = new FormViewEvaluation;
-                $get_form_view_eva   = $form_repo->getFormViewEvaluation($detail_evaluation, $evaluation_data);
+                $get_form_view_eva   = $form_repo->getFormViewEvaluation($evaluation_data, $evaluation_details);
                 return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
             break;
 

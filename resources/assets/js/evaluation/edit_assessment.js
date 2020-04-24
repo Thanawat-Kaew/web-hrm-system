@@ -9,6 +9,7 @@ $(document).ready(function() {
 	})
 
 	$('.cancel_evaluation').click(function(){
+		var id_topic = $(this).closest('.col-md-9').find('input[name="id_topic"]').val();
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่ ?',
 			text: "ที่จะยกเลิกการประเมินนี้ !",
@@ -22,7 +23,7 @@ $(document).ready(function() {
 		}).then((result) =>{
 			if (result.value)
 			{
-				window.location.href = "/evaluation/human_assessment";
+				window.location.href = "/evaluation/human_assessment/"+id_topic;
 			}
 		})
 	})
