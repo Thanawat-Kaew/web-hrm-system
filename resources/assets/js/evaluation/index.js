@@ -21,6 +21,26 @@ $(document).ready(function(){
 		})*/
 	});
 
+	$('#myTable').on('click','.view-create-evaluation',function(){
+
+		var id = $(this).data('id_view');
+
+		$.ajax({
+            headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+            type: 'POST',
+            url: $('#ajax-center-url').data('url'),
+            data: {method : 'getFormViewCreateEvaluations',id :id},
+            success: function (result) {
+                var title = "<h4 style='color: red;'>ดูแบบประเมิน <small> | View evaluation</small></h4>"
+                showDialogView(title,result.data)
+            },
+            error : function(errors)
+            {
+                console.log(errors);
+            }
+        })
+	})
+
 	$('.post-confirm-send-create-evaluation').click(function(){  // กด อนุมัติ
 		// alert("confirm");
 		var id = $(this).data('id');
@@ -230,6 +250,29 @@ function sendRequest(form, title){
 
         // saveSetTime(form, title, oldValue);
     }
+}
+
+function showDialogView(title,form){
+    var box1 = bootbox.dialog({ 
+        title: title,
+        message: form,
+        size: 'large',
+        onEscape: true,
+        backdrop: 'static',
+        buttons: {
+            fum: {
+                label: 'ปิด',
+                className: 'btn-warning',
+                callback: function(){
+                }
+            }
+        }
+    })
+
+    box1.on("shown.bs.modal", function() {
+
+        $('body').addClass('modal-open');
+    })
 }
 
 function saveSetTime(form, title, oldValue)

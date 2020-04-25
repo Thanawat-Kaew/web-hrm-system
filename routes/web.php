@@ -101,8 +101,8 @@ Route::group(['middleware' => ['login']], function(){
 
 	Route::post('/evaluation/ajax_center', 'Evaluation\EvaluationController@ajaxCenter')->name('evaluation.ajax_center.post');
 	Route::post('/evaluation/post_add', 'Evaluation\EvaluationController@postAddEvaluations')->name('evaluation.post_add.post');
-	Route::get('/evaluation/view_create_evaluation/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation')->name('evaluation.view_create_evaluations.get'); // view-create-evaluation
-	Route::get('/evaluation/view_create_evaluation_index/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation_2')->name('evaluation.view_create_evaluations_for_index.get'); // view-create-evaluation
+	Route::get('/evaluation/history_request_created_evaluation/view_create_evaluation/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation')->name('evaluation.view_create_evaluations.get'); // view-create-evaluation
+	Route::get('/evaluation/confirm_send_create_evaluation/view_create_evaluation_index/{id}', 'Evaluation\EvaluationController@viewCreateEvaluation_2')->name('evaluation.view_create_evaluations_for_index.get'); // view-create-evaluation
 	Route::get('/evaluation/edit_evaluation/{id}', 'Evaluation\EvaluationController@editEvaluation')->name('evaluation.edit_evaluations.get'); // edit-evaluation //page
 	Route::post('/evaluation/post_edit', 'Evaluation\EvaluationController@postEditEvaluations')->name('evaluation.post_edit.post'); // edit to database
 

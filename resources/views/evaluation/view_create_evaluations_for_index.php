@@ -79,7 +79,7 @@
 							</div>
 						<?php } ?>
 						<br><br>
-						<a href="<?php echo route("evaluation.index.get")?>">
+						<a href="<?php echo route(/*"evaluation.index.get"*/"evaluation.confirm_send_create_evaluations.get") ?>">
 							<button class="btn btn-app" id="btn-app"><i class="fa fa-reply"></i></button>
 						</a>
 					</div>

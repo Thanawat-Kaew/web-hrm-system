@@ -52,6 +52,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="box-body table-responsive no-padding">
 					<table id="myTable" class="table table-hover">
 						<tr>
@@ -83,7 +84,10 @@
 									<td><a href="<?php echo route('evaluation.human_assessment.get', $evaluation->id_topic)?>"><button type="button" class='btn btn-warning assessment'><i class="fa fa-check-square-o"></i> ประเมิน</button></a></td>
 								<?php endif ?>
 								<td><i class="btn fa fa-clock-o fa-lg set_time"></i></td>
-								<td><a href="<?php echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
+								<td>
+				<!-- <input type="text" id="value_id_eval" name="value_id_eval" value="<?php /*echo $evaluation->id_topic*/ ?>" class="hidden"> -->
+
+									<i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id_view="<?php echo $evaluation["id_topic"]?>"></i></td>
 								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
 									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
 									</td>
