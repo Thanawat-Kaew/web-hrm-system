@@ -743,6 +743,16 @@ class EvaluationController extends Controller
         $confirm->save();
     }
 
+
+    public function setStartDateAndEndDateEvaluation(Request $request) //บันทึกกำหนดวันเริ่มต้นประเมินและสิ้นสุดประเมิน
+    {
+        $data                               = $request->all();
+        $id_topic                           = CreateEvaluation::where('id_topic', $data['id_topic'])->first();
+        $id_topic->start_date_evaluation    = $data['start_date'];
+        $id_topic->end_date_evaluation      = $data['end_date'];
+        $id_topic->save();
+    }
+
     public function ajaxCenter(Request $request)
     {
     	$method = $request->get('method');
@@ -768,10 +778,12 @@ class EvaluationController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_evaluation]);
                 break;
 
-            case 'getFormSetTimeEvaluation':
-
+            case 'getFormSetTimeEvaluation': // กำหนดเวลาการประเมิน
+                $id_topic                  = $request->get('id_topic');
+                $check_set_date_evaluation = CreateEvaluation::where('id_topic', $id_topic)->first();
+                //sd($check_set_date_evaluation->toArray());
                 $form_repo       = new FormSetTimeEvaluation;
-                $form_set_time_eval = $form_repo->getFormSetTimeEvaluation();
+                $form_set_time_eval = $form_repo->getFormSetTimeEvaluation($id_topic, $check_set_date_evaluation);
 
                 return response()->json(['status'=> 'success','data'=> $form_set_time_eval]);
                 break;

@@ -124,6 +124,7 @@
 <div id="ajax-center-url" data-url="<?php echo route('personal_info.ajax_center.post')?>"></div>
 <div id="edit-data-employee" data-url="<?php echo route('personal_info.edit_data_employee.post')?>"></div>
 <div id="update-edit-data-employee" data-url="<?php echo route('personal_info.update_edit_data_employee.post')?>"></div>
+<!-- get ใช้กับ ดึงข้อมูลมา ส่วน post ใช้กับ บันทึกข้อมูล -->
 <?php echo csrf_field()?>
 
 
