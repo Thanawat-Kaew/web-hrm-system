@@ -17,6 +17,8 @@ use App\Services\Evaluation\AnswerDetails;
 use App\Services\Evaluation\Evaluation;
 use App\Services\Evaluation\ResultEvaluation;
 use App\Services\Forms\FormViewEvaluation;
+use App\Services\Forms\FormViewCreateEvaluations;
+use App\Services\Forms\FormSetTimeEvaluation;
 
 
 class EvaluationController extends Controller
@@ -762,7 +764,31 @@ class EvaluationController extends Controller
 
                 return response()->json(['status'=> 'success','data'=> $form_evaluation]);
                 break;
-             case 'createNewEvaluation':
+
+            case 'getFormSetTimeEvaluation':
+
+                $form_repo       = new FormSetTimeEvaluation;
+                $form_set_time_eval = $form_repo->getFormSetTimeEvaluation();
+
+                return response()->json(['status'=> 'success','data'=> $form_set_time_eval]);
+                break;
+
+            case 'getFormViewCreateEvaluations':
+
+                if(\Session::has('current_employee')){
+                    $current_employee = \Session::get('current_employee');
+                }
+                $id_topic                = $request->get('id');
+                // sd($id_topic);
+                $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
+              
+                $form_repo       = new FormViewCreateEvaluations;
+                $form_view_create_eval = $form_repo->getFormViewCreateEvaluations($view_create_evaluation);
+
+                return response()->json(['status'=> 'success','data'=> $form_view_create_eval]);
+                break;
+
+            case 'createNewEvaluation':
 
                 $obj_emp                        = new EmployeeObject;
                 $employee_id                    = $obj_emp->getIdEmployee();
