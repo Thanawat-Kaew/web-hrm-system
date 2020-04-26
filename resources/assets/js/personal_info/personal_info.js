@@ -5,11 +5,12 @@ $(function(){
 	$('.amendment').click(function(){ // แก้ไข้ครั้งแรก
 		msg_waiting()
 		var	id = $(this).data('id');
+		//alert("55");
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
-			data: {'method' : 'getFormAmendmentEmployee',
+			data: {'method' : 'getFormAmendmentEmployee', /*ส่งไปที่ Employee Controller*/
 			'id'	: id
 		},
 		success: function (result) {
@@ -70,7 +71,7 @@ $(function(){
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
 			url: $('#ajax-center-url').data('url'),
-			data: {'method' : 'getEditAgain',
+			data: {'method' : 'getEditAgain', /*ส่งไปที่ Employee Controller*/
 			'id'	: id
 			},
 			success: function (result) {
@@ -97,15 +98,15 @@ $(function(){
 			cancelButtonColor: '#d33',
 			cancelButtonText: 'ไม่ลบ',
 			confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-		}).then((result) => 
+		}).then((result) =>
 		{
-			if (result.value) 
+			if (result.value)
 
 			{
-				postDelete(url); 
+				postDelete(url);
 			}
 		})
-		
+
 	});
 
 });
@@ -263,7 +264,7 @@ function postDelete(url)
 
 				}).then((result) =>{
 
-					if (result.value) 
+					if (result.value)
 					{
 						window.location.reload();
 					}
@@ -274,7 +275,7 @@ function postDelete(url)
 			{
 				alert(result.message);
 			}
-		},	
+		},
 		error : function(errors)
 		{
 			console.log(errors);

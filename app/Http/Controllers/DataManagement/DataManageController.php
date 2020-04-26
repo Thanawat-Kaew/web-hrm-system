@@ -66,7 +66,7 @@ class DataManageController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_manage_data]);
                 break;
 
-            case 'getFormEditEmployee':
+            case 'getFormEditEmployee': // แก้ไขหัวหน้าและพนักงาน หัวหน้า hr เป็นคนแก้ไข
                 $id             = $request->get('id');
                 $employee    = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
                 //sd($id);
@@ -82,7 +82,7 @@ class DataManageController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_edit_emp]);
             break;
 
-            case 'getFormAmendmentEmployee':
+            case 'getFormAmendmentEmployee': // กดแก้ไขครั้งแรก
                 $form_repo      = new FormRepository;
                 $form_amendment_emp   = $form_repo->getFormEmployee();
                 return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
@@ -263,8 +263,8 @@ class DataManageController extends Controller
     public function editEmployee(Request $request)
     {
         $images                     = $request->file("file_picture");
+        // ถ้า images มีการแก้ไขรูปจะมีข้อมูลมา แต่ถ้าแกไขอะไรที่ไม่ใช่รูป จะไม่มีข้อมูลมาดังนั้นจึงต้องมีการทำ !empty($images)
         $id_employee                = $request->get('id_employee');
-        //sd($id_employee);
         $id_department              = $request->get('department');
         $id_position                = $request->get('position');
         $first_name                 = $request->get('fname');
@@ -294,14 +294,16 @@ class DataManageController extends Controller
         $employee->id_education     = $education;
         $employee->salary           = $salary;
 
-        if($_FILES['file_picture']['name'] != ''){  // ตรวจสอบไฟล์รูปภาพ
-            $test = explode('.', $_FILES['file_picture']['name']); //แยกชื่อ
-            $extension = end($test); // นามสกุลไฟล์
-            $name = $employee->id_employee.'.'.$extension;
-            $location = 'public/image/'.$name;
-            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        if(!empty($images)){
+            if($_FILES['file_picture']['name'] != ''){  // ตรวจสอบไฟล์รูปภาพ
+                $test = explode('.', $_FILES['file_picture']['name']); //แยกชื่อ
+                $extension = end($test); // นามสกุลไฟล์
+                $name = $employee->id_employee.'.'.$extension;
+                $location = 'public/image/'.$name;
+                move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+            }
+            $employee->image            = $name;
         }
-        $employee->image            = $name;
 
         $array_general_department  = [];
         $general_department = Department::where('id_department', '!=', 'hr0001')->get();

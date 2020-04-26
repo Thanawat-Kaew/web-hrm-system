@@ -3,11 +3,20 @@
 		ตรวจสอบตกหล่นของพนักงาน |
 		<small> Missed inspection</small>
 	</h3>
+	<div class="col-sm-3 col-xs-12 pull-right input-group-sm">
+        <select class="form-control select2 " style="width: 100%;" id="topic_name" >
+            <option value="">กรุณาเลือกหัวข้อการประเมิน</option>
+            <?php foreach($topic_data as $value):?>
+            	 <option value="<?php echo $value->id_topic ?>"><?php echo $value->topic_name ?></option>
+            <?php endforeach ?>
+        </select>
+    </div>
 </section>
 <section class="content">
+	<hr>
 	<div class="box-body">
-		<div class="row">
-			<div class="col-md-4 col-sm-2">
+		<div class="row" id="show_data">
+			<div class="col-md-4 col-sm-2" >
 				<div class="box box-warning" style="border-radius: 5px;">
 					<div class="box-header with-border">
 						<h3 class="box-title">แผนก 1</h3>
@@ -76,3 +85,7 @@
 		</div>
 	</div>
 </section>
+
+<!-- data -->
+<div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
+<?php echo csrf_field() ?>

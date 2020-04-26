@@ -6,8 +6,7 @@ use App\Services\Employee\EmployeeObject;
 class FormViewEvaluation
 {
 	public static function getFormViewEvaluation($evaluation_data, $evaluation_details){ // ดูการประเมินที่ลงคะแนนไปแล้ว
-
-
+		//sd($evaluation_data->answerformat->answerdetails->count());
 	$form = '<section class="content">';
 		$form .= '<div class="row">';
 			$form .= '<div class="col-md-12">';
@@ -18,7 +17,7 @@ class FormViewEvaluation
 					//sd($count_part);
 				$form .= '<div class="box box-info">';
 					$count_answerdeatils = $evaluation_data->answerformat->answerdetails->count(); //นับจำนวนรูปแบบคำตอบ
-
+					//sd($count_answerdeatils);
 					$count_answer = $evaluation_details->resultevaluation->count(); // นับจำนวนคำตอบทั้งหมด
 					//sd($count_answer);
 					$sum_of_question  	= 0; /*ผมรวมของแต่ละคำถาม*/

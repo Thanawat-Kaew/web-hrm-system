@@ -5,6 +5,8 @@ use App\Services\Employee\EmployeeObject;
 class FormEmployee
 {
 	public static function getFormEmployee($department, $position, $education, $employee=''){
+        //sd($employee->image);
+        /*ถ้า employee ไม่ว่างก็คือการแก้ไข */
         $form = '<div class="row">';
             $form .= '<div class="col-md-8 col-md-offset-2" >';
                 $form .= '<div class="box-body">';
@@ -13,7 +15,7 @@ class FormEmployee
                     $form .= '<div class="profile-picture">';
                         $form .= '<div class="form-group">';
                             $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
-                             $form .= '<input type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
+                             $form .= '<input type="file" name="picture" id="inputfilepicture" value="'.((!empty($employee['image']) ? $employee['image'] : '')).'" multiple="multiple">';
                          $form .= '</div>';
                      $form .= '</div>';
                     /*}*/
@@ -115,11 +117,35 @@ class FormEmployee
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-venus-mars"></i>';
                  $form .= '</div>';
-                 $form .= '<select class="form-control required select2" style="width: 100%;" id="gender">';
+
+
+                 /*$form .= '<select class="form-control required select2" style="width: 100%;" id="gender">';
                      $form .= '<option selected="selected" value="'.((!empty($employee) ? $employee['gender'] : '' )).'">'.((!empty($employee) ? $employee['gender'] : 'เลือกเพศ...' )).'</option>';
-                     $form .= '<option value="หญิง">หญิง</option>';
-                     $form .= '<option value="ชาย">ชาย</option>';
-                 $form .= '</select>';
+                if(!empty($employee)){ // แก้ไข
+                    $form .= '<option value="หญิง">หญิง</option>';
+                    $form .= '<option value="ชาย">ชาย</option>';
+                }else{ // เพิ่มหนักงาน
+                    $form .= '<option value="หญิง">หญิง</option>';
+                    $form .= '<option value="ชาย">ชาย</option>';
+                }
+                 $form .= '</select>';*/
+
+
+            if(!empty($employee)){ // กรณีแก้ไข
+                $form .= '<select class="form-control required select2" style="width: 100%;" id="gender">';
+                    $form .= '<option value="หญิง" '.(($employee['gender'] == "หญิง") ? 'selected' : '').'>หญิง</option>';
+                    $form .= '<option value="ชาย"'.(($employee['gender'] == "ชาย") ? 'selected' : '').'>ชาย</option>';
+
+                $form .= '</select>';
+            }else{ // กรณีเพิ่มพนักงาน
+                $form .= '<select class="form-control required select2" style="width: 100%;" id="gender">';
+                    $form .= '<option selected="selected" value="">เลือกเพศ...</option>';
+                    $form .= '<option value="หญิง">หญิง</option>';
+                    $form .= '<option value="ชาย">ชาย</option>';
+                $form .= '</select>';
+            }
+
+
              $form .= '</div>';
             $form .= '<label class="text-error" id="gender-text-error"></label>';
              $form .= 'อายุ';

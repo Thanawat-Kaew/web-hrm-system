@@ -19,6 +19,7 @@ use App\Services\Evaluation\ResultEvaluation;
 use App\Services\Forms\FormViewEvaluation;
 use App\Services\Forms\FormViewCreateEvaluations;
 use App\Services\Forms\FormSetTimeEvaluation;
+use App\Services\Forms\FormCheckCountEvaluationEmployee;
 
 
 class EvaluationController extends Controller
@@ -50,7 +51,9 @@ class EvaluationController extends Controller
 
     public function check_count_eval_emp() //หน้าเช็คว่าหัวหน้าประเมินพนักงานครบทุกคนหรือยัง
     {
-        return $this->useTemplate('evaluation.check_count_evaluations_emp');
+        $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
+        //sd($name_topic->toArray());
+        return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
     }
 
     public function postConfirmSendCreateEvaluation(Request $request) // เครื่องหมายติ๊กถูก
@@ -781,7 +784,7 @@ class EvaluationController extends Controller
                 $id_topic                = $request->get('id');
                 // sd($id_topic);
                 $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
-              
+
                 $form_repo       = new FormViewCreateEvaluations;
                 $form_view_create_eval = $form_repo->getFormViewCreateEvaluations($view_create_evaluation);
 
@@ -844,52 +847,40 @@ class EvaluationController extends Controller
                 $id_topic     = $request->get('id_topic');
 
                 $evaluation_data    = CreateEvaluation::with('parts', 'parts.question', 'answerformat', 'answerformat.answerdetails')->where('id_topic', $id_topic)->first();
+                //sd($evaluation_data->answerformat->answerdetails->count());
                 //sd($evaluation_data->toArray());
                 $evaluation_details = Evaluation::with('resultevaluation')->where('id_assessor', $id_employee)->where('id_topic', $id_topic)->first();
-                //sd($evaluation_details->toArray());
-
-                $e_d   = Evaluation::with('resultevaluation')->where('id_assessor', $id_employee)
-                        ->where('id_topic', $id_topic)->first();
-                //sd($e_d->toArray());
-
-                $e1    = ResultEvaluation::where('id_evaluation', 24)->get();
-                //d($e1->toArray());
-                //$e1    = $e1->groupBy('id_part');
-                //sd($e1->toArray());
-
-                //$e_s = [];
-                //var_dump($evaluation_details);
-                $e_s = $evaluation_details->resultevaluation->groupBy('id_part');
-                //print_r($e_s->toArray());
-                //sd($e_s->toArray());
-                //$aList  = array_chunk($e_s, 1);
-                //print_r(array_chunk($e_s,1,true));
-                //exit();
-                //sd($aList);
-                //var_dump($e_s);
-                /*sd($e_s);
-                exit();
-                sd($evaluation_details[]);*/
-                //sd($e1[237]->toArray());
-
-                //$e1    = $e1->groupBy('id_part')->count();
-                //sd($e1);
-                /*$c_e1  = $e1->count();
-                sd($c_e1);
-                for($i=0; $i<$c_e1; $i++){
-
-                }exit();*/
-
-                //sd($id_topic->toArray());
-                //sd($id_question->toArray());
-                /*if($evaluation_data->parts[0]->id_part == $evaluation_details->resultevaluation[2]->id_part){
-                    echo "true";
-                }else{
-                    echo "false";
-                }exit();*/
-
                 $form_repo           = new FormViewEvaluation;
                 $get_form_view_eva   = $form_repo->getFormViewEvaluation($evaluation_data, $evaluation_details);
+                return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
+                break;
+
+            case 'getFormCheckCountEvaluationEmployee': // Form แสดงผลจำนวนคนที่ถูกประเมินตามแต่ละแผนกและหัวข้อ
+                $id_topic            = $request->get('id_topic'); // รับ id_topic มา
+                $department          = Department::all();
+                $count_department    = $department->count(); // นับจำนวน department ว่ามีเท่าไร
+
+                $employee = [];
+                for($i=0; $i<$count_department; $i++){
+                    $employee[]         = Employee::with('department')->where('id_department', $department[$i]->id_department)->get(); // เก็บข้อมูลพนักงานแยกเป็นแผนก
+                }
+
+                $count_by_department    = []; // เก็บจำนวนคนที่ประเมินแล้วแยกตามแผนก
+                $count_emp              = 0;// นับพนักงานที่ประเมินแล้วตามหัวเรื่องนั้นๆ
+                $emp_evaluation         = Evaluation::with('employee')->where('id_topic', $id_topic)->get();
+                $count_emp_evaluation   = $emp_evaluation->count(); // นับจำนวนพนักงานที่ตรงกับหัวเรื่องประเมิน
+                for($i=0; $i<$count_department; $i++){ // for loop ตามจำนวน แผนก
+                    for($j=0; $j<$count_emp_evaluation; $j++){ // for loop ตามจำนวนพนักงานที่ประเมินแล้วและหัวข้อตรงกับ id_topic
+                        if($emp_evaluation[$j]->employee->id_department == $department[$i]->id_department){
+                            $count_emp = $count_emp + 1; // ถ้า แผนกตรงกันก็ให้บวก+1 ไปเรื่อยๆตามจำนวนที่ตรงกัน
+                            $count_by_department["$i"] = $count_emp;  // แล้วเก็บจำนวนแยกตามแผนก
+                        }
+                    }
+                    $count_emp = 0; // reset ทุกครั่งที่เปลี่ยนแผนก
+                }
+
+                $form_repo           = new FormCheckCountEvaluationEmployee; // ชื่อ page
+                $get_form_view_eva   = $form_repo->getFormCheckCountEvaluationEmployee($department, $employee, $count_by_department); // ชื่อ function ใน page
                 return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
                 break;
 
