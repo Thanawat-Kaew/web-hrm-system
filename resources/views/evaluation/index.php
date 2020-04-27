@@ -52,7 +52,7 @@
 						</div>
 					</div>
 				</div>
-
+				<?php //echo $department ;?>
 				<div class="box-body table-responsive no-padding">
 					<table id="myTable" class="table table-hover">
 						<tr>
@@ -62,32 +62,27 @@
 							<th>วันที่สร้าง</th>
 							<th>วันที่เปิดการประเมิน</th>
 							<th>วันที่สิ้นสุดการประเมิน</th>
+							<th>เหลือพนักงานที่ต้องประเมิน</th>
 							<th>ประเมิน</th>
 							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-								<th>กำหนดเวลา</th>
-								<?php endif ?>
-								<th>ดูแบบประมิน</th>
+							<th>กำหนดเวลา</th>
+							<?php endif ?>
+							<th>ดูแบบประเมิน</th>
 							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
 								<th>ลบ</th>
 							<?php endif ?>
 						</tr>
 						<?php if(!empty($evaluations)):?>
 							<?php
+								$no = 0;
 								foreach($evaluations as $evaluation):
 									$year = explode('-', $evaluation->years);
 									$today = date('Y-m-d');
 									$check_range_date_evaluation = false; // กำหนดตัวแปร check ว่าอยู่ในช่วงการประเมิน
-									/*if($check_range_date_evaluation == false){
-										echo "1";
-									}else{
-										echo "2";
-									}*/
 									if($today >= $evaluation->start_date_evaluation && $today <= $evaluation->end_date_evaluation){
-										//echo "อยู่ในระหว่างประเมิน";
 										// ถ้าอยู่ในช่วงการประเมิน จะมีค่าเป็น true
 										$check_range_date_evaluation = true;
 									}else{
-										//echo "ไม่อยู่ในช่วงประเมิน";
 										// ถ้าไม่อยู่ในช่วงการประเมิน จะมีค่าเป็น false
 										$check_range_date_evaluation = false;
 									}
@@ -102,6 +97,20 @@
 								</td>
 								<td>
 									<?php echo (!empty($evaluation->end_date_evaluation) ? $evaluation->end_date_evaluation : '')?>
+								</td>
+								<td>
+									<?php
+										if(isset($check_emp_eva[$no])){
+											$answer = $count_emp - $check_emp_eva[$no];
+											if($answer == 0){
+												echo "ท่านได้ประเมินครบแล้ว";
+											}else{
+												echo $answer." คน";
+											}
+										}else{
+											echo $count_emp." คน";
+										}
+									?>
 								</td>
 							<?php if($current_employee->id_position == 2){?>
 								<td>
@@ -123,7 +132,7 @@
 								<td>
 									<!-- <input type="text" id="value_id_eval" name="value_id_eval" value="<?php /*echo $evaluation->id_topic*/ ?>" class="hidden"> -->
 									<i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id_view="<?php echo $evaluation["id_topic"]?>"></i>
-								<!-- 	<a href="<?php //echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php //echo $evaluation["id_topic"]?>"></i></a> -->
+									<!-- a href="<?php //echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php //echo $evaluation["id_topic"]?>"></i></a> -->
 								</td>
 
 								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
@@ -131,6 +140,7 @@
 									</td>
 								<?php endif ?>
 							</tr>
+							<?php $no = $no +1?>
 						<?php endforeach?>
 					<?php endif?>
 				</table>
