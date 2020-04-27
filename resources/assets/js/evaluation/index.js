@@ -116,10 +116,10 @@ $(document).ready(function(){
 			cancelButtonColor: '#d33',
 			cancelButtonText: 'ไม่ลบ',
 			confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-		}).then((result) => 
+		}).then((result) =>
 		{
 			if (result.value){
-				postDelete(url); 
+				postDelete(url);
 			}
 		})
 	})
@@ -147,7 +147,7 @@ $(document).ready(function(){
 				// 	cancelButtonColor: '#d33',
 				// 	cancelButtonText: 'ไม่ลบ',
 				// 	confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
-				// }).then((result) => 
+				// }).then((result) =>
 				// {
 				// 	if (result.value){
 				// 		window.location.reload();
@@ -169,11 +169,15 @@ $(document).ready(function(){
 	$('.start_date, .end_date').datepicker({format: "yyyy-mm-dd"});
 
 	$('.set_time').click(function(){
+		var id_topic = $(this).data('id_topic');
+		//console.log(id_topic);
 		 $.ajax({
             headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
             type: 'POST',
             url: $('#ajax-center-url').data('url'),
-            data: {method : 'getFormSetTimeEvaluation'},
+            data: {method 			: 'getFormSetTimeEvaluation',
+            	   'id_topic' 	 	: id_topic
+        	},
             success: function (result) {
                 var title = "<h4 style='color: red;'>กำหนดเวลาการประเมินผล <small> | Set time evaluation</small></h4>"
                 showDialog(title,result.data)
@@ -187,7 +191,7 @@ $(document).ready(function(){
 })
 
 function showDialog(title,form,oldValue=''){
-    var box = bootbox.dialog({ 
+    var box = bootbox.dialog({
         title: title,
         message: form,
         size: 'xlarge',
@@ -229,7 +233,7 @@ function showDialog(title,form,oldValue=''){
 }
 
 function sendRequest(form, title){
-    msg_waiting();       
+    msg_waiting();
     var count            = 0;
     var oldValue         = {};
 
@@ -247,13 +251,13 @@ function sendRequest(form, title){
     if(count > 0) {
         showDialog(form, title, oldValue);
     } else {
-
-        // saveSetTime(form, title, oldValue);
+        saveSetTime(form, title, oldValue);
+        //saveSetTime(form, title, oldValue);
     }
 }
 
 function showDialogView(title,form){
-    var box1 = bootbox.dialog({ 
+    var box1 = bootbox.dialog({
         title: title,
         message: form,
         size: 'large',
@@ -277,7 +281,31 @@ function showDialogView(title,form){
 
 function saveSetTime(form, title, oldValue)
 {
-
+	var id = $('#id_topic').val();
+	//alert(id);
+	var start = $('#input-start_date').val();
+	//alert(start);
+	var end = $('#input-end_date').val();
+	//alert(end);
+	$.ajax({
+		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+		type : 'POST',
+		url  : $('#set-start_date_end_date_evaluation-url').data('url'),
+		data : {
+			id_topic 	: $('#id_topic').val(), /* ดึงค่ามาจากหน้า FormSetTimeEvaluation */
+			start_date  : $('#input-start_date').val(),
+			end_date 	: $('#input-end_date').val(),
+		},
+		success: function(response){
+			msg_success()
+			//window.location.reload();
+		},
+		error: function(error){
+			console.log(id_topic);
+			alert('Data not save set time');
+			msg_close();
+		}
+	});
 }
 
 function createNewEvaluation()
@@ -312,7 +340,7 @@ function search_data_tbl() {
 			} else {
 				tr[i].style.display = "none";
 			}
-		}       
+		}
 	}
 }
 
@@ -340,7 +368,7 @@ function postDelete(url){
 			} else {
 				alert(result.message);
 			}
-		},	
+		},
 		error : function(errors){
 			console.log(errors);
 		}
