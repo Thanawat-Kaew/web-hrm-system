@@ -943,8 +943,8 @@ class EvaluationController extends Controller
 
     public function postDeleteCreateEvaluation($id)
     {
-        $id_topic    = CreateEvaluation::with('parts', 'parts.question')->where('id_topic', $id)->first();
-
+        $id_topic    = CreateEvaluation::with('parts', 'parts.question','evaluation','evaluation.resultevaluation')->where('id_topic', $id)->first();
+        sd($id_topic->toArray());
         if(!empty($id_topic)){
 
             $id_topic->delete();
