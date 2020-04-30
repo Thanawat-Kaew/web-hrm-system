@@ -43,7 +43,6 @@
 					</button>
 				</div>
 			</div>
-			<!-- table view -->
 			<div class="col-md-12 hide" id="table_view">
 				<div class="box box-warning">
 					<div class="box-body no-padding">
