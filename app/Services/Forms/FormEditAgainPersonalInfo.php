@@ -73,13 +73,14 @@ class FormEditAgainPersonalInfo
                  $form .= '</select>';
              $form .= '</div>';
              $form .= '<label class="text-error" id="gender-text-error"></label>';
-             $form .= 'อายุ';
+             $form .= 'วัน เดือน ปี ที่เกิด';
             $form .= '<div class="input-group old_employee">';
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa  fa-circle-o"></i>';
                  $form .= '</div>';
-                 $form .= '<input class="form-control required"  type="number" value="'.$employee["age"].'" id="age">';
+                 $form .= '<input class="form-control required datepicker" value="'.$employee["date_of_birth"].'" id="date_of_birth">';
              $form .= '</div>';
+             $form .= '<label class="text-error" id="date_of_birth-text-error"></label>';
              $form .= 'ที่อยู่';
             $form .= '<div class="input-group address_employee">';
                 $form .= '<div class="input-group-addon">';

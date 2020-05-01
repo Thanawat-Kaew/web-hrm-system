@@ -1,7 +1,3 @@
-<?php
-	use App\Services\Evaluation\Evaluation;
-	use App\Services\Employee\Employee;
-?>
 <section class="content-header">
 	<h3>
 		การประเมินผล |
@@ -76,10 +72,8 @@
 								<th>ลบ</th>
 							<?php endif ?>
 						</tr>
-						<?php //sd($a[9]); ?>
 						<?php if(!empty($evaluations)):?>
 							<?php
-								//var_dump($a);
 								$no = 0;
 								foreach($evaluations as $evaluation):
 									$year = explode('-', $evaluation->years);
@@ -92,7 +86,6 @@
 										// ถ้าไม่อยู่ในช่วงการประเมิน จะมีค่าเป็น false
 										$check_range_date_evaluation = false;
 									}
-									//$a = $a + 1;
 							?>
 							<tr class="row-create-evaluation">
 								<td><?php echo sprintf("%06d", $evaluation->id_topic); ?></td>
@@ -136,7 +129,7 @@
 									<i class="btn fa fa-clock-o fa-lg set_time" data-id_topic="<?php echo $evaluation->id_topic?>"></i>
 								</td>
 								<?php endif ?>
-								<td>
+								<td style="cursor:pointer">
 									<!-- <input type="text" id="value_id_eval" name="value_id_eval" value="<?php /*echo $evaluation->id_topic*/ ?>" class="hidden"> -->
 									<i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id_view="<?php echo $evaluation["id_topic"]?>"></i>
 									<!-- a href="<?php //echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php //echo $evaluation["id_topic"]?>"></i></a> -->

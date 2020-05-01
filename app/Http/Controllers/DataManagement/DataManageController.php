@@ -127,7 +127,8 @@ class DataManageController extends Controller
         $address                 = $request->get('address');
         $gender                  = $request->get('gender');
         $tel                     = $request->get('tel');
-        $age                     = $request->get('age');
+        $date_of_birth           = $request->get('date_of_birth');
+        //sd($date_of_birth);
         $education               = $request->get('education');
         $salary                  = $request->get('salary');
 
@@ -153,7 +154,7 @@ class DataManageController extends Controller
         $employee->address       = $address;
         $employee->gender        = $gender;
         $employee->tel           = $tel;
-        $employee->age           = $age;
+        $employee->date_of_birth = $date_of_birth;
         $employee->id_education  = $education;
         $employee->salary        = $salary;
 
@@ -235,13 +236,90 @@ class DataManageController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $id          = $request->get('id');
-        //sd($id);
-        $confirm = RequestChangeData::find($id);
-        //d($confirm->toArray());
-        $confirm->status                 = 1;
-        $confirm->approvers              = $current_employee['id_employee'];
+        $id                            = $request->get('id');
+
+        $confirm                       = RequestChangeData::find($id);
+
+        $confirm->status               = 1;
+        $confirm->approvers            = $current_employee['id_employee'];
         $confirm->save();
+
+        $find_employee                 = Employee::where('id_employee', $confirm['id_employee'])->first();
+        $find_employee->first_name     = $confirm->first_name;
+        $find_employee->last_name      = $confirm->last_name;
+        $find_employee->id_department  = $confirm->id_department;
+        $find_employee->id_education   = $confirm->id_education;
+        $find_employee->gender         = $confirm->gender;
+        $find_employee->date_of_birth  = $confirm->date_of_birth;
+        $find_employee->address        = $confirm->address;
+        $find_employee->email          = $confirm->email;
+        $find_employee->tel            = $confirm->tel;
+
+        if($confirm->id_department == "hr0001"){
+            $find_employee->id_role    = 3;
+        }else if($confirm->id_department !== "hr0001"){
+            $find_employee->id_role    = 1;
+        }
+        $find_employee->save();
+
+        $employee                   = Employee::where('id_employee', $find_employee->id_employee)->first();
+        //d($employee->toArray());
+        $array_general_department   = [];
+        $general_department         = Department::where('id_department', '!=', 'hr0001')->get();
+        foreach ($general_department as $value) {
+            $array_general_department[] = $value['id_department'];
+        }
+        //d($array_general_department);
+        $humen_department   = Department::where('id_department', 'hr0001')->first();
+        //d($humen_department->toArray());
+        if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "1"){
+            $employee->id_role = 1; // general_employee
+            $employee_menu      = EmployeeMenu::where('id_employee', $employee->id_employee)->get();
+            foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
+                $value->delete();
+            }
+            for($i=1; $i<=3; $i++){ // general_employee //แล้วเพิ่มเมนูใหม่เข้าไป
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $employee->id_employee;
+                $employee_menu->id_menu         = $i;
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }else if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "2"){
+            $employee->id_role = 2; // header_general
+            $employee_menu      = EmployeeMenu::where('id_employee', $employee->id_employee)->get();
+            foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
+                $value->delete();
+            }
+            for($i=1; $i<=6; $i++){ // header_employee //แล้วเพิ่มเมนูใหม่เข้าไป
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $employee->id_employee;
+                $employee_menu->id_menu         = $i;
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "1"){
+            $employee->id_role = 3; // hr_employee
+            $employee_menu      = EmployeeMenu::where('id_employee', $employee->id_employee)->get();
+            foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
+                $value->delete();
+            }
+            for($i=1; $i<=5; $i++){
+                $employee_menu                  = new EmployeeMenu();
+                $employee_menu->id_employee     = $employee->id_employee;
+                if($i == 5){
+                    $employee_menu->id_menu     = 6;
+                }else{
+                    $employee_menu->id_menu     = $i;
+                }
+                $employee_menu->permission      = '["read", "write"]';
+                $employee_menu->save();
+            }
+        }
+        $employee->save();
+
+
+
     }
 
     public function cancelDataRequest(Request $request)
@@ -274,7 +352,7 @@ class DataManageController extends Controller
         $address                    = $request->get('address');
         $gender                     = $request->get('gender');
         $tel                        = $request->get('tel');
-        $age                        = $request->get('age');
+        $date_of_birth              = $request->get('date_of_birth');
         $education                  = $request->get('education');
         $salary                     = $request->get('salary');
 
@@ -290,7 +368,7 @@ class DataManageController extends Controller
         $employee->address          = $address;
         $employee->gender           = $gender;
         $employee->tel              = $tel;
-        $employee->age              = $age;
+        $employee->date_of_birth    = $date_of_birth;
         $employee->id_education     = $education;
         $employee->salary           = $salary;
 

@@ -124,7 +124,7 @@ $(document).ready(function(){
 		})
 	})
 
-	$(".content").on('click',".btn-remove-topic", function(){ // ลบการประเมิน
+	/*$(".content").on('click',".btn-remove-topic", function(){ // ลบการประเมิน
 		var id = $(this).data('id');
 		//console.log(id);
 		//$(this).parents(".row-create-evaluation").remove();
@@ -160,7 +160,7 @@ $(document).ready(function(){
 				console.log(error);
 			}
 		})
-	});
+	});*/
 
 	$('#myInput').keyup(function(){
 		search_data_tbl();
@@ -345,7 +345,6 @@ function search_data_tbl() {
 }
 
 function postDelete(url){
-
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type: 'POST',
@@ -365,7 +364,7 @@ function postDelete(url){
 						window.location.reload();
 					}
 				})
-			} else {
+			}else{
 				alert(result.message);
 			}
 		},
