@@ -886,9 +886,8 @@ class EvaluationController extends Controller
                 $id          = $request->get('id');
                 //sd($id);
                 $id_topic    = CreateEvaluation::with('parts', 'parts.question')->where('id_topic', $id)->first();
-                //sd($id_topic->toArray());
                 //sd($id_question->toArray());
-                $id_topic ->delete();
+                $id_topic->delete();
                 return response()->json(['status'=> 'success', 'data' => $id]);
                 break;
 
@@ -941,14 +940,84 @@ class EvaluationController extends Controller
         }
     }
 
-    public function postDeleteCreateEvaluation($id)
+    public function postDeleteCreateEvaluation($id) // กบลบการประเมินที่หน้า evaluation/index.php
     {
-        $id_topic    = CreateEvaluation::with('parts', 'parts.question','evaluation','evaluation.resultevaluation')->where('id_topic', $id)->first();
-        sd($id_topic->toArray());
-        if(!empty($id_topic)){
+        $id_topic    = CreateEvaluation::with('parts', 'parts.question', 'evaluation', 'evaluation.resultevaluation')->where('id_topic', $id)->first();
+        //d($id_topic->toArray());
+        if(!empty($id_topic)){ // ถ้า หัวเรื่องมีจริง
+            if($id_topic->parts->count() > 0){ // ถ้า part มากกว่า 0 แสดงว่าการประเมินนี้มีตอน
+                $count_part      = $id_topic->parts->count(); // นับจำนวน part ของ หัวเรื่องการประเมินที่ลบ
 
-            $id_topic->delete();
+                $get_id_part     = []; // ตัวแปรที่เอาไว้เก็บ id ของ part แต่ละ part
 
+                for($i=0; $i<$count_part; $i++){ // loop ตามจำนวนตอนที่การประเมินมี
+                    $id_part        = Part::where('id_topic', $id_topic->parts[$i]->id_topic)->get();
+                    $get_id_part[]  = $id_part[$i]->id_part; // เก็บ id ของแต่ละตอน
+                }
+
+                $get_id_question = []; // ตัวแปรที่เอาไว้เก็บ id ของ คำถาม แต่ละของแต่ละตอน
+                $count_question  = []; // ตัวแปรที่เก็บเอาไว้นับ จำนวนตอนต่อคำถาม
+                $check_question  = false; // เช็ค question มามีจริงไหม
+                for($j=0; $j<$count_part; $j++){ // loop ตามจำนวนตอน
+                    $id_part        = Part::with('question')->where('id_part', $get_id_part[$j])->first();
+                    // หา id_part ตาม id ที่เก็บไว้ในตัวแปร $get_id_part
+                    $count_question[$j]  = $id_part->question->count(); // นับจำนวนคำถามต่อตอน
+                    if($count_question[$j] > 0){ //ถ้ามากกว่า 0 แสดงว่ามี คำถาม
+                        $check_question  = true;
+                        for($k=0; $k<$count_question[$j]; $k++){ // loop ตามจำนวนคำถาม
+                            $get_id_question[$j][$k] =  $id_part->question[$k]->id_question; //ทำการแยกใส่ array ว่าตอนนนี้มีกี่คำถาม
+                        }
+                    }
+                    $id_part->delete(); // ลบตอน
+                }
+                if($check_question){ // check ว่ามีคำภามไหม
+                    for($i=0; $i<$count_part; $i++){ // loop ตามจำนวนตอน
+                        for($j=0; $j<$count_question[$i]; $j++){ // loop ตามจำนวนคำถามต่อตอน
+                            $id_question = Question::where('id_question', $get_id_question[$i][$j])->first();
+                            $id_question->delete(); // ลบคำถาม
+                        }
+                    }
+                }
+            }
+
+            if($id_topic->evaluation->count() > 0){ // ถ้ามากกว่า 0 แสดงว่ามีการประเมินแล้ว
+                $count_evaluation     = $id_topic->evaluation->count(); // นับจำนวน การประเมิน ของ หัวเรื่องการประเมินที่ลบ เช่นการประเมินนี้ประเมินไปแล้ว 2 คน ก็จะนับได้ 2
+                $get_id_evaluation    = []; // ตัวแปรที่เอาไว้เก็บ id ของการประเมินที่ลงคะนนการปเมินแล้ว
+
+                for($i=0; $i<$count_evaluation; $i++){ // loop ตามจำนวนตอนที่มีการประเมิน
+                    $id_evaluation       = Evaluation::where('id_topic', $id_topic->evaluation[$i]->id_topic)->get();
+                    $get_id_evaluation[] = $id_evaluation[$i]->id_evaluation; // เก็บ id ของแต่ละการประเมิน
+                }
+
+
+                $get_id_result_eva = []; // ตัวแปรที่เอาไว้เก็บ id ของรายละเอียดการประเมิน
+                $count_result_eva  = []; // ตัวแปรที่เก็บเอาไว้นับ จำนวนรายละเอียดของการประเมิน
+                $check_result_eva = false;
+                for($i=0; $i<$count_evaluation; $i++){ // loop ตามจำนวนที่มีการลงคะแนนประเมิน
+                    $id_evaluation      = Evaluation::with('resultevaluation')
+                                        ->where('id_evaluation', $get_id_evaluation[$i])
+                                        ->first(); // หา id_evaluation ตาม id ที่เก็บไว้ในตัวแปร $get_id_evaluation
+                    $count_result_eva[$i]  = $id_evaluation->resultevaluation->count(); // นับจำนวนรายละเอียดคำตอบต่อการประเมิน
+                    if($count_result_eva[$i] > 0){ //ถ้ามากกว่า 0 แสดงว่ามีรายละเอียดคำตอบ
+                        $check_result_eva  = true;
+                        for($j=0; $j<$count_result_eva[$i]; $j++){ // loop ตามจำนวนรายละเอียด
+                            $get_id_result_eva[$i][$j] =  $id_evaluation->resultevaluation[$j]->id_result_evaluation; //ทำการแยกใส่ array id ของ ลายละเอียดคำตอบ
+                        }
+                    }
+                    $id_evaluation->delete(); // ลบการประเมิน
+                }
+
+                if($check_result_eva){ // ถ้ามีราลละเอียดการประเมิน
+                    for($i=0; $i<$count_evaluation; $i++){ // loop ตามจำนวนการประเมิน
+                        for($j=0; $j<$count_result_eva[$i]; $j++){ // loop ตามจำนวนรายละเอียดต่อการประเมิน
+                            $id_result_eva = ResultEvaluation::where('id_result_evaluation', $get_id_result_eva[$i][$j])->first();
+                            $id_result_eva->delete(); // ลบลายละเอียดการประเมิน
+                        }
+                    }
+                }
+
+            }
+            $id_topic->delete(); // ลบข้อมูลของ table create_evaluation
             return['status'     => 'success', 'message' => 'Delete complete.'];
         } else {
             return['status'     => 'failed','message'   =>'Not found.'];

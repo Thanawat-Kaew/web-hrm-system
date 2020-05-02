@@ -148,14 +148,14 @@ class FormEmployee
 
              $form .= '</div>';
             $form .= '<label class="text-error" id="gender-text-error"></label>';
-             $form .= 'อายุ';
-            $form .= '<div class="input-group old_employee">';
+             $form .= 'วัน/เดือน/ปี ที่เกิด';
+            $form .= '<div class="input-group old_employee ">';
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa  fa-circle-o"></i>';
                  $form .= '</div>';
-                 $form .= '<input class="form-control required" type="number" value="'.((!empty($employee) ? $employee["age"] : '' )).'" placeholder="25..." id="age">';
+                 $form .= '<input class="form-control required datepicker" type="" value="'.((!empty($employee) ? $employee["date_of_birth"] : '' )).'" placeholder="2018-09-12" id="date_of_birth" >';
              $form .= '</div>';
-            $form .= '<label class="text-error" id="age-text-error"></label>';
+            $form .= '<label class="text-error" id="date_of_birth-text-error"></label>';
              $form .= 'ที่อยู่';
             $form .= '<div class="input-group address_employee">';
                 $form .= '<div class="input-group-addon">';

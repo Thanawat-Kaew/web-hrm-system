@@ -1,4 +1,4 @@
-$(function(){
+	$(function(){
 	msg_waiting()
 	// $('.sidebar-toggle').hide();
 
@@ -136,6 +136,7 @@ function showDialog(form,title, oldValue=''){
 	})
 
 	box.on('shown.bs.modal', function(){
+		$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 		$('body').addClass('modal-open');
 		if(oldValue !== ""){
 			$.each(oldValue, function(key, value) {
@@ -184,18 +185,18 @@ function editDataEmployee(oldValue){
 		type : 'POST',
 		url  : $('#edit-data-employee').data('url'),
 		data : {
-			id_employee : $('#id_employee').val(),
-			fname 		: $('#fname').val(),
-			lname 		: $('#lname').val(),
-			position 	: $('#position').val(),
-			department 	: $('#department').val(),
-			education 	: $('#education').val(),
-			gender 		: $('#gender').val(),
-			age 		: $('#age').val(),
-			address 	: $('#address').val(),
-			email      	: $('#email').val(),
-			tel 		: $('#tel').val(),
-			reason 		: $('#reason').val(),
+			id_employee 	: $('#id_employee').val(),
+			fname 			: $('#fname').val(),
+			lname 			: $('#lname').val(),
+			position 		: $('#position').val(),
+			department 		: $('#department').val(),
+			education 		: $('#education').val(),
+			gender 			: $('#gender').val(),
+			date_of_birth 	: $('#date_of_birth').val(),
+			address 		: $('#address').val(),
+			email      		: $('#email').val(),
+			tel 			: $('#tel').val(),
+			reason 			: $('#reason').val(),
 		},
 		success: function(response){
 			// success alert
@@ -217,19 +218,19 @@ function updateEditDataEmployee(oldValue){
 		type : 'POST',
 		url  : $('#update-edit-data-employee').data('url'),
 		data : {
-			id          : $('#id').val(),
-			id_employee : $('#id_employee').val(),
-			fname 		: $('#fname').val(),
-			lname 		: $('#lname').val(),
-			position 	: $('#position').val(),
-			department 	: $('#department').val(),
-			education 	: $('#education').val(),
-			gender 		: $('#gender').val(),
-			age 		: $('#age').val(),
-			address 	: $('#address').val(),
-			email      	: $('#email').val(),
-			tel 		: $('#tel').val(),
-			reason 		: $('#reason').val(),
+			id          	: $('#id').val(),
+			id_employee 	: $('#id_employee').val(),
+			fname 			: $('#fname').val(),
+			lname 			: $('#lname').val(),
+			position 		: $('#position').val(),
+			department 		: $('#department').val(),
+			education 		: $('#education').val(),
+			gender 			: $('#gender').val(),
+			date_of_birth 	: $('#date_of_birth').val(),
+			address 		: $('#address').val(),
+			email      		: $('#email').val(),
+			tel 			: $('#tel').val(),
+			reason 			: $('#reason').val(),
 		},
 		success: function(response){
 			// success alert

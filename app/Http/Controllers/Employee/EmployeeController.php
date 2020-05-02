@@ -102,7 +102,7 @@ class EmployeeController extends Controller
         $department  = $request->get('department');
         $education   = $request->get('education');
         $gender      = $request->get('gender');
-        $age         = $request->get('age');
+        $date_of_birth         = $request->get('date_of_birth');
         $address     = $request->get('address');
         $email       = $request->get('email');
         $tel         = $request->get('tel');
@@ -117,7 +117,7 @@ class EmployeeController extends Controller
         $edit->id_department   = $department;
         $edit->id_education    = $education;
         $edit->gender          = $gender;
-        $edit->age             = $age;
+        $edit->date_of_birth             = $date_of_birth;
         $edit->address         = $address;
         $edit->email           = $email;
         $edit->tel             = $tel;
@@ -136,7 +136,7 @@ class EmployeeController extends Controller
         $department  = $request->get('department');
         $education   = $request->get('education');
         $gender      = $request->get('gender');
-        $age         = $request->get('age');
+        $date_of_birth         = $request->get('date_of_birth');
         $address     = $request->get('address');
         $email       = $request->get('email');
         $tel         = $request->get('tel');
@@ -156,7 +156,7 @@ class EmployeeController extends Controller
         $edit->id_department   = $department;
         $edit->id_education    = $education;
         $edit->gender          = $gender;
-        $edit->age             = $age;
+        $edit->date_of_birth             = $date_of_birth;
         $edit->address         = $address;
         $edit->email           = $email;
         $edit->tel             = $tel;

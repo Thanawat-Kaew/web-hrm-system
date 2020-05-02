@@ -129,7 +129,7 @@
 									<i class="btn fa fa-clock-o fa-lg set_time" data-id_topic="<?php echo $evaluation->id_topic?>"></i>
 								</td>
 								<?php endif ?>
-								<td>
+								<td style="cursor:pointer">
 									<!-- <input type="text" id="value_id_eval" name="value_id_eval" value="<?php /*echo $evaluation->id_topic*/ ?>" class="hidden"> -->
 									<i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id_view="<?php echo $evaluation["id_topic"]?>"></i>
 									<!-- a href="<?php //echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php //echo $evaluation["id_topic"]?>"></i></a> -->

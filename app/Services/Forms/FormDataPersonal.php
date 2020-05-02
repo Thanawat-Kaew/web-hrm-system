@@ -43,8 +43,8 @@ class FormDataPersonal
                                  $form .= '<td>'. $employee['gender'].'</td>';
                              $form .= '</tr>';
                              $form .= '<tr>';
-                                 $form .= '<td>อายุ</td>';
-                                 $form .= '<td>'. $employee['age'].'</td>';
+                                 $form .= '<td>วัน เดือน ปี ที่เกิด</td>';
+                                 $form .= '<td>'. $employee['date_of_birth'].'</td>';
                              $form .= '</tr>';
                              $form .= '<tr>';
                                  $form .= '<td>ที่อยู่</td>';

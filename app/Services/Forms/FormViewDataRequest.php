@@ -57,12 +57,12 @@ class FormViewDataRequest
                  $form .= '<input class="form-control required select2" readonly style="width: 100%;" id="education" value="'.$employee['gender'].'">';
              $form .= '</div>';
              $form .= '<label class="text-error" id="gender-text-error"></label>';
-             $form .= 'อายุ';
+             $form .= 'วัน เดือน ปี ที่เกิด';
             $form .= '<div class="input-group old_employee">';
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa  fa-circle-o"></i>';
                  $form .= '</div>';
-                 $form .= '<input class="form-control required" readonly type="number" value="'.$employee["age"].'" id="age">';
+                 $form .= '<input class="form-control required" readonly type="" value="'.$employee["date_of_birth"].'" id="date_of_birth">';
              $form .= '</div>';
              $form .= 'ที่อยู่';
             $form .= '<div class="input-group address_employee">';

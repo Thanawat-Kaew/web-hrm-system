@@ -345,7 +345,6 @@ function search_data_tbl() {
 }
 
 function postDelete(url){
-
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type: 'POST',
@@ -365,7 +364,7 @@ function postDelete(url){
 						window.location.reload();
 					}
 				})
-			} else {
+			}else{
 				alert(result.message);
 			}
 		},

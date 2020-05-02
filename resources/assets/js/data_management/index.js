@@ -1,5 +1,6 @@
 $(function(){
 
+
 	$('#header, #employee').on('click', '.manage-employee', function(){
 		msg_waiting();
 		var id 		= $(this).data('form_id');
@@ -190,6 +191,9 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 	})
 	//console.log(confirm_password);
 	box.on('shown.bs.modal', function(){
+
+		$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+
 		msg_close();
 		$('body').addClass('modal-open'); //scroll mouse
 		if(oldValue !== ""){
@@ -262,7 +266,7 @@ function saveAddEmployee(form, title, oldValue,not_match){
 	var address 		= $('#address').val();
 	var gender 			= $('#gender').val();
 	var tel 			= $('#tel').val();
-	var age 			= $('#age').val();
+	var date_of_birth   = $('#date_of_birth').val();
 	var education 		= $('#education').val();
 	var salary 			= $('#salary').val();
 
@@ -275,7 +279,7 @@ function saveAddEmployee(form, title, oldValue,not_match){
 	form_data.append('password', password);
 	form_data.append('address', address);
 	form_data.append('gender', gender);
-	form_data.append('age', age);
+	form_data.append('date_of_birth', date_of_birth);
 	form_data.append('tel', tel);
 	form_data.append('education', education);
 	form_data.append('salary', salary);
@@ -359,7 +363,7 @@ function saveEditEmployee(oldValue){
 	var address 		= $('#address').val();
 	var gender 			= $('#gender').val();
 	var tel 			= $('#tel').val();
-	var age 			= $('#age').val();
+	var date_of_birth 			= $('#date_of_birth').val();
 	var education 		= $('#education').val();
 	var salary 			= $('#salary').val();
 
@@ -373,7 +377,7 @@ function saveEditEmployee(oldValue){
 	form_data.append('password', password);
 	form_data.append('address', address);
 	form_data.append('gender', gender);
-	form_data.append('age', age);
+	form_data.append('date_of_birth', date_of_birth);
 	form_data.append('tel', tel);
 	form_data.append('education', education);
 	form_data.append('salary', salary);
