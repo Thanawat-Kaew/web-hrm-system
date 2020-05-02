@@ -239,7 +239,7 @@ class DataManageController extends Controller
         $id                            = $request->get('id');
 
         $confirm                       = RequestChangeData::find($id);
-
+        sd($confirm->toArray());
         $confirm->status               = 1;
         $confirm->approvers            = $current_employee['id_employee'];
         $confirm->save();
@@ -286,7 +286,7 @@ class DataManageController extends Controller
                 $employee_menu->save();
             }
         }else if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "2"){
-            $employee->id_role = 2; // header_general
+            /*$employee->id_role = 2; // header_general
             $employee_menu      = EmployeeMenu::where('id_employee', $employee->id_employee)->get();
             foreach ($employee_menu as $value) { // ลบ menu ทิ้ง
                 $value->delete();
@@ -297,7 +297,9 @@ class DataManageController extends Controller
                 $employee_menu->id_menu         = $i;
                 $employee_menu->permission      = '["read", "write"]';
                 $employee_menu->save();
-            }
+            }*/
+            echo "2";
+            exit();
         }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "1"){
             $employee->id_role = 3; // hr_employee
             $employee_menu      = EmployeeMenu::where('id_employee', $employee->id_employee)->get();
