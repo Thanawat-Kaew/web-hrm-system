@@ -152,6 +152,7 @@ Route::group(['middleware' => ['login']], function(){
 
 	// *************************************Dashboard***********************************/
 	Route::get('/main/dashboard', 'Dashboard\DashboardController@dashboard')->name('dashboard.dashboard.get');
+	Route::post('/dashboard/ajax_center', 'Dashboard\DashboardController@ajaxCenter')->name('dashboard.ajax_center.post'); // ajaxcenter
 
 	// *************************************End Dashboard***********************************/
 
