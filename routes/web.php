@@ -15,7 +15,17 @@ Route::get('/', function () {
     return view('auth.login');
     // return view('layouts.template');
     // return view('main');
+    /*return view('welcome');
+    $to_name  = "anil sidhu";
+    $to_email = "tra570303@gmail.com";
+    $data     = array("name"=>"Peter Parker", "body"=>"Test mail");
+    Mail::send('mail', $data, function($message) use ($to_name, $to_email){
+    	$message->to($to_email)
+    	->subject('Lara mail subject');
+    });*/
+
 });
+
 Auth::routes();
 
 Route::auth();
@@ -126,6 +136,8 @@ Route::group(['middleware' => ['login']], function(){
 	Route::get('/index/view_score/{id_topic}','PDFController@generatePDF_view_scroe')->name('evaluation.view_score');
 
 	Route::post('/evaluation/set_start_date_end_date_evaluations', 'Evaluation\EvaluationController@setStartDateAndEndDateEvaluation')->name('evaluation.set_start_date_end_date_evaluations.post'); // กำหนดระยะเวลาการประเมิน
+
+	Route::get('/index/check_count_eval_emp/form_send_email','Evaluation\EvaluationController@formSendEmail')->name('evaluation.form_send_email.get');
 
 	/************************************************End Evaluation******************************************************************/
 

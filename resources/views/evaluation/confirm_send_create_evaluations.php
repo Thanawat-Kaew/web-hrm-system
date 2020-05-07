@@ -70,7 +70,12 @@
 								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
 
 
-									<td><a><i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></a>
+									<td>
+										<a>
+											<i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>">
+
+											</i>
+										</a>
 									</td>
 								<?php endif ?>
 							</tr>

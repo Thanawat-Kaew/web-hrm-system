@@ -79,6 +79,15 @@ class EvaluationController extends Controller
         }
     }
 
+    public function formSendEmail()
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+       // $evaluations = CreateEvaluation::where('id_employee', $current_employee['id_employee'])->where('confirm_send_create_evaluation', 0)->get();
+        return $this->useTemplate('evaluation.form_send_email',compact('current_employee'));
+    }
+
     public function confirmSendCreateEvaluation() //หน้า confirmSendCreateEvaluation
     {
         if(\Session::has('current_employee')){
@@ -943,6 +952,7 @@ class EvaluationController extends Controller
     public function postDeleteCreateEvaluation($id) // กบลบการประเมินที่หน้า evaluation/index.php
     {
         $id_topic    = CreateEvaluation::with('parts', 'parts.question', 'evaluation', 'evaluation.resultevaluation')->where('id_topic', $id)->first();
+        //sd($id_topic->toArray());
         //d($id_topic->toArray());
         if(!empty($id_topic)){ // ถ้า หัวเรื่องมีจริง
             if($id_topic->parts->count() > 0){ // ถ้า part มากกว่า 0 แสดงว่าการประเมินนี้มีตอน
