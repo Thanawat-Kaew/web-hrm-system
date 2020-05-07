@@ -37,40 +37,38 @@
     <hr>
     <div class="box-body show" id="group-employee">
         <div class="row" id="header">
-            <?php foreach($employee as $key => $value):
-                if($value['id_position'] == 2) : ?>
-                    <div class="col-md-3 col-sm-2">
-                        <div class="box box-widget widget-user-2">
-                            <div class="widget-user-header">
-                                <!-- /.widget-user-image -->
-                                <div class="group-image" align="center" valign="center">
-                                    <?php if(!empty($value->image)){?> <!-- ถ้ามีรูป  -->
-                                            <img src="/public/image/<?php echo $value->image ?>" class="user-image img-circle" alt="User Image" style="width: 128px; height: 128px;">
-                                    <?php }else{?> <!-- ถ้าไม่มีรุป -->
-                                            <img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-image img-circle" alt="User Image">
-                                    <?php } ?>
-                                </div>
-                                <div class="about-employee">
-                                    <p id="header_id">รหัส  :<span><?php echo $value['id_employee']?></span></p>
-                                    <p id="header_name">ชื่อ   :<span><?php echo $value['first_name']?> <?php echo $value['last_name']?></span></p>
-                                </div>
-
-                            </div>
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-stacked">
-                                    <li class="manage-employee" data-form_id="<?php echo $value['id_employee']?>" data-form_position="<?php echo $value['id_position']?>" data-form_department="<?php echo $value['id_department']?>">
-                                        <a style="margin: 5px border: 1px; color : #F76608;">
-                                            <center>
-                                                <i class="fa fa-cog"></i> Manage Data
-                                            </center>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+            <div class="col-md-3 col-sm-2">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header">
+                        <!-- /.widget-user-image -->
+                        <div class="group-image" align="center" valign="center">
+                            <?php if(!empty($header->image)){?> <!-- ถ้ามีรูป  -->
+                                    <img src="/public/image/<?php echo $header->image?>" class="user-image img-circle" alt="User Image" style="width: 128px; height: 128px;">
+                                    <?php echo "มีรูป";?>
+                            <?php }else{?> <!-- ถ้าไม่มีรุป -->
+                                    <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                                    <?php echo "ไม่มีรูป";?>
+                            <?php } ?>
                         </div>
+                        <div class="about-employee">
+                            <p id="header_id">รหัส  :<span><?php echo $header['id_employee']?></span></p>
+                            <p id="header_name">ชื่อ   :<span><?php echo $header['first_name']?> <?php echo $header['last_name']?></span></p>
+                        </div>
+
                     </div>
-                <?php endif ?>
-            <?php endforeach ?>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li class="manage-employee" data-form_id="<?php echo $header['id_employee']?>" data-form_position="<?php echo $header['id_position']?>" data-form_department="<?php echo $header['id_department']?>">
+                                <a style="margin: 5px border: 1px; color : #F76608;">
+                                    <center>
+                                        <i class="fa fa-cog"></i> Manage Data
+                                    </center>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <h4 class="box-title">พนักงาน</h4>

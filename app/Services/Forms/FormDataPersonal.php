@@ -4,7 +4,7 @@ namespace App\Services\Forms;
 use App\Services\Employee\EmployeeObject;
 class FormDataPersonal
 {
-	 public static function getDataPersonal($employee){
+	 public static function getDataPersonal($employee, $age){
                  $form = '<div class="box-body">';
                  $form .= '<div class="text-center">';
                      $form .= '<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image" style="width : 80px; height : 80px;">';
@@ -43,8 +43,8 @@ class FormDataPersonal
                                  $form .= '<td>'. $employee['gender'].'</td>';
                              $form .= '</tr>';
                              $form .= '<tr>';
-                                 $form .= '<td>วัน เดือน ปี ที่เกิด</td>';
-                                 $form .= '<td>'. $employee['date_of_birth'].'</td>';
+                                 $form .= '<td>อายุ</td>';
+                                 $form .= '<td>'.$age.' ปี</td>';
                              $form .= '</tr>';
                              $form .= '<tr>';
                                  $form .= '<td>ที่อยู่</td>';

@@ -32,7 +32,13 @@ class EmployeeController extends Controller
             $request_edit_data = RequestChangeData::with('employee')->where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
             //sd($request_edit_data->toArray());
     	}
-        return $this->useTemplate('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data', 'name_education'));
+        //sd($current_employee->toArray());
+        $date_of_birth  = $current_employee->date_of_birth; // วันเกิดจากฐานข้อมูล
+        $str            = strtotime(date('Y-m-d')) - (strtotime($date_of_birth)); //นำมาลบกับวันที่ปัจจุบัน
+        $day            = floor($str/3600/24); // แปลงเป็นวัน
+        $age            = number_format($day / 365); // แปลงเป็นอายุ
+        //sd($age);
+        return $this->useTemplate('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data', 'name_education', 'age'));
     }
 
     public function ajaxCenter(Request $request)
