@@ -36,10 +36,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer no-padding">
+					<div class="box-footer no-padding send_message">
 						<ul class="nav nav-stacked">
 							<li class="">
-								<a href="" style="margin: 5px border: 1px; color : #F76608;">
+								<a href="#" style="margin: 5px border: 1px; color : #F76608;">
 									<center>
 										<span class="glyphicon glyphicon-send"></span> แจ้งข้อผิดพลาด
 									</center>

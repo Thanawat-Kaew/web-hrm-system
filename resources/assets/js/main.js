@@ -2,55 +2,57 @@ msg_waiting()
 
 $(document).ready(function(){
 
-    $('.glyphicon-log-out-logout').click(function(){
-        confirm_logout();
-    })
+	$('.glyphicon-log-out-logout').click(function(){
+		confirm_logout();
+	})
 
-    $('.logout').click(function(){
-        confirm_logout();
-    })
+	$('.logout').click(function(){
+		confirm_logout();
+	})
 })
 
 function confirm_logout(){
-    $.ajax({
-        headers : {'X-CSRF-TOKEN': $('input[name=_token').attr('value')},
-        type    : 'POST',
-        url     : $('#logout-form').data('url'),
-    });
-    Swal.fire({
-        title: 'ต้องการออกจากระบบใช่หรือไม่?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'ใช่, ออกเดี๋ยวนี้!',
-        cancelButtonText: 'ไม่'
-    }).then((result) => {
-        if (result.value) {
-            window.location.href = 'http://hrm.system.io/logout';
-        }
-    })
+
+	Swal.fire({
+		title: 'ต้องการออกจากระบบใช่หรือไม่?',
+		text: "",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'ใช่, ออกเดี๋ยวนี้!',
+		cancelButtonText: 'ไม่'
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				headers : {'X-CSRF-TOKEN': $('input[name=_token').attr('value')},
+				type    : 'POST',
+				url     : $('#logout-form').data('url'),
+			});
+			
+			window.location.href = 'http://hrm.system.io/logout';
+		}
+	})
 }
 
 function confirm(){
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.value) {
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-    }
-  })
+	Swal.fire({
+		title: 'Are you sure?',
+		text: "You won't be able to revert this!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes, delete it!'
+	}).then((result) => {
+		if (result.value) {
+			Swal.fire(
+				'Deleted!',
+				'Your file has been deleted.',
+				'success'
+				)
+		}
+	})
 }
 
 function msg_waiting(){

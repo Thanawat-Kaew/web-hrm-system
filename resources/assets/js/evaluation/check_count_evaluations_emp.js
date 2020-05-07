@@ -32,4 +32,8 @@ $(document).ready(function() {
 			}
 		});
 	})
+
+	/*$('.send_message').click(function(){
+		alert("555");
+	});*/
 });

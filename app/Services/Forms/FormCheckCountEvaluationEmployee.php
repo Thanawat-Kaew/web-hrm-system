@@ -32,10 +32,10 @@ class FormCheckCountEvaluationEmployee
                                  $form .= '</div>';
                             $form .= '</div>';
                         $form .= '</div>';
-                        $form .= '<div class="box-footer no-padding">';
+                        $form .= '<div class="box-footer no-padding send_message">';
                              $form .= '<ul class="nav nav-stacked">';
                                  $form .= '<li class="">';
-                                     $form .= '<a href="" style="margin: 5px border: 1px; color : #F76608;">';
+                                     $form .= '<a href="'.route('evaluation.form_send_email.get').'" style="margin: 5px border: 1px; color : #F76608;">';
                                         $form .= '<center>';
                                              $form .= '<span class="glyphicon glyphicon-send"></span> แจ้งข้อผิดพลาด';
                                         $form .= '</center>';
