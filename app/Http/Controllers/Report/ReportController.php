@@ -638,6 +638,8 @@ class ReportController extends Controller
                             $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '<=', $end_number)->orderBy('percent', 'desc')->get();
                         }else if(empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
                             $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '>=', $start_number)->orderBy('percent', 'desc')->get();
+                        }else if(empty($start_date) && empty($end_date) && !empty($start_number) && !empty($end_number)){
+                           $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '>=', $start_number)->where('percent', '<=', $end_number)->orderBy('percent', 'desc')->get();
                         }else if(empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
                             $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '<=', $new_end_date)->orderBy('date', 'asc')->get();
                         }else if(!empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){

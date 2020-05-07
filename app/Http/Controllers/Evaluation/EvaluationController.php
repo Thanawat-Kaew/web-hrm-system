@@ -29,10 +29,49 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
+        $department = $current_employee->id_department;
+
         if($current_employee['id_position'] == 2){ // หัวหน้า
-            $evaluations = CreateEvaluation::where('status', 1)->get(); // status 1 เป็นการยืนยันว่่าผ่านการตรวจสอบ
+            $evaluations    = CreateEvaluation::where('status', 1)->get(); // status 1 เป็นการยืนยันว่่าผ่านการตรวจสอบ
             //sd($evaluations->toArray());
-            return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee'));
+            //sd($evaluations->count());
+
+            $count_evaluations = $evaluations->count(); // นับจำนวนหัวเรื่องที่ได้ยืนยันสำหรับการประเมิน
+            $array_id_topic    = []; // เก็บ array หัวเรื่อง
+            $num = 0; // เอาไว้เก็บว่ามีกี่เรื่อง
+            for($i=0; $i<$count_evaluations; $i++){
+                $array_id_topic[] = $evaluations[$i]['id_topic'];
+                $num = $num + 1;
+            }
+            //sd($num);
+            //sd($array_id_topic->toArray());
+            //sd($array_id_topic);
+
+            $emp            = Employee::where('id_department', $department)->where('id_position', 1)->get(); // เลือกพนักงานทั้งหมดที่ตรงกับแผนก // เลือกเฉพาะลูกน้อง
+            $count_emp      = $emp->count(); // นับจำนวนว่ามีกี่คน ของ $emp
+            //sd($count_emp);
+            $emp_eva        = Evaluation::with(['employee' => function($q) use($department){
+                                    $q->where('id_department', $department);
+                                }])->get();
+            //sd($emp_eva->toArray());
+            $count_emp_eva  = $emp_eva->count(); // นับจำนวนว่ามีกี่คน ของ $emp_eva
+
+            $check_emp_eva = []; // เก็บ array พนักงานที่ประเมินแล้วตามหัวเรื่อง
+            for($i=0; $i<$num; $i++){ // for loop ตามจำนวนหัวเรื่องที่ได้รับอนุญาติให้ประเมิน
+                $no = 0; // เอาไว้นับจำนวนถ้า หัวเรื่องประเมินตรงกับพนักงานที่มีหัวเรื่องประเมินตรงกัน
+                for($j=0; $j<$count_emp_eva; $j++){ // for loop ตามจำนวนหนักงานใน evaluation
+                    if(!empty($emp_eva[$j]->employee)){
+                    // เช็คว่าพนักงานคนนั้นว่า ตาราง employee ไม่ว่าง ถ้าว่างแสดงว่าแผนกไม่ตรงกับ dareatment ที่เรากำหนด
+                        if($array_id_topic[$i] == $emp_eva[$j]->id_topic){ //ถ้า หัวเรื่องที่ได้รับอนุญาติตรงกับหัวเรื่องของพนักงาน
+                            $no = $no +1; // ก็ให้บวก 1
+                            $check_emp_eva["$i"] = $no; // แล้วแยกเก็บตาม array ของ หัวเรื่องที่ได้รับอนุญาติให้ประเมิน
+                        }
+                    }
+                }
+            }
+
+
+            return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee', 'department', 'check_emp_eva', 'count_emp'));
         }else if($current_employee['id_position'] == 1){ // ลูกน้อง
             $evaluations = CreateEvaluation::where('id_employee', $current_employee['id_employee'])->where('confirm_send_create_evaluation', 0)->get();
             //sd($evaluations->toArray());
@@ -743,6 +782,16 @@ class EvaluationController extends Controller
         $confirm->save();
     }
 
+
+    public function setStartDateAndEndDateEvaluation(Request $request) //บันทึกกำหนดวันเริ่มต้นประเมินและสิ้นสุดประเมิน
+    {
+        $data                               = $request->all();
+        $id_topic                           = CreateEvaluation::where('id_topic', $data['id_topic'])->first();
+        $id_topic->start_date_evaluation    = $data['start_date'];
+        $id_topic->end_date_evaluation      = $data['end_date'];
+        $id_topic->save();
+    }
+
     public function ajaxCenter(Request $request)
     {
     	$method = $request->get('method');
@@ -768,10 +817,12 @@ class EvaluationController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_evaluation]);
                 break;
 
-            case 'getFormSetTimeEvaluation':
-
+            case 'getFormSetTimeEvaluation': // กำหนดเวลาการประเมิน
+                $id_topic                  = $request->get('id_topic');
+                $check_set_date_evaluation = CreateEvaluation::where('id_topic', $id_topic)->first();
+                //sd($check_set_date_evaluation->toArray());
                 $form_repo       = new FormSetTimeEvaluation;
-                $form_set_time_eval = $form_repo->getFormSetTimeEvaluation();
+                $form_set_time_eval = $form_repo->getFormSetTimeEvaluation($id_topic, $check_set_date_evaluation);
 
                 return response()->json(['status'=> 'success','data'=> $form_set_time_eval]);
                 break;
@@ -862,7 +913,7 @@ class EvaluationController extends Controller
 
                 $employee = [];
                 for($i=0; $i<$count_department; $i++){
-                    $employee[]         = Employee::with('department')->where('id_department', $department[$i]->id_department)->get(); // เก็บข้อมูลพนักงานแยกเป็นแผนก
+                    $employee[]         = Employee::with('department')->where('id_department', $department[$i]->id_department)->where('id_position', 1)->get(); // เก็บข้อมูลพนักงานแยกเป็นแผนก // เก๋บเฉพาะลูกน้อง
                 }
 
                 $count_by_department    = []; // เก็บจำนวนคนที่ประเมินแล้วแยกตามแผนก
