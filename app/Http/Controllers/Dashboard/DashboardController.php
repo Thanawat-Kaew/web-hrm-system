@@ -31,26 +31,28 @@ use App\Services\Evaluation\Evaluation;
 use App\Services\Evaluation\ResultEvaluation;
 use App\Services\Evaluation\CreateEvaluation;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
 	public function dashboard()
     {
-    	date_default_timezone_set('Asia/Bangkok');
+    	$tz = date_default_timezone_set('Asia/Bangkok');
 		$get_date_now = date("Y-m-d");
 		$get_time_now = '09:00:00';
         $get_count_emp  = Employee::all();
         $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
         $get_count_timestamp_late = TimeStamp::where('date',$get_date_now)->where('time_in','>',$get_time_now)->count(); //มาทำงานสาย
-        $get_count_timestamp_on_time = TimeStamp::where('date',$get_date_now)->where('time_in','=',$get_time_now)->count(); //มาทำงานตรงเวลา
-        $get_count_timestamp_early = TimeStamp::where('date',$get_date_now)->where('time_in','<',$get_time_now)->count(); //มาทำงานก่อนเวลา
+        $get_count_timestamp_on_time = TimeStamp::where('date',$get_date_now)->where('time_in','<=',$get_time_now)->count(); //มาทำงานตรงเวลา
 
         $get_count_leave = Leaves::where('start_leave',$get_date_now)->count();
         $get_count_dept = Employee::groupBy('id_department')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
         $department      = Department::all();
 
 
-    	return $this->useTemplate('dashboard.dashboard',compact('department','get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_timestamp_early','get_count_leave','get_count_dept'));
+        $group_age = DB::table('employee')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
+
+    	return $this->useTemplate('dashboard.dashboard',compact('department','get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_leave','get_count_dept','get_date_now','group_age'));
     }
 
     public function ajaxCenter(Request $request)
@@ -60,7 +62,6 @@ class DashboardController extends Controller
             case 'getFormChangeDepartmentDashboard':
 
                 $department      = $request->get('department');
-                // sd($department);
 
                 if ($department != "") {
                     $get_count_emp  = Employee::where('id_department',$department)->get();
