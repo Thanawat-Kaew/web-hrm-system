@@ -20,6 +20,8 @@ use App\Services\Forms\FormViewEvaluation;
 use App\Services\Forms\FormViewCreateEvaluations;
 use App\Services\Forms\FormSetTimeEvaluation;
 use App\Services\Forms\FormCheckCountEvaluationEmployee;
+use App\Services\Forms\FormEmail;
+use Illuminate\Support\Facades\Mail;
 
 
 class EvaluationController extends Controller
@@ -79,13 +81,30 @@ class EvaluationController extends Controller
         }
     }
 
-    public function formSendEmail()
+    public function sendEmail(Request $request)
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-       // $evaluations = CreateEvaluation::where('id_employee', $current_employee['id_employee'])->where('confirm_send_create_evaluation', 0)->get();
-        return $this->useTemplate('evaluation.form_send_email',compact('current_employee'));
+        $data           = $request->all();
+        $name_sender    = $data['name_sender'];
+        $email_sender   = $data['email_sender'];
+        $name_reciver   = $data['name_reciver'];
+        $email_reciver  = $data['email_reciver'];
+        $topic          = $data['topic'];
+        $details        = $data['details'];
+        //d($name_reciver);
+        //sd($data);
+
+        $data = array('name'=>"$name_reciver", "body"=>"$details", 'email_reciver'=>"$email_reciver",
+                    'email_sender'=>"$email_sender", 'name_sender'=>"$name_sender", 'topic'=>"$topic");
+        //sd($data);
+        Mail::send('mail', $data, function($message) use($data){
+                $message->to($data['email_reciver'])
+                ->subject($data['topic']);
+                $message->from($data['email_reciver'], $data['name_sender']);
+        });
+        return json_encode(['status' => 'success', 'message' => 'success']);
     }
 
     public function confirmSendCreateEvaluation() //หน้า confirmSendCreateEvaluation
@@ -941,6 +960,16 @@ class EvaluationController extends Controller
                 $form_repo           = new FormCheckCountEvaluationEmployee; // ชื่อ page
                 $get_form_view_eva   = $form_repo->getFormCheckCountEvaluationEmployee($department, $employee, $count_by_department); // ชื่อ function ใน page
                 return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
+                break;
+
+            case 'getFormEmail': // Form กรอกข้อมูลของ email
+                $id_department = $request->get('id_department');
+                $reciver       = Employee::where('id_department', $id_department)->where('id_position', 2)->first();
+                //sd($reciver->toArray());
+                //sd($id_department);
+                $form_repo     = new FormEmail;
+                $get_form      = $form_repo->getFormEmail($reciver);
+                return response()->json(['status'=> 'success','data'=> $get_form]);
                 break;
 
             default:

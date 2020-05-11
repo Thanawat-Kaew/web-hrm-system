@@ -36,10 +36,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="box-footer no-padding send_message">
-						<ul class="nav nav-stacked">
+					<div class="box-footer no-padding  ">
+						<ul class="nav nav-stacked send_message">
 							<li class="">
-								<a href="#" style="margin: 5px border: 1px; color : #F76608;">
+								<a href="#" style="margin: 5px border: 1px; color : #F76608;" data-id_department="12">
 									<center>
 										<span class="glyphicon glyphicon-send"></span> แจ้งข้อผิดพลาด
 									</center>
@@ -88,4 +88,5 @@
 
 <!-- data -->
 <div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
+<div id="send_email" data-url="<?php echo route('evaluation.send_email.post')?>"></div>
 <?php echo csrf_field() ?>

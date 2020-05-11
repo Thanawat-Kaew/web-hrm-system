@@ -1,4 +1,5 @@
 $(function(){
+	
 	$('.list_emp_all').on('click',function(){
 		window.open('/data_manage/dump_employee_pdf','_blank');
 	})
