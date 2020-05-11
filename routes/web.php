@@ -137,7 +137,7 @@ Route::group(['middleware' => ['login']], function(){
 
 	Route::post('/evaluation/set_start_date_end_date_evaluations', 'Evaluation\EvaluationController@setStartDateAndEndDateEvaluation')->name('evaluation.set_start_date_end_date_evaluations.post'); // กำหนดระยะเวลาการประเมิน
 
-	Route::get('/index/check_count_eval_emp/form_send_email','Evaluation\EvaluationController@formSendEmail')->name('evaluation.form_send_email.get');
+	Route::post('/index/check_count_eval_emp/send_email','Evaluation\EvaluationController@sendEmail')->name('evaluation.send_email.post');
 
 	/************************************************End Evaluation******************************************************************/
 

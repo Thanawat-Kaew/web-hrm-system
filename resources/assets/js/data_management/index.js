@@ -1,6 +1,4 @@
 $(function(){
-
-
 	$('#header, #employee').on('click', '.manage-employee', function(){
 		msg_waiting();
 		var id 		= $(this).data('form_id');
