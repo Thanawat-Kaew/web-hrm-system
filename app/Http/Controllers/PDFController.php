@@ -30,9 +30,25 @@ use App\Services\Evaluation\Evaluation;
 use App\Services\Evaluation\ResultEvaluation;
 use App\Services\Evaluation\CreateEvaluation;
 use PDF;
+use Illuminate\Support\Facades\DB;
+
 
 class PDFController extends Controller
 {
+    public function generatePDF_DumpEmp(Request $request)
+    {
+        date_default_timezone_set('Asia/Bangkok');
+        $getDate            = date("Y-m-d");
+        $employee         = Employee::with('department','position','education')->orderBy('id_department', 'asc')->get();
+        $get_count_dept = Employee::groupBy('id_department')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
+
+        $pdf             = PDF::loadView('data_management.dump_emp',compact('employee','get_count_dept','getDate'));
+
+        return $pdf->stream("dump_emp.pdf");
+
+
+    }
+
     public function generatePDF_view_scroe(Request $request, $id_topic)
     {
         if(\Session::has('current_employee')){

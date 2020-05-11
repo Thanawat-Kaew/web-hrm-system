@@ -75,24 +75,14 @@
 									<td><span class="badge bg-yellow"><?php echo round(($get_count_timestamp_late*100)/$count_emp,2) ?>%</span></td>
 								</tr>
 								<tr>
-									<td style="text-align: left;">มาตรงเวลา /COME FOR WORK ON TIME</td>
-									<td><?php echo $get_count_timestamp_on_time ?> คน</td>
+									<td style="text-align: left;">มาทันเวลา /COME FOR WORK ON TIME</td>
+									<td><?php echo $get_count_timestamp_on_time+$get_count_timestamp_early ?> คน</td>
 									<td>
 										<div class="progress progress-xs progress-striped active">
-											<div class="progress-bar progress-bar-primary" style="width: <?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2).'%'?>;"></div>
+											<div class="progress-bar progress-bar-primary" style="width: <?php echo round((($get_count_timestamp_on_time+$get_count_timestamp_early)*100)/$count_emp,2).'%'?>;"></div>
 										</div>
 									</td>
 									<td><span class="badge bg-light-blue"><?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2) ?>%</span></td>
-								</tr>
-								<tr>
-									<td style="text-align: left;">มาก่อนเวลา /COME FOR WORK AHEAD OF TIME</td>
-									<td><?php echo $get_count_timestamp_early ?> คน</td>
-									<td>
-										<div class="progress progress-xs progress-striped active">
-											<div class="progress-bar progress-bar-success" style="width: <?php echo round(($get_count_timestamp_early*100)/$count_emp,2).'%'?>;"></div>
-										</div>
-									</td>
-									<td><span class="badge bg-green"><?php echo round(($get_count_timestamp_early*100)/$count_emp,2) ?>%</span></td>
 								</tr>
 								<tr>
 									<td style="text-align: left;">ลางาน /LEAVE</td>
@@ -129,7 +119,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="info-box bg-red">
 					<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>
 					<div class="info-box-content">
@@ -145,33 +135,17 @@
 				</div>
 			</div>
 
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div class="info-box bg-gray">
 					<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>
 					<div class="info-box-content">
-						<span class="info-box-text">มาตรงเวลา</span>
-						<span class="info-box-number"><?php echo $get_count_timestamp_on_time ?> คน</span>
+						<span class="info-box-text">มาทันเวลา</span>
+						<span class="info-box-number"><?php echo $get_count_timestamp_on_time+$get_count_timestamp_early ?> คน</span>
 						<div class="progress">
-							<div class="progress-bar" style="width: <?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2).'%'?>;"></div>
+							<div class="progress-bar" style="width: <?php echo round((($get_count_timestamp_on_time+$get_count_timestamp_early)*100)/$count_emp,2).'%'?>;"></div>
 						</div>
 						<span class="progress-description">
 							<?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2) ?>%
-						</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-2">
-				<div class="info-box bg-aqua">
-					<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>
-					<div class="info-box-content">
-						<span class="info-box-text">มาก่อนเวลา</span>
-						<span class="info-box-number"><?php echo $get_count_timestamp_early ?> คน</span>
-						<div class="progress">
-							<div class="progress-bar" style="width: <?php echo round(($get_count_timestamp_early*100)/$count_emp,2).'%'?>;"></div>
-						</div>
-						<span class="progress-description">
-							<?php echo round(($get_count_timestamp_early*100)/$count_emp,2) ?>%
 						</span>
 					</div>
 				</div>
