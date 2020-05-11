@@ -87,7 +87,7 @@ class LeaveController extends Controller
         // sd($leaves_require->toArray());
 
         
-        return $this->useTemplate('leave.leave' ,compact('leaves_require', 'history_leave', 'leaves'));
+        return $this->useTemplate('leave.leave' ,compact('current_employee','leaves_require', 'history_leave', 'leaves'));
     }
 
     public function leave_history()

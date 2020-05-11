@@ -16,10 +16,12 @@
 							<button href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
 							</button>
 						</a>
+						<?php if($current_employee->id_department == "hr0001"):?>
 						<a href="<?php echo route("leave.set_holiday.get")?>">
 							<button href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
 							</button>
 						</a>
+					<?php endif?>
 					</div>
 				</div>
 				<div class="box box-info"><br>
