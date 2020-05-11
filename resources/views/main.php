@@ -24,7 +24,7 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
-    
+
 </head>
 <body>
     <!-- Main content -->

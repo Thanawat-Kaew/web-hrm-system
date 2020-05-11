@@ -167,7 +167,7 @@ class FormEmployee
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-envelope"></i>';
                  $form .= '</div>';
-                 $form .= '<input class="form-control required" type="text" value="'.((!empty($employee) ? $employee["email"] : '' )).'" placeholder="email@example.com" id="email">';
+                 $form .= '<input class="form-control required" type="email" value="'.((!empty($employee) ? $employee["email"] : '' )).'" placeholder="email@example.com" id="email" style="text-transform: lowercase;">';
              $form .= '</div>';
             $form .= '<label class="text-error" id="email-text-error"></label>';
             $form .= 'เบอร์โทรศัพท์';
