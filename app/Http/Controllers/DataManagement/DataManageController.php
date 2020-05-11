@@ -27,10 +27,11 @@ class DataManageController extends Controller
         $department      = Department::all();
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
-            $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
+            $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->where('id_position', 2)->first();
+            //sd($header->toArray());
             $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
         }
-        return $this->useTemplate('data_management.index', compact('department', 'employee'));
+        return $this->useTemplate('data_management.index', compact('department', 'employee', 'header'));
     }
 
     public function ajaxCenter(Request $request)
@@ -91,8 +92,13 @@ class DataManageController extends Controller
             case 'getDataPersonal':
                 $id             = $request->get('id');
                 $employee       = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
+
+                $date_of_birth  = $employee->date_of_birth; // วันเกิดจากฐานข้อมูล
+                $str            = strtotime(date('Y-m-d')) - (strtotime($date_of_birth)); //นำมาลบกับวันที่ปัจจุบัน
+                $day            = floor($str/3600/24); // แปลงเป็นวัน
+                $age            = number_format($day / 365); // แปลงเป็นอายุ
                 $form_repo      = new FormDataPersonal;
-                $form_view_emp   = $form_repo->getDataPersonal( $employee);
+                $form_view_emp   = $form_repo->getDataPersonal($employee, $age);
                 return response()->json(['status'=> 'success','data'=> $form_view_emp]);
             break;
 

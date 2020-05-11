@@ -48,8 +48,8 @@
                                         <td><?php echo $current_employee['gender'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td>วัน เดือน ปี ที่เกิด</td>
-                                        <td><?php echo $current_employee['date_of_birth'] ?></td>
+                                        <td>อายุ</td>
+                                        <td><?php echo $age ?> ปี</td>
                                     </tr>
                                     <tr>
                                         <td>ที่อยู่</td>

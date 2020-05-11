@@ -1,5 +1,8 @@
 $(function(){
-
+	
+	$('.list_emp_all').on('click',function(){
+		window.open('/data_manage/dump_employee_pdf','_blank');
+	})
 
 	$('#header, #employee').on('click', '.manage-employee', function(){
 		msg_waiting();
@@ -288,8 +291,8 @@ function saveAddEmployee(form, title, oldValue,not_match){
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
 		cache       : false,
-        contentType : false,
-        processData : false,
+		contentType : false,
+		processData : false,
 		url  : $('#add-employee-url').data('url'),
 		data : 		form_data,
 		success: function(response){
@@ -386,24 +389,24 @@ function saveEditEmployee(oldValue){
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
 		cache       : false,
-        contentType : false,
-        processData : false,
+		contentType : false,
+		processData : false,
 		url  : $('#edit-employee-url').data('url'),
 		data : form_data,
 		success: function(response){
 
-				Swal.fire(
-				{
-					title: 'แก้ไขข้อมูลสำเร็จ',
-					type: 'success',
-					showCancelButton: false,
-					confirmButtonText: 'ปิด'
+			Swal.fire(
+			{
+				title: 'แก้ไขข้อมูลสำเร็จ',
+				type: 'success',
+				showCancelButton: false,
+				confirmButtonText: 'ปิด'
 
-				}).then((response) =>{
+			}).then((response) =>{
 
-					window.location.reload();
+				window.location.reload();
 
-				})
+			})
 		},
 		error: function(error){
 			alert('Data not save edit employee');

@@ -83,6 +83,8 @@ Route::group(['middleware' => ['login']], function(){
 	Route::post('/data_manage/delete/{id_employee}','DataManagement\DataManageController@postDeleteData')->name('data_manage.delete_employee.post'); // delete-request-change-data
 	Route::post('/data_manage/edit_employee', 'DataManagement\DataManageController@editEmployee')->name('data_manage.edit_employee.post');// แก้ไขข้อมูลพนักงาน
 	Route::get('/data_manage/request', 'DataManagement\DataManageController@notificationRequest')->name('data_management.notification_request.get'); // notification
+	Route::get('/data_manage/dump_employee_pdf', 'PDFController@generatePDF_DumpEmp')->name('data_manage.dump_emp.get');// ดูพนักงานทั้งหมดแบบ pdf
+
 	/***********************************************EndDataManagement***************************************************************/
 
 
@@ -137,7 +139,7 @@ Route::group(['middleware' => ['login']], function(){
 
 	Route::post('/evaluation/set_start_date_end_date_evaluations', 'Evaluation\EvaluationController@setStartDateAndEndDateEvaluation')->name('evaluation.set_start_date_end_date_evaluations.post'); // กำหนดระยะเวลาการประเมิน
 
-	Route::get('/index/check_count_eval_emp/form_send_email','Evaluation\EvaluationController@formSendEmail')->name('evaluation.form_send_email.get');
+	Route::post('/index/check_count_eval_emp/send_email','Evaluation\EvaluationController@sendEmail')->name('evaluation.send_email.post');
 
 	/************************************************End Evaluation******************************************************************/
 

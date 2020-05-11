@@ -15,8 +15,13 @@ class FormChangeDepartment
                 $form_head .='<div class="widget-user-header">';
                 $form_head .='<!-- /.widget-user-image -->';
                 $form_head .='<div class="group-image" align="center" valign="center">';
-                $form_head .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
-                $form_head .='</div>';
+                if(!empty($value->image)){
+                    $form_head .='<img src="/public/image/'.$value->image.'">';
+                    $form_head .='</div>';
+                }else{
+                    $form_head .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
+                    $form_head .='</div>';
+                }
                 $form_head .='<div class="about-employee" id="header">';
                 $form_head .='<p id="header_id">รหัส  : <span>'.$value["id_employee"].'</span></p>';
                 $form_head .='<p id="header_name">ชื่อ : <span>'.$value["first_name"].' '.$value["last_name"].'</span></p>';
@@ -38,15 +43,21 @@ class FormChangeDepartment
             }
         }
 
-         foreach($employee as $key => $value) {
+        foreach($employee as $key => $value) {
+            //d($value->toArray());
             if($value['id_position'] == 1) {
                 $form_emp .='<div class="col-md-3 col-sm-2 ">';
                 $form_emp .='<div class="box box-widget widget-user-2">';
                 $form_emp .='<div class="widget-user-header">';
                 $form_emp .='<!-- /.widget-user-image -->';
                 $form_emp .='<div class="group-image" align="center" valign="center">';
-                $form_emp .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
-                $form_emp .='</div>';
+                if(!empty($value->image)){
+                    $form_emp .='<img src="/public/image/'.$value->image.'">';
+                    $form_emp .='</div>';
+                }else{
+                    $form_emp .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
+                    $form_emp .='</div>';
+                }
                 $form_emp .='<div class="about-employee" id="employee">';
                 $form_emp .='<p>รหัส  : <span>'.$value['id_employee'].'</span></p>';
                 $form_emp .='<p>ชื่อ   : <span>'.$value['first_name']." ".$value['last_name'].'</span></p>';
@@ -68,6 +79,6 @@ class FormChangeDepartment
             }
         }
 
-         return ['form_head' => $form_head, 'form_emp' => $form_emp];
+        return ['form_head' => $form_head, 'form_emp' => $form_emp];
     }
 }
