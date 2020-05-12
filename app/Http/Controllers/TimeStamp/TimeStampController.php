@@ -32,14 +32,10 @@ class TimeStampController extends Controller
 
         $data = TimeStamp::with(['requesttimestamp' => function($q) use($id_employee){
                     $q->where('id_employee', $id_employee);
+                    $q->where('status', '!=', 3);
                 }])
                 ->orderBy('id', 'desc')
                 ->get();
-
-
-/*->with(['employee.department' => function($q) use($department){
-                                $q->where('id_department', $department);
-                            }])*/
 
         //sd($data->toArray());
         return $this->useTemplate('time_stamp.index', compact('data', 'id_employee'));
@@ -289,7 +285,7 @@ class TimeStampController extends Controller
 
         } else {
             $requesttimestamp =  isset($employee->timestamp_hasone->requesttimestamp) ? $employee->timestamp_hasone->requesttimestamp : [];
-            $requesttimestamp = $requesttimestamp->where('id_employee', $current_employee['id_employee']);
+            $requesttimestamp = $requesttimestamp->where('id_employee', $current_employee['id_employee'])->where('status', '!=', 3);
             //sd($requesttimestamp->toArray());
             $errors = [];
             foreach ($array_time as $key => $time) {
