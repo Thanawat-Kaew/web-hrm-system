@@ -49,8 +49,8 @@ class DashboardController extends Controller
         $get_count_dept = Employee::groupBy('id_department')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
         $department      = Department::all();
 
-
         $group_age = DB::table('employee')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
+        //sd($group_age->toArray());
 
     	return $this->useTemplate('dashboard.dashboard',compact('department','get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_leave','get_count_dept','get_date_now','group_age'));
     }
@@ -65,15 +65,18 @@ class DashboardController extends Controller
 
                 if ($department != "") {
                     $get_count_emp  = Employee::where('id_department',$department)->get();
+
+                    $group_age = DB::table('employee','department')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->where('id_department',$department)->get();
                 } else {
                     
                     $get_count_emp  = Employee::all();
 
+                    $group_age = DB::table('employee')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
                 }
 
 
                 $form_repo      = new FormChangeDepartmentDashboard;
-                $form_add_emp   = $form_repo->getFormChangeDepartmentDashboard($get_count_emp);
+                $form_add_emp   = $form_repo->getFormChangeDepartmentDashboard($get_count_emp,$group_age);
                 return response()->json(['status'=> 'success','data'=> $form_add_emp]);
             break;
             case 'variable':
