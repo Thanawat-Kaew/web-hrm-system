@@ -35,11 +35,13 @@ class FormTimestampWhenChangeDepartment
                     $form .='<td>'.(!empty($emp_timestamp[$i]->time_out) ? $emp_timestamp[$i]->time_out : '-').'</td>';
                     $start  = strtotime($emp_timestamp[$i]->time_in);
                     $end    = strtotime($emp_timestamp[$i]->time_out);
-                    if(!empty($end)){
+                    if(!empty($start) && !empty($end)){
                         $total_hour = intval(($end - $start)/3600);
                         $mins = (int)(($end - $start) / 60);
+                        $form .='<td style="color: red">'.$total_hour.'</td>';
+                    }else{
+                        $form .='<td style="color: red">-</td>';
                     }
-                    $form .='<td style="color: red">'.(!empty($total_hour) ? $total_hour : '-').'</td>';
                 $form .='</tr>';
             }
         }
