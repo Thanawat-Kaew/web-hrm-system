@@ -149,6 +149,7 @@ class ReportController extends Controller
         switch ($method) {
             case 'getFormTimestampWhenChangeDepartment':
                 $department          = $request->has('department') ? $request->get('department') : '';
+                //sd($department);
                 $start_date          = $request->get('start_date');
                 $new_start_date      = date("Y-m-d", strtotime($start_date));
                 $end_date            = $request->get('end_date');
@@ -194,6 +195,7 @@ class ReportController extends Controller
                     }
                     //$emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
                 }else{ // กรณีเลือกเฉาะแผนก
+                    //sd($department);
                     /*$emp_timestamp   = TimeStamp::with('employee', 'employee.position')
                                         ->with(['employee.department' => function($q) use($department){
                         $q->where('id_department', $department);
@@ -276,7 +278,9 @@ class ReportController extends Controller
                                                     $q->where('id_department', $department);
                                                 }])->where('date', '>=', $new_start_date)->orderBy('date', 'desc')->get();
                         //echo "2";
-                    }else{
+                    }else if(empty($start_date) && empty($end_date) && empty($start_time) && empty($end_time)) {
+                        //echo "1";
+                        //exit();
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
                                             ->with(['employee.department' => function($q) use($department){
                                                 $q->where('id_department', $department);

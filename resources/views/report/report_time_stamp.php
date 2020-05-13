@@ -22,8 +22,7 @@
 								<?php endforeach ?>
 								</select>
 								<?php }else{?>
-									
-									<input type="text" style="border-radius: 5px;" class="form-control"value="<?php echo $current_employee['id_department']?>">
+									<input type="text" style="border-radius: 5px;" class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
 								<?php }?>
 							</div>
 						</div>
@@ -118,12 +117,14 @@
 								<?php
 									$start 	= strtotime($value->time_in);
 									$end    = strtotime($value->time_out);
-									if(!empty($end)){
+									if(!empty($start) && !empty($end)){
 										$total_hour = intval(($end - $start)/3600);
 										$mins = (int)(($end - $start) / 60);
-									}
 								?>
-								<td style="color: red"><?php echo (!empty($total_hour) ? $total_hour : '-')?></td>
+									<td style="color: red"><?php echo $total_hour?></td>
+								<?php }else{ ?>
+									<td style="color: red">-</td>
+								<?php } ?>
 							</tr>
 							<?php endif?>
 						<?php endforeach ?>
