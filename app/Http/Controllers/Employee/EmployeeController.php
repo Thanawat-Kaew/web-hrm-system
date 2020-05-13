@@ -37,7 +37,7 @@ class EmployeeController extends Controller
         $str            = strtotime(date('Y-m-d')) - (strtotime($date_of_birth)); //นำมาลบกับวันที่ปัจจุบัน
         $day            = floor($str/3600/24); // แปลงเป็นวัน
         $age            = number_format($day / 365); // แปลงเป็นอายุ
-        //sd($age);
+        // sd($age);
         return $this->useTemplate('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data', 'name_education', 'age'));
     }
 

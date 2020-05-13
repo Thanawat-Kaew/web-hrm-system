@@ -3,7 +3,6 @@
     <div class="row">
         <div class="col-md-6">
             <div class="box box-primary">
-
                 <div class="box-body">
                     <?php if(\Session::has('current_employee')) :?>
                         <?php $current_employee = \Session::get('current_employee') ?>

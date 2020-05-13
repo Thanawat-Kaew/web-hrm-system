@@ -141,6 +141,7 @@ function sendEmail(form, title)
 		},
 		success: function (response) {
 			var data_resp = jQuery.parseJSON(response);
+			console.log(data_resp);
 			if(data_resp.status == "success"){
 				Swal.fire(
 				{

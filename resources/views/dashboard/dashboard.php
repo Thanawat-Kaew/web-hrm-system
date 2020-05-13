@@ -76,10 +76,10 @@
 								</tr>
 								<tr>
 									<td style="text-align: left;">มาทันเวลา /COME FOR WORK ON TIME</td>
-									<td><?php echo $get_count_timestamp_on_time+$get_count_timestamp_early ?> คน</td>
+									<td><?php echo $get_count_timestamp_on_time ?> คน</td>
 									<td>
 										<div class="progress progress-xs progress-striped active">
-											<div class="progress-bar progress-bar-primary" style="width: <?php echo round((($get_count_timestamp_on_time+$get_count_timestamp_early)*100)/$count_emp,2).'%'?>;"></div>
+											<div class="progress-bar progress-bar-primary" style="width: <?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2).'%'?>;"></div>
 										</div>
 									</td>
 									<td><span class="badge bg-light-blue"><?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2) ?>%</span></td>
@@ -140,9 +140,9 @@
 					<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>
 					<div class="info-box-content">
 						<span class="info-box-text">มาทันเวลา</span>
-						<span class="info-box-number"><?php echo $get_count_timestamp_on_time+$get_count_timestamp_early ?> คน</span>
+						<span class="info-box-number"><?php echo $get_count_timestamp_on_time ?> คน</span>
 						<div class="progress">
-							<div class="progress-bar" style="width: <?php echo round((($get_count_timestamp_on_time+$get_count_timestamp_early)*100)/$count_emp,2).'%'?>;"></div>
+							<div class="progress-bar" style="width: <?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2).'%'?>;"></div>
 						</div>
 						<span class="progress-description">
 							<?php echo round(($get_count_timestamp_on_time*100)/$count_emp,2) ?>%
@@ -222,11 +222,13 @@
 						<div class="box-header with-border">
 							<h3 class="box-title">Employees by Age Groups.</h3>
 						</div>
-						<?php $age_min_20	= $get_count_emp->where('age','>=',1)->where('age','<=',20)->count();?>
-						<?php $age_21_30	= $get_count_emp->where('age','>=',21)->where('age','<=',30)->count();?>
-						<?php $age_31_40	= $get_count_emp->where('age','>=',31)->where('age','<=',40)->count();?>
-						<?php $age_41_50	= $get_count_emp->where('age','>=',41)->where('age','<=',50)->count();?>
-						<?php $age_max_50	= $get_count_emp->where('age','>=',51)->count();?>
+						
+
+						<?php $age_min_20	= $group_age->where('age','>=',1)->where('age','<=',20)->count();?>
+						<?php $age_21_30	= $group_age->where('age','>=',21)->where('age','<=',30)->count();?>
+						<?php $age_31_40	= $group_age->where('age','>=',31)->where('age','<=',40)->count();?>
+						<?php $age_41_50	= $group_age->where('age','>=',41)->where('age','<=',50)->count();?>
+						<?php $age_max_50	= $group_age->where('age','>=',51)->count();?>
 						<?php $count_emp = $get_count_emp->count() ?>
 
 						<table class="table table-bordered">

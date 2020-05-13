@@ -4,7 +4,7 @@ namespace App\Services\Forms;
 use App\Services\Employee\EmployeeObject;
 class FormChangeDepartmentDashboard
 {
-	 public static function getFormChangeDepartmentDashboard($get_count_emp){
+	 public static function getFormChangeDepartmentDashboard($get_count_emp,$group_age){
 	 	$form_total_emp ='';
       	$form_gender ='';
       	$form_age ='';
@@ -42,11 +42,11 @@ class FormChangeDepartmentDashboard
 					$form_age .='<h3 class="box-title">Employees by Age Groups.</h3>';
 				$form_age .='</div>';
 
-				$age_min_20	= $get_count_emp->where('age','>=',1)->where('age','<=',20)->count();
-				$age_21_30	= $get_count_emp->where('age','>=',21)->where('age','<=',30)->count();
-				$age_31_40	= $get_count_emp->where('age','>=',31)->where('age','<=',40)->count();
-				$age_41_50	= $get_count_emp->where('age','>=',41)->where('age','<=',50)->count();
-				$age_max_50	= $get_count_emp->where('age','>=',51)->count();
+				$age_min_20	= $group_age->where('age','>=',1)->where('age','<=',20)->count();
+				$age_21_30	= $group_age->where('age','>=',21)->where('age','<=',30)->count();
+				$age_31_40	= $group_age->where('age','>=',31)->where('age','<=',40)->count();
+				$age_41_50	= $group_age->where('age','>=',41)->where('age','<=',50)->count();
+				$age_max_50	= $group_age->where('age','>=',51)->count();
 				$count_emp = $get_count_emp->count(); 
 
 				$form_age .='<table class="table table-bordered">';

@@ -26,10 +26,19 @@ class TimeStampController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
+        $id_employee = $current_employee['id_employee'];
+        //d($id_employee);
+        //$data = TimeStamp::with('employee')->with('requesttimestamp')->where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
 
-        $data = TimeStamp::with('employee')->with('requesttimestamp')->where('id_employee', $current_employee['id_employee'])->orderBy('id', 'desc')->get();
+        $data = TimeStamp::with(['requesttimestamp' => function($q) use($id_employee){
+                    $q->where('id_employee', $id_employee);
+                    $q->where('status', '!=', 3);
+                }])
+                ->orderBy('id', 'desc')
+                ->get();
 
-        return $this->useTemplate('time_stamp.index', compact('data'));
+        //sd($data->toArray());
+        return $this->useTemplate('time_stamp.index', compact('data', 'id_employee'));
     }
 
     public function request_history() //ดูประวัติการร้องขอ
@@ -212,6 +221,7 @@ class TimeStampController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
+        //$id_employee  =
 
         $request_date                       = $request->get('request_date');
         //sd($request_date);
@@ -251,6 +261,7 @@ class TimeStampController extends Controller
             $q->where('date', $request_date);
             $q->with('requesttimestamp');
         }])->where('id_employee', $current_employee['id_employee'])->first();
+        //sd($employee->toArray());
 
         if(empty($employee->timestamp_hasone)) {
             $new_record_timestamp               = new TimeStamp;
@@ -274,6 +285,8 @@ class TimeStampController extends Controller
 
         } else {
             $requesttimestamp =  isset($employee->timestamp_hasone->requesttimestamp) ? $employee->timestamp_hasone->requesttimestamp : [];
+            $requesttimestamp = $requesttimestamp->where('id_employee', $current_employee['id_employee'])->where('status', '!=', 3);
+            //sd($requesttimestamp->toArray());
             $errors = [];
             foreach ($array_time as $key => $time) {
                 $x = $requesttimestamp->where('request_type', $key);
@@ -323,9 +336,10 @@ class TimeStampController extends Controller
         $request_date = $confirm->request_date;
         $request_type = $confirm->request_type;
         $request_time = $confirm->request_time;
+        $id_employee  = $confirm->id_employee;
 
-        $request      = TimeStamp::where('date', $request_date)->first();
-
+        $request      = TimeStamp::where('date', $request_date)->where('id_employee', $id_employee)->first();
+        //sd($request->toArray());
         if(!empty($request)){
             if($request_type        == "time_in"){
                 $request->time_in = $request_time;
