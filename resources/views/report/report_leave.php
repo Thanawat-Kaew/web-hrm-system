@@ -46,28 +46,6 @@
 				<div class="box-body">
 					<div class="col-md-3">
 						<div class="form-group">
-							<label>ประเภทการลา</label>
-							<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="select_leaves_type">
-								<option value="">เลือกประเภท...</option>
-								<?php foreach($leaves_type as $value):?>
-									<option value="<?php echo $value['id_leaves_type']?>"><?php echo $value['leaves_name']?></option>
-								<?php endforeach ?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label>รูปแบบการลา</label>
-							<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="select_leaves_format">
-								<option class="form-control" value="<?php echo $value['id_department']?>">เลือกรูปแบบ...</option>
-								<?php foreach($leaves_format as $value):?>
-									<option value="<?php echo $value['id_leaves_format']?>"><?php echo ($value['name'] == 'full' ? "เต็มวัน":($value['name'] == 'half' ? "ครึ่งวัน":"ชั่วโมง"))?></option>
-								<?php endforeach ?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
 							<label>เริ่มวันที่</label>
 							<div class="input-group date">
 								<div class="input-group-addon">
@@ -86,6 +64,28 @@
 								</div>
 								<input type="text" readonly class="form-control datepicker" placeholder="เลือกวันที่..." style="background-color: white" id="select_end_date">
 							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>ประเภทการลา</label>
+							<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="select_leaves_type">
+								<option value="">เลือกประเภท...</option>
+								<?php foreach($leaves_type as $value):?>
+									<option value="<?php echo $value['id_leaves_type']?>"><?php echo $value['leaves_name']?></option>
+								<?php endforeach ?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>รูปแบบการลา</label>
+							<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="select_leaves_format">
+								<option class="form-control" value="<?php echo $value['id_department']?>">เลือกรูปแบบ...</option>
+								<?php foreach($leaves_format as $value):?>
+									<option value="<?php echo $value['id_leaves_format']?>"><?php echo ($value['name'] == 'full' ? "เต็มวัน":($value['name'] == 'half' ? "ครึ่งวัน":"ชั่วโมง"))?></option>
+								<?php endforeach ?>
+							</select>
 						</div>
 					</div>
 					<div class="col-md-12">

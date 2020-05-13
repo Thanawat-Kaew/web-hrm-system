@@ -287,6 +287,7 @@ class EvaluationController extends Controller
         //sd($list_name->toArray());
         //$list_name_evaluation = Evaluation::get();
         $list_name = Employee::with('evaluation_hasmany')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get(); // เอารายชื่อพนักงานมา
+        sd($list_name->toArray());
         //$list_name = Employee::with('evaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
         //$list_name = Evaluation::with('employee')->get();
         //$list_name = Evaluation::get();

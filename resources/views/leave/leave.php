@@ -17,11 +17,15 @@
 							</button>
 						</a>
 						<?php if($current_employee->id_department == "hr0001"):?>
+							<?php if($current_employee['id_position'] == 2):?>
 						<a href="<?php echo route("leave.set_holiday.get")?>">
 							<button href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
 							</button>
 						</a>
 					<?php endif?>
+					<?php endif?>
+						<button type="button" name="view_holiday" class='btn btn-danger dropdown-toggle pull-right view_holiday'><i class="fa fa-calendar-times-o"></i> ดูวันหยุดประจำปี
+						</button>
 					</div>
 				</div>
 				<div class="box box-info"><br>
@@ -80,9 +84,10 @@
 									<?php $sum_leave = 0;?>
 									<?php foreach($leave["leave"] as $status):?>
 										<?php $sum_leave = ($status['id'] == 1) ? $sum_leave+ $status['total'] :$sum_leave;?>
-										<td style="font-size: 13px; color: <?php echo ($status['name'] == "approved") ? "green" : ($status['name'] == "waiting" ? "orange" : "red")?>; width: 10%;"><?php echo $status['total']  ?></td>
+										<td style="font-size: 13px; color: <?php echo ($status['name'] == "approved") ? "green" : ($status['name'] == "waiting" ? "orange" : "red")?>; width: 10%;"><?php echo (round($status['total'],1))  ?></td>
 									<?php endforeach ?>
-									<td style="font-size: 13px;width: 10%;"><?php echo $leave["max_day"]-$sum_leave  ?></td>
+									<td style="font-size: 13px;width: 10%;"><?php $a = (round($leave["max_day"],1)-round($sum_leave,1));
+									if(strpos($a,".") !== false){ echo $a-0.2 ; }else{ echo $a;} ?></td>
 								</tr>
 							<?php endforeach ?>
 						</tbody>
