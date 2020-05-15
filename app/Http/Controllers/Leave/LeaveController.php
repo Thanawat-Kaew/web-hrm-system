@@ -18,6 +18,7 @@ use App\Services\Company\Company;
 use App\Services\Forms\FormViewDataRequestLeaves;
 use App\Services\Forms\FormViewRequestLeaves;
 use App\Services\Forms\FormEditRequestLeaves;
+use App\Services\Forms\FormViewHoliday;
 use App\Services\Request\RequestLeaves;
 use App\Services\Request\Status;
 
@@ -266,6 +267,22 @@ class LeaveController extends Controller
                 $form_leave         = $form_repo->getEditRequestLeaves($data,$company_time,$leaves_type,$header,$leaves_format,$company_info);
 
                 return response()->json(['status'=> 'success','data'=> $form_leave]);
+
+            break;
+
+            case 'getFormViewHoliday':
+
+                $year                   = date("Y");
+                $day_off_year           = DayOffYears::all();
+                $id                     = DayOffYears::get('id');
+                $detail_day_off_year    = DetailDayOffYear::with('day_off_year')
+                                                            ->whereIn('id_day_off_year',$id)
+                                                            ->where('year',$year)
+                                                            ->get();
+                $form_repo          = new FormViewHoliday;
+                $form_view_holiday  = $form_repo->getFormViewHoliday($detail_day_off_year);
+
+                return response()->json(['status'=> 'success','data'=> $form_view_holiday]);
 
             break;
             

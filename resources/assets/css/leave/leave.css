@@ -20,7 +20,7 @@ section{
 	background: #262626;
 }
 
-.add-leave,.view-history,.set-holidays{
+.add-leave,.view-history,.set-holidays,.view_holiday{
 	margin-right: 2px !important;
 }
 

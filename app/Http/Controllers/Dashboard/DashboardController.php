@@ -37,11 +37,14 @@ class DashboardController extends Controller
 {
 	public function dashboard()
     {
-    	$tz = date_default_timezone_set('Asia/Bangkok');
+    	date_default_timezone_set('Asia/Bangkok');
 		$get_date_now = date("Y-m-d");
 		$get_time_now = '09:00:00';
         $get_count_emp  = Employee::all();
         $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
+
+        $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
+
         $get_count_timestamp_late = TimeStamp::where('date',$get_date_now)->where('time_in','>',$get_time_now)->count(); //มาทำงานสาย
         $get_count_timestamp_on_time = TimeStamp::where('date',$get_date_now)->where('time_in','<=',$get_time_now)->count(); //มาทำงานตรงเวลา
 
@@ -61,22 +64,98 @@ class DashboardController extends Controller
         switch ($method) {
             case 'getFormChangeDepartmentDashboard':
 
+                date_default_timezone_set('Asia/Bangkok');
+                $get_date_now = date("Y-m-d");
+                $get_time_now = '09:00:00';
+
                 $department      = $request->get('department');
 
                 if ($department != "") {
                     $get_count_emp  = Employee::where('id_department',$department)->get();
+                    // sd($get_count_emp);
+
+                    $count_timestamp = TimeStamp::with(['employee' => function ($q) use ($department){
+                                                        $q->with('department')
+                                                        ->where('id_department', $department);}])
+                                                    ->where('date',$get_date_now)
+                                                    ->get(); //มาทำงานทั้งหมด
+
+                    $count_t_emp = $count_timestamp->count(); // พนักงานใน timestamp
+                        $get_count_timestamp = 0;
+                            for($i=0; $i < $count_t_emp; $i++){
+                                if(!empty($count_timestamp[$i]->employee)){
+                                    $get_count_timestamp+=1;
+                                }
+                            } //echo $get_count_timestamp; exit();
+
+                    $count_timestamp_late = TimeStamp::with(['employee' => function ($q) use ($department){
+                                                                $q->with('department')
+                                                                ->where('id_department', $department);}])
+                                                            ->where('date',$get_date_now)
+                                                            ->where('time_in','>',$get_time_now)
+                                                            ->get(); //มาทำงานสาย
+
+                     $count_t_late_emp = $count_timestamp_late->count(); // พนักงานใน timestamp
+                        $get_count_timestamp_late = 0;
+                            for($i=0; $i < $count_t_late_emp; $i++){
+                                if(!empty($count_timestamp_late[$i]->employee)){
+                                    $get_count_timestamp_late+=1;
+                                }
+                            } //echo $get_count_timestamp_late; exit();
+
+
+                    $count_timestamp_on_time = TimeStamp::with(['employee' => function ($q) use ($department){
+                                                                $q->with('department')
+                                                                ->where('id_department', $department);}])
+                                                            ->where('date',$get_date_now)
+                                                            ->where('time_in','<=',$get_time_now)
+                                                            ->get(); //มาทำงานตรงเวลา
+
+                    $count_on_t_emp = $count_timestamp_on_time->count(); // พนักงานใน timestamp
+                        $get_count_timestamp_on_time = 0;
+                            for($i=0; $i < $count_on_t_emp; $i++){
+                                if(!empty($count_timestamp_on_time[$i]->employee)){
+                                    $get_count_timestamp_on_time+=1;
+                                }
+                            } //echo $get_count_timestamp_on_time; exit();
+
+                    $count_leave = Leaves::with(['employee' => function ($q) use ($department){
+                                                            $q->with('department')
+                                                            ->where('id_department', $department);}])
+                                                        ->where('start_leave',$get_date_now)
+                                                        ->get();
+
+                    $count_on_t_emp = $count_leave->count(); // พนักงานใน timestamp
+                        $get_count_leave = 0;
+                            for($i=0; $i < $count_on_t_emp; $i++){
+                                if(!empty($count_leave[$i]->employee)){
+                                    $get_count_leave+=1;
+                                }
+                            } //echo $get_count_leave; exit();
 
                     $group_age = DB::table('employee','department')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->where('id_department',$department)->get();
                 } else {
                     
                     $get_count_emp  = Employee::all();
+                    $get_count_timestamp = TimeStamp::where('date',$get_date_now)
+                                                    ->count(); //มาทำงานทั้งหมด
+
+                    $get_count_timestamp_late = TimeStamp::where('date',$get_date_now)
+                                                            ->where('time_in','>',$get_time_now)
+                                                            ->count(); //มาทำงานสาย
+
+                    $get_count_timestamp_on_time = TimeStamp::where('date',$get_date_now)
+                                                                ->where('time_in','<=',$get_time_now)
+                                                                ->count(); //มาทำงานตรงเวลา
+
+                    $get_count_leave = Leaves::where('start_leave',$get_date_now)->count();
 
                     $group_age = DB::table('employee')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
-                }
+                    }
 
 
                 $form_repo      = new FormChangeDepartmentDashboard;
-                $form_add_emp   = $form_repo->getFormChangeDepartmentDashboard($get_count_emp,$group_age);
+                $form_add_emp   = $form_repo->getFormChangeDepartmentDashboard($get_count_emp,$group_age,$get_count_timestamp,$get_count_timestamp_late,$get_count_timestamp_on_time,$get_count_leave);
                 return response()->json(['status'=> 'success','data'=> $form_add_emp]);
             break;
             case 'variable':

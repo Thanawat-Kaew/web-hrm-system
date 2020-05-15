@@ -21,9 +21,24 @@ $(document).ready(function(){
     })
 
     $('#myTable').dataTable();
+
+    $('.view_holiday').on('click',function(){
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+            type: 'POST',
+            url: $('#ajax-center-url').data('url'),
+            data: {method : 'getFormViewHoliday'},
+            success: function (result) {
+                var title = "<h4 style='color: red;'>วันหยุดประจำปี <small> | Day Off Year.</small></h4>"
+                showDialogHoliday(result.data,title)
+            },
+            error : function(errors)
+            {
+                console.log(errors);
+            }
+        })
+    })
 })
-
-
 
 function showDialog(form,title,oldValue='',oldCheck='',errors=''){
     var box = bootbox.dialog({ 
@@ -136,6 +151,31 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
         }
     })
 }
+
+function showDialogHoliday(form,title){
+    var box = bootbox.dialog({ 
+        title: title,
+        message: form,
+        size: 'large',
+        onEscape: true,
+        backdrop: 'static',
+        buttons: {
+            fum: {
+                label: 'ปิด',
+                className: 'btn-warning',
+                callback: function(){
+                }
+            }
+        }
+    })
+
+    box.on("shown.bs.modal", function() {
+      
+        $('body').addClass('modal-open');
+
+    })
+}
+
 
 function sendRequest(form, title){
     msg_waiting();

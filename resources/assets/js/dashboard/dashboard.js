@@ -26,6 +26,8 @@ $(document).ready(function(){
 			},
 			success:function(result){
 				if(result.data !== ""){
+					$('#box_view').html(result.data.form_box_view);
+					$('#table_view').html(result.data.form_table_view);
 					$('#form_total_emp').html(result.data.form_total_emp);
 					$('#form_gender').html(result.data.form_gender);
 					$('#form_age').html(result.data.form_age);

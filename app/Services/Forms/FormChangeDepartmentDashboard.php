@@ -4,10 +4,142 @@ namespace App\Services\Forms;
 use App\Services\Employee\EmployeeObject;
 class FormChangeDepartmentDashboard
 {
-	 public static function getFormChangeDepartmentDashboard($get_count_emp,$group_age){
+	 public static function getFormChangeDepartmentDashboard($get_count_emp,$group_age,$get_count_timestamp,$get_count_timestamp_late,$get_count_timestamp_on_time,$get_count_leave){
+	 	$form_box_view ='';
+	 	$form_table_view ='';
 	 	$form_total_emp ='';
       	$form_gender ='';
       	$form_age ='';
+
+      		$count_emp = $get_count_emp->count();
+			$form_table_view .='<div class="col-md-12" id="table_view">';
+				$form_table_view .='<div class="box box-warning">';
+					$form_table_view .='<div class="box-body no-padding">';
+						$form_table_view .='<table class="table table-striped table-hover">';
+							$form_table_view .='<tbody>';
+								$form_table_view .='<tr>';
+									$form_table_view .='<th style="width: 40px; text-align: left;">Task</th>';
+									$form_table_view .='<th style="width: 30px;">Amount</th>';
+									$form_table_view .='<th style="width: 100px;">Progress</th>';
+									$form_table_view .='<th style="width: 40px">Percentage</th>';
+								$form_table_view .='</tr>';
+								$form_table_view .='<tr>';
+									$form_table_view .='<td style="text-align: left;">มาทำงาน /COME FOR WORK</td>';
+									$form_table_view .='<td> '.$get_count_timestamp.' คน</td>';
+									$form_table_view .='<td>';
+										$form_table_view .='<div class="progress progress-xs progress-striped active">';
+											$form_table_view .='<div class="progress-bar progress-bar-danger" style="width: '.round(($get_count_timestamp*100)/$count_emp,2)."%".';"></div>';
+										$form_table_view .='</div>';
+									$form_table_view .='</td>';
+									$form_table_view .='<td><span class="badge bg-red">'.round(($get_count_timestamp*100)/$count_emp,2).'%</span></td>';
+								$form_table_view .='</tr>';
+								$form_table_view .='<tr>';
+									$form_table_view .='<td style="text-align: left;">มาสาย /LATE FOR WORK</td>';
+									$form_table_view .='<td>'.$get_count_timestamp_late.' คน</td>';
+									$form_table_view .='<td>';
+										$form_table_view .='<div class="progress progress-xs progress-striped active">';
+											$form_table_view .='<div class="progress-bar progress-bar-yellow" style="width: '.round(($get_count_timestamp_late*100)/$count_emp,2)."%".';"></div>';
+										$form_table_view .='</div>';
+									$form_table_view .='</td>';
+									$form_table_view .='<td><span class="badge bg-yellow">'.round(($get_count_timestamp_late*100)/$count_emp,2) .'%</span></td>';
+								$form_table_view .='</tr>';
+								$form_table_view .='<tr>';
+									$form_table_view .='<td style="text-align: left;">มาทันเวลา /COME FOR WORK ON TIME</td>';
+									$form_table_view .='<td>'.$get_count_timestamp_on_time .' คน</td>';
+									$form_table_view .='<td>';
+										$form_table_view .='<div class="progress progress-xs progress-striped active">';
+											$form_table_view .='<div class="progress-bar progress-bar-primary" style="width: '.round(($get_count_timestamp_on_time*100)/$count_emp,2)."%".';"></div>';
+										$form_table_view .='</div>';
+									$form_table_view .='</td>';
+									$form_table_view .='<td><span class="badge bg-light-blue">'.round(($get_count_timestamp_on_time*100)/$count_emp,2) .'%</span></td>';
+								$form_table_view .='</tr>';
+								$form_table_view .='<tr>';
+									$form_table_view .='<td style="text-align: left;">ลางาน /LEAVE</td>';
+									$form_table_view .='<td>'.$get_count_leave .' คน</td>';
+									$form_table_view .='<td>';
+										$form_table_view .='<div class="progress progress-xs progress-striped active">';
+											$form_table_view .='<div class="progress-bar progress-bar-success" style="width: '.round(($get_count_leave*100)/$count_emp,2)."%".';"></div>';
+										$form_table_view .='</div>';
+									$form_table_view .='</td>';
+									$form_table_view .='<td><span class="badge bg-aqua">'.round(($get_count_leave*100)/$count_emp,2) .'%</span></td>';
+								$form_table_view .='</tr>';
+							$form_table_view .='</tbody>';
+						$form_table_view .='</table>';
+					$form_table_view .='</div>';
+				$form_table_view .='</div>';
+			$form_table_view .='</div>';
+
+			$form_box_view .='<div id="box_view" class="">';
+				$form_box_view .='<div class="col-md-3">';
+					$form_box_view .='<div class="info-box bg-green">';
+						$form_box_view .='<span class="info-box-icon"><i class="glyphicon glyphicon-briefcase"></i></span>';
+						$form_box_view .='<div class="info-box-content">';
+							$form_box_view .='<span class="info-box-text">มาทำงาน /Come to work</span>';
+
+							$form_box_view .='<span class="info-box-number"> '.$get_count_timestamp .' คน</span>';
+							$form_box_view .='<div class="progress">';
+								$form_box_view .='<div class="progress-bar" style="width: '.round(($get_count_timestamp*100)/$count_emp,2)."%".';"></div>';
+							$form_box_view .='</div>';
+
+							$form_box_view .='<span class="progress-description">';
+								$form_box_view .=''.round(($get_count_timestamp*100)/$count_emp,2).'';
+								$form_box_view .='% วันนี้ จากพนักงานในแผนก';
+							$form_box_view .='</span>';
+						$form_box_view .='</div>';
+					$form_box_view .='</div>';
+				$form_box_view .='</div>';
+
+				$form_box_view .='<div class="col-md-3">';
+					$form_box_view .='<div class="info-box bg-red">';
+						$form_box_view .='<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>';
+						$form_box_view .='<div class="info-box-content">';
+							$form_box_view .='<span class="info-box-text">มาสาย</span>';
+							$form_box_view .='<span class="info-box-number">'.$get_count_timestamp_late .' คน</span>';
+							$form_box_view .='<div class="progress">';
+								$form_box_view .='<div class="progress-bar" style="width: '.round(($get_count_timestamp_late*100)/$count_emp,2)."%".';"></div>';
+							$form_box_view .='</div>';
+							$form_box_view .='<span class="progress-description">';
+								$form_box_view .=''.round(($get_count_timestamp_late*100)/$count_emp,2).'';
+								$form_box_view .='% วันนี้ จากพนักงานในแผนก';
+							$form_box_view .='</span>';
+						$form_box_view .='</div>';
+					$form_box_view .='</div>';
+				$form_box_view .='</div>';
+
+				$form_box_view .='<div class="col-md-3">';
+					$form_box_view .='<div class="info-box bg-gray">';
+						$form_box_view .='<span class="info-box-icon"><i class="glyphicon glyphicon-time"></i></span>';
+						$form_box_view .='<div class="info-box-content">';
+							$form_box_view .='<span class="info-box-text">มาทันเวลา</span>';
+							$form_box_view .='<span class="info-box-number">'.$get_count_timestamp_on_time .' คน</span>';
+							$form_box_view .='<div class="progress">';
+								$form_box_view .='<div class="progress-bar" style="width: '.round(($get_count_timestamp_on_time*100)/$count_emp,2)."%".';"></div>';
+							$form_box_view .='</div>';
+							$form_box_view .='<span class="progress-description">';
+								$form_box_view .=''.round(($get_count_timestamp_on_time*100)/$count_emp,2) .'';
+								$form_box_view .='% วันนี้ จากพนักงานในแผนก';
+							$form_box_view .='</span>';
+						$form_box_view .='</div>';
+					$form_box_view .='</div>';
+				$form_box_view .='</div>';
+
+				$form_box_view .='<div class="col-md-3">';
+					$form_box_view .='<div class="info-box bg-yellow">';
+						$form_box_view .='<span class="info-box-icon"><i class="glyphicon glyphicon-envelope"></i></span>';
+	$form_box_view .='<div class="info-box-content">';
+							$form_box_view .='<span class="info-box-text">ลางาน /Leaves</span>';
+							$form_box_view .='<span class="info-box-number">'.$get_count_leave .' คน</span>';
+							$form_box_view .='<div class="progress">';
+								$form_box_view .='<div class="progress-bar" style="width: '.round(($get_count_leave*100)/$count_emp,2)."%".';"></div>';
+							$form_box_view .='</div>';
+							$form_box_view .='<span class="progress-description">';
+								$form_box_view .=''.round(($get_count_leave*100)/$count_emp,2) .'';
+								$form_box_view .='% วันนี้ จากพนักงานในแผนก';
+							$form_box_view .='</span>';
+						$form_box_view .='</div>';
+					$form_box_view .='</div>';
+				$form_box_view .='</div>';
+			$form_box_view .='</div>';
 
 			$form_total_emp ='<div class="box-header with-border">';
 			$form_total_emp .='<h3 class="box-title">Total Employees.</h3>';
@@ -123,7 +255,7 @@ class FormChangeDepartmentDashboard
 				$form_age .='</table>';
 
 
-        return ['form_total_emp' => $form_total_emp, 'form_gender' => $form_gender, 'form_age' => $form_age];
+        return ['form_total_emp' => $form_total_emp, 'form_gender' => $form_gender, 'form_age' => $form_age,'form_box_view' => $form_box_view,'form_table_view' => $form_table_view];
 
 	 }
 }
