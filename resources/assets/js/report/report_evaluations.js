@@ -13,7 +13,7 @@ $(document).ready(function(){
 	$('#myTable').dataTable();
 
 	$('#btn-search').on('click', function(){
-		alert("ok");
+		// alert("ok");
 		//msg_waiting();
 		var department    = $('#report-department').val();
 		var topic_name    = $('#report-topic-name').val();
@@ -44,6 +44,7 @@ $(document).ready(function(){
 			success:function(result){
 				if(result.data !== ""){
 					//console.log(result.data);
+
 					$('#data-evaluation').html(result.data.form);
 					msg_close();
 				}

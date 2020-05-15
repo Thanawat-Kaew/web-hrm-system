@@ -29,7 +29,7 @@
 					</div>
 					<div class="col-md-3 pull-right"><br>
 						<div class="form-group pull-right">
-							<a type="button" class="btn btn-primary genPDF_time_stamp">
+							<a type="button" class="btn btn-danger genPDF_time_stamp">
 								<i class="fa fa-file-pdf-o"></i> Export to PDF
 							</a>
 						</div>
@@ -82,7 +82,7 @@
 					</div>
 
 					<div class="col-md-12">
-						 <button id="btn-search" class="btn btn-primary pull-right">Search</button>
+						 <button id="btn-search" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Search</button>
 					</div>
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 						<?php foreach($timestamp as $value):?>
 							<?php if(isset($value->employee->department)):?>
 							<tr>
-								<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
+								<td style="color: blue; text-align: left; padding-left: 30px;"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
 								<td><?php echo $value->employee->department->name;?></td>
 								<td><?php echo $value->employee->Position->name;?></td>
 								<td><?php echo $value->date;?></td>

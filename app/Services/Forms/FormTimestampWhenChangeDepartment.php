@@ -25,7 +25,7 @@ class FormTimestampWhenChangeDepartment
         for($i=0; $i<$count_emp; $i++){
             if(!empty($emp_timestamp[$i]->employee->department)){
                 $form .='<tr>';
-                    $form .='<td style="color: blue">'.$emp_timestamp[$i]->employee->first_name." ".$emp_timestamp[$i]->employee->last_name.'</td>';
+                    $form .='<td style="color: blue; text-align: left; padding-left: 30px;">'.$emp_timestamp[$i]->employee->first_name." ".$emp_timestamp[$i]->employee->last_name.'</td>';
                     $form .='<td>'.$emp_timestamp[$i]->employee->department->name.'</td>';
                     $form .='<td>'.$emp_timestamp[$i]->employee->position->name.'</td>';
                     $form .='<td>'.$emp_timestamp[$i]->date.'</td>';

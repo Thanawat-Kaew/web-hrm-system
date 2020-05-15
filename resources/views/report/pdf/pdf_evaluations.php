@@ -93,7 +93,7 @@
 </script>
 
 <h1 style="font-size: 50px;">EVALUATION REPORT 
-	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?> | <?php echo $getTime ?></p>
+	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?>  <?php //echo $getTime ?></p>
 </h1>
 <hr>
 
@@ -116,8 +116,9 @@
 	<table>
 		<thead>
 			<tr>
-				<th>ID</th>
+				<th>#</th>
 				<th>Name</th>
+				<th>ID</th>
 				<th>Department</th>
 				<th>Position</th>
 				<th>วันที่ประเมิน</th>
@@ -128,17 +129,18 @@
 				<th>คิดเป็นร้อยละ</th>
 			</tr>
 		</thead>
-
-<?php   $no = 0; ?>
+	<?php $n = 1 ?>
+	<?php   $no = 0; ?>
         <?php $count_assessor = $emp_evaluation->count(); ?>
             <?php for ($i=0; $i < $count_assessor; $i++) { ?>
                 <?php if(!empty($emp_evaluation[$i]->employee->department)){?>
 				<tr>
-					<td style="color: blue; text-align: left; padding: 2px;"> 
-					<?php echo $emp_evaluation[$i]->employee->id_employee?>
-				</td>
+					<td><?php echo $n++ ?></td>
 					<td style="color: blue; text-align: left; padding: 2px;"> 
 					<?php echo $emp_evaluation[$i]->employee->first_name ?> <?php echo $emp_evaluation[$i]->employee->last_name ?>
+				</td>
+				<td style="color: blue; text-align: left; padding: 2px;"> 
+					<?php echo $emp_evaluation[$i]->employee->id_employee?>
 				</td>
 				<td>
 					<?php echo $emp_evaluation[$i]->employee->department->name ?>

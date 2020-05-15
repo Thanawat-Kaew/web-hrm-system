@@ -10,16 +10,16 @@
 		<div class="col-xs-12">
 			<div class="row add-leave-time-clock">
 				<div class="btn-group pull-right dropup-new-record">
-					<button href="" type="button" class='btn btn-danger dropdown-toggle add-new-record' data-toggle="dropdown"><i class="fa fa-plus"></i> New Record
+					<button href="" type="button" class='btn btn-danger dropdown-toggle add-new-record' data-toggle="dropdown"><i class="fa fa-plus"></i> บันทึกเวลาย้อนหลัง
 					</button>
 				</div>
 				<div class="btn-group pull-right time-clock">
-					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> Timestamp
+					<button type="button" class='btn btn-info time_stamp'><i class="fa fa-clock-o"></i> บันทึกเวลา
 					</button>
 				</div>
 				<div class="btn-group pull-right ">
 					<a class="histry_time_stamp" href="<?php echo route('time_stamp.request_history.get')?>">
-						<button type="button" class="btn btn-warning dropdown-toggle"><i class="fa fa-history"></i> History
+						<button type="button" class="btn btn-warning dropdown-toggle"><i class="fa fa-history"></i> ประวัติ
 						</button>
 					</a>
 				</div>

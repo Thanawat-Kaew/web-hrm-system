@@ -1,10 +1,3 @@
-<header>
-	<style type="text/css">
-		#myTable_filter{
-			display: none !important;
-		}
-	</style>
-</header>
 <section class="content-header">
 	<h3>
 		การลา |
@@ -37,7 +30,7 @@
 					</div>
 					<div class="col-md-3 pull-right"><br>
 						<div class="form-group pull-right">
-							<a type="button" class="btn btn-primary genPDF_leave">
+							<a type="button" class="btn btn-danger genPDF_leave">
 								<i class="fa fa-file-pdf-o"></i> Export to PDF
 							</a>
 						</div>
@@ -114,7 +107,7 @@
 							<?php foreach ($datas as $key => $value): ?>
 								<?php if(isset($value->employee->department)):?>
 									<tr>
-										<td style="color: blue"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
+										<td style="color: blue; text-align: left; padding-left: 30px;"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
 										<td><?php echo $value->employee->department->name;?></td>
 										<td><?php echo $value->employee->Position->name;?></td>
 										<td><?php echo $value->leaves_type->leaves_name;?></td>
