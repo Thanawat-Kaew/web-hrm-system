@@ -87,7 +87,7 @@
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
-					<h3 class="box-title">ประวัติการลา</h3>
+					<h3 class="box-title">ประวัติการประเมิน</h3>
 				</div>
 				<div class="box-body table-responsive no-padding">
 					<div class="row" id="data-evaluation">
