@@ -1,3 +1,10 @@
+<head>
+	<style type="text/css">
+		.modal{
+			border-radius: 10px;
+		}
+	</style>
+</head>
 <section class="content-header">
 	<h3>
 		ตรวจสอบตกหล่นของพนักงาน |

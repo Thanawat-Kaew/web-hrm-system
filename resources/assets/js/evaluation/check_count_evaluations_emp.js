@@ -27,7 +27,7 @@ $(document).ready(function() {
 								'id_department'    : id_department
 							},
 							success: function (result) {
-								var title = "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail</small></h4>"
+								var title = "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_email.png'></h4>"
 								showDialog(result.data,title);
 							},
 							error : function(errors){
@@ -57,7 +57,7 @@ function showDialog(form,title, oldValue='', errors='')
 		backdrop: 'static',
 		buttons: {
 			fi: {
-				label: 'บันทึก',
+				label: 'ส่ง',
 				className: 'btn-info',
 				callback: function(){
 					if (title == "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail</small></h4>") {
