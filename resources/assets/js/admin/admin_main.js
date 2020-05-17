@@ -14,7 +14,7 @@ function confirm(){
     Swal.fire({
         title: 'ต้องการออกจากระบบใช่หรือไม่?',
         text: "",
-        icon: 'warning',
+        type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
