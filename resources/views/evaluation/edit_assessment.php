@@ -74,6 +74,7 @@
 				<div class="content-header">
 					<h3><?php echo $data_evaluation->topic_name ?></h3>
 					<input type="hidden" name="id_topic" value="<?php echo $data_evaluation->id_topic;?>">
+					<input type="hidden" name="get_id_topic" id="get_id_topic" value="<?php echo $data_evaluation->id_topic;?>">
 					<input type="hidden" name="id_evaluation" value="<?php echo $details_evaluation->id_evaluation;?>">
 				</div>
 				<?php $count_part 	     = $data_evaluation->parts->count(); // นับจำนวนตอน

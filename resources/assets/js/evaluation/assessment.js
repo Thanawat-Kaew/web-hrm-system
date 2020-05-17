@@ -119,10 +119,27 @@ function checkData(){
 					$('#'+key + "-text-error").html("").hide();
 				}*/
 			});
-			alert("กรุณาใส่คะแนนให้ครบทุกช่อง");
+			// alert("กรุณาใส่คะแนนให้ครบทุกช่อง");
+			Swal.fire({
+				title: 'คุณเพิ่มรายการนี้ไม่สำเร็จ',
+				text: 'กรุณาใส่คะแนนให้ครบถ้วน',
+				type: 'warning',
+				showCancelButton: false,
+				confirmButtonText: 'ปิด'
+			})
 		}
 	}else{
-		alert("success");
-		document.getElementById("save-evaluation").submit();
+
+		var value_assesment = $('#value_assesment').val();
+
+		Swal.fire({
+			type: 'success',
+			title: 'Data has been saved',
+			showConfirmButton: false,
+			timer: 1500
+		}).then((result) => {
+			document.getElementById("save-evaluation").submit();
+			window.location.href = "/evaluation/human_assessment/"+value_assesment;
+		})
 	}
 }

@@ -139,9 +139,9 @@ function sendData(){
 	//console.log(check_percent);
 	
 	if(check_percent > 100){
-		Swal.fire('Fail', 'กรุณาอย่าใส่ค่า pernect ของทุกตอนรวมกันอย่าเกิน 100','warning');
+		Swal.fire('Fail', 'กรุณาอย่าใส่ค่า percent ของทุกตอนรวมกันไม่เกิน 100%','warning');
 	}else if(check_percent < 100){
-		Swal.fire('Fail', 'กรุณาใส่ค่า pernect ของทุกตอนรวมกันต้องเท่ากับ 100','warning');
+		Swal.fire('Fail', 'กรุณาใส่ค่า percent ของทุกตอนรวมกันต้องเท่ากับ 100%','warning');
 	}else if(check_percent == 100){
 		if(count > 0) {
 			if(oldValue !== ""){
@@ -157,8 +157,15 @@ function sendData(){
 			}
 
 		}else{
-			document.getElementById("save-evaluation").submit();
-			window.location.href = "/evaluation";
+			Swal.fire({
+				type: 'success',
+				title: 'Data has been saved',
+				showConfirmButton: false,
+				timer: 1500
+			}).then((result) => {
+					document.getElementById("save-evaluation").submit();
+					window.location.href = "/evaluation";
+			})
 		}
 	}
 }
