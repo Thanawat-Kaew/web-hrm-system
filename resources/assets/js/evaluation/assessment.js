@@ -8,6 +8,8 @@ $(document).ready(function() {
 	})
 
 	$('.cancel_evaluation').click(function(){
+		var value_assesment = $('#value_assesment').val();
+		// alert(value_assesment);
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่ ?',
 			text: "ที่จะยกเลิกการประเมินนี้ !",
@@ -21,7 +23,7 @@ $(document).ready(function() {
 		}).then((result) =>{
 			if (result.value)
 			{
-				window.location.href = "/evaluation/human_assessment";
+				window.location.href = "/evaluation/human_assessment/"+value_assesment;
 			}
 		})
 	})

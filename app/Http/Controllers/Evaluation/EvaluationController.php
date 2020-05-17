@@ -154,10 +154,10 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->paginate(10);
+        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->get();
         //$count             = $create_evaluation->part->count();
         //sd($create_evaluation->toArray());
-        $pag               = CreateEvaluation::paginate(10);
+        // $pag               = CreateEvaluation::paginate(10);
         //sd($pag->toArray());
         //sd($create_evaluation->count());
         return $this->useTemplate('evaluation.history_create_evaluations', compact('current_employee','create_evaluation', 'count', 'pag'));

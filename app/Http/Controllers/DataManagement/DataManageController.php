@@ -245,7 +245,7 @@ class DataManageController extends Controller
         $id                            = $request->get('id');
 
         $confirm                       = RequestChangeData::find($id);
-        sd($confirm->toArray());
+        // sd($confirm->toArray());
         $confirm->status               = 1;
         $confirm->approvers            = $current_employee['id_employee'];
         $confirm->save();
