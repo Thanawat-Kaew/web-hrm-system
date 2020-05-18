@@ -60,7 +60,7 @@ function showDialog(form,title, oldValue='', errors='')
 				label: 'ส่ง',
 				className: 'btn-info',
 				callback: function(){
-					if (title == "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail</small></h4>") {
+					if (title == "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_email.png'></h4>") {
 						formSendEmail(form, title);
 					}
 				}

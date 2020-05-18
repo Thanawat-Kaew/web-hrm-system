@@ -33,8 +33,8 @@ class FormViewEvaluation
 							$form .= '</div>';
 							$form .= '<table class="table table-bordered table-condensed" id="type_one">';
 								$form .= '<tr>';
-									$form .= '<th>ข้อที่-'.$evaluation_data->parts[$i]->id_part.'</th>';
-									$form .= '<th>ความเข้าใจ ,ความสามารถ'.$evaluation_data->parts[$i]->percent.'>%</th>';
+									$form .= '<th>ข้อที่</th>';
+									$form .= '<th>('.$evaluation_data->parts[$i]->percent.'%)</th>';
 									$form .= '<input type="hidden" name="percent-" value="">';
 									for($ad=0; $ad<$count_answerdeatils; $ad++){ /*check จำนวนรูปแบบคำตอบ, ad = answerdetails */
 										$form .= '<th>'
