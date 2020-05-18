@@ -50,6 +50,7 @@
 								<div class="panel panel-default">
 									<div class="panel-body">
 									<label>รูปแบบคำตอบ</label>
+									<?php sd($view_create_evaluation->toArray());?>
 										<input type="text" name="name-question" id="type-question" class="form-control" value="<?php echo $view_create_evaluation->answerformat->answer_format_name ?>" readonly>
 									</div>
 								</div>
