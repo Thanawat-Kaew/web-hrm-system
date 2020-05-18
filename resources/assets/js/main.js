@@ -30,7 +30,23 @@ function confirm_logout(){
 				url     : $('#logout-form').data('url'),
 			});
 			
-			window.location.href = 'http://hrm.system.io/logout';
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'body',
+				showConfirmButton: false,
+				timer: 2000,
+				onOpen: (toast) => {
+				    toast.addEventListener('mouseenter', Swal.stopTimer)
+				    toast.addEventListener('mouseleave', Swal.resumeTimer)
+				}
+			})
+			Toast.fire({
+			  	type: 'success',
+			  	title: 'ออกจากระบบสำเร็จ',
+			  	customClass: 'largeWidth'
+			}).then((result) => {
+				window.location.href = 'http://hrm.system.io/logout';
+			})
 		}
 	})
 }
