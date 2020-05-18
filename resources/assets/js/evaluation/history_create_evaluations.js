@@ -68,18 +68,13 @@ function postDelete(url)
         url: url,
         success: function(result){
             if(result.status == "success"){
-                Swal.fire(
-                {
-                    title: 'คุณลบรายการนี้เรียบร้อย',
-                    type: 'success',
-                    showCancelButton: false,
-                    confirmButtonText: 'ปิด'
-
-                }).then((result) =>{
-
-                    if (result.value){
-                        window.location.reload();
-                    }
+                Swal.fire({
+                type: 'success',
+                title: 'คุณลบรายการนี้เรียบร้อย',
+                showConfirmButton: false,
+                timer: 1500
+            }).then((result) => {
+                    window.location.reload();
                 })
             } else {
                 alert(result.message);

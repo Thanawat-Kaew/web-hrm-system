@@ -87,3 +87,11 @@ tr>td{
 .content_human_assessment{
 	background-color: #222d32 !important;
 }
+
+#myTable_length, #myTable_info {
+	margin-left: 30px !important;
+}
+
+#myTable_paginate, #myTable_filter{
+	margin-right: 30px !important;
+}

@@ -42,15 +42,6 @@
 			<div class="box box-info">
 				<div class="box-header">
 					<h4 class="box-title">แบบประเมิน</h4>
-					<div class="box-tools">
-						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
-
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-							</div>
-						</div>
-					</div>
 				</div>
 				<?php //echo $department ;?>
 				<div class="box-body table-responsive no-padding">

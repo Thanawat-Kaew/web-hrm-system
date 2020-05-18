@@ -26,7 +26,7 @@ $(document).ready(function() {
 					bootbox.dialog({
 						title: title,
 						message: result.data,
-						size: 'xlarge',
+						size: 'large',
 						onEscape: true,
 						backdrop: 'static',
 						buttons: {

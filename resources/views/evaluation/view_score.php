@@ -114,18 +114,21 @@
 	<table>
 		<thead>
 			<tr>
-				<th style="width: 80px;">รหัสพนักงาน</th>
+				<th style="width: 30px;">#</th>
 				<th>ชื่อ-สกุล</th>
+				<th style="width: 80px;">รหัสพนักงาน</th>
 				<th style="width: 80px;">คะแนนเต็ม</th>
 				<th style="width: 150px;">ผลคะแนน</th>
 				<th style="width: 150px;">คิดเป็นร้อยละ (%)</th>
 			</tr>
 		</thead>
+		<?php $n = 1;?>
 		<tbody>
 			<?php foreach ($emp_evaluation as $value2 ) :?>
 			<tr>
+				<td><?php echo $n++ ?></td>
+				<td style="text-align: left; padding-left: 10px;" ><?php echo $value2->employee->first_name ?>  <?php echo $value2->employee->last_name ?></td>
 				<td><?php echo $value2->id_assessor ?></td>
-				<td><?php echo $value2->employee->first_name ?> <?php echo $value2->employee->last_name ?></td>
 				<td><?php echo $value2->from_the_full_score ?></td>
 				<td><?php echo $value2->result_evaluation ?></td>
 				<td style="color: red;"><?php echo ($value2->result_evaluation*100)/$value2->from_the_full_score ?>%</td>

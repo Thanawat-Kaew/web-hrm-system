@@ -6,13 +6,8 @@ use App\Services\Employee\EmployeeObject;
 class FormViewEvaluation
 {
 	public static function getFormViewEvaluation($evaluation_data, $evaluation_details){ // ดูการประเมินที่ลงคะแนนไปแล้ว
-		//sd($evaluation_data->answerformat->answerdetails->count());
-	$form = '<section class="content">';
-		$form .= '<div class="row">';
-			$form .= '<div class="col-md-12">';
-				$form .= '<div class="content-header">';
-					$form .= '<h3>'.$evaluation_data->topic_name.'</h3>';
-				$form .= '</div>';
+					$form = '<h3>'.$evaluation_data->topic_name.'</h3>';
+				// $form .= '</div>';
 					$count_part  = $evaluation_data->parts->count();
 					//sd($count_part);
 				$form .= '<div class="box box-info">';
@@ -38,8 +33,8 @@ class FormViewEvaluation
 							$form .= '</div>';
 							$form .= '<table class="table table-bordered table-condensed" id="type_one">';
 								$form .= '<tr>';
-									$form .= '<th>ข้อที่-'.$evaluation_data->parts[$i]->id_part.'</th>';
-									$form .= '<th>ความเข้าใจ ,ความสามารถ'.$evaluation_data->parts[$i]->percent.'>%</th>';
+									$form .= '<th>ข้อที่</th>';
+									$form .= '<th>('.$evaluation_data->parts[$i]->percent.'%)</th>';
 									$form .= '<input type="hidden" name="percent-" value="">';
 									for($ad=0; $ad<$count_answerdeatils; $ad++){ /*check จำนวนรูปแบบคำตอบ, ad = answerdetails */
 										$form .= '<th>'
@@ -92,10 +87,8 @@ class FormViewEvaluation
 						$form .= '<label class="pull-right grand_total">คะแนนรวมทั้งหมด : <label id="total-evluation">'.$sum_of_evaluation.'</label> </label>';
 						$form .= '<input type="hidden" name="total-evluation" value="" class="">';
 					$form .= '</div>';
-				$form .= '</div>';
+				// $form .= '</div>';
 			$form .= '</div><br><br>';
-		$form .= '</div>';
-	$form .= '</section>';
     return $form;
 	}
 }

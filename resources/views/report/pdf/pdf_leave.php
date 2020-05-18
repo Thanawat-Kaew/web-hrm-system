@@ -93,7 +93,7 @@
     </script>
 
 	<h1 style="font-size: 50px;">LEAVES REPORT 
-		<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?> | <?php echo $getTime ?></p>
+		<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?>  <?php //echo $getTime ?></p>
 	</h1>
 	<hr>
 
@@ -117,6 +117,7 @@
 <table>
 	<thead>
 		<tr>
+			<th>#</th>
 			<th>Name</th>
 			<th>Department</th>
 			<th>Position</th>
@@ -126,6 +127,7 @@
 			<th>จำนวน</th>
 		</tr>
 	</thead>
+	<?php $no = 1 ?>
 	<?php $count_emp = $emp_leaves->count();?>
 	<?php for ($i=0; $i < $count_emp ; $i++) { ?> 
 		<?php if(!empty($emp_leaves[$i]->employee->department)){ ?> 
@@ -133,6 +135,7 @@
 			<?php $e=2; ?> 
 			<?php $u=3; ?> 
 			<tr>
+				<td><?php echo $no++ ?></td>
 				<td style="color: blue; text-align: left;
 			padding: 2px;"> 
 					<?php echo $emp_leaves[$i]->employee->first_name ?> <?php echo $emp_leaves[$i]->employee->last_name ?>

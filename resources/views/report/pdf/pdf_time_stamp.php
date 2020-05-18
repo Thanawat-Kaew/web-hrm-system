@@ -93,7 +93,7 @@
 </script>
 
 <h1 style="font-size: 50px;">TIME-STAMP REPORT 
-	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?> | <?php echo $getTime ?></p>
+	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?>  <?php //echo $getTime ?></p>
 </h1>
 <hr>
 <h4 style="font-size: 20px;">Department : 
@@ -107,6 +107,7 @@
 <table>
 	<thead>
 		<tr>
+			<th>#</th>
 			<th>Name</th>
 			<th>Department</th>
 			<th>Position</th>
@@ -118,10 +119,12 @@
 			<th>Total(hr)</th>
 		</tr>
 	</thead>
+	<?php $no = 1 ?>
 	<?php $count_emp = $emp_timestamp->count(); ?>
 	<?php for ($i=0; $i < $count_emp ; $i++) { ?> 
 		<?php if(!empty($emp_timestamp[$i]->employee->department)){ ?> 
 			<tr>
+				<td><?php echo $no++ ?></td>
 				<td style="color: blue; text-align: left;
 				padding: 2px;"> 
 				<?php echo $emp_timestamp[$i]->employee->first_name?> <?php echo $emp_timestamp[$i]->employee->last_name;?>

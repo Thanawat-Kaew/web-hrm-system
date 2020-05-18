@@ -88,6 +88,8 @@
 				<div class="content-header">
 					<h3><?php echo $data_evaluation->topic_name ?></h3>
 					<input type="hidden" name="id_topic" value="<?php echo $data_evaluation->id_topic;?>">
+					<input type="hidden" id="value_assesment" value="<?php echo $data_evaluation->id_topic?>" name="">
+
 				</div>
 				<?php $count_part 	     = $data_evaluation->parts->count(); // นับจำนวนตอน
 					  //$count_parts = $part + 1;

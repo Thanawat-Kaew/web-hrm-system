@@ -55,7 +55,6 @@
 							<?php endforeach ?>
 						</tbody>
 					</table>
-					<?php echo $pag->render(); ?>
 				</div>
 			</div>
 		</div>

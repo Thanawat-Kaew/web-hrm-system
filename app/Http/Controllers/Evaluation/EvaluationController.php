@@ -154,13 +154,12 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->paginate(10);
+        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->get();
         //$count             = $create_evaluation->part->count();
         //sd($create_evaluation->toArray());
-        $pag               = CreateEvaluation::paginate(10);
         //sd($pag->toArray());
         //sd($create_evaluation->count());
-        return $this->useTemplate('evaluation.history_create_evaluations', compact('current_employee','create_evaluation', 'count', 'pag'));
+        return $this->useTemplate('evaluation.history_create_evaluations', compact('current_employee','create_evaluation', 'count'));
     }
 
     public function create_evaluations()
@@ -184,11 +183,14 @@ class EvaluationController extends Controller
         return $this->useTemplate('evaluation.create_evaluations', compact('id_new_evaluation'));
     }
 
-    public function postAddEvaluations(Request $request)
+    public function postAddEvaluations(Request $request) // กดบันทึกเมื่อสร้างแบบประเมินเสร็จแล่ว
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
+        $department     = $current_employee->id_department;
+        $evaluations    = CreateEvaluation::where('status', 1)->get(); // status 1 เป็นการยืนยันว่่าผ่านการตรวจสอบ
+
         $data                          = $request->all();
         //sd($data);
         //sd($data['name-question-'.$data['id_evaluation'].'-'.'1'.'-'.'3'][0]);
@@ -248,6 +250,9 @@ class EvaluationController extends Controller
                 }
             }
         }
+
+        //return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee', 'department', 'check_emp_eva', 'count_emp'));
+        //return view('evaluation.index', compact('current_employee'));
     }
 
     public function assessment(Request $request, $id, $id_topic)
@@ -287,7 +292,7 @@ class EvaluationController extends Controller
         //sd($list_name->toArray());
         //$list_name_evaluation = Evaluation::get();
         $list_name = Employee::with('evaluation_hasmany')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get(); // เอารายชื่อพนักงานมา
-        sd($list_name->toArray());
+        //sd($list_name->toArray());
         //$list_name = Employee::with('evaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
         //$list_name = Evaluation::with('employee')->get();
         //$list_name = Evaluation::get();
