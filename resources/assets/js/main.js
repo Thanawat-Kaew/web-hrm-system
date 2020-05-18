@@ -9,6 +9,7 @@ $(document).ready(function(){
 	$('.logout').click(function(){
 		confirm_logout();
 	})
+
 })
 
 function confirm_logout(){
@@ -34,7 +35,7 @@ function confirm_logout(){
 				toast: true,
 				position: 'body',
 				showConfirmButton: false,
-				timer: 2000,
+				timer: 1500,
 				onOpen: (toast) => {
 				    toast.addEventListener('mouseenter', Swal.stopTimer)
 				    toast.addEventListener('mouseleave', Swal.resumeTimer)

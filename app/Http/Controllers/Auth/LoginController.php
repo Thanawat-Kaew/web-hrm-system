@@ -62,7 +62,8 @@ class LoginController extends Controller
             return redirect()->route('main.get');
             // return redirect()->route('dashboard.dashboard.get');
         }else{
-            return view('auth.login'/*, compact('success' ,'กรุณากรอกข้อมูลใหม่')*/);
+            Session::flash('fail', 'E-mail or Password is correct, Please try again.');
+            return view('auth.login');
         }
     }
 
