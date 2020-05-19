@@ -136,7 +136,7 @@ function checkData(){
 			type: 'success',
 			title: 'Data has been saved',
 			showConfirmButton: false,
-			timer: 1500
+			timer: 3000
 		}).then((result) => {
 			document.getElementById("save-evaluation").submit();
 			window.location.href = "/evaluation/human_assessment/"+value_assesment;

@@ -88,7 +88,7 @@ class FormViewEvaluation
 						$form .= '<input type="hidden" name="total-evluation" value="" class="">';
 					$form .= '</div>';
 				// $form .= '</div>';
-			$form .= '</div><br><br>';
+			$form .= '</div>';
     return $form;
 	}
 }

@@ -24,15 +24,6 @@
 <body class="hold-transition login-page" style="background-color: #222d32;">
 <div class="login-box">
 
-   
-
-   <!--  @if(Session::has('success'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h4 style="margin-bottom: 0;"><i class="icon fa fa-ban"></i> {{Session('success')}}</h4>
-        </div>
-    @endif -->
-
   <div class="login-logo">
     <a style="color: white;"><b>HR-</b>MANAGEMENT</a>
   </div>
@@ -68,12 +59,18 @@
       </div>
     </form>
   </div><br><br>
+    @if(Session::has('fail'))
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p style="margin-bottom: 0;"><i class="icon fa fa-ban"></i> {{Session::get('fail')}}</p>
+        </div>
+    @endif
   <!-- /.login-box-body -->
-   @if(Session::has('fail'))
-    <div class="alert alert-warning">
+  <!--  @if(Session::has('fail'))
+    <div class="alert alert-warning alert-dismissible">
       <p>{{ \Session::get('fail') }}</p>
     </div>
-    @endif
+    @endif -->
 </div>
 <!-- /.login-box -->
 

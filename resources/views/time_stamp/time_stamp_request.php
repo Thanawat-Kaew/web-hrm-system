@@ -62,17 +62,6 @@
 							</tr>
 						</tbody>
 					<?php endforeach?>
-						<tfoot>
-							<tr>
-								<th>#</th>
-								<th>ชื่อ-สกุล</th>
-								<th>รหัสพนักงาน</th>
-								<th>วันที่ลงเวลาย้อนหลัง</th>
-								<th>รายละเอียด</th>
-								<th style="width: 20px"></th>
-								<th>สถานะ</th>
-							</tr>
-						</tfoot>
 				</table>
 			</div>
 		</div>
