@@ -29,7 +29,7 @@ class FormEvaluationWhenChangeDepartment
                 if(!empty($emp_evaluation[$i]->employee->department)){
             $form .= '<tr>';
                 $form .= '<td>'.$n++.'</td>';
-                $form .= '<td style="color: blue; text-align: left; padding-left: 30px;">'.$emp_evaluation[$i]->employee->first_name.' '.$emp_evaluation[$i]->employee->last_name.'</td>';
+                $form .= '<td style="color: blue; text-align: left; padding-left: 30px;" class="view-evaluation" data-id="'.$emp_evaluation[$i]->employee->id_employee.'" data-id_topic="'.$emp_evaluation[$i]->id_topic.'">'.$emp_evaluation[$i]->employee->first_name.' '.$emp_evaluation[$i]->employee->last_name.'</td>';
                 $form .= '<td style="color: blue">'.$emp_evaluation[$i]->employee->id_employee.'</td>';
                 $form .= '<td>'.$emp_evaluation[$i]->employee->department->name.'</td>';
                 // $form .= '<td>'.$emp_evaluation[$i]->employee->position->name.'</td>';

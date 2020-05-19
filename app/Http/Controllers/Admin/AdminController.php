@@ -24,6 +24,11 @@ use App\Services\Forms\FormEditHeaderAndEmployeeForAdmin;
 use App\Services\Forms\FormAddHeader;
 use App\Services\Employee\StatusEmployee;
 use App\Services\Admin\RecoveryStatusEmployee;
+use App\Services\Evaluation\Evaluation;
+use App\Services\Leaves\Leaves;
+use App\Services\Request\Requesttimestamp;
+use App\Services\TimeStamp\TimeStamp;
+use App\Services\Evaluation\ResultEvaluation;
 
 class AdminController extends Controller
 {
@@ -347,6 +352,74 @@ class AdminController extends Controller
         $find_id_recovery->id_status = 1;
         $find_id_recovery->id_admin  = $current_admin['id_admin'];
         $find_id_recovery->save();
+
+        $find_id     = Employee::with('evaluation_hasmany', 'evaluation_hasmany.resultevaluation', 'employeemenu', 'requestchangedata', 'timestamp', 'requesttimestamp', 'leaves')
+        ->where('id_employee', $find_id_recovery->id_employee)
+        ->first();
+
+        $count_leaves  = $find_id->leaves->count(); // นับจำนวนการลาของ id ที่โดนลบ
+        if($count_leaves > 0){
+            for($i=0; $i<$count_leaves; $i++){
+                $get_id_leaves = Leaves::where('id_employee', $find_id_recovery->id_employee)->first();
+                $get_id_leaves->delete();
+            }
+        }
+
+        $count_req_time  = $find_id->requesttimestamp->count(); // นับจำนวนการขอลงเวลาย้อนหลังของ id ที่โดนลบ
+        if($count_req_time > 0){
+            for($i=0; $i<$count_req_time; $i++){
+                $get_id_req_time = Requesttimestamp::where('id_employee', $find_id_recovery->id_employee)
+                                    ->first();
+                $get_id_req_time->delete();
+            }
+        }
+
+        $count_timestamp  = $find_id->timestamp->count(); // นับจำนวนการลงเวลาทำงานของ id ที่โดนลบ
+        if($count_timestamp > 0){
+            for($i=0; $i<$count_timestamp; $i++){
+                $get_id_timestamp = Timestamp::where('id_employee', $find_id_recovery->id_employee)
+                                    ->first();
+                $get_id_timestamp->delete();
+            }
+        }
+
+        $count_req_cha_data  = $find_id->requestchangedata->count(); // นับจำนวนการขอการแก้ไขข้อมูลของ id ที่โดนลบ
+        if($count_req_cha_data > 0){
+            for($i=0; $i<$count_req_cha_data; $i++){
+                $get_id_req_cha_data = RequestChangeData::where('id_employee', $find_id_recovery->id_employee)
+                                    ->first();
+                $get_id_req_cha_data->delete();
+            }
+        }
+
+
+        $count_emp_menu  = $find_id->employeemenu->count(); // นับจำนวนเมนูของ id ที่โดนลบ
+        if($count_emp_menu > 0){
+            for($i=0; $i<$count_emp_menu; $i++){
+                $get_id_emp_menu = EmployeeMenu::where('id_employee', $find_id_recovery->id_employee)
+                                    ->first();
+                $get_id_emp_menu->delete();
+            }
+        }
+
+        $count_evaluation        = $find_id->evaluation_hasmany->count(); // นับจำนวนการประเมินของ id ที่โดนลบ
+        if($count_evaluation > 0){
+            $get_id_evaluation       = []; //ตัวแปรที่เอาไว้เก็บ id ของ evaluation
+            $id_result_eva           = []; //ตัวแปรที่เอาไว้เก็บ ข้อมูลทั้งหมด ของ result_evaluation
+            $count_id_result_eva     = []; // นับว่า $id_result_eva มีข้อมูลกี่ตัว
+            for($i=0; $i<$count_evaluation; $i++){
+                $get_id_evaluation[$i] = $find_id->evaluation_hasmany[$i]->id_evaluation; //หา id ของ evaluation ของ รก ที่โดนลบ
+                $id_result_eva[$i]  = ResultEvaluation::where('id_evaluation', $get_id_evaluation[$i])->get();
+                $count_id_result_eva[$i] = $id_result_eva[$i]->count();
+                for($j=0; $j<$count_id_result_eva[$i]; $j++){
+                    $get_id_result_eva   = ResultEvaluation::where('id_evaluation', $get_id_evaluation[$i])->first();
+                    $get_id_result_eva->delete(); // ลบใน result_evaluation
+                }
+                $id_evaluation = Evaluation::where('id_evaluation', $get_id_evaluation[$i])->first();
+                $id_evaluation->delete();
+            }
+        }
+        $find_id->delete(); // ลบใน table employee
     }
 
     public function cancelDeleteEmployee(Request $request)

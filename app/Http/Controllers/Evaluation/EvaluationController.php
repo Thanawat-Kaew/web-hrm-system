@@ -723,7 +723,7 @@ class EvaluationController extends Controller
         //sd($no);
         //$result_evaluation->
 
-        //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
     }
 
 

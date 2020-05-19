@@ -17,6 +17,12 @@
 						</a>
 					</div>
 					<?php }?>
+					<?php if($current_employee->id_position == "1"){?>
+					<div class="btn-group pull-right new-evaluation">
+						<button type="button" name="add-evaluation" class='btn btn-success dropdown-toggle add-evaluation'><i class="fa fa-plus"></i> สร้างแบบประเมิน
+						</button>
+					</div>
+					<?php }?>
 					<div class="btn-group pull-right history_create_evaluations button_history_create_evaluations">
 						<div class="btn-group pull-right">
 							<a href="<?php echo route("evaluation.history_create_evaluations.get")?>">

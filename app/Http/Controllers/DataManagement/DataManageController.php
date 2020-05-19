@@ -303,8 +303,8 @@ class DataManageController extends Controller
                 $employee_menu->permission      = '["read", "write"]';
                 $employee_menu->save();
             }*/
-            echo "2";
-            exit();
+            //echo "2";
+            //exit(); // เป็นกรณีที่เป็นพนักงานแต่ป้อนข้อมูลผิดเลยเป็นหัวหน้า ไม่มีทางเกิดแบบนี้
         }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "1"){
             $employee->id_role = 3; // hr_employee
             $employee_menu      = EmployeeMenu::where('id_employee', $employee->id_employee)->get();
