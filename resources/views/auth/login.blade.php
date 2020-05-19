@@ -60,11 +60,23 @@
     </form>
   </div><br><br>
     @if(Session::has('fail'))
-        <div class="alert alert-warning alert-dismissible">
+        <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <p style="margin-bottom: 0;"><i class="icon fa fa-ban"></i> {{Session::get('fail')}}</p>
         </div>
+    @elseif(Session::has('required_data'))
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p style="margin-bottom: 0; font-size: 13.5px;"><i class="icon fa fa-ban"></i> {{Session::get('required_data')}}</p>
+        </div>
     @endif
+
+  <!--   @if(Session::has('required_data'))
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p style="margin-bottom: 0;"><i class="icon fa fa-ban"></i> {{Session::get('required_data')}}</p>
+        </div>
+    @endif -->
   <!-- /.login-box-body -->
   <!--  @if(Session::has('fail'))
     <div class="alert alert-warning alert-dismissible">

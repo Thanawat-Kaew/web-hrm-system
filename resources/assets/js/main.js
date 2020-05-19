@@ -46,7 +46,16 @@ function confirm_logout(){
 			  	title: 'ออกจากระบบสำเร็จ',
 			  	customClass: 'largeWidth'
 			}).then((result) => {
-				window.location.href = 'http://hrm.system.io/logout';
+				Swal.fire({
+					title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i> กำลังเปลี่ยนเส้นทาง',
+					html: '<h3>รอสักครู่...</h3>',
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					customClass: 'swal-wide',
+					timer: 1500,
+				}).then((result) => {
+					window.location.href = 'http://hrm.system.io/logout';
+				})
 			})
 		}
 	})
