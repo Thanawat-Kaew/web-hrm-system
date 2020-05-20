@@ -202,6 +202,7 @@ class EvaluationController extends Controller
         $create_evaluation->id_answer_format = $data['type_answer-'.$data['id_evaluation'].''];
         $create_evaluation->status           = 2;
         $create_evaluation->save();
+        //sd($create_evaluation->toArray());
 
         if(isset($data['chapter'])){ // ตรวจสอบว่ามีตอนไหม
             $count_chapter = $data['chapter'] + 1;
