@@ -154,7 +154,9 @@ class EvaluationController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)->get();
+        $create_evaluation = CreateEvaluation::where('id_employee', $current_employee->id_employee)
+                            ->where('confirm_send_create_evaluation', 1)
+                            ->get();
         //$count             = $create_evaluation->part->count();
         //sd($create_evaluation->toArray());
         //sd($pag->toArray());

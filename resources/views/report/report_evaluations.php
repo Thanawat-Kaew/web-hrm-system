@@ -13,12 +13,16 @@
 						<div class="form-group">
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
+								<?php if($current_employee['id_department'] == "hr0001"){?>
 								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 									<option value="">เลือกแผนก...</option>
 									<?php foreach($department as $departments):?>
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
 									<?php endforeach ?>
 								</select>
+								<?php }else{?>
+									<input type="text" style="border-radius: 5px;" class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
+								<?php }?>
 							</div>
 						</div>
 					</div>
@@ -107,7 +111,7 @@
 						<?php $no = 0; ?>
 						<?php $count_assessor = $assessor->count();?>
 						<?php for ($i=0; $i < $count_assessor; $i++) { ?>
-							<?php //if(!empty($assessor[$i])):?>
+							<?php if(!empty($assessor[$i]->employee->department)){?>
 							<tbody>
 								<tr>
 									<td><?php echo $assessor[$i]->id_assessor?></td>
@@ -124,7 +128,7 @@
 								</tr>
 							</tbody>
 							<?php $no++; ?>
-							<?php //endif ?>
+							<?php } ?>
 						<?php } ?>
 					</table>
 					</div>
