@@ -94,16 +94,37 @@ class ReportController extends Controller
 
     public function reportEvaluation()
     {
-        $department  = Department::all(); /*เลือกเอาชื่อมาทุกแผนก*/
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
 
         /*$assessor    = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation')
                         ->with(['createevaluation' => function($q){
                             $q->orderBy('created_at', 'desc');
                         }])->orderBy('id_assessor', 'asc')->get();*/
 
-        $assessor    = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')
+        if($current_employee['id_department'] !== "hr0001"){  // ไม่ใช่แผนก hr จะมองไม่เห็น dropdown เลือกแผนก
+            //echo "1";exit();
+            $department  = $current_employee['id_department'];
+            //sd($department);
+            $assessor    = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')
+                            ->with(['employee.department' => function($q) use($department){
+                                $q->where('id_department', $department);
+                            }])
+                            ->orderBy('id_assessor', 'asc')
+                            ->orderBy('id_topic', 'desc')
+                            ->get();
+            //sd($assessor->toArray());
+        }else{
+            //echo "2";exit();
+            $department  = Department::all(); /*เลือกเอาชื่อมาทุกแผนก*/
+            $assessor    = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')
                         ->orderBy('id_assessor', 'asc')->orderBy('id_topic', 'desc')->get();
-         /*เชื่อม Database ตั้งเงื่อนไขว่า เรียง id จากน้อยไปมาก และเรียงจาก id_topic จากมากไปน้อย*/
+            /*เชื่อม Database ตั้งเงื่อนไขว่า เรียง id จากน้อยไปมาก และเรียงจาก id_topic จากมากไปน้อย*/
+        }
+
+
+
 
         $array_assessment = array();
         $array_id_topic   = array();
@@ -127,7 +148,7 @@ class ReportController extends Controller
         // sd($count_name_evaluation);
         $topic_name  = CreateEvaluation::where('status', 1)->get();
         // sd($topic_name->toArray());
-    	return $this->useTemplate('report.report_evaluations', compact('assessor', 'count_first_name', 'count_last_name', 'count_name_evaluation', 'department', 'topic_name'));
+    	return $this->useTemplate('report.report_evaluations', compact('assessor', 'count_first_name', 'count_last_name', 'count_name_evaluation', 'department', 'topic_name', 'current_employee'));
     }
 
     public function reportOverview()

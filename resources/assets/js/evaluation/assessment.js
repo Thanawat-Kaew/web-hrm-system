@@ -131,7 +131,7 @@ function checkData(){
 	}else{
 
 		var value_assesment = $('#value_assesment').val();
-
+		//console.log(value_assesment);
 		Swal.fire({
 			type: 'success',
 			title: 'Data has been saved',
