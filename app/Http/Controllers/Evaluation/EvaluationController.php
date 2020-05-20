@@ -253,6 +253,8 @@ class EvaluationController extends Controller
             }
         }
 
+        \Session::flash('message', 'ทำการสร้างแบบประเมินชื่อ '.$create_evaluation->topic_name .' เรียบร้อยแล้ว'); 
+        return redirect()->route('evaluation.index.get');
         //return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee', 'department', 'check_emp_eva', 'count_emp'));
         //return view('evaluation.index', compact('current_employee'));
     }
@@ -724,8 +726,9 @@ class EvaluationController extends Controller
         //sd($evaluations);
         //sd($no);
         //$result_evaluation->
-
-        return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        \Session::flash('message', 'ทำการประเมินคุณ '.$data['input-assess_fullname'].' เรียบร้อยแล้ว'); 
+        return redirect()->route('evaluation.human_assessment.get', $data['id_topic']);
+        // return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
     }
 
 
@@ -789,7 +792,8 @@ class EvaluationController extends Controller
         //sd($evaluations);
         //sd($no);
         //$result_evaluation->
-
+         \Session::flash('message', 'ทำการแก้ไขการประเมินคุณ '.$data['input-assess_fullname']. ' เรียบร้อยแล้ว'); 
+        return redirect()->route('evaluation.human_assessment.get', $data['id_topic']);
         //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
         //sd($data);
     }

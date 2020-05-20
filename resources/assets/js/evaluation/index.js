@@ -1,5 +1,10 @@
 $(document).ready(function(){
 	msg_waiting()
+
+	$(".alert").delay(4000).slideUp(300, function() {
+    	$(this).alert('close');
+	});
+
 	$('.assessment').click(function(){
 		/*var id = $(this).data('id');
 		//console.log(id);

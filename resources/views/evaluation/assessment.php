@@ -30,9 +30,9 @@
 </head>
 <body class="content_assessment">
 	<section class="content">
-	<form action="<?php echo route('evaluation.post_record_evaluation.post'); ?>" method="POST" id="save-evaluation">
-	<?php echo csrf_field()?>
-		<div class="row">
+		<form action="<?php echo route('evaluation.post_record_evaluation.post'); ?>" method="POST" id="save-evaluation">
+			<?php echo csrf_field()?>
+			<div class="row">
 				<div class="col-md-3">
 					<div class="content-header">
 						<h3>ข้อมูล</h3>
@@ -66,7 +66,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>ชื่อ-นามสกุล / Full Name.</h4>
-							<input type="text" class="form-control assess_fullname input_box" readonly value="<?php echo $data_assessor_person->first_name?> <?php echo $data_assessor_person->last_name?>">
+							<input type="text" class="form-control assess_fullname input_box" name="input-assess_fullname" readonly value="<?php echo $data_assessor_person->first_name?> <?php echo $data_assessor_person->last_name?>">
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -99,57 +99,57 @@
 						//sd($count_answerdeatils);
 					?>
 					<?php for($i=0; $i < $count_part; $i++){ // i = part
-						  $part_no = $i+1;
+						$part_no = $i+1;
 						  $count_question      = $data_evaluation->parts[$i]->question->count(); //นับจำนวนคำถามต่อตอน
 						  //sd($count_question);
-					?>
-					<div class="box-header with-border">
-						<div class="col-md-8">
-							<h4>ส่วนที่ <?php echo $part_no; ?> <?php echo $data_evaluation->parts[$i]->part_name;?></h4>
-							<input type="hidden" name="id_part-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->id_part;?>">
-						</div>
-						<div class="col-md-4 hidden-xs">
-							<h4>คะแนนประเมิน / Score</h4>
-						</div>
-						<?php if(!empty($data_evaluation->id_answer_format)){?> <!-- กรณีเป็นมีรุปแบบคำตอบ -->
-							<table class="table table-bordered table-condensed" id="type_one">
+						  ?>
+						  <div class="box-header with-border">
+						  	<div class="col-md-8">
+						  		<h4>ส่วนที่ <?php echo $part_no; ?> <?php echo $data_evaluation->parts[$i]->part_name;?></h4>
+						  		<input type="hidden" name="id_part-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->id_part;?>">
+						  	</div>
+						  	<div class="col-md-4 hidden-xs">
+						  		<h4>คะแนนประเมิน / Score</h4>
+						  	</div>
+						  	<?php if(!empty($data_evaluation->id_answer_format)){?> <!-- กรณีเป็นมีรุปแบบคำตอบ -->
+						  	<table class="table table-bordered table-condensed" id="type_one">
 
-								<tr>
-									<th>ข้อที่
-										<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
-										<input type="hidden" name="count-question-<?php echo $i;?>" value="<?php echo $count_question;?>">
-										<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
-									</th>
-									<th>ความเข้าใจ ,ความสามารถ <?php echo $data_evaluation->parts[$i]->percent;?>%</th>
-									<?php echo $count_answerdeatils;?>
-									<input type="hidden" name="percent-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->percent;?>">
-									<?php for($ad=0; $ad<$count_answerdeatils; $ad++){?> <!-- check จำนวนรูปแบบคำตอบ -->
-										<th><?php echo $data_evaluation->answerformat->answerdetails[$ad]->description;?><br><?php echo $data_evaluation->answerformat->answerdetails[$ad]->value;?></th>
-									<?php } ?>
-									<th>รวม</th>
-								</tr>
+						  		<tr>
+						  			<th>ข้อที่
+						  				<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
+						  				<input type="hidden" name="count-question-<?php echo $i;?>" value="<?php echo $count_question;?>">
+						  				<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
+						  			</th>
+						  			<th>(<?php echo $data_evaluation->parts[$i]->percent;?>%)</th>
+						  			<?php echo $count_answerdeatils;?>
+						  			<input type="hidden" name="percent-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->percent;?>">
+						  			<?php for($ad=0; $ad<$count_answerdeatils; $ad++){?> <!-- check จำนวนรูปแบบคำตอบ -->
+						  			<th><?php echo $data_evaluation->answerformat->answerdetails[$ad]->description;?><br><?php echo $data_evaluation->answerformat->answerdetails[$ad]->value;?></th>
+						  		<?php } ?>
+						  		<th>รวม</th>
+						  	</tr>
 								<?php for($j=0; $j < $count_question; $j++){ // j = question
-									  $question_no = $j+1;
-								?>
-								<input type="hidden" name="id_question-<?php echo $i;?>-<?php echo $j;?>" value="<?php echo $data_evaluation->parts[$i]->question[$j]->id_question;?>">
-								<tr class="g-question">
-									<td><?php echo $question_no; ?></td>
-									<td class="name_title"><?php echo $data_evaluation->parts[$i]->question[$j]->question_name;?></td>
+									$question_no = $j+1;
+									?>
+									<input type="hidden" name="id_question-<?php echo $i;?>-<?php echo $j;?>" value="<?php echo $data_evaluation->parts[$i]->question[$j]->id_question;?>">
+									<tr class="g-question">
+										<td><?php echo $question_no; ?></td>
+										<td class="name_title"><?php echo $data_evaluation->parts[$i]->question[$j]->question_name;?></td>
 
 									<?php for($k=0; $k < $count_answerdeatils; $k++){ //k = answer_details
-									?>
-									<td>
-										<label>
-											<input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>"  id="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>">
-										</label>
-									</td>
+										?>
+										<td>
+											<label>
+												<input type="radio" name="format_answer-<?php echo $i;?>-<?php echo $j;?>"  id="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" class="flat-red score" value="<?php echo $data_evaluation->answerformat->answerdetails[$k]->value;?>" data-group="<?php echo $i;?>-<?php echo $j;?>" data-part="<?php echo $i;?>" data-question="<?php echo $j;?>">
+											</label>
+										</td>
 									<?php }?>
 									<td id="total-question-<?php echo $i;?>-<?php echo $j;?>">0</td>
 									<input type="hidden" name="total-question-<?php echo $i;?>-<?php echo $j;?>" value="" class="required">
 
 								</tr>
-								<?php } ?>
-							</table>
+							<?php } ?>
+						</table>
 						<?php }?> <!-- End if check ว่ามีรูปแบบคำตอบไหม -->
 						<label class="pull-right">คะแนนรวม : <label id="total-part-<?php echo $i;?>">0</label></label>
 						<input type="hidden" name="total-part-<?php echo $i;?>" value="" class="">
@@ -168,20 +168,20 @@
 				</div>
 				<div class="btn-group pull-right btn_success_evaluation">
 
-						<button type="button" class='btn btn-success success_evaluation'> บันทึกผล
-						</button>
+					<button type="button" class='btn btn-success success_evaluation'> บันทึกผล
+					</button>
 
 				</div>
-		</div><br><br>
-		<div class="row hidden-xs hidden-sm">
-			<div class="col-md-12">
-				<hr>
-				<strong style="margin-left: 10px;">Copyright &copy; 2019 <a href="">EngCom-RU</a>.</strong> All rights
-				reserved.
+			</div><br><br>
+			<div class="row hidden-xs hidden-sm">
+				<div class="col-md-12">
+					<hr>
+					<strong style="margin-left: 10px;">Copyright &copy; 2019 <a href="">EngCom-RU</a>.</strong> All rights
+					reserved.
+				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
 </section>
 <!-- jQuery 3 -->
 <script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>

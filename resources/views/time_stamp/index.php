@@ -23,6 +23,8 @@
 						</button>
 					</a>
 				</div>
+				<button href="" type="button" class='btn btn-danger dropdown-toggle get_mac' data-toggle="dropdown"> GET IP
+					</button>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">

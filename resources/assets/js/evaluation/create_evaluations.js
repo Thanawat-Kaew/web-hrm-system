@@ -157,15 +157,15 @@ function sendData(){
 			}
 
 		}else{
-			Swal.fire({
-				type: 'success',
-				title: 'Data has been saved',
-				showConfirmButton: true,
-				// timer: 1500
-			}).then((result) => {
+			// Swal.fire({
+			// 	type: 'success',
+			// 	title: 'Data has been saved',
+			// 	showConfirmButton: true,
+			// 	// timer: 1500
+			// }).then((result) => {
 					document.getElementById("save-evaluation").submit();
-					window.location.href = "/evaluation";
-			})
+					// window.location.href = "/evaluation";
+			// })
 		}
 	}
 }

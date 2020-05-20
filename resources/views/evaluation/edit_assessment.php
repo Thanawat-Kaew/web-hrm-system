@@ -52,7 +52,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>ชื่อ-นามสกุล / Full Name.</h4>
-							<input type="text" class="form-control assess_fullname input_box" readonly value="<?php echo $data_assessor_person->first_name?> <?php echo $data_assessor_person->last_name?>">
+							<input type="text" class="form-control assess_fullname input_box" name="input-assess_fullname" readonly value="<?php echo $data_assessor_person->first_name?> <?php echo $data_assessor_person->last_name?>">
 						</div>
 					</div>
 					<div class="col-md-12">

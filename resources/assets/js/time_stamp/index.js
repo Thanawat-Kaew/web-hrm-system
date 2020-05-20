@@ -18,9 +18,11 @@ $(document).ready(function(){
 
     $('#example').DataTable();
 
-
 	$('.time-clock').on('click', '.time_stamp', function(){ //Time Clock
-		window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
+		var popup = window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
+		popup.onbeforeunload = function(){
+        	window.location.reload();
+    	}
 	});
 
 	$('.timepicker').timepicker()
@@ -426,4 +428,9 @@ function getTimePicker(obj_input)
 // $('.time-clock').on('click', '.time_stamp', function(){
 // 	window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
 // });
+
+function networkInfo(){
+
+	
+}
 

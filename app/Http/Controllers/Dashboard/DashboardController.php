@@ -40,7 +40,7 @@ class DashboardController extends Controller
     	date_default_timezone_set('Asia/Bangkok');
 		$get_date_now = date("Y-m-d");
 		$get_time_now = '09:00:00';
-        $get_count_emp  = Employee::all();
+        $get_count_emp  = Employee::where('id_status','1')->get();
         $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
 
         $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
@@ -71,7 +71,7 @@ class DashboardController extends Controller
                 $department      = $request->get('department');
 
                 if ($department != "") {
-                    $get_count_emp  = Employee::where('id_department',$department)->get();
+                    $get_count_emp  = Employee::where('id_department',$department)->where('id_status','1')->get();
                     // sd($get_count_emp);
 
                     $count_timestamp = TimeStamp::with(['employee' => function ($q) use ($department){
@@ -136,7 +136,7 @@ class DashboardController extends Controller
                     $group_age = DB::table('employee','department')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->where('id_department',$department)->get();
                 } else {
                     
-                    $get_count_emp  = Employee::all();
+                    $get_count_emp  = Employee::where('id_status','1')->get();
                     $get_count_timestamp = TimeStamp::where('date',$get_date_now)
                                                     ->count(); //มาทำงานทั้งหมด
 

@@ -130,7 +130,7 @@
         ?>
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle <?php //echo ($sum_request == 0 ? 'hide' : '')?>" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
+              <i class="fa fa-bell-o fa-lg"></i>
               <span class="label label-warning "><?php echo ($sum_request == 0 ? '' : $sum_request)?></span>
             </a>
             <ul class="dropdown-menu" style="width: 350px;">

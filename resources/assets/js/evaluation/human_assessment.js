@@ -1,12 +1,9 @@
 $(document).ready(function() {
 	msg_waiting()
 
-	/*$('#myTable').dataTable();
-	// $('#myTable').dataTable();
-	// Filter Year.
-	$('#myInput').keyup(function(){
-		search_data_tbl();
-	})*/
+	$(".alert").delay(4000).slideUp(300, function() {
+    	$(this).alert('close');
+	});
 
 	$('.view-evaluation').click(function(){
 		msg_waiting();
