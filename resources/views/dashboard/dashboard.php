@@ -46,7 +46,7 @@
 							</button>
 						</div>
 						<div class="btn-group pull-right">
-							<button style="border-color: red;" type="button" class='btn btn-default dropdown-toggle dsh_box_view'><i class="fa fa-cube"></i> BOX VIEW
+							<button style="border-color: red;" type="button" class='btn btn-default dropdown-toggle dsh_box_view hide'><i class="fa fa-cube"></i> BOX VIEW
 							</button>
 						</div>
 					</h4>

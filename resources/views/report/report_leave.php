@@ -23,7 +23,7 @@
 									</select>
 								<?php }else{?>
 									
-									<input type="text" style="border-radius: 5px;" id="report-department" class="form-control"value="<?php echo $current_employee['id_department']?>">
+									<input type="text" style="border-radius: 5px;" id="report-department" readonly class="form-control"value="<?php echo $current_employee['id_department']?>">
 								<?php }?>
 							</div>
 						</div>

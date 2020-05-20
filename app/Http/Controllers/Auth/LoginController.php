@@ -53,17 +53,25 @@ class LoginController extends Controller
         $password = $req->input('password');
         //sd($email);
 
-        $checkLogin   = Employee::where('email',$email)->where('password',$password)->where('id_status', 1)->first(); // first() เป็นการ get ข้อมูลrecord เดียว
+        if (!empty($email) && !empty($password)) {
+            $checkLogin   = Employee::where('email',$email)->where('password',$password)->where('id_status', 1)->first(); // first() เป็นการ get ข้อมูลrecord เดียว
 
-        if(!empty($checkLogin)){
-            $employee_object = new EmployeeObject;
-            $employee_object->setUp($checkLogin);
-            $employee_object->setupMenu($checkLogin->id_employee);
-            return redirect()->route('main.get');
-            // return redirect()->route('dashboard.dashboard.get');
+            if(!empty($checkLogin)){
+                $employee_object = new EmployeeObject;
+                $employee_object->setUp($checkLogin);
+                $employee_object->setupMenu($checkLogin->id_employee);
+                return redirect()->route('main.get');
+                // return redirect()->route('dashboard.dashboard.get');
+            }else{
+                Session::flash('fail', 'E-mail or Password is correct, Please try again.');
+                return view('auth.login');
+            }
+            
         }else{
-            return view('auth.login'/*, compact('success' ,'กรุณากรอกข้อมูลใหม่')*/);
+            Session::flash('required_data', 'E-mail or Password is required, Please try again.');
+                return view('auth.login');
         }
+
     }
 
     public function logout(){

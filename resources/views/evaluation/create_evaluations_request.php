@@ -50,7 +50,7 @@
 								<td><?php echo $year[0]?></td>
 								<td><?php echo $value->years?></td>
 								<td>
-									<a href="<?php echo route('evaluation.view_create_evaluations.get', $value->id_topic)?>"><i class="fa fa-eye fa-lg btn-view" data-id="<?php echo $value['id_topic'] ?>"></i>
+									<a href="<?php echo route('evaluation.view_create_evaluations.get', $value->id_topic)?>"><i style="color: black;" class="fa fa-eye fa-lg btn-view" data-id="<?php echo $value['id_topic'] ?>"></i>
 									</a>
 								</td>
 								<td style="width: 20px">
@@ -66,55 +66,6 @@
 								</td>
 							</tr>
 							<?php endforeach ?>
-							<tr>
-								<td>1</td>
-								<td>ประชา สันติ</td>
-								<td>000020</td>
-								<td>แบบประเมินผลประจำปี XXXX</td>
-								<td>2023</td>
-								<td>2022-12-25</td>
-								<td><i class="fa fa-eye fa-lg btn"></i></td>
-								<td style="width: 20px">
-									<button style="width: auto;" class="btn btn-primary form-control">อนุมัติ
-									</button>
-									<button style="width: auto;" class="btn btn-danger form-control">ไม่อนุมัติ
-									</button>
-								</td>
-								<td><span class="label label-warning">กำลังรอ</span></td>
-							</tr>
-
-							<tr>
-								<td>2</td>
-								<td>ประชา สันติ</td>
-								<td>000020</td>
-								<td>แบบประเมินผลประจำปี XXXX</td>
-								<td>2024</td>
-								<td>2023-12-25</td>
-								<td><i class="fa fa-eye fa-lg btn"></i></td>
-								<td style="width: 20px">
-									<button style="width: auto;" class="btn btn-primary form-control">อนุมัติ
-									</button>
-									<button style="width: auto;" class="btn btn-danger form-control">ไม่อนุมัติ
-									</button>
-								</td>
-								<td><span class="label label-danger">ไม่อนุมัติ</span></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>ประชา สันติ</td>
-								<td>000020</td>
-								<td>แบบประเมินผลประจำปี XXXX</td>
-								<td>2025</td>
-								<td>2024-12-25</td>
-								<td><i class="fa fa-eye fa-lg btn"></i></td>
-								<td style="width: 20px">
-									<button style="width: auto;" class="btn btn-primary form-control">อนุมัติ
-									</button>
-									<button style="width: auto;" class="btn btn-danger form-control">ไม่อนุมัติ
-									</button>
-								</td>
-								<td><span class="label label-success">อนุมัติ</span></td>
-							</tr>
 						</tbody>
 					</table>
 				</div>

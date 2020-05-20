@@ -91,8 +91,9 @@
                                 <?php }else{?> <!-- ถ้าไม่มีรุป -->
                                 <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
                                 <?php } ?>
-                                <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
+                                <h5><?php echo $current_employee->first_name ?> <?php echo $current_employee->last_name ?></h5>
                                 <hr>
+                                <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
                                 <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
 
                                 <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>

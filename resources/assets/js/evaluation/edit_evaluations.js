@@ -172,8 +172,15 @@ function sendData(){
 				});
 			}
 		}else{
-			document.getElementById("save-evaluation").submit();
-			window.location.href = "/evaluation";
+			Swal.fire({
+				type: 'success',
+				title: 'Data has been saved',
+				showConfirmButton: false
+				timer: 3000
+			}).then((result) => {
+				document.getElementById("save-evaluation").submit();
+				window.location.href = "/evaluation";
+			})
 		}
 	}
 }

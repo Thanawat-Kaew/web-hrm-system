@@ -2,11 +2,34 @@ $(document).ready(function(){
 
 	// $('.canvasjs-chart-credit').removeClass();
 	$('.dsh_table_view').click(function(){
+		Swal.fire({
+			title: '',
+			html: '<h4>Changed to Table-view</h4>',
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			customClass: 'swal-wide',
+			timer: 1500,
+		})
+
 		$('#table_view').removeClass('hide');
 		$('#box_view').addClass('hide');
+		$('.dsh_table_view').addClass('hide');
+		$('.dsh_box_view').removeClass('hide');
 	})
 
 	$('.dsh_box_view').click(function(){
+		Swal.fire({
+			title: '',
+			html: '<h4>Changed to Box-view</h4>',
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			customClass: 'swal-wide',
+			timer: 1500,
+		})
+
+		$('.dsh_box_view').addClass('hide');
+		$('.dsh_table_view').removeClass('hide');
+
 		$('#table_view').addClass('hide');
 		$('#box_view').removeClass('hide');
 	})

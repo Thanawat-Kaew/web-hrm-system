@@ -127,6 +127,7 @@ function sendEmail(form, title)
 	var email_reciver = $('#email_reciver').val();
 	var topic         = $('#topic').val();
 	var details       = $('#details').val();
+	//alert(details);
 	$.ajax({
 		headers	: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type   	: 'POST',

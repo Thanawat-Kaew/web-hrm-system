@@ -137,12 +137,11 @@ function checkData(){
 		// document.getElementById("save-evaluation").submit();
 		var id_topic1 = $('#get_id_topic').val();
 
-		alert(id_topic1);
 		Swal.fire({
 			type: 'success',
 			title: 'Data has been saved',
 			showConfirmButton: false,
-			timer: 1500
+			timer: 3000
 		}).then((result) => {
 			document.getElementById("save-evaluation").submit();
 			window.location.href = "/evaluation/human_assessment/"+id_topic1;

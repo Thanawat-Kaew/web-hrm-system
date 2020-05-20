@@ -12,12 +12,22 @@ class FormEmployee
                 $form .= '<div class="box-body">';
                 $form .= '<input type="hidden" value="'.((!empty($employee['id_employee']) ? $employee['id_employee'] : '')).'" id="id_employee">';
                     /*if(empty($employee)){*/
-                    $form .= '<div class="profile-picture">';
-                        $form .= '<div class="form-group">';
+                    if(!empty($employee['id_employee'])){
+                        $form .= '<div class="profile-picture">';
+                            $form .= '<div class="form-group">';
                             $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
-                             $form .= '<input type="file" name="picture" id="inputfilepicture" value="'.((!empty($employee['image']) ? $employee['image'] : '')).'" multiple="multiple">';
+                                $form .= '<input class="" type="file" name="picture" id="inputfilepicture" value="'.((!empty($employee['image']) ? $employee['image'] : '')).'" multiple="multiple">';
                          $form .= '</div>';
                      $form .= '</div>';
+                    }else{
+                    $form .= '<div class="profile-picture">';
+                        $form .= '<div class="form-group">';
+                        $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
+                            $form .= '<input class="required" type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
+                        $form .= '</div>';
+                     $form .= '</div>';
+                     $form .= '<label class="text-error" id="inputfilepicture-text-error"></label>';
+                    }
                     /*}*/
                      $form .= 'รหัสพนักงาน';
                     $form .= '<div class="input-group id_employee">';

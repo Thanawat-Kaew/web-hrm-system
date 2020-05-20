@@ -22,7 +22,7 @@
 								<?php endforeach ?>
 								</select>
 								<?php }else{?>
-									<input type="text" style="border-radius: 5px;" class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
+									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
 								<?php }?>
 							</div>
 						</div>

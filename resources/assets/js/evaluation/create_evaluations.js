@@ -137,7 +137,7 @@ function sendData(){
 		check_percent += parseInt($(this).val());
 	});
 	//console.log(check_percent);
-	
+
 	if(check_percent > 100){
 		Swal.fire('Fail', 'กรุณาอย่าใส่ค่า percent ของทุกตอนรวมกันไม่เกิน 100%','warning');
 	}else if(check_percent < 100){
@@ -160,8 +160,8 @@ function sendData(){
 			Swal.fire({
 				type: 'success',
 				title: 'Data has been saved',
-				showConfirmButton: true
-				// timer: 1500
+				showConfirmButton: false
+				timer: 3000
 			}).then((result) => {
 					document.getElementById("save-evaluation").submit();
 					window.location.href = "/evaluation";

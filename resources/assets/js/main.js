@@ -9,6 +9,7 @@ $(document).ready(function(){
 	$('.logout').click(function(){
 		confirm_logout();
 	})
+
 })
 
 function confirm_logout(){
@@ -30,7 +31,32 @@ function confirm_logout(){
 				url     : $('#logout-form').data('url'),
 			});
 			
-			window.location.href = 'http://hrm.system.io/logout';
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'body',
+				showConfirmButton: false,
+				timer: 1500,
+				onOpen: (toast) => {
+				    toast.addEventListener('mouseenter', Swal.stopTimer)
+				    toast.addEventListener('mouseleave', Swal.resumeTimer)
+				}
+			})
+			Toast.fire({
+			  	type: 'success',
+			  	title: 'ออกจากระบบสำเร็จ',
+			  	customClass: 'largeWidth'
+			}).then((result) => {
+				Swal.fire({
+					title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i> กำลังเปลี่ยนเส้นทาง',
+					html: '<h3>รอสักครู่...</h3>',
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					customClass: 'swal-wide',
+					timer: 1500,
+				}).then((result) => {
+					window.location.href = 'http://hrm.system.io/logout';
+				})
+			})
 		}
 	})
 }
