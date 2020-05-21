@@ -7,7 +7,7 @@
 }
 
 .user-image{
-	border-radius: 30px;
+	/*border-radius: 30px;*/
 	border : 1px solid;
 	border-color: aqua;
 }
@@ -98,4 +98,12 @@ tr>td{
 
 #myTable_paginate, #myTable_filter{
 	margin-right: 30px !important;
+}
+
+.btn-trash:hover {
+	background-color: red !important;
+}
+
+.btn-trash {
+	border-color: red;
 }

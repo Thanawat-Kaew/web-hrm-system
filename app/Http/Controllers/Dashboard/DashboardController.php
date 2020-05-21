@@ -49,10 +49,10 @@ class DashboardController extends Controller
         $get_count_timestamp_on_time = TimeStamp::where('date',$get_date_now)->where('time_in','<=',$get_time_now)->count(); //มาทำงานตรงเวลา
 
         $get_count_leave = Leaves::where('start_leave',$get_date_now)->count();
-        $get_count_dept = Employee::groupBy('id_department')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
+        $get_count_dept = Employee::groupBy('id_department')->where('id_status','1')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
         $department      = Department::all();
 
-        $group_age = DB::table('employee')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
+        $group_age = DB::table('employee')->where('id_status','1')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
         //sd($group_age->toArray());
 
     	return $this->useTemplate('dashboard.dashboard',compact('department','get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_leave','get_count_dept','get_date_now','group_age'));
@@ -89,7 +89,7 @@ class DashboardController extends Controller
                             } //echo $get_count_timestamp; exit();
 
                     $count_timestamp_late = TimeStamp::with(['employee' => function ($q) use ($department){
-                                                                $q->with('department')
+                                                                $q->with('department')->where('id_status','1')
                                                                 ->where('id_department', $department);}])
                                                             ->where('date',$get_date_now)
                                                             ->where('time_in','>',$get_time_now)
@@ -105,7 +105,7 @@ class DashboardController extends Controller
 
 
                     $count_timestamp_on_time = TimeStamp::with(['employee' => function ($q) use ($department){
-                                                                $q->with('department')
+                                                                $q->with('department')->where('id_status','1')
                                                                 ->where('id_department', $department);}])
                                                             ->where('date',$get_date_now)
                                                             ->where('time_in','<=',$get_time_now)
@@ -120,7 +120,7 @@ class DashboardController extends Controller
                             } //echo $get_count_timestamp_on_time; exit();
 
                     $count_leave = Leaves::with(['employee' => function ($q) use ($department){
-                                                            $q->with('department')
+                                                            $q->with('department')->where('id_status','1')
                                                             ->where('id_department', $department);}])
                                                         ->where('start_leave',$get_date_now)
                                                         ->get();
@@ -150,7 +150,7 @@ class DashboardController extends Controller
 
                     $get_count_leave = Leaves::where('start_leave',$get_date_now)->count();
 
-                    $group_age = DB::table('employee')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
+                    $group_age = DB::table('employee')->where('id_status','1')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
                     }
 
 

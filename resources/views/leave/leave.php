@@ -10,21 +10,21 @@
 			<div class="col-md-8" style="padding-right: 5px; padding-left: 5px;">
 				<div class="row">
 					<div class="col-md-12 btn-group dropup pull-right ">
-						<button type="button" name="add-leave" class='btn btn-success dropdown-toggle pull-right add-leave'><i class="fa fa-plus"></i> New Record
+						<button style="width: 20%;" type="button" name="add-leave" class='btn btn-success dropdown-toggle pull-right add-leave'><i class="fa fa-plus"></i> New Record
 						</button>
 						<a href="<?php echo route('leave.leave_history.get');?>">
-							<button href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
+							<button style="width: 20%;" href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
 							</button>
 						</a>
 						<?php if($current_employee->id_department == "hr0001"):?>
 							<?php if($current_employee['id_position'] == 2):?>
 						<a href="<?php echo route("leave.set_holiday.get")?>">
-							<button href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
+							<button style="width: 20%;" href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
 							</button>
 						</a>
 					<?php endif?>
 					<?php endif?>
-						<button type="button" name="view_holiday" class='btn btn-danger dropdown-toggle pull-right view_holiday'><i class="fa fa-calendar-times-o"></i> ดูวันหยุดประจำปี
+						<button style="width: 20%;" type="button" name="view_holiday" class='btn btn-danger dropdown-toggle pull-right view_holiday'><i class="fa fa-calendar-times-o"></i> ดูวันหยุดประจำปี
 						</button>
 					</div>
 				</div>
@@ -79,7 +79,7 @@
 							</tr>
 							<?php foreach($history_leave as $leave):?>
 								<tr>
-									<td style="text-align: left;"><?php echo $leave["leaves_name"] ?></td>
+									<td style="text-align: left; padding-left: 5px;"><?php echo $leave["leaves_name"] ?></td>
 									<td style="font-size: 13px;width: 10%;"><?php echo $leave["max_day"] ?></td>
 									<?php $sum_leave = 0;?>
 									<?php foreach($leave["leave"] as $status):?>

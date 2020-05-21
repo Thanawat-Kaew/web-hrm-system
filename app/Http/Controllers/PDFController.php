@@ -39,8 +39,8 @@ class PDFController extends Controller
     {
         date_default_timezone_set('Asia/Bangkok');
         $getDate            = date("Y-m-d");
-        $employee         = Employee::with('department','position','education')->orderBy('id_department', 'asc')->get();
-        $get_count_dept = Employee::groupBy('id_department')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
+        $employee         = Employee::with('department','position','education')->where('id_status','1')->orderBy('id_department', 'asc')->get();
+        $get_count_dept = Employee::groupBy('id_department')->where('id_status','1')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
 
         $pdf             = PDF::loadView('data_management.dump_emp',compact('employee','get_count_dept','getDate'));
 

@@ -4,6 +4,16 @@
 		<small> Evaluation</small>
 	</h3>
 </section>
+<style type="text/css">
+	.btn-trash:hover {
+	background-color: red;
+}
+
+.btn-trash {
+	border-color: red;
+}
+
+</style>
 <section class="content">
 	<div class="row">
 		<div class="col-xs-12">
@@ -72,7 +82,7 @@
 									<td><?php echo $evaluation->topic_name?></td>
 									<td><?php echo $evaluation->years?></td>
 									<td>
-										<i class="btn fa fa-lg fa-check post-confirm-send-create-evaluation" data-id="<?php echo $evaluation['id_topic']?>"></i>
+										<span><i class="fa fa-check btn btn-trash fa-check post-confirm-send-create-evaluation" data-id="<?php echo $evaluation['id_topic']?>"></i></span>
 									</td>
 
 									<td><a href="<?php echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
@@ -80,11 +90,7 @@
 
 
 										<td>
-											<a>
-												<i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>">
-
-												</i>
-											</a>
+											<span><i class="fa fa-trash btn btn-trash btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>"></i></span>
 										</td>
 									<?php endif ?>
 								</tr>

@@ -114,7 +114,7 @@
 		<tr>
 			<td style="text-align: left; padding-left: 10px;"><?php echo $value->department->name?></td>
 			<td><?php echo $value->total?> คน</td>
-			<td style="color: red;"><?php echo $value->total*100/$count_emp?> %</td>
+			<td style="color: red;"><?php echo round($value->total*100/$count_emp,2)?> %</td>
 		</tr>
 	</tbody>
 <?php endforeach ?>

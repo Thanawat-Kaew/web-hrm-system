@@ -4,6 +4,16 @@
 		<small> History Created Evaluations.</small>
 	</h3>
 </section>
+<style type="text/css">
+	
+.btn-trash:hover {
+	background-color: red !important;
+}
+
+.btn-trash {
+	border-color: red;
+}
+</style>
 <section class="content">
 	<div class="row">
 		<div class="col-xs-12">

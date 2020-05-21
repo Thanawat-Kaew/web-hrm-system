@@ -24,7 +24,7 @@ class FormEmail
                         $form .= '<div class="input-group-addon">';
                              $form .= '<i class="fa fa-envelope-o"></i>';
                         $form .= '</div>';
-                        $form .= '<input class="form-control required " type="email" value=""  placeholder="simple@example.com" id="email_sender">';
+                        $form .= '<input class="form-control" readonly type="email" value=""  placeholder="hrm.test.1.ru59@gmail.com" id="email_sender">';
                     $form .= '</div>';
                     $form .= '<label class="text-error" id="email_sender-text-error"></label><br>';
 

@@ -59,6 +59,8 @@ Route::group(['middleware' => ['login']], function(){
 	Route::post('/time_stamp/cancel', 'TimeStamp\TimeStampController@cancelDataRequestTimeStamp')->name('time_stamp.cancel-data-request-time-stamp.post'); // cancel-request-time-stamp
 
 	Route::post('/time_stamp/ajax_center', 'TimeStamp\TimeStampController@ajaxCenter')->name('time_stamp.ajax_center.post'); // ajaxcenter
+	Route::post('/time_stamp/ip_request_time_stamp', 'TimeStamp\TimeStampController@ipRequestTimeStamp')->name('time_stamp.ip_request_time_stamp.post'); //ip-request-timestamp
+
 	/**************************************************End Timestamp**************************************************************/
 
 

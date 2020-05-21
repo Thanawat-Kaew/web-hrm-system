@@ -19,10 +19,50 @@ $(document).ready(function(){
     $('#example').DataTable();
 
 	$('.time-clock').on('click', '.time_stamp', function(){ //Time Clock
-		var popup = window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
-		popup.onbeforeunload = function(){
-        	window.location.reload();
-    	}
+		msg_waiting()
+		$.getJSON("http://jsonip.com?callback=?", function (data) {
+	    	var ip_serv = data.ip;
+			// alert(ip);
+			$.ajax({
+				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+				type: 'POST',
+				url: $('#ip-request-time-stamp').data('url'),
+				data: {ip_serv : ip_serv},
+				success: function (result) {
+					// var data_resp = jQuery.parseJSON(result);
+					if(result.status == "success"){
+						Swal.fire({
+							title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i>',
+							html: '<h4>'+ result.data +'</h4>',
+							showConfirmButton: false,
+							allowOutsideClick: false,
+							customClass: 'swal-get-ip',
+							timer: 1500,
+						}).then((result) =>{
+
+							var popup = window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
+							popup.onbeforeunload = function(){
+					        	window.location.reload();
+					    	}
+						})
+					}else if(result.status == "failed"){
+						Swal.fire({
+							title: '',
+							html: '<h4>'+ result.data +'</h4>',
+							type: 'error',
+						}).then((result) =>{
+							if (result.value)
+							{
+								window.location.reload();
+							}
+						})
+					}
+				},
+				error: function(errors){
+					console.log(errors)
+				}
+			})
+		});
 	});
 
 	$('.timepicker').timepicker()
