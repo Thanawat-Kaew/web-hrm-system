@@ -33,7 +33,7 @@ $(document).ready(function(){
 					if(result.status == "success"){
 						Swal.fire({
 							title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i>',
-							html: '<h4>'+ result.data +'</h4>',
+							html: '<h3>'+ result.data +'</h3>',
 							showConfirmButton: false,
 							allowOutsideClick: false,
 							customClass: 'swal-get-ip',
@@ -48,13 +48,28 @@ $(document).ready(function(){
 					}else if(result.status == "failed"){
 						Swal.fire({
 							title: '',
-							html: '<h4>'+ result.data +'</h4>',
+							html: '<h2 style="color : red;">'+ result.data +'</h2> กรุณาตรวจสอบ Internet service area',
 							type: 'error',
 						}).then((result) =>{
 							if (result.value)
 							{
 								window.location.reload();
 							}
+						})
+					}else if(result.status == "emergency"){
+						Swal.fire({
+							title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i>',
+							html: '<h2 style="color : red;">'+ result.data +'</h2>กำลังสร้างเส้นทาง รอสักครู่',
+							showConfirmButton: false,
+							allowOutsideClick: false,
+							customClass: 'swal-get-ip-emergency',
+							timer: 3000,
+						}).then((result) =>{
+
+							var popup = window.open('/index/timestamp','_blank','location=yes,left=300,top=30,height=700,width=720,scrollbars=yes,status=yes');
+							popup.onbeforeunload = function(){
+					        	window.location.reload();
+					    	}
 						})
 					}
 				},

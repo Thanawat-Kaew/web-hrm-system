@@ -16,6 +16,14 @@
 </style>
 <section class="content">
 	<div class="row">
+		<div class="col-md-12">
+			<div class="btn-group pull-right">
+				<a href="<?php echo route("evaluation.index.get")?>">
+					<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+					</button>
+				</a>
+			</div>
+		</div>
 		<div class="col-xs-12">
 			<div class="box box-info"><br>
 				<div class="box-body table-responsive no-padding">
@@ -68,5 +76,4 @@
 	</div>
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
-<div id="edit-request-leave" data-url="<?php echo route('request_history.edit_request_leave.post')?>"></div>
 <?php echo csrf_field()?>

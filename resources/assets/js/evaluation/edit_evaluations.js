@@ -123,7 +123,7 @@ $(document).ready(function(){
 			confirmButtonText: 'ใช่!'
 		}).then((result) =>{
 			if (result.value){
-				window.location.href = "/evaluation/history_request_created_evaluation";
+				window.location.href = "/evaluation/confirm_send_create_evaluation";
 				msg_waiting()
 			}
 		})

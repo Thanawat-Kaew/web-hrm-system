@@ -1,5 +1,9 @@
-.swal-wide{
-    width:250px !important;
+.swal-wide {
+    width:300px !important;
+}
+
+.swal-get-ip-emergency {
+	width:500px !important;
 }
 
 .largeWidth {

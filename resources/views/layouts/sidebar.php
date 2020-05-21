@@ -13,6 +13,7 @@
               <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image"><br><br>
             <?php } ?>
           <?php }else if(\Session::has('current_admin')){ ?>
+              <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
                 <br>
           <?php } ?>
         </div>
@@ -86,6 +87,7 @@
             <li><a href="<?php echo route('admin.add_header_emp.get')?>"><i class="fa fa-user-plus"></i> Manage Employee</a></li>
             <li><a href="<?php echo route('admin.add_department.get')?>"><i class="fa fa-list-ul"></i> Manage Department</a></li>
             <li><a href="<?php echo route('admin.log.get')?>"><i class="fa fa-sticky-note-o"></i> Manage Log</a></li>
+            <li><a href="<?php echo route('admin.emergency_mode.get')?>"><i class="fa fa-bullhorn"></i> Manage emergency</a></li>
           </ul>
         </li>
         <?php } ?>

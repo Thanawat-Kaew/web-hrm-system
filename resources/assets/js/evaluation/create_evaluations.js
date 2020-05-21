@@ -163,9 +163,8 @@ function sendData(){
 			// 	showConfirmButton: true,
 			// 	// timer: 1500
 			// }).then((result) => {
-					document.getElementById("save-evaluation").submit();
-					// window.location.href = "/evaluation";
-			// })
+			document.getElementById("save-evaluation").submit();
+
 		}
 	}
 }

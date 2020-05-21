@@ -9,8 +9,8 @@
 		<div class="col-md-12" >
 			<?php if(\Session::has('message')) :?>
 				<div class="alert alert-info alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					<?php echo \Session::get('message') ?>
+					<p><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?php echo \Session::get('message') ?></p>
 				</div>
 			<?php endif ?>
 		</div>

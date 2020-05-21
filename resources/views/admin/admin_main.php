@@ -68,6 +68,11 @@
                             <img src="/resources/image/log.png" class="image-menu-admin" style="width: 150px; height: 50px; border-radius: 5px; margin: 5px;">
                         </a>
                     </div>
+                    <div class="col-md-3 col-offset-md-4">
+                        <a href="<?php echo route('admin.emergency_mode.get')?>">
+                            <img src="/resources/image/emergency_mode.png" class="image-menu-admin" style="width: 150px; height: 50px; border-radius: 5px; margin: 5px;">
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>
@@ -98,6 +103,11 @@
                 <div class="col-md-3 col-offset-md-4">
                     <a href="<?php echo route('admin.log.get')?>">
                         <img src="/resources/image/log.png" class="image-menu-admin" style="width: 210px; height: 70px; border-radius: 5px;">
+                    </a>
+                </div>
+                <div class="col-md-3 col-offset-md-4">
+                    <a href="<?php echo route('admin.emergency_mode.get')?>">
+                        <img src="/resources/image/emergency_mode.png" class="image-menu-admin" style="width: 210px; height: 70px; border-radius: 5px;">
                     </a>
                 </div>
             </div>

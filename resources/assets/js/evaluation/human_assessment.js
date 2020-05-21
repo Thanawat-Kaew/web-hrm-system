@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	msg_waiting()
 
-	$(".alert").delay(4000).slideUp(300, function() {
+	$(".alert").delay(3000).slideUp(300, function() {
     	$(this).alert('close');
 	});
 
