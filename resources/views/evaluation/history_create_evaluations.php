@@ -61,5 +61,4 @@
 	</div>
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
-<div id="edit-request-leave" data-url="<?php echo route('request_history.edit_request_leave.post')?>"></div>
 <?php echo csrf_field()?>

@@ -191,13 +191,10 @@ class EvaluationController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $department     = $current_employee->id_department;
+        //sd($department);
         $evaluations    = CreateEvaluation::where('status', 1)->get(); // status 1 เป็นการยืนยันว่่าผ่านการตรวจสอบ
 
-        $data                          = $request->all();
-        //sd($data);
-        //sd($data['name-question-'.$data['id_evaluation'].'-'.'1'.'-'.'3'][0]);
-
-        //sd($data['id_evaluation']);
+        $data                                = $request->all();
         $create_evaluation                   = CreateEvaluation::where('id_topic', $data['id_topic'])->first();
         $create_evaluation->topic_name       = $data['name-evaluation-'.$data['id_topic'].''];
         $create_evaluation->years            = date("Y-m-d");
@@ -209,12 +206,8 @@ class EvaluationController extends Controller
             $count_chapter = $data['chapter'] + 1;
             $non = 0;
             for($c_p=1; $c_p<$count_chapter; $c_p++){
-                //echo $data['percent-'.$data['id_evaluation'].'-'.$c_p];
-                //echo "<br>";
                 $non += $data['percent-'.$data['id_evaluation'].'-'.$c_p];
-
-                //echo "<br>";
-            }//echo $non;
+            }
 
             for($i=1; $i < $count_chapter ; $i++){
                 $parts                      = Part::where('id_topic', $data['id_topic'])->where('chapter', $i)->first();
@@ -252,7 +245,6 @@ class EvaluationController extends Controller
                 }
             }
         }
-
         //return $this->useTemplate('evaluation.index', compact('evaluations', 'current_employee', 'department', 'check_emp_eva', 'count_emp'));
         //return view('evaluation.index', compact('current_employee'));
     }
@@ -431,27 +423,6 @@ class EvaluationController extends Controller
         }
         $id_topic                = $id;
         $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
-        //sd($view_create_evaluation->toArray());
-        /*$date_1   = date('H:i:s');
-        //var_dump($date);
-        $date_2   = date('01:46:00');
-        d($date_1);
-        d($date_2);
-        if($date_1 <= $date_2){
-            echo "true";
-        }else{
-            echo "flase";
-        }exit();*/
-        //sd($view_create_evaluation->parts->toArray());
-        //sd(count($view_create_evaluation->parts->toArray()));
-        //sd($id);
-
-        //sd($view_id);
-        //$id             = $request->get('id');
-        //sd($id);
-        //return response()->json(['status'=> 'success']);
-        //redirect('cre')
-        // return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
         return view('evaluation.view_create_evaluations_for_index', compact('view_create_evaluation'));
     }
 
@@ -724,8 +695,8 @@ class EvaluationController extends Controller
         //sd($evaluations);
         //sd($no);
         //$result_evaluation->
-
-        return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        //sd($find_evaluation->toArray());
+        //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
     }
 
 

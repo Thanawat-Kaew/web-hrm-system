@@ -54,9 +54,8 @@
 							<th>วันที่สร้าง</th>
 							<th>ยืนยันการส่ง</th>
 							<th>ดู</th>
-							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-								<th>ลบ</th>
-							<?php endif ?>
+							<th>แก้ไข</th>
+							<th>ลบ</th>
 						</tr>
 						<?php if(!empty($evaluations)):?>
 							<?php foreach($evaluations as $evaluation): //sd($evaluation->toArray());
@@ -71,19 +70,22 @@
 								<td>
 									<i class="btn fa fa-lg fa-check post-confirm-send-create-evaluation" data-id="<?php echo $evaluation['id_topic']?>"></i>
 								</td>
-
-								<td><a href="<?php echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>"><i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i></a></td>
-								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-
-
-									<td>
-										<a>
-											<i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>">
-
-											</i>
-										</a>
-									</td>
-								<?php endif ?>
+								<td>
+									<a href="<?php echo route('evaluation.view_create_evaluations_for_index.get', $evaluation->id_topic) ?>">
+										<i class="fa fa-eye fa-lg view-create-evaluation" style="color: black;" data-id="<?php echo $evaluation["id_topic"]?>"></i>
+									</a>
+								</td>
+								<td>
+									<a href="<?php echo route('evaluation.edit_evaluations.get', $evaluation->id_topic)?>">
+										<i class="btn fa fa-lg <?php echo ($evaluation['status'] == 2 ? 'fa-pencil' : ($evaluation['status'] == NULL ? 'fa-pencil' : 'hide')); ?> edit-create-evaluation" data-id="<?php echo $evaluation['id_topic'] ?>"></i>
+									</a>
+								</td>
+								<td>
+									<a>
+										<i class="fa fa-trash fa-lg btn-remove-topic" data-href="<?php echo route('evaluation.index.post',$evaluation['id_topic']);?>">
+										</i>
+									</a>
+								</td>
 							</tr>
 						<?php endforeach?>
 					<?php endif?>
@@ -98,6 +100,5 @@
 <!-- data -->
 <div id="ajax-center-url" data-url="<?php echo route('evaluation.ajax_center.post')?>"></div>
 <div id="add-evaluation-url" data-url="<?php echo route('evaluation.create_evaluations.get')?>"></div>
-<div id="view-create-evaluation-url" data-url="<?php //echo route('evaluation.view_create_evaluations.get')?>"></div>
 <div id="post_confirm-create-evaluations" data-url="<?php echo route('evaluation.post_confirm_send_create_evaluations.post')?>"></div>
 <?php echo csrf_field() ?>

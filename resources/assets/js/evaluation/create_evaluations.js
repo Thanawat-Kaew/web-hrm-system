@@ -160,11 +160,11 @@ function sendData(){
 			Swal.fire({
 				type: 'success',
 				title: 'Data has been saved',
-				showConfirmButton: true,
-				//timer: 1500
+				showConfirmButton: false,
+				timer: 3000
 			}).then((result) => {
 					document.getElementById("save-evaluation").submit();
-					window.location.href = "/evaluation";
+					//window.location.href = "/evaluation";
 			})
 		}
 	}

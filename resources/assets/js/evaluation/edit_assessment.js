@@ -146,7 +146,6 @@ function checkData(){
 		}).then((result) => {
 			document.getElementById("save-evaluation").submit();
 			window.location.href = "/evaluation/human_assessment/"+id_topic1;
-
 		})
 	}
 }
