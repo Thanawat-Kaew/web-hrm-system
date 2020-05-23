@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Mail;
 
 class EvaluationController extends Controller
 {
-	public function index()
+    public function index()
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
@@ -204,7 +204,6 @@ class EvaluationController extends Controller
         $create_evaluation->id_answer_format = $data['type_answer-'.$data['id_evaluation'].''];
         $create_evaluation->status           = 2;
         $create_evaluation->save();
-        //sd($create_evaluation->toArray());
 
         if(isset($data['chapter'])){ // ตรวจสอบว่ามีตอนไหม
             $count_chapter = $data['chapter'] + 1;
@@ -726,7 +725,7 @@ class EvaluationController extends Controller
         //sd($no);
         //$result_evaluation->
 
-        return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
+        //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
     }
 
 
@@ -831,7 +830,7 @@ class EvaluationController extends Controller
 
     public function ajaxCenter(Request $request)
     {
-    	$method = $request->get('method');
+        $method = $request->get('method');
         switch ($method) {
             case 'getFormEvaluation':
 
@@ -849,7 +848,7 @@ class EvaluationController extends Controller
                 $part->chapter   = $total_parts+1;
                 $part->save();
 
-				$form_evaluation = $form_repo->getFormEvaluation($id_evaluation, $part, $answer_type);
+                $form_evaluation = $form_repo->getFormEvaluation($id_evaluation, $part, $answer_type);
 
                 return response()->json(['status'=> 'success','data'=> $form_evaluation]);
                 break;
