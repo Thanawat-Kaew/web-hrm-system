@@ -39,7 +39,6 @@
 				
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
-						<?php sd($view_create_evaluation->toArray());?>
 						<div class="row">
 							<div class="col-md-12">
 								<div class="panel panel-default">

@@ -17,9 +17,35 @@ use App\Services\Department\Department;
 use App\Services\Position\Position;
 use App\Services\Employee\EmployeeObject;
 use App\Services\Request\RequestTimeStamp;
+use App\Services\Company\Company;
+
 
 class TimeStampController extends Controller
 {
+    public function ipRequestTimeStamp(Request $request)
+    {
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+
+        $emergency_check = Company::first("emergency_status");
+        $get_emergency = $emergency_check->emergency_status;
+        if ($get_emergency == 0) {
+            $get_ip_serv    = $request->get('ip_serv');
+            $ip_config = Company::where('ip_config', $get_ip_serv )->first();
+
+            if (!empty($ip_config)) {
+
+                return response()->json(['status'=> 'success','data'=> 'กำลังสร้างเส้นทาง รอสักครู่']);
+            }else{
+
+                return response()->json(['status'=> 'failed','data'=> 'ขออภัย คุณไม่มีสิทธ์ในการเข้าถึงฟังก์ชันนี้']);
+            }
+        }else{
+            
+            return response()->json(['status'=> 'emergency','data'=> 'กรณี "สภาวะสถานการณ์ไม่ปกติ" ']);
+        }
+    }
 
 	public function index()
     {

@@ -59,15 +59,15 @@
       </div>
     </form>
   </div><br><br>
-    @if(Session::has('fail'))
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <p style="margin-bottom: 0;"><i class="icon fa fa-ban"></i> {{Session::get('fail')}}</p>
+    @if(\Session::has('fail'))
+       <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{ \Session::get('fail') }}
         </div>
-    @elseif(Session::has('required_data'))
+    @elseif(\Session::has('required_data'))
         <div class="alert alert-warning alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <p style="margin-bottom: 0; font-size: 13.5px;"><i class="icon fa fa-ban"></i> {{Session::get('required_data')}}</p>
+             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p style="margin-bottom: 0; font-size: 13.5px;"><i class="icon fa fa-ban"></i> {{ \Session::get('required_data') }}</p>
         </div>
     @endif
 
@@ -100,6 +100,13 @@
       increaseArea: '20%' /* optional */
     });
   });
+
+
+
+  $(".alert").delay(4000).slideUp(200, function() {
+      $(this).alert('close');
+  });
+
 </script>
 </body>
 </html>

@@ -45,7 +45,44 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6  hidden-xs"  style="padding-top: 70px !important;">
+                <!-- Automatic element centering -->
+                <div class="lockscreen-wrapper">
+                    <div class="links">
+                        <div class="col-sm-12 col-xs-12">
+                            <?php if(\Session::has('current_menu')) :  ?>
+                                <?php
+                                $menu_list   = \Session::get('current_menu');
+                                $count_menu  = count((array) $menu_list);
+                                ?>
+                                <?php foreach($menu_list as $key => $menu):?>
+                                    <?php $row_max = $key + 1;?>
+                                    <?php if ($count_menu % 3 == 0 && $count_menu % 6 != 0):?>
+                                        <div class="col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                                            <?php else:?>
+                                                <div class="col-sm-6 col-xs-6">
+                                                <?php endif ?>
+
+                                                <a href="<?php echo route ($menu->route)  ?>">
+                                                    <img class="image_menu" src="<?php echo 'resources/image/'.$menu->image ?>">
+                                                </a>
+                                            </div>
+                                            <?php if ($count_menu % 3 == 0 && $count_menu % 6 != 0 && $row_max != $count_menu): ?>
+                                            </div>
+                                            <div class="col-sm-12 col-xs-12">
+                                                <?php elseif($row_max == $count_menu):?>
+                                                </div>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
+                                    <?php if ($count_menu % 3 != 0 && $count_menu % 6 == 0): ?>
+                                    </div>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                    </div>
+
+            <div class="col-md-6  hidden-md hidden-sm hidden-lg">
                 <!-- Automatic element centering -->
                 <div class="lockscreen-wrapper">
                     <div class="links">

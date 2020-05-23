@@ -10,8 +10,14 @@
 		ตรวจสอบตกหล่นของพนักงาน |
 		<small> Missed inspection</small>
 	</h3>
+		<div class="btn-group pull-right">
+			<a href="<?php echo route("evaluation.index.get")?>">
+				<button type="button" name="back-page" style="height: 38px;" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+				</button>
+			</a>
+		</div>
 	<div class="col-sm-3 col-xs-12 pull-right input-group-sm">
-		<select class="form-control select2 " style="width: 100%; height: 40px; font-size: 16px;" id="topic_name" >
+		<select class="form-control select2 " style="width: 100%; height: 38px; font-size: 16px;" id="topic_name" >
 			<option value="">กรุณาเลือกหัวข้อการประเมิน</option>
 			<?php foreach($topic_data as $value):?>
 				<option value="<?php echo $value->id_topic ?>"><?php echo $value->topic_name ?></option>

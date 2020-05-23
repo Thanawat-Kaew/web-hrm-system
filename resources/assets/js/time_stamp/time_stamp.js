@@ -37,16 +37,13 @@ $(document).ready(function() {
 					Swal.fire(result.message1, result.message2,'warning');
 				} else{
 					msg_success()
-
 				}
-
 			},
 			error : function(errors)
 			{
 				console.log(errors);
 			}
 		});
-
 	});
 
 // Create two variable with the names of the months and days in an array

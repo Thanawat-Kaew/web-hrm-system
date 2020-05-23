@@ -29,6 +29,8 @@ use App\Services\Leaves\Leaves;
 use App\Services\Request\Requesttimestamp;
 use App\Services\TimeStamp\TimeStamp;
 use App\Services\Evaluation\ResultEvaluation;
+use App\Services\Company\Company;
+
 
 class AdminController extends Controller
 {
@@ -85,6 +87,33 @@ class AdminController extends Controller
             $count_last_name[]  = $delete_by->last_name;
         }
         return $this->useTemplate('admin.log_history', compact('employee', 'count_first_name', 'count_last_name'));
+    }
+
+    public function admin_emergency_mode()
+    {
+        $get_company            = Company::where('id_company','1')->first();
+        return $this->useTemplate('admin.emergency_mode',compact('get_company'));
+    }
+
+    public function setEmergencyMode(Request $request)
+    {
+        $get_company            = Company::where('id_company','1')->first();
+        $id                     = $get_company->id_company;
+
+        $get_emergency_status   = $request->get('emergency_status');
+
+        $emergency_status                       = Company::find($id);
+        $emergency_status->emergency_status     = $get_emergency_status;
+        $emergency_status->save();
+
+        if ($get_emergency_status == '1') {
+
+            return response()->json(['status'=> 'success','data'=> 'เปิดการใช้งานโหมดสภาวะไม่ปกติแล้ว']);
+        }else{
+
+            return response()->json(['status'=> 'success','data'=> 'ปิดการใช้งานโหมดสภาวะไม่ปกติแล้ว']);
+        }
+
     }
 
     public function ajaxCenter(Request $request)

@@ -52,7 +52,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>ชื่อ-นามสกุล / Full Name.</h4>
-							<input type="text" class="form-control assess_fullname input_box" readonly value="<?php echo $data_assessor_person->first_name?> <?php echo $data_assessor_person->last_name?>">
+							<input type="text" class="form-control assess_fullname input_box" name="input-assess_fullname" readonly value="<?php echo $data_assessor_person->first_name?> <?php echo $data_assessor_person->last_name?>">
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -110,7 +110,7 @@
 										<input type="hidden" name="count-question-<?php echo $i;?>" value="<?php echo $count_question;?>">
 										<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
 									</th>
-									<th>ความเข้าใจ ,ความสามารถ <?php echo $data_evaluation->parts[$i]->percent;?>%</th>
+									<th>(<?php echo $data_evaluation->parts[$i]->percent;?>%)</th>
 									<?php echo $count_answerdeatils;?>
 									<input type="hidden" name="percent-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->percent;?>">
 									<?php for($ad=0; $ad<$count_answerdeatils; $ad++){?> <!-- check จำนวนรูปแบบคำตอบ -->

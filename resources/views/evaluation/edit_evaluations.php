@@ -15,6 +15,7 @@
 					<div class="panel-body">
 						<label>ชื่อแบบการประเมิน </label>
 						<input type="text" name="name-evaluation-<?php echo $edit_evaluation['id_topic'] ?>" class="form-control" value="<?php echo $edit_evaluation['topic_name'] ?>" >
+                        <input type="hidden" name="input-assess_fullname" class="form-control" value="<?php echo $edit_evaluation['topic_name'] ?>" >
 						<label class="text-error name-evaluation-<?php echo $edit_evaluation['id_topic'] ?>-text-error" id="name-evaluation-<?php echo $edit_evaluation['id_topic']; ?>-text-error"></label>
 						<br>
 					</div>

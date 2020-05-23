@@ -123,7 +123,7 @@ $(document).ready(function(){
 			confirmButtonText: 'ใช่!'
 		}).then((result) =>{
 			if (result.value){
-				window.location.href = "/evaluation/history_request_created_evaluation";
+				window.location.href = "/evaluation/confirm_send_create_evaluation";
 				msg_waiting()
 			}
 		})
@@ -172,15 +172,8 @@ function sendData(){
 				});
 			}
 		}else{
-			// Swal.fire({
-			// 	type: 'success',
-			// 	title: 'Data has been saved',
-			// 	showConfirmButton: false,
-			// 	timer: 3000
-			// }).then((result) => {
-				document.getElementById("save-evaluation").submit();
-				// window.location.href = "/evaluation";
-			// })
+
+			document.getElementById("save-evaluation").submit();
 		}
 	}
 }

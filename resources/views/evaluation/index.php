@@ -6,6 +6,14 @@
 </section>
 <section class="content">
 	<div class="row">
+		<div class="col-md-12" >
+			<?php if(\Session::has('message')) :?>
+				<div class="alert alert-info alert-dismissible" role="alert">
+					<p><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?php echo \Session::get('message') ?></p>
+				</div>
+			<?php endif ?>
+		</div>
 		<div class="col-xs-12">
 			<div class="row">
 				<?php if($current_employee->id_department == "hr0001"){?>

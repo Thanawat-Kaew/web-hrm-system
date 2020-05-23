@@ -47,8 +47,8 @@ function confirm_logout(){
 			  	customClass: 'largeWidth'
 			}).then((result) => {
 				Swal.fire({
-					title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i> กำลังเปลี่ยนเส้นทาง',
-					html: '<h3>รอสักครู่...</h3>',
+					title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i>',
+					html: '<h3>กำลังเปลี่ยนเส้นทาง</h3>รอสักครู่',
 					showConfirmButton: false,
 					allowOutsideClick: false,
 					customClass: 'swal-wide',

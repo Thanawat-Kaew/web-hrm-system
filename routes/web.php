@@ -59,6 +59,8 @@ Route::group(['middleware' => ['login']], function(){
 	Route::post('/time_stamp/cancel', 'TimeStamp\TimeStampController@cancelDataRequestTimeStamp')->name('time_stamp.cancel-data-request-time-stamp.post'); // cancel-request-time-stamp
 
 	Route::post('/time_stamp/ajax_center', 'TimeStamp\TimeStampController@ajaxCenter')->name('time_stamp.ajax_center.post'); // ajaxcenter
+	Route::post('/time_stamp/ip_request_time_stamp', 'TimeStamp\TimeStampController@ipRequestTimeStamp')->name('time_stamp.ip_request_time_stamp.post'); //ip-request-timestamp
+
 	/**************************************************End Timestamp**************************************************************/
 
 
@@ -178,9 +180,11 @@ Route::group(['middleware' => ['login']], function(){
 	Route::get('/admin/admin_main/add_department', 'Admin\AdminController@admin_add_department')->name('admin.add_department.get');
 	Route::get('/admin/admin_main/log', 'Admin\AdminController@admin_log')->name('admin.log.get');
 	Route::get('/admin/admin_main/log/log_history', 'Admin\AdminController@admin_log_history')->name('admin.log_history.get');
+	Route::get('/admin/admin_main/emergency_mode', 'Admin\AdminController@admin_emergency_mode')->name('admin.emergency_mode.get');
 	Route::post('/admin/ajax_center', 'Admin\AdminController@ajaxCenter')->name('admin.ajax_center.post');
 	Route::post('/admin/edit_header_and_employee', 'Admin\AdminController@editHeaderAndEmployee')->name('admin.edit_header_and_employee.post');// แก้ไขข้อมูลหัวหน้าหรือพนักงาน
 	Route::post('/admin/add_header', 'Admin\AdminController@addHeader')->name('admin.add_header.post');// เพิ่มหนักงาน
+	Route::post('/admin/admin_main/emergency_mode/set', 'Admin\AdminController@setEmergencyMode')->name('admin.set_emergency.post');// เพิ่มหนักงาน
 
 	Route::post('/admin/admin_main/log/confirm', 'Admin\AdminController@confirmDeleteEmployee')->name('admin.confirm-delete-employee.post'); // confirm-delete-employee
 	Route::post('/admin/admin_main/log/cancel', 'Admin\AdminController@cancelDeleteEmployee')->name('admin.cancel-delete-employee.post'); // cancel-delete-employee

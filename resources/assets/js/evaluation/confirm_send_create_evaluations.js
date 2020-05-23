@@ -1,4 +1,9 @@
 $(document).ready(function(){
+
+	$(".alert").delay(3000).slideUp(300, function() {
+    	$(this).alert('close');
+	});
+
 	$('.post-confirm-send-create-evaluation').click(function(){  // กด อนุมัติ
 		// alert("confirm");
 		var id = $(this).data('id');

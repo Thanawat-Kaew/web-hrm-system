@@ -130,15 +130,6 @@ function checkData(){
 		}
 	}else{
 
-		// var value_assesment = $('#value_assesment').val();
-		// //console.log(value_assesment);
-		// Swal.fire({
-		// 	type: 'success',
-		// 	title: 'Data has been saved',
-		// 	showConfirmButton: false,
-		// 	timer: 3000
-		// }).then((result) => {
-			document.getElementById("save-evaluation").submit();
-		// })
+		document.getElementById("save-evaluation").submit();
 	}
 }

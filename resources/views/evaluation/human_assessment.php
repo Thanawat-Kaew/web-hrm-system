@@ -6,6 +6,14 @@
 </section>
 <section class="content">
 	<div class="row">
+		<div class="col-md-12" >
+			<?php if(\Session::has('message')) :?>
+				<div class="alert alert-info alert-dismissible" role="alert">
+					<p><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<?php echo \Session::get('message') ?><p>
+				</div>
+			<?php endif ?>
+		</div>
 		<div class="col-xs-12">
 			<?php if($current_employee->id_position) : ?>
 				<div class="row" style="margin-bottom: 5px;">
@@ -63,19 +71,8 @@
 							</td>
 							<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
 						<?php } ?>
-
 					</tr>
 				<?php } ?>
-				<tr>
-					<td>1</td>
-					<td style="text-align: left;"><b>ธนวัฒน์  แก้วล้อมวัง</b>	</td>
-					<td><span class="badge bg-green">สำเร็จ</span></td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td style="text-align: left;"><b>ชนะชัย  ชุ่มชื่น</b></td>
-					<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
