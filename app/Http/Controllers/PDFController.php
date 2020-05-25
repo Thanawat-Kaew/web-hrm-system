@@ -38,15 +38,49 @@ class PDFController extends Controller
     public function generatePDF_DumpEmp(Request $request)
     {
         date_default_timezone_set('Asia/Bangkok');
+        $id_departments     = $request->get('id_department');
         $getDate            = date("Y-m-d");
-        $employee         = Employee::with('department','position','education')->where('id_status','1')->orderBy('id_department', 'asc')->get();
-        $get_count_dept = Employee::groupBy('id_department')->where('id_status','1')->select('id_department', DB::raw('count(*) as total'))->with('department')->get();
 
-        $pdf             = PDF::loadView('data_management.dump_emp',compact('employee','get_count_dept','getDate'));
+        if ($id_departments == "") {
+            $employee       = Employee::with('department','position','education')
+                                            ->where('id_status','1')
+                                            ->orderBy('id_department', 'asc')
+                                            ->get();
+
+            $get_count_dept = Employee::groupBy('id_department')
+                                            ->where('id_status','1')
+                                            ->select('id_department', DB::raw('count(*) as total'))
+                                            ->with('department')
+                                            ->get();
+
+            $pdf            = PDF::loadView('data_management.dump_emp',compact('employee','id_departments','get_count_dept','getDate'));
+
+        return $pdf->stream("dump_emp_all.pdf");
+
+        }else{
+
+            $employee_all   = Employee::with('department','position','education')
+                                            ->where('id_status','1')
+                                            ->orderBy('id_department', 'asc')
+                                            ->get();
+
+            $employee       = Employee::with('department','position','education')
+                                            ->where('id_status','1')
+                                            ->where('id_department',$id_departments)
+                                            ->orderBy('id_department', 'asc')
+                                            ->get();
+
+            $get_count_dept = Employee::groupBy('id_department')
+                                            ->where('id_status','1')
+                                            ->where('id_department',$id_departments)
+                                            ->select('id_department', DB::raw('count(*) as total'))
+                                            ->with('department')
+                                            ->get();
+
+            $pdf             = PDF::loadView('data_management.dump_emp',compact('employee','employee_all','id_departments','get_count_dept','getDate'));
 
         return $pdf->stream("dump_emp.pdf");
-
-
+        }
     }
 
     public function generatePDF_view_scroe(Request $request, $id_topic)
