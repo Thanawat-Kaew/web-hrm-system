@@ -49,7 +49,9 @@ class EvaluationController extends Controller
             //sd($array_id_topic->toArray());
             //sd($array_id_topic);
 
-            $emp            = Employee::where('id_department', $department)->where('id_position', 1)->get(); // เลือกพนักงานทั้งหมดที่ตรงกับแผนก // เลือกเฉพาะลูกน้อง
+            $emp            = Employee::where('id_department', $department)->where('id_position', 1)
+                            ->where('id_status', 1)->get(); // เลือกพนักงานทั้งหมดที่ตรงกับแผนก // เลือกเฉพาะลูกน้อง
+            //sd($emp->toArray());
             $count_emp      = $emp->count(); // นับจำนวนว่ามีกี่คน ของ $emp
             //sd($count_emp);
             $emp_eva        = Evaluation::with(['employee' => function($q) use($department){
@@ -119,7 +121,7 @@ class EvaluationController extends Controller
     public function check_count_eval_emp() //หน้าเช็คว่าหัวหน้าประเมินพนักงานครบทุกคนหรือยัง
     {
         $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
-        //sd($name_topic->toArray());
+        //sd($topic_data->toArray());
         return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
     }
 
@@ -246,7 +248,7 @@ class EvaluationController extends Controller
             }
         }
 
-        \Session::flash('message', 'ทำการสร้างแบบประเมินชื่อ '.$create_evaluation->topic_name .' เรียบร้อยแล้ว'); 
+        \Session::flash('message', 'ทำการสร้างแบบประเมินชื่อ '.$create_evaluation->topic_name .' เรียบร้อยแล้ว');
         return redirect()->route('evaluation.index.get');
 
     }
@@ -287,7 +289,7 @@ class EvaluationController extends Controller
         //$list_name   = Employee::where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
         //sd($list_name->toArray());
         //$list_name_evaluation = Evaluation::get();
-        $list_name = Employee::with('evaluation_hasmany')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get(); // เอารายชื่อพนักงานมา
+        $list_name = Employee::with('evaluation_hasmany')->where('id_department', $current_employee->id_department)->where('id_position', '1')->where('id_status', 1)->get(); // เอารายชื่อพนักงานมา
         //sd($list_name->toArray());
         //$list_name = Employee::with('evaluation')->where('id_department', $current_employee->id_department)->where('id_position', '1')->get();
         //$list_name = Evaluation::with('employee')->get();
@@ -654,7 +656,7 @@ class EvaluationController extends Controller
             }
         }
 
-         \Session::flash('message', 'ทำการแก้ไขแบบประเมิน '.$data['input-assess_fullname']. ' เรียบร้อยแล้ว'); 
+         \Session::flash('message', 'ทำการแก้ไขแบบประเมิน '.$data['input-assess_fullname']. ' เรียบร้อยแล้ว');
         return redirect()->route('evaluation.confirm_send_create_evaluations.get');
     }
 
@@ -667,6 +669,7 @@ class EvaluationController extends Controller
         $from_the_full_score                = 0;
         $data                               = $request->all();
         //sd($data);
+
         $evaluation                         = new Evaluation;
         $evaluation->id_topic               = $data['id_topic'];
         $evaluation->id_assessor            = $data['id_assessor_person'];
@@ -692,16 +695,21 @@ class EvaluationController extends Controller
             }
         }
 
+        $find_answer_format                 = CreateEvaluation::with('answerformat', 'answerformat.answerdetails')
+                                            ->where('id_topic', $data['id_topic'])
+                                            ->first(); // ค้นหาจำนวนรุปแบบคำตอบชองหัวข้อการประเมินนี้
+        $count_answer_format                = $find_answer_format->answerformat->answerdetails->count();
+
         $find_evaluation     = Evaluation::where('id_evaluation', $find_id_evaluation['id_evaluation'])->first();
         //sd($find_evaluation);
-        $find_evaluation->from_the_full_score = $from_the_full_score * 5;
-        $find_evaluation->percent             = ($data['total-evluation'] * 100) / ($from_the_full_score * 5);
+        $find_evaluation->from_the_full_score = $from_the_full_score * $count_answer_format;
+        $find_evaluation->percent             = ($data['total-evluation'] * 100) / ($from_the_full_score * $count_answer_format);
         $find_evaluation->save();
         //sd($evaluations);
         //sd($no);
         //$result_evaluation->
 
-        \Session::flash('message', 'ทำการประเมินคุณ '.$data['input-assess_fullname'].' เรียบร้อยแล้ว'); 
+        \Session::flash('message', 'ทำการประเมินคุณ '.$data['input-assess_fullname'].' เรียบร้อยแล้ว');
         return redirect()->route('evaluation.human_assessment.get', $data['id_topic']);
         // return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
 
@@ -757,18 +765,21 @@ class EvaluationController extends Controller
        //}
         //$result_evaluation->answer = 1;
         //exit();
-
+        $find_answer_format                 = CreateEvaluation::with('answerformat', 'answerformat.answerdetails')
+                                            ->where('id_topic', $data['id_topic'])
+                                            ->first(); // ค้นหาจำนวนรุปแบบคำตอบชองหัวข้อการประเมินนี้
+        $count_answer_format                = $find_answer_format->answerformat->answerdetails->count();
 
         $find_evaluation     = Evaluation::where('id_evaluation', $data['id_evaluation'])->first();
         //sd($find_evaluation);
-        $find_evaluation->from_the_full_score = $from_the_full_score * 5;
-        $find_evaluation->percent             = ($data['total-evluation'] * 100) / ($from_the_full_score * 5);
+        $find_evaluation->from_the_full_score = $from_the_full_score * $count_answer_format;
+        $find_evaluation->percent             = ($data['total-evluation'] * 100) / ($from_the_full_score * $count_answer_format);
         $find_evaluation->save();
 
         //sd($evaluations);
         //sd($no);
         //$result_evaluation->
-         \Session::flash('message', 'ทำการแก้ไขการประเมินคุณ '.$data['input-assess_fullname']. ' เรียบร้อยแล้ว'); 
+         \Session::flash('message', 'ทำการแก้ไขการประเมินคุณ '.$data['input-assess_fullname']. ' เรียบร้อยแล้ว');
         return redirect()->route('evaluation.human_assessment.get', $data['id_topic']);
         //return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
         //sd($data);
@@ -928,12 +939,15 @@ class EvaluationController extends Controller
 
                 $employee = [];
                 for($i=0; $i<$count_department; $i++){
-                    $employee[]         = Employee::with('department')->where('id_department', $department[$i]->id_department)->where('id_position', 1)->get(); // เก็บข้อมูลพนักงานแยกเป็นแผนก // เก๋บเฉพาะลูกน้อง
+                    $employee[]         = Employee::with('department')->where('id_department', $department[$i]->id_department)->where('id_position', 1)->where('id_status', 1)->get(); // เก็บข้อมูลพนักงานแยกเป็นแผนก // เก๋บเฉพาะลูกน้อง
                 }
 
                 $count_by_department    = []; // เก็บจำนวนคนที่ประเมินแล้วแยกตามแผนก
                 $count_emp              = 0;// นับพนักงานที่ประเมินแล้วตามหัวเรื่องนั้นๆ
-                $emp_evaluation         = Evaluation::with('employee')->where('id_topic', $id_topic)->get();
+                $emp_evaluation         = Evaluation::with('employee')
+                                        ->where('id_topic', $id_topic)
+                                        ->get();
+
                 $count_emp_evaluation   = $emp_evaluation->count(); // นับจำนวนพนักงานที่ตรงกับหัวเรื่องประเมิน
                 for($i=0; $i<$count_department; $i++){ // for loop ตามจำนวน แผนก
                     for($j=0; $j<$count_emp_evaluation; $j++){ // for loop ตามจำนวนพนักงานที่ประเมินแล้วและหัวข้อตรงกับ id_topic

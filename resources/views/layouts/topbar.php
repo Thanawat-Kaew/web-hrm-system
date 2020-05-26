@@ -129,7 +129,7 @@
           if($current_employee['id_position'] == 2){
         ?>
           <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle <?php //echo ($sum_request == 0 ? 'hide' : '')?>" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle <?php echo ($sum_request == 0 ? 'hide' : '')?>" data-toggle="dropdown">
               <i class="fa fa-bell-o fa-lg"></i>
               <span class="label label-warning "><?php echo ($sum_request == 0 ? '' : $sum_request)?></span>
             </a>
