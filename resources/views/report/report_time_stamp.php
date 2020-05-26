@@ -15,7 +15,7 @@
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<?php if($current_employee['id_department'] == "hr0001"){?>
-								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+								<select class="form-control select2 select2-hidden-accessible testemp" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 									<option value="">เลือกแผนก...</option>
 								<?php foreach($department as $departments):?>
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
@@ -24,6 +24,10 @@
 								<?php }else{?>
 									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
 								<?php }?>
+								<br>
+								<select class="form-control select2 select2-hidden-accessible testemp hide" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="" id="choice">เลือกชื่อพนักงาน...</option>
+								</select>
 							</div>
 						</div>
 					</div>

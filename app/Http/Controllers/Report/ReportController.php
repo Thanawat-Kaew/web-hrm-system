@@ -179,6 +179,7 @@ class ReportController extends Controller
                 $new_start_time      = date("H:i:s", strtotime($start_time));
                 $end_time            = $request->get('end_time');
                 $new_end_time        = date("H:i:s", strtotime($end_time));
+                $id_employee         = $request->get('id_employee');
                 if(empty($department)){ // กรณีเลือกทุกแผนก
                     if(!empty($start_date) && !empty($end_date) && !empty($start_time) && !empty($end_time) ){ // ใส่ค่าทั้ง 4 ช่อง
                         $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
@@ -306,6 +307,7 @@ class ReportController extends Controller
                                             ->with(['employee.department' => function($q) use($department){
                                                 $q->where('id_department', $department);
                                                 }])
+                                            ->where('id_employee', $id_employee)
                                             ->orderBy('date', 'desc')->get();
                         //echo "1";
                         //$emp_timestamp = $emp_timestamp->orderBy('date', 'desc')->get();
@@ -348,7 +350,7 @@ class ReportController extends Controller
                         $emp_leaves = $emp_leaves->with('employee.department');
                     }
 
-                    
+
                     if(!empty($leaves_type)){
                         $emp_leaves = $emp_leaves->where('id_leaves_type', '=', $leaves_type);
                     }
@@ -365,7 +367,7 @@ class ReportController extends Controller
 
                     $emp_leaves = $emp_leaves->orderBy('start_leave', 'asc');
                     $emp_leaves = $emp_leaves->get();
-                    
+
                     // $get_department_name = Department::where('id_department',$department)->get();
                     // $get_leaves_type = LeavesType::where('id_leaves_type',$leaves_type)->get();
 
@@ -893,6 +895,13 @@ class ReportController extends Controller
                 $form_repo           = new FormViewEvaluation;
                 $get_form_view_eva   = $form_repo->getFormViewEvaluation($evaluation_data, $evaluation_details);
                 return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
+            break;
+
+
+            case 'getFormNameEmployee':
+                $id_department  = $request->get('department');
+                $name_emp       = Employee::where('id_department', $id_department)->get();
+                return response()->json(['status'=> 'success','data'=> $name_emp]);
             break;
 
             default:
