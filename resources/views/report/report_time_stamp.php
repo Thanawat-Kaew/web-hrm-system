@@ -25,8 +25,8 @@
 									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
 								<?php }?>
 								<br>
-								<select class="form-control select2 select2-hidden-accessible testemp hide" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
-									<option value="" id="choice">เลือกชื่อพนักงาน...</option>
+								<select class="form-control select2 select2-hidden-accessible hide name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="">เลือกชื่อพนักงาน...</option>
 								</select>
 							</div>
 						</div>

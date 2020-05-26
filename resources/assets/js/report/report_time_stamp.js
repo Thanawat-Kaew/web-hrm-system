@@ -13,10 +13,11 @@ $(document).ready(function(){
 		getTimePicker($(this));
 	});
 
-
 	$('.testemp').change(function(){
 		var nnn = $(this).val();
-		if(nnn != " "){
+		$('.name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
+		//$('.name_employee').empty();
+		if(nnn != ""){
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 				type : 'POST',
@@ -27,12 +28,12 @@ $(document).ready(function(){
 				},
 				success:function(result){
 					if(result.data !== ""){
-						$('#name_employee').removeClass('hide');
+						$('.name_employee').removeClass('hide');
 	    				var ip_serv = result.data;
 	    				jQuery.each(ip_serv, function(k, v){
 							var name    = v.first_name+" "+v.last_name;
 							var id_name = v.id_employee;
-							$('#name_employee').append('<option value="'+id_name+'">'+name+'</option>');
+							$('.name_employee').append('<option value="'+id_name+'">'+name+'</option>');
 						});
 					}
 				},
@@ -41,9 +42,10 @@ $(document).ready(function(){
 					console.log(errors);
 				}
 			});
+		}else if(nnn == ""){
+			$('.name_employee').addClass('hide');
 		}
 	});
-
 
 	$('#btn-search').on('click', function(){
 		msg_waiting();
