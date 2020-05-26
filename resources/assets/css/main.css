@@ -111,3 +111,9 @@ tr>td{
 .btn-trash {
 	border-color: red;
 }
+
+.modal_list_emp {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}

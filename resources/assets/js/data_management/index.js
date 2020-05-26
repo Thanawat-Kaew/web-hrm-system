@@ -14,6 +14,7 @@ $(function(){
 					message: result.data,
 					size: 'xlarge',
 					onEscape: true,
+					className: 'modal_list_emp',
 					backdrop: true,
 					buttons: {
 						fum: {
