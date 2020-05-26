@@ -25,7 +25,7 @@ class FormLeavesWhenChangeDepartment
                                     $e=2;
                                     $u=3;
                                 $form .='<tr>';
-                                    $form .='<td style="color: blue; text-align: left; padding-left: 30px;">'.$emp_leaves[$i]->employee->first_name.''.$emp_leaves[$i]->employee->last_name.'</td>';
+                                    $form .='<td style="color: blue; text-align: left; padding-left: 30px;">'.$emp_leaves[$i]->employee->first_name.' '.$emp_leaves[$i]->employee->last_name.'</td>';
                                     $form .='<td>'.$emp_leaves[$i]->employee->department->name.'</td>';
                                     $form .='<td>'.$emp_leaves[$i]->employee->Position->name.'</td>';
                                     $form .='<td>'.$emp_leaves[$i]->leaves_type->leaves_name.'</td>';

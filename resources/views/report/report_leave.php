@@ -14,7 +14,7 @@
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<?php if($current_employee['id_department'] == "hr0001"){?>
-									<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+									<select class="form-control select2 select2-hidden-accessible testemp" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 										<option value="">เลือกแผนก...</option>
 										<?php foreach($department as $departments):?>
 
@@ -34,6 +34,11 @@
 								<i class="fa fa-file-pdf-o"></i> Export to PDF
 							</a>
 						</div>
+					</div>
+					<div class="col-md-3"><br>
+						<select class="form-control select2 hide select2-hidden-accessible name_employee" style="width: 100%;border-radius: 5px; margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+							<option value="">เลือกชื่อพนักงาน...</option>
+						</select>
 					</div>
 				</div>
 				<div class="box-body">

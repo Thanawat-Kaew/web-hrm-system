@@ -377,35 +377,41 @@ class PDFController extends Controller
 		$new_end_date       = date("Y-m-d", strtotime($end_date));
 		$getDate 			= date("Y-m-d");
 		$getTime			= date("h:i:sa");
+        $id_employee_select = $request->get('id_employee');
 
 		$emp_leaves   	= Leaves::with('employee.position');
 		$emp_leaves 	= $emp_leaves->with('leaves_type');
 
-		if(!empty($department)){
-			$emp_leaves =	$emp_leaves->with(['employee.department' => function($q) use($department){
-				$q->where('id_department', $department);
-			}]);
-		} else{
-			$emp_leaves = $emp_leaves->with('employee.department');
-		}
+		 if(!empty($department)){
+            $emp_leaves =   $emp_leaves->with(['employee.department' => function($q) use($department){
+                $q->where('id_department', $department);
+            }]);
 
-		
-		if(!empty($leaves_type)){
-			$emp_leaves = $emp_leaves->where('id_leaves_type', '=', $leaves_type);
-		}
+        } else{
+            $emp_leaves = $emp_leaves->with('employee.department');
+        }
 
-		if(!empty($leaves_format)){
-			$emp_leaves = $emp_leaves->where('id_leaves_format', '=', $leaves_format);
-		}
+        if (!empty($id_employee_select)) {
+            $emp_leaves = $emp_leaves->where('id_employee', $id_employee_select);
+            
+        }
 
-		if(!empty($start_date) && !empty($end_date)){
-			$emp_leaves = $emp_leaves->where('start_leave', '>=', $new_start_date);
-			$emp_leaves = $emp_leaves->where('end_leave', '<=', $new_end_date);
+        if(!empty($leaves_type)){
+            $emp_leaves = $emp_leaves->where('id_leaves_type', '=', $leaves_type);
+        }
 
-		}
+        if(!empty($leaves_format)){
+            $emp_leaves = $emp_leaves->where('id_leaves_format', '=', $leaves_format);
+        }
 
-		$emp_leaves = $emp_leaves->orderBy('start_leave', 'asc');
-		$emp_leaves = $emp_leaves->get();
+        if(!empty($start_date) && !empty($end_date)){
+            $emp_leaves = $emp_leaves->where('start_leave', '>=', $new_start_date);
+            $emp_leaves = $emp_leaves->where('end_leave', '<=', $new_end_date);
+
+        }
+
+        $emp_leaves = $emp_leaves->orderBy('start_leave', 'asc');
+        $emp_leaves = $emp_leaves->get();
 		
 		$get_department_name = Department::where('id_department',$department)->get();
 		$get_leaves_type = LeavesType::where('id_leaves_type',$leaves_type)->get();
