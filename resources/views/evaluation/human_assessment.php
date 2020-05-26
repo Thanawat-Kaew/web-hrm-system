@@ -74,16 +74,7 @@
 
 					</tr>
 				<?php } ?>
-				<tr>
-					<td>1</td>
-					<td style="text-align: left;"><b>ธนวัฒน์  แก้วล้อมวัง</b>	</td>
-					<td><span class="badge bg-green">สำเร็จ</span></td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td style="text-align: left;"><b>ชนะชัย  ชุ่มชื่น</b></td>
-					<td><span class="badge bg-red">ยังไม่ประเมิน</span></td>
-				</tr>
+
 			</tbody>
 		</table>
 	</div>
