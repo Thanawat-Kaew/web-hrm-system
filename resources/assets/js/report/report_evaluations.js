@@ -12,11 +12,52 @@ $(document).ready(function(){
 
 	$('#myTable').dataTable();
 
+
+	$('.choice_department').change(function(){
+		var name_department = $(this).val();
+		$('.list_name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
+		//console.log(name_department);
+		//$('.name_employee').empty();
+		if(name_department != ""){
+			$.ajax({
+				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+				type : 'POST',
+				url  : $('#ajax-center-url').data('url'),
+				data : {
+					'method' : 'getFormNameEmployee',
+					'department': name_department
+				},
+				success:function(result){
+					if(result.data !== ""){
+						$('.div_list_name_employee').removeClass('hide');
+						$('.list_name_employee').removeClass('hide');
+	    				var list_data = result.data;
+	    				jQuery.each(list_data, function(k, v){
+							var name    = v.first_name+" "+v.last_name;
+							var id_name = v.id_employee;
+							$('.list_name_employee').append('<option value="'+id_name+'">'+name+'</option>');
+						});
+					}
+				},
+				error : function(errors){
+					msg_close();
+					console.log(errors);
+				}
+			});
+		}else if(name_department == ""){
+			$('.div_list_name_employee').addClass('hide');
+			$('.list_name_employee').addClass('hide');
+		}
+	});
+
+
+
 	$('#btn-search').on('click', function(){
 		// alert("ok");
 		//msg_waiting();
 		var department    = $('#report-department').val();
 		var topic_name    = $('#report-topic-name').val();
+		var id_employee   = $('#name_employee').val();
 		var start_date    = $('#select_start_date').val();
 		var end_date      = $('#select_end_date').val();
 		var start_number  = $('#start_number').val()
@@ -33,13 +74,14 @@ $(document).ready(function(){
 			type : 'POST',
 			url  : $('#ajax-center-url').data('url'),
 			data : {
-				'method' : 'getFormEvaluationWhenChangeDepartment',
+				'method'      : 'getFormEvaluationWhenChangeDepartment',
 				'department'  : department,
 				'topic_name'  : topic_name,
 				'start_date'  : start_date,
 				'end_date'    : end_date,
 				'start_number': start_number,
-				'end_number'  : end_number
+				'end_number'  : end_number,
+				'id_employee' : id_employee
 			},
 			success:function(result){
 				if(result.data !== ""){
@@ -77,6 +119,7 @@ $(document).ready(function(){
 
 	$('.view-evaluation').click(function(){
 		msg_waiting();
+		//alert('55');
 		var id_employee     = $(this).data('id');
 		//alert(id_employee);
 		var id_topic 		= $(this).data('id_topic');

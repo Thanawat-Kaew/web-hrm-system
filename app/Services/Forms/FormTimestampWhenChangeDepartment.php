@@ -25,7 +25,7 @@ class FormTimestampWhenChangeDepartment
         for($i=0; $i<$count_emp; $i++){
             if(!empty($emp_timestamp[$i]->employee->department)){
                 $form .='<tr>';
-                    $form .='<td style="color: blue; text-align: left; padding-left: 30px;">'.$emp_timestamp[$i]->employee->first_name." ".$emp_timestamp[$i]->employee->last_name.'</td>';
+                    $form .='<td style="color: blue;  padding-left: 30px; cursor:pointer;" class="name_employee" data-id="'.$emp_timestamp[$i]->employee->id_employee.'">'.$emp_timestamp[$i]->employee->first_name." ".$emp_timestamp[$i]->employee->last_name.'</td>';
                     $form .='<td>'.$emp_timestamp[$i]->employee->department->name.'</td>';
                     $form .='<td>'.$emp_timestamp[$i]->employee->position->name.'</td>';
                     $form .='<td>'.$emp_timestamp[$i]->date.'</td>';
@@ -47,42 +47,5 @@ class FormTimestampWhenChangeDepartment
         }
         $form .='</table>';
         return ['form' => $form];
-        //$count_t = $employees->timestamp->count();
-        //sd($count_t);
-        //sd($count);
-
-        //sd($employee->toArray());
-        /*$form ='';
-        foreach ($employees as $value) {
-            sd($value->toArray());
-            //echo $value->timestamp;
-            //echo "<br>";
-            if(!empty($value->timestamp_hasone)){
-                echo "55";
-                echo "<br>";
-            $form .='<tr>';
-                $form .='<td style="color: blue">'.$value->first_name.'</td>';
-                $form .='<td>'.$value->department->name.'</td>';
-                $form .='<td></td>';
-                $form .='<td>'.$value->date.'</td>';
-                $form .='<td>'.(!empty($value->$value->time_in) ? $value->$value->time_in : '-').'</td>';
-                $form .='<td>'.(!empty($value->break_out) ? $value->break_out : '-').'</td>';
-                $form .='<td>'.(!empty($value->break_in) ? $value->break_in : '-').'</td>';
-                $form .='<td>'.(!empty($value->time_out) ? $value->time_out : '-').'</td>';
-                $start  = strtotime($value->time_in);
-                $end    = strtotime($value->time_out);
-                if(!empty($end)){
-                    $total_hour = intval(($end - $start)/3600);
-                    $mins = (int)(($end - $start) / 60);
-                }
-                $form .='<td style="color: red">'.(!empty($total_hour) ? $total_hour : '-').'</td>';
-                $form .='</div>';
-                $form .='<div class="box-footer no-padding">';
-                $form .='<ul class="nav nav-stacked">';
-                $form .='<li class="manage-employee" data-form_id="'.$value["id_employee"].'" data-form_position="'.$value["id_position"].'" data-form_department="'.$value["id_department"].'">';
-            $form .='</tr>';
-            }
-        }
-       return $form;*/
     }
 }

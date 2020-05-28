@@ -27,15 +27,16 @@ class FormEvaluationWhenChangeDepartment
                 //sd($count_assessor);
             for ($i=0; $i < $count_assessor; $i++) {
                 if(!empty($emp_evaluation[$i]->employee->department)){
+                    //d($emp_evaluation[$i]->id_topic);
             $form .= '<tr>';
                 $form .= '<td>'.$n++.'</td>';
-                $form .= '<td style="color: blue; text-align: left; padding-left: 30px;" class="view-evaluation" data-id="'.$emp_evaluation[$i]->employee->id_employee.'" data-id_topic="'.$emp_evaluation[$i]->id_topic.'">'.$emp_evaluation[$i]->employee->first_name.' '.$emp_evaluation[$i]->employee->last_name.'</td>';
+                $form .= '<td style="color: blue; cursor:pointer; padding-left: 30px;" class="view-evaluation" data-id="'.$emp_evaluation[$i]->employee->id_employee.'" data-id_topic="'.$emp_evaluation[$i]->id_topic.'">'.$emp_evaluation[$i]->employee->first_name.' '.$emp_evaluation[$i]->employee->last_name.'</td>';
                 $form .= '<td style="color: blue">'.$emp_evaluation[$i]->employee->id_employee.'</td>';
                 $form .= '<td>'.$emp_evaluation[$i]->employee->department->name.'</td>';
                 // $form .= '<td>'.$emp_evaluation[$i]->employee->position->name.'</td>';
                 $form .= '<td>'.$emp_evaluation[$i]->date.'</td>';
                 $form .= '<td>'.$count_first_name[$no].' '.$count_last_name[$no].'</td>';
-                $form .= '<td>'.$count_name_evaluation[$no].'</td>';
+                $form .= '<td>'.$emp_evaluation[$i]->createevaluation->topic_name.'</td>';
                 $form .= '<td >'.$emp_evaluation[$i]->id_topic.'</td>';
                 $form .= '<td>'.$emp_evaluation[$i]->result_evaluation.'</td>';
                 $form .= '<td>'.$emp_evaluation[$i]->from_the_full_score.'</td>';

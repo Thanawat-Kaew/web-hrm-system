@@ -38,7 +38,7 @@
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<?php if($current_employee['id_department'] == "hr0001"){?>
-									<select class="form-control select2 select2-hidden-accessible testemp" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+									<select class="form-control select2 select2-hidden-accessible get_name" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 										<option value="">เลือกแผนก...</option>
 										<?php foreach($department as $departments):?>
 

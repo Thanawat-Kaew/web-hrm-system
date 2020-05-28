@@ -12,18 +12,18 @@ msg_waiting()
 		getTimePicker($(this));
 	});
 
-	$('.testemp').change(function(){
-		var nnn = $(this).val();
+	$('.get_name').change(function(){
+		var get_name_emp = $(this).val();
 		$('.name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
 		//$('.name_employee').empty();
-		if(nnn != ""){
+		if(get_name_emp != ""){
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 				type : 'POST',
 				url  : $('#ajax-center-url').data('url'),
 				data : {
 					'method' : 'getFormNameEmployee',
-					'department': nnn
+					'department': get_name_emp
 				},
 				success:function(result){
 					if(result.data !== ""){
@@ -41,7 +41,7 @@ msg_waiting()
 					console.log(errors);
 				}
 			});
-		}else if(nnn == ""){
+		}else if(get_name_emp == ""){
 			$('.name_employee').addClass('hide');
 		}
 	});

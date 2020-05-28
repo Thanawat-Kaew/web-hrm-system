@@ -30,6 +30,10 @@ Auth::routes();
 
 Route::auth();
 
+
+
+
+
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout.index.post');
 Route::get('/logout_admin', 'Auth\LoginController@logout_admin')->name('logout_admin.index.post');
 Route::get('/admin', 'Auth\LoginController@admin_login_')->name('admin_login');
@@ -159,6 +163,8 @@ Route::group(['middleware' => ['login']], function(){
 	Route::post('/pdf/generatePDF_time_stamp/POST','PDFController@generatePDF_time_stamp')->name('report.pdf.pdf_time_stamp.post');
 	Route::get('/pdf/generatePDF_Eval','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.get');
 	Route::post('/pdf/generatePDF_Eval/POST','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.post');
+
+	Route::get('/report/test', 'Report\ReportController@test')->name('report.test.get');
 	/***************************************************End Report*******************************************/
 
     /********************************************** Main ************************/
