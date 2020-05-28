@@ -122,11 +122,11 @@
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 <!-- main function -->
 <script src="/resources/assets/js/main.js"></script>
-<script src="/resources/assets/js/admin/admin_main.js"></script>
-<script src="/resources/assets/js/admin_login.js"></script>
-<script src="/resources/assets/js/evaluation/check_count_evaluations_emp.js"></script>
+<script type="module" src="/resources/assets/js/admin/admin_main.js"></script>
+<script type="module" src="/resources/assets/js/admin_login.js"></script>
+<script type="module" src="/resources/assets/js/evaluation/check_count_evaluations_emp.js"></script>
 <?php if (file_exists(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js')): ?>
-<script src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
+<script type="module" src="<?php echo '/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js' ?>"></script>
 <?php endif ?>
 
 <?php /*sd(base_path().'/resources/assets/js/'.helperGetModule().'/'.helperGetAction().'.js');*/ ?>

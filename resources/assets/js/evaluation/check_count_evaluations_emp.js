@@ -165,4 +165,6 @@ function sendEmail(form, title)
 	})
 }
 
+export{showDialog};
+
 

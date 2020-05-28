@@ -14,14 +14,15 @@
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<?php if($current_employee['id_department'] == "hr0001"){?>
-								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+								<select class="form-control select2 select2-hidden-accessible choice_department" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 									<option value="">เลือกแผนก...</option>
 									<?php foreach($department as $departments):?>
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
 									<?php endforeach ?>
 								</select>
-								<?php }else{?>
-									<input type="text" style="border-radius: 5px;" class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
+								<?php }else{?><!-- ไม่ใช่แผนก hr -->
+									<input type="text" style="border-radius: 5px;" class="form-control"value="<?php echo $department['name']?>" readonly>
+									<input type="text" style="border-radius: 5px;" class="form-control hide"value="<?php echo $current_employee['id_department']?>" id="report-department" readonly>
 								<?php }?>
 							</div>
 						</div>
@@ -46,6 +47,32 @@
 							</a>
 						</div>
 					</div>
+				<?php if($current_employee['id_department'] == "hr0001"){?>
+					<div class="col-md-3 hide div_list_name_employee">
+						<div class="form-group">
+							<label>รายชื่อพนักงาน</label>
+							<div class="form-group" data-select2-id="13">
+								<select class="form-control select2 select2-hidden-accessible hide list_name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+								</select>
+							</div>
+						</div>
+					</div>
+				<?php }else if($current_employee['id_department'] != "hr0001"){?> <!-- ไม่ใช่แผนก hr -->
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>รายชื่อพนักงาน</label>
+							<div class="form-group" data-select2-id="13">
+								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="">เลือกลายชื่อพนักงาน...</option>
+									<?php foreach($list_employee as $list_employees):?>
+									<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?>
+									</option>
+									<?php endforeach ?>
+								</select>
+							</div>
+						</div>
+					</div>
+				<?php }?>
 				</div>
 				<div class="box-body">
 					<div class="col-md-3">
