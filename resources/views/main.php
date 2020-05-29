@@ -136,7 +136,7 @@
                                 <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>
                                 <!-- Notifications: style can be found in dropdown.less -->
                                 <?php if($current_employee->id_position == 2){ ?>
-                                <a href="#" class="dropdown-toggle <?php //echo ($sum_request == 0 ? 'hide' : '')?>" data-toggle="dropdown">
+                                <a href="#" class="dropdown-toggle <?php echo ($sum_request == 0 ? 'hide' : '')?>" data-toggle="dropdown">
                                   <i class="fa fa-bell-o fa-lg"></i>
                                   <span class="label label-warning" style="width: 50px;"><?php echo $sum_request ?></span>
                                 </a>

@@ -10,6 +10,7 @@ use App\Services\Forms\FormChangeDepartment;
 use App\Services\Forms\FormManageData;
 use App\Services\Forms\FormDataPersonal;
 use App\Services\Forms\FormViewDataRequest;
+use App\Services\Forms\FormDumpEmp;
 use App\Services\Department\Department;
 use App\Services\Position\Position;
 use App\Services\Employee\Employee;
@@ -31,7 +32,8 @@ class DataManageController extends Controller
             //sd($header->toArray());
             $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
         }
-        return $this->useTemplate('data_management.index', compact('department', 'employee', 'header'));
+        $department_pdf = Department::all();
+        return $this->useTemplate('data_management.index', compact('department', 'employee', 'header','department_pdf'));
     }
 
     public function ajaxCenter(Request $request)
@@ -112,6 +114,13 @@ class DataManageController extends Controller
                 $form_repo      = new FormViewDataRequest;
                 $form_view_date_request   = $form_repo->getViewDataRequest($employee, $emp_department, $emp_position, $emp_education);
                 return response()->json(['status'=> 'success','data'=> $form_view_date_request]);
+            break;
+
+            case 'getFormDumpEmp':
+                $departments    = Department::all();
+                $form_repo      = new FormDumpEmp;
+                $form_dump_emp   = $form_repo->getFormDumpEmp($departments);
+                return response()->json(['status'=> 'success','data'=> $form_dump_emp]);
             break;
 
             default:

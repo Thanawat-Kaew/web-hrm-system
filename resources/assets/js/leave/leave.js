@@ -44,7 +44,7 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
     var box = bootbox.dialog({ 
         title: title,
         message: form,
-        size: 'xlarge',
+        size: 'large',
         onEscape: true,
         backdrop: 'static',
         buttons: {

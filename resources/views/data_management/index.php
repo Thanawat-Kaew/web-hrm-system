@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <div class="col-md-3 col-xs-12 pull-right add-employee">
                         <button type="button" class="btn btn-success pull-right add-employee-form"><i class="fa fa-plus"></i> พนักงาน</button>
-                        <button type="button" class="btn btn-danger pull-right list_emp_all" style="margin-right: 5px;"><i class="fa fa-file-pdf-o"></i> Export to PDF</button>
+                        <button type="button" class="btn btn-danger pull-right list_emp" style="margin-right: 5px;"><i class="fa fa-file-pdf-o"></i> Export to PDF</button>
                     </div>
                 </div>
             <?php endif ?>
@@ -118,4 +118,5 @@
 <div id="add-employee-url" data-url="<?php echo route('data_manage.add_employee.post')?>"></div>
 <div id="edit-employee-url" data-url="<?php echo route('data_manage.edit_employee.post')?>"></div>
 <div id="dump-employee-url" data-url="<?php echo route('data_manage.dump_emp.get')?>"></div>
+<div id="dump-employee-url" data-url="<?php echo route('data_manage.dump_emp.post')?>"></div>
 <?php echo csrf_field()?>

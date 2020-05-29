@@ -1,7 +1,42 @@
 $(function(){
-	
-	$('.list_emp_all').on('click',function(){
-		window.open('/data_manage/dump_employee_pdf','_blank');
+
+	$('.list_emp').on('click',function(){
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type : 'POST',
+			url  : $('#ajax-center-url').data('url'),
+			data : {
+				'method' : 'getFormDumpEmp'
+			},
+			success:function(result){
+				var box = bootbox.dialog({
+					title: '<h4 style="text-align: center; font-size : 16px;"> เลือกข้อมูลส่งออก <img src="/public/image/icon_pdf.png" class="pull-left" style="width:40px; height:40px;"></h4>',
+					message: result.data,
+					size: 'xlarge',
+					onEscape: true,
+					className: 'modal_list_emp',
+					backdrop: true,
+					buttons: {
+						fum: {
+							label: 'ปิด',
+							className: 'btn-warning',
+							callback: function(){
+							}
+						}
+					}
+				})
+				msg_close();
+				box.on('shown.bs.modal', function(){
+					$('#departments_pdf').on('change', function(event) {
+						var id_department = $(this).val();
+						window.open('/data_manage/dump_employee_pdf?id_department='+id_department,'_blank');
+					});
+				});
+			},
+			error : function(errors){
+				console.log(errors);
+			}
+		});
 	})
 
 	$('#header, #employee').on('click', '.manage-employee', function(){
@@ -136,6 +171,7 @@ $(function(){
 	$('#department').on('change', function(){
 		msg_waiting();
 		var department = $(this).val();
+		alert(department);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type : 'POST',

@@ -324,8 +324,9 @@ class ReportController extends Controller
                         $current_employee = \Session::get('current_employee');
                     }
 
-                    $id_employee = $current_employee['id_employee'];
-                    $id_department = $current_employee['id_department'];
+                    date_default_timezone_set('Asia/Bangkok');
+                    $id_employee        = $current_employee['id_employee'];
+                    $id_department      = $current_employee['id_department'];
                     $department         = $request->has('department') ? $request->get('department') : '';
                     $leaves_type        = $request->get('leaves_type');
                     $leaves_format      = $request->get('leaves_format');
@@ -333,312 +334,357 @@ class ReportController extends Controller
                     $new_start_date     = date("Y-m-d", strtotime($start_date));
                     $end_date           = $request->get('end_date');
                     $new_end_date       = date("Y-m-d", strtotime($end_date));
+                    $getDate            = date("Y-m-d");
+                    $getTime            = date("h:i:sa");
 
-                    if(empty($department)){
-                        if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->where('start_leave', '>=', $new_start_date)
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->where('start_leave', '>=', $new_start_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_type) && !empty($leaves_format) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_type) && !empty($leaves_format)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_type) && !empty($start_date) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->where('start_leave', '>=', $new_start_date)
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_type) && !empty($start_date)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->where('end_leave', '>=', $new_start_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_type) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_type)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->where('id_leaves_type', '=', $leaves_type)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_format) && !empty($start_date) && !empty($end_date)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_format')
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->where('start_leave', '>=', $new_start_date)
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_format) && !empty($start_date)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_format')
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->where('start_leave', '>=', $new_start_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_format) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_format')
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($leaves_format)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_format')
-                                                    ->where('id_leaves_format', '=', $leaves_format)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($start_date) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->where('start_leave', '>=', $new_start_date)
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($start_date)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->where('start_leave', '>=', $new_start_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else if(!empty($end_date)){
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->where('end_leave', '<=', $new_end_date)
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }else{
-                            $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
-                                                        $q->with('department');
-                                                        $q->with('position');}])
-                                                    ->with('leaves_type')
-                                                    ->orderBy('start_leave', 'asc')
-                                                    ->get();
-                        }
-                    }else {
-                         if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                        else if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_type) && !empty($leaves_format) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_type) && !empty($leaves_format)){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_type) && !empty($start_date) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_type) && !empty($start_date)){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_type) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_type)){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_type')
-                                                ->where('id_leaves_type', '=', $leaves_type)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_format) && !empty($start_date)){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_format) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($leaves_format) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->with('leaves_format')
-                                                ->where('id_leaves_format', '=', $leaves_format)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($start_date) && !empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($start_date)){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->where('start_leave', '>=', $new_start_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                         else if(!empty($end_date) ){
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->where('end_leave', '<=', $new_end_date)
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                         }
-                        else{
-                            $emp_leaves   = Leaves::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                    $q->where('id_department', $department);}])
-                                                ->orderBy('start_leave', 'asc')
-                                                ->get();
-                            }
+                    $emp_leaves     = Leaves::with('employee.position');
+                    $emp_leaves     = $emp_leaves->with('leaves_type');
+
+                    if(!empty($department)){
+                        $emp_leaves =   $emp_leaves->with(['employee.department' => function($q) use($department){
+                            $q->where('id_department', $department);
+                        }]);
+                    } else{
+                        $emp_leaves = $emp_leaves->with('employee.department');
                     }
+
+                    
+                    if(!empty($leaves_type)){
+                        $emp_leaves = $emp_leaves->where('id_leaves_type', '=', $leaves_type);
+                    }
+
+                    if(!empty($leaves_format)){
+                        $emp_leaves = $emp_leaves->where('id_leaves_format', '=', $leaves_format);
+                    }
+
+                    if(!empty($start_date) && !empty($end_date)){
+                        $emp_leaves = $emp_leaves->where('start_leave', '>=', $new_start_date);
+                        $emp_leaves = $emp_leaves->where('end_leave', '<=', $new_end_date);
+
+                    }
+
+                    $emp_leaves = $emp_leaves->orderBy('start_leave', 'asc');
+                    $emp_leaves = $emp_leaves->get();
+                    
+                    // $get_department_name = Department::where('id_department',$department)->get();
+                    // $get_leaves_type = LeavesType::where('id_leaves_type',$leaves_type)->get();
+
+
+                    // $id_employee = $current_employee['id_employee'];
+                    // $id_department = $current_employee['id_department'];
+                    // $department         = $request->has('department') ? $request->get('department') : '';
+                    // $leaves_type        = $request->get('leaves_type');
+                    // $leaves_format      = $request->get('leaves_format');
+                    // $start_date         = $request->get('start_date');
+                    // $new_start_date     = date("Y-m-d", strtotime($start_date));
+                    // $end_date           = $request->get('end_date');
+                    // $new_end_date       = date("Y-m-d", strtotime($end_date));
+
+                    // if(empty($department)){
+                    //     if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->where('start_leave', '>=', $new_start_date)
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->where('start_leave', '>=', $new_start_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_type) && !empty($leaves_format) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_type) && !empty($leaves_format)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_type) && !empty($start_date) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->where('start_leave', '>=', $new_start_date)
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_type) && !empty($start_date)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->where('end_leave', '>=', $new_start_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_type) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_type)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->where('id_leaves_type', '=', $leaves_type)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_format) && !empty($start_date) && !empty($end_date)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_format')
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->where('start_leave', '>=', $new_start_date)
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_format) && !empty($start_date)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_format')
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->where('start_leave', '>=', $new_start_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_format) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_format')
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($leaves_format)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_format')
+                    //                                 ->where('id_leaves_format', '=', $leaves_format)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($start_date) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->where('start_leave', '>=', $new_start_date)
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($start_date)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->where('start_leave', '>=', $new_start_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else if(!empty($end_date)){
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->where('end_leave', '<=', $new_end_date)
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }else{
+                    //         $emp_leaves   = Leaves::with(['employee' => function ($q) use ($id_employee){
+                    //                                     $q->with('department');
+                    //                                     $q->with('position');}])
+                    //                                 ->with('leaves_type')
+                    //                                 ->orderBy('start_leave', 'asc')
+                    //                                 ->get();
+                    //     }
+                    // }else {
+                    //      if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //     else if(!empty($leaves_type) && !empty($leaves_format) && !empty($start_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_type) && !empty($leaves_format) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_type) && !empty($leaves_format)){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_type) && !empty($start_date) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_type) && !empty($start_date)){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_type) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_type)){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_type')
+                    //                             ->where('id_leaves_type', '=', $leaves_type)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_format) && !empty($start_date) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_format) && !empty($start_date)){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_format) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($leaves_format) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->with('leaves_format')
+                    //                             ->where('id_leaves_format', '=', $leaves_format)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($start_date) && !empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($start_date)){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->where('start_leave', '>=', $new_start_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //      else if(!empty($end_date) ){
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->where('end_leave', '<=', $new_end_date)
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //      }
+                    //     else{
+                    //         $emp_leaves   = Leaves::with('employee', 'employee.position')
+                    //                             ->with(['employee.department' => function($q) use($department){
+                    //                                 $q->where('id_department', $department);}])
+                    //                             ->orderBy('start_leave', 'asc')
+                    //                             ->get();
+                    //         }
+                    // }
                 $form_repo       = new FormLeavesWhenChangeDepartment;
                 $get_form_leave    = $form_repo->getFormLeavesWhenChangeDepartment($emp_leaves);
                 return response()->json(['status'=> 'success','data'=> $get_form_leave]);

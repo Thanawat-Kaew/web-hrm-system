@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>PDF_All_EMP</title>
+	<title>PDF_EMP</title>
 
 	<style>
 		footer {
@@ -92,10 +92,22 @@
 	}
 </script>
 
-<h1 style="font-size: 50px;">All employees 
-	<p style="font-size: 16px; text-align: right;"> Exported Date : <?php echo $getDate ?></p>
-</h1>
+<?php if ($id_departments == "") {?>
+	<h1 style="font-size: 50px;">All employees 
+		<p style="font-size: 16px; text-align: right;"> Exported Date : <?php echo $getDate ?></p>
+	</h1>
+<?php } ?>
+<?php if ($id_departments != "") {?>
+	<h1 style="font-size: 50px;">employees 
+		<p style="font-size: 16px; text-align: right;"> Exported Date : <?php echo $getDate ?></p>
+	</h1>
+<?php } ?>
 <hr>
+<?php foreach($get_count_dept as $value1) : ?>
+	<?php if ($id_departments != "") {?>
+		<h4>department : <?php echo $value1->department->name?></h4>
+	<?php } ?>
+<?php endforeach ?>
 <h4>count : <?php echo $employee->count();?></h4>
 <h4>gender : Male <?php echo $employee->where('gender' ,'ชาย')->count(); ?> , Female <?php echo $employee->where('gender' ,'หญิง')->count(); ?> </h4>
 <hr>
@@ -107,14 +119,25 @@
 			<th>percentage.</th>
 		</tr>		
 	</thead>
+<?php if ($id_departments == "") {?>
 <?php $count_emp = $employee->count() ?>
-
+<?php } ?>
+<?php if ($id_departments != "") {?>
+<?php $count_emp_ = $employee_all->count() ?>
+<?php } ?>
 <?php foreach ($get_count_dept as $value) :?>
 	<tbody>
 		<tr>
 			<td style="text-align: left; padding-left: 10px;"><?php echo $value->department->name?></td>
 			<td><?php echo $value->total?> คน</td>
-			<td style="color: red;"><?php echo round($value->total*100/$count_emp,2)?> %</td>
+			<?php if ($id_departments == "") {?>
+				<td style="color: red;"><?php echo round($value->total*100/$count_emp,2)?> %</td>
+				
+			<?php } ?>
+			<?php if ($id_departments != "") {?>
+				<td style="color: red;"><?php echo round($value->total*100/$count_emp_,2)?> %</td>
+				
+			<?php } ?>
 		</tr>
 	</tbody>
 <?php endforeach ?>
