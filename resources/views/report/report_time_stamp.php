@@ -5,7 +5,7 @@
 	</h3>
 </section>
 <section class="content">
-
+	<!-- <a href="<?php //echo route('report.test.get')?>">ssss</a> -->
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="box box-danger">
@@ -14,16 +14,28 @@
 						<div class="form-group">
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
-								<?php if($current_employee['id_department'] == "hr0001"){?>
-								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+							<?php if($current_employee['id_department'] == "hr0001"){?>
+								<select class="form-control select2 select2-hidden-accessible choice_department" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 									<option value="">เลือกแผนก...</option>
 								<?php foreach($department as $departments):?>
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
 								<?php endforeach ?>
 								</select>
-								<?php }else{?>
-									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $current_employee['id_department']?>" id="report-department">
-								<?php }?>
+								<br>
+								<select class="form-control select2 select2-hidden-accessible hide list_name_employee " style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="">เลือกชื่อพนักงาน...</option>
+								</select>
+							<?php }else{?> <!-- ไม่ใช่แผนก hr -->
+									<input type="text" style="border-radius: 5px;" readonly class="form-control hide"value="<?php echo $current_employee['id_department']?>" id="report-department">
+									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $department['name']?>">
+									<br>
+									<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="">เลือกชื่อพนักงาน...</option>
+									<?php foreach($list_employee as $list_employees):?>
+										<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?></option>
+									<?php endforeach ?>
+								</select>
+							<?php }?>
 							</div>
 						</div>
 					</div>
@@ -106,7 +118,7 @@
 						<?php foreach($timestamp as $value):?>
 							<?php if(isset($value->employee->department)):?>
 							<tr>
-								<td style="color: blue; text-align: left; padding-left: 30px;"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
+								<td style="color: blue; padding-left: 30px; cursor:pointer;" class="name_employee" data-id="<?php echo $value->employee->id_employee?>"><?php echo $value->employee->first_name?> <?php echo $value->employee->last_name;?></td>
 								<td><?php echo $value->employee->department->name;?></td>
 								<td><?php echo $value->employee->Position->name;?></td>
 								<td><?php echo $value->date;?></td>
@@ -137,6 +149,7 @@
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('report.ajax_center.post')?>"></div>
 <div id="ajax-center-url-pdf" data-url="<?php echo route('report.pdf.pdf_time_stamp.post')?>"></div>
+<div id="send_email" data-url="<?php echo route('evaluation.send_email.post')?>"></div>
 <?php echo csrf_field()?>
 
 

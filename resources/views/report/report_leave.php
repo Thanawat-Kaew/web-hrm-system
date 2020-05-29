@@ -1,3 +1,27 @@
+<head>
+	<meta content="Circle Chart,Pie Chart" name="keywords">
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<link href="/resources/assets/pie-chart/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+	<link href="/resources/assets/pie-chart/css/anychart-font.css" rel="stylesheet" type="text/css">
+	<script src="/resources/assets/theme/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="/resources/assets/pie-chart/js/anychart-base.min.js"></script>
+	<script src="/resources/assets/pie-chart/js/anychart-ui.min.js"></script>
+	<style type="text/css">
+		html, body, #container_dept {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		.anychart-credits {
+			display: none;
+		}
+
+		button {
+			margin-right: 5px !important;
+		}
+	</style>
+</head>
 <section class="content-header">
 	<h3>
 		การลา |
@@ -6,7 +30,7 @@
 </section>
 <section class="content">
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-md-12">
 			<div class="box box-danger">
 				<div class="box-header with-border">
 					<div class="col-md-6">
@@ -14,7 +38,7 @@
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<?php if($current_employee['id_department'] == "hr0001"){?>
-									<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+									<select class="form-control select2 select2-hidden-accessible get_name" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
 										<option value="">เลือกแผนก...</option>
 										<?php foreach($department as $departments):?>
 
@@ -34,6 +58,11 @@
 								<i class="fa fa-file-pdf-o"></i> Export to PDF
 							</a>
 						</div>
+					</div>
+					<div class="col-md-3"><br>
+						<select class="form-control select2 hide select2-hidden-accessible name_employee" style="width: 100%;border-radius: 5px; margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+							<option value="">เลือกชื่อพนักงาน...</option>
+						</select>
 					</div>
 				</div>
 				<div class="box-body">
@@ -86,9 +115,94 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="box box-warning">
+				<div class="box-body no-padding">
+					<div class="row">
+						<div class="col-md-3">
+							<div id="container_dept" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+									var chart = anychart.pie([
+										<?php foreach ($count_dept as $value1) :?>
+											["<?php echo $value1->name?>" ,<?php echo $value1->total?>],
+										<?php endforeach ?>
+										]);
+
+									chart.title('Departments with Grouped')
+									// .radius('45%')
+									// .innerRadius('40%');
+									chart.labels().fontSize(14);
+									chart.container('container_dept');
+									chart.draw();
+								});
+							</script>
+						</div>
+						<div class="col-md-3">
+							<div id="container_dept1" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+								var chart = anychart.pie([
+								<?php foreach($count_posit as $value2):?>
+									['<?php echo $value2->name ?>', <?php echo $value2->total_posit?>],
+								<?php endforeach ?>
+									]);
+
+								chart.title('Positions with Grouped')
+									.radius('45%')
+									.innerRadius('50%');
+									chart.labels().fontSize(10);
+									chart.container('container_dept1');
+									chart.draw();
+							});
+							</script>
+						</div>
+						<div class="col-md-3">
+							<div id="container_dept2" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+								var chart = anychart.pie([
+								<?php foreach($count_type_leaves as $value3) :?>
+									['<?php echo $value3->leaves_name ?>', <?php echo $value3->total_type_leaves ?>],
+								<?php endforeach ?>
+									]);
+
+								chart.title('Types with Grouped')
+									// .radius('45%')
+									// .innerRadius('40%');
+									chart.labels().fontSize(14);
+									chart.container('container_dept2');
+									chart.draw();
+							});
+							</script>
+						</div>
+						<div class="col-md-3">
+							<div id="container_dept3" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+								var chart = anychart.pie([
+								<?php foreach($count_format_leaves as $value4):?>
+									['<?php echo $value4->name ?>', <?php echo $value4->total_format_leaves ?>],
+								<?php endforeach ?>
+									]);
+
+								chart.title('Formats with Grouped')
+									.radius('45%')
+									.innerRadius('50%');
+									chart.labels().fontSize(10);
+									chart.container('container_dept3');
+									chart.draw();
+							});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 			
+		<div class="col-md-12">
 			<div class="box box-info"><br>
-				<!-- /.box-header -->
 				<div class="box-body table-responsive no-padding">
 					<div class="row" id="data-leaves">
 						<table id="myTable" class="table table-hover">

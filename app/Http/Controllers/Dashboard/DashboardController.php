@@ -53,7 +53,7 @@ class DashboardController extends Controller
         $department      = Department::all();
 
         $group_age = DB::table('employee')->where('id_status','1')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
-        //sd($group_age->toArray());
+        sd($get_count_dept->toArray());
 
     	return $this->useTemplate('dashboard.dashboard',compact('department','get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_leave','get_count_dept','get_date_now','group_age'));
     }
