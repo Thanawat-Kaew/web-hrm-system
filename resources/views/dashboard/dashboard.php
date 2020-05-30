@@ -179,163 +179,305 @@
 			<div class="col-md-12 no-padding">
 				<div class="box-header">
 					<h4>Overview</h4>
-					</div>
-					<div class="col-md-4">
-						<div class="box box-info" id="form_total_emp">
-							<div class="box-header with-border">
-								<h3 class="box-title">Total Employees.</h3>
-							</div>
-							<div class="box-body no-padding">
-								<div class="row" style="height: 230px;">
-									<div class="col-md-12">
-										<div style="text-align: center; margin-top: 40px;">
-											<span style="font-size: 100px;"><?php echo $get_count_emp->count() ?></span>
-										</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box box-info" id="form_total_emp">
+						<div class="box-header with-border">
+							<h3 class="box-title">Total Employees.</h3>
+						</div>
+						<div class="box-body no-padding">
+							<div class="row" style="height: 230px;">
+								<div class="col-md-12">
+									<div style="text-align: center; margin-top: 40px;">
+										<span style="font-size: 100px;"><?php echo $get_count_emp->count() ?></span>
 									</div>
-
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="box box-success" id="form_gender">
-							<div class="box-header with-border">
-								<h3 class="box-title">Gender.</h3>
-							</div>
-							<div id="container" style="height: 230px;"></div>
-							<script type="text/javascript">anychart.onDocumentReady(function() {
-								var chart = anychart.bar();
-								chart.title('');
-								chart.data([
-									{x: 'ชาย', value: <?php echo $get_count_emp->where('gender' ,'ชาย')->count(); ?>},
-									{x: 'หญิง', value: <?php echo $get_count_emp->where('gender' ,'หญิง')->count(); ?> },
-									]);
-								chart.container('container');
-								chart.labels().fontSize(20);
-								chart.draw();
-							});</script>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="box box-danger" id="form_age">
-							<div class="box-header with-border">
-								<h3 class="box-title">Employees by Age Groups.</h3>
-							</div>
 
-
-							<?php $age_min_20	= $group_age->where('age','>=',1)->where('age','<=',20)->count();?>
-							<?php $age_21_30	= $group_age->where('age','>=',21)->where('age','<=',30)->count();?>
-							<?php $age_31_40	= $group_age->where('age','>=',31)->where('age','<=',40)->count();?>
-							<?php $age_41_50	= $group_age->where('age','>=',41)->where('age','<=',50)->count();?>
-							<?php $age_max_50	= $group_age->where('age','>=',51)->count();?>
-							<?php $count_emp = $get_count_emp->count() ?>
-
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Age</th>
-										<th>Progress</th>
-										<th></th>
-										<th>Employee</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><20</td>
-										<td>
-											<div class="progress progress-xs progress-striped active">
-												<div class="progress-bar progress-bar-success" style="width: <?php echo round(($age_min_20*100)/$count_emp,2).'%'?>;"></div>
-											</div>
-										</td>
-										<td>
-											<span class="badge bg-green"><?php echo round(($age_min_20*100)/$count_emp,2) ?> %</span>
-										</td>
-										<td><?php echo $age_min_20 ?> คน</td>
-									</tr>
-									<tr>
-										<td>21-30</td>
-										<td>
-											<div class="progress progress-xs progress-striped active">
-												<div class="progress-bar progress-bar-danger" style="width: <?php echo round(($age_21_30*100)/$count_emp,2).'%'?>;"></div>
-											</div>
-										</td>
-										<td>
-											<span class="badge bg-red"><?php echo round(($age_21_30*100)/$count_emp,2) ?> %</span>
-										</td>
-										<td><?php echo $age_21_30 ?> คน</td>
-									</tr>
-									<tr>
-										<td>31-40</td>
-										<td>
-											<div class="progress progress-xs progress-striped active">
-												<div class="progress-bar progress-bar-primary" style="width: <?php echo round(($age_31_40*100)/$count_emp,2).'%'?>;"></div>
-											</div>
-										</td>
-										<td>
-											<span class="badge bg-blue"><?php echo round(($age_31_40*100)/$count_emp,2) ?> %</span>
-										</td>
-										<td><?php echo $age_31_40 ?> คน</td>
-									</tr>
-									<tr>
-										<td>41-50</td>
-										<td>
-											<div class="progress progress-xs progress-striped active">
-												<div class="progress-bar progress-bar-info" style="width: <?php echo round(($age_41_50*100)/$count_emp,2).'%'?>;"></div>
-											</div>
-										</td>
-										<td>
-											<span class="badge bg-aqua"><?php echo round(($age_41_50*100)/$count_emp,2) ?> %</span>
-										</td>
-										<td><?php echo $age_41_50 ?> คน</td>
-									</tr>
-									<tr>
-										<td>>51</td>
-										<td>
-											<div class="progress progress-xs progress-striped active">
-												<div class="progress-bar progress-bar-warning" style="width: <?php echo round(($age_max_50*100)/$count_emp,2).'%'?>;"></div>
-											</div>
-										</td>
-										<td>
-											<span class="badge bg-orange"><?php echo round(($age_max_50*100)/$count_emp,2) ?> %</span>
-										</td>
-										<td><?php echo $age_max_50 ?> คน</td>
-									</tr>
-								</tbody>
-							</table>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12 col-xs-12">
-					<div class="box box-warning">
+				<div class="col-md-4">
+					<div class="box box-success" id="form_gender">
 						<div class="box-header with-border">
-							<h3 class="box-title">Employees by Departments.</h3>
+							<h3 class="box-title">Gender.</h3>
 						</div>
-						<div class="box-body no-padding">
-							<div class="row">
-								<div class="col-md-12 col-xs-12">
-									<div id="container_deptp" style="height: 400px;"></div>
-									<script type="text/javascript">
-										anychart.onDocumentReady(function () {
-											var chart = anychart.pie([
-												<?php foreach ($get_count_dept as $value) :?>
-													["<?php echo $value->department->name?>" ,<?php echo $value->total?>],
-												<?php endforeach ?>
-												]);
+						<div id="container" style="height: 230px;"></div>
+						<script type="text/javascript">anychart.onDocumentReady(function() {
+							var chart = anychart.bar();
+							chart.title('');
+							chart.data([
+								{x: 'ชาย', value: <?php echo $get_count_emp->where('gender' ,'ชาย')->count(); ?>},
+								{x: 'หญิง', value: <?php echo $get_count_emp->where('gender' ,'หญิง')->count(); ?> },
+								]);
+							chart.container('container');
+							chart.labels().fontSize(20);
+							chart.draw();
+						});</script>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box box-danger" id="form_age">
+						<div class="box-header with-border">
+							<h3 class="box-title">Employees by Age Groups.</h3>
+						</div>
 
-											chart.title('')
-											.radius('45%')
-											.innerRadius('40%');
-											chart.labels().fontSize(18);
-											chart.container('container_deptp');
-											chart.draw();
-										});
-									</script>
-								</div>
+
+						<?php $age_min_20	= $group_age->where('age','>=',1)->where('age','<=',20)->count();?>
+						<?php $age_21_30	= $group_age->where('age','>=',21)->where('age','<=',30)->count();?>
+						<?php $age_31_40	= $group_age->where('age','>=',31)->where('age','<=',40)->count();?>
+						<?php $age_41_50	= $group_age->where('age','>=',41)->where('age','<=',50)->count();?>
+						<?php $age_max_50	= $group_age->where('age','>=',51)->count();?>
+						<?php $count_emp = $get_count_emp->count() ?>
+
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Age</th>
+									<th>Progress</th>
+									<th></th>
+									<th>Employee</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><20</td>
+									<td>
+										<div class="progress progress-xs progress-striped active">
+											<div class="progress-bar progress-bar-success" style="width: <?php echo round(($age_min_20*100)/$count_emp,2).'%'?>;"></div>
+										</div>
+									</td>
+									<td>
+										<span class="badge bg-green"><?php echo round(($age_min_20*100)/$count_emp,2) ?> %</span>
+									</td>
+									<td><?php echo $age_min_20 ?> คน</td>
+								</tr>
+								<tr>
+									<td>21-30</td>
+									<td>
+										<div class="progress progress-xs progress-striped active">
+											<div class="progress-bar progress-bar-danger" style="width: <?php echo round(($age_21_30*100)/$count_emp,2).'%'?>;"></div>
+										</div>
+									</td>
+									<td>
+										<span class="badge bg-red"><?php echo round(($age_21_30*100)/$count_emp,2) ?> %</span>
+									</td>
+									<td><?php echo $age_21_30 ?> คน</td>
+								</tr>
+								<tr>
+									<td>31-40</td>
+									<td>
+										<div class="progress progress-xs progress-striped active">
+											<div class="progress-bar progress-bar-primary" style="width: <?php echo round(($age_31_40*100)/$count_emp,2).'%'?>;"></div>
+										</div>
+									</td>
+									<td>
+										<span class="badge bg-blue"><?php echo round(($age_31_40*100)/$count_emp,2) ?> %</span>
+									</td>
+									<td><?php echo $age_31_40 ?> คน</td>
+								</tr>
+								<tr>
+									<td>41-50</td>
+									<td>
+										<div class="progress progress-xs progress-striped active">
+											<div class="progress-bar progress-bar-info" style="width: <?php echo round(($age_41_50*100)/$count_emp,2).'%'?>;"></div>
+										</div>
+									</td>
+									<td>
+										<span class="badge bg-aqua"><?php echo round(($age_41_50*100)/$count_emp,2) ?> %</span>
+									</td>
+									<td><?php echo $age_41_50 ?> คน</td>
+								</tr>
+								<tr>
+									<td>>51</td>
+									<td>
+										<div class="progress progress-xs progress-striped active">
+											<div class="progress-bar progress-bar-warning" style="width: <?php echo round(($age_max_50*100)/$count_emp,2).'%'?>;"></div>
+										</div>
+									</td>
+									<td>
+										<span class="badge bg-orange"><?php echo round(($age_max_50*100)/$count_emp,2) ?> %</span>
+									</td>
+									<td><?php echo $age_max_50 ?> คน</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="box box-warning">
+					<div class="box-header with-border">
+						<h3 class="box-title">พนักงานทั้งหมด/แผนก</h3>
+					</div>
+					<div class="box-body no-padding">
+						<div class="row">
+							<div class="col-md-12 col-xs-12">
+								<div id="container_deptp" style="height: 300px;"></div>
+								<script type="text/javascript">
+									anychart.onDocumentReady(function () {
+										var chart = anychart.pie([
+											<?php foreach ($get_count_dept as $value) :?>
+												["<?php echo $value->department->name?>" ,<?php echo $value->total?>],
+											<?php endforeach ?>
+											]);
+
+										chart.title('Employees by Departments')
+										.radius('45%')
+										.innerRadius('40%');
+										chart.labels().fontSize(14);
+										chart.container('container_deptp');
+										chart.draw();
+									});
+								</script>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-		<div id="ajax-center-url" data-url="<?php echo route('dashboard.ajax_center.post')?>"></div>
-		<?php echo csrf_field()?>
+
+			<div class="col-md-6">
+				<div class="box box-warning">
+					<div class="box-header with-border">
+						<h3 class="box-title">สรุปการลงเวลาทำงานทั้งหมด</h3>
+					</div>
+					<div class="box-body no-padding">
+						<div class="row">
+							<div class="col-md-6">
+								<div id="container_time_stamp" style="height: 300px;"></div>
+								<script type="text/javascript">
+									anychart.onDocumentReady(function () {
+										var chart = anychart.pie([
+											<?php foreach ($count_dept_timestamp as $value) :?>
+												["<?php echo $value->name?>" ,<?php echo $value->total?>],
+											<?php endforeach ?>
+											]);
+
+										chart.title('Departments with Grouped')
+									// .radius('45%')
+									// .innerRadius('40%');
+									chart.labels().fontSize(14);
+									chart.container('container_time_stamp');
+									chart.draw();
+								});
+							</script>
+						</div>
+						<div class="col-md-6">
+							<div id="container_time_stamp1" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+									var chart = anychart.pie([
+										<?php //foreach ($count_dept_timestamp as $value) :?>
+										["มาทำงานทันเวลา" ,<?php echo $count_come_timestamp?>],
+										["มาทำงานทั้งหมด" ,<?php echo $count_timestamp_all?>],
+										["ขาดงาน" ,<?php echo $count_not_timestamp?>],
+										["มาทำงานสาย" ,<?php echo $count_late_timestamp?>]
+										<?php //endforeach ?>
+										]);
+
+									chart.title('Come on time')
+									.radius('45%')
+									.innerRadius('40%');
+									chart.labels().fontSize(14);
+									chart.container('container_time_stamp1');
+									chart.draw();
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<div class="box box-warning">
+				<div class="box-header with-border">
+					<h3 class="box-title">สรุปการลาทั้งหมด</h3>
+				</div>
+				<div class="box-body no-padding">
+					<div class="row">
+						<div class="col-md-3">
+							<div id="container_dept" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+									var chart = anychart.pie([
+										<?php foreach ($count_dept as $value1) :?>
+											["<?php echo $value1->name?>" ,<?php echo $value1->total?>],
+										<?php endforeach ?>
+										]);
+
+									chart.title('Departments with Grouped')
+									// .radius('45%')
+									// .innerRadius('40%');
+									chart.labels().fontSize(14);
+									chart.container('container_dept');
+									chart.draw();
+								});
+							</script>
+						</div>
+						<div class="col-md-3">
+							<div id="container_dept1" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+									var chart = anychart.pie([
+										<?php foreach($count_posit as $value2):?>
+											['<?php echo $value2->name ?>', <?php echo $value2->total_posit?>],
+										<?php endforeach ?>
+										]);
+
+									chart.title('Positions with Grouped')
+									.radius('45%')
+									.innerRadius('50%');
+									chart.labels().fontSize(10);
+									chart.container('container_dept1');
+									chart.draw();
+								});
+							</script>
+						</div>
+						<div class="col-md-3">
+							<div id="container_dept2" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+									var chart = anychart.pie([
+										<?php foreach($count_type_leaves as $value3) :?>
+											['<?php echo $value3->leaves_name ?>', <?php echo $value3->total_type_leaves ?>],
+										<?php endforeach ?>
+										]);
+
+									chart.title('Types with Grouped')
+									// .radius('45%')
+									// .innerRadius('40%');
+									chart.labels().fontSize(14);
+									chart.container('container_dept2');
+									chart.draw();
+								});
+							</script>
+						</div>
+						<div class="col-md-3">
+							<div id="container_dept3" style="height: 300px;"></div>
+							<script type="text/javascript">
+								anychart.onDocumentReady(function () {
+									var chart = anychart.pie([
+										<?php foreach($count_format_leaves as $value4):?>
+											['<?php echo $value4->name ?>', <?php echo $value4->total_format_leaves ?>],
+										<?php endforeach ?>
+										]);
+
+									chart.title('Formats with Grouped')
+									.radius('45%')
+									.innerRadius('50%');
+									chart.labels().fontSize(10);
+									chart.container('container_dept3');
+									chart.draw();
+								});
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div id="ajax-center-url" data-url="<?php echo route('dashboard.ajax_center.post')?>"></div>
+<?php echo csrf_field()?>

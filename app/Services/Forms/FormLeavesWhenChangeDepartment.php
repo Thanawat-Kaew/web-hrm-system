@@ -6,7 +6,7 @@ class FormLeavesWhenChangeDepartment
 {
 	public static function getFormLeavesWhenChangeDepartment($emp_leaves){
        
-        $form ='<table class="table table-hover">';
+        $form ='<table class="table table-hover" id="mytable">';
                         $form .='<thead>';
                             $form .='<tr>';
                                 $form .='<th>Name</th>';

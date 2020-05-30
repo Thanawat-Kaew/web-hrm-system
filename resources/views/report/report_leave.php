@@ -116,7 +116,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-12">
+		<!-- <div class="col-md-12">
 			<div class="box box-warning">
 				<div class="box-body no-padding">
 					<div class="row">
@@ -199,7 +199,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 			
 		<div class="col-md-12">
 			<div class="box box-info"><br>
