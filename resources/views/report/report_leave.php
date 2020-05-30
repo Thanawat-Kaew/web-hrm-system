@@ -47,7 +47,9 @@
 									</select>
 								<?php }else{?>
 									
-									<input type="text" style="border-radius: 5px;" id="report-department" readonly class="form-control"value="<?php echo $current_employee['id_department']?>">
+									<input type="text" style="border-radius: 5px;" readonly class="form-control hide"value="<?php echo $current_employee['id_department']?>" id="report-department">
+									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $department['name']?>">
+
 								<?php }?>
 							</div>
 						</div>
@@ -63,6 +65,15 @@
 						<select class="form-control select2 hide select2-hidden-accessible name_employee" style="width: 100%;border-radius: 5px; margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
 							<option value="">เลือกชื่อพนักงาน...</option>
 						</select>
+						<?php if($current_employee['id_department'] != "hr0001"){?>
+							<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px; margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+								<option value="">เลือกชื่อพนักงาน...</option>
+								<?php foreach($list_employee as $list_employees):?>
+									<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?></option>
+								<?php endforeach ?>
+							</select>
+						<?php }?>
+
 					</div>
 				</div>
 				<div class="box-body">
@@ -125,9 +136,9 @@
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 									var chart = anychart.pie([
-										<?php foreach ($count_dept as $value1) :?>
-											["<?php echo $value1->name?>" ,<?php echo $value1->total?>],
-										<?php endforeach ?>
+										<?php //foreach ($count_dept as $value1) :?>
+											["<?php //echo $value1->name?>" ,<?php //echo $value1->total?>],
+										<?php //endforeach ?>
 										]);
 
 									chart.title('Departments with Grouped')
@@ -144,9 +155,9 @@
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 								var chart = anychart.pie([
-								<?php foreach($count_posit as $value2):?>
-									['<?php echo $value2->name ?>', <?php echo $value2->total_posit?>],
-								<?php endforeach ?>
+								<?php //foreach($count_posit as $value2):?>
+									['<?php //echo $value2->name ?>', <?php //echo $value2->total_posit?>],
+								<?php //endforeach ?>
 									]);
 
 								chart.title('Positions with Grouped')
@@ -163,9 +174,9 @@
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 								var chart = anychart.pie([
-								<?php foreach($count_type_leaves as $value3) :?>
-									['<?php echo $value3->leaves_name ?>', <?php echo $value3->total_type_leaves ?>],
-								<?php endforeach ?>
+								<?php //foreach($count_type_leaves as $value3) :?>
+									['<?php //echo $value3->leaves_name ?>', <?php //echo $value3->total_type_leaves ?>],
+								<?php //endforeach ?>
 									]);
 
 								chart.title('Types with Grouped')
@@ -182,9 +193,9 @@
 							<script type="text/javascript">
 								anychart.onDocumentReady(function () {
 								var chart = anychart.pie([
-								<?php foreach($count_format_leaves as $value4):?>
-									['<?php echo $value4->name ?>', <?php echo $value4->total_format_leaves ?>],
-								<?php endforeach ?>
+								<?php //foreach($count_format_leaves as $value4):?>
+									['<?php //echo $value4->name ?>', <?php //echo $value4->total_format_leaves ?>],
+								<?php //endforeach ?>
 									]);
 
 								chart.title('Formats with Grouped')
@@ -200,7 +211,7 @@
 				</div>
 			</div>
 		</div> -->
-			
+
 		<div class="col-md-12">
 			<div class="box box-info"><br>
 				<div class="box-body table-responsive no-padding">

@@ -89,7 +89,10 @@ class ReportController extends Controller
                             $q->with('position');}])
                         ->with('leaves_type')
                         ->get();
-
+            $list_employee  = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
+            $department     = Department::where('id_department', $id_department)->first(); //ชื่อแผนก
+            
+                         
         }else{
             $datas = Leaves::with(['employee' => function ($q) use ($id_employee){
                             $q->with('department');
@@ -97,51 +100,37 @@ class ReportController extends Controller
                         ->with('leaves_type')
                         ->get();
 
-        $count_dept = DB::table('leaves','employee','department')
-                ->select(DB::raw('count(employee.id_employee) as total'), 'department.id_department','department.name')
-                ->join('employee', 'leaves.id_employee', '=', 'employee.id_employee')
-                ->join('department', 'employee.id_department', '=', 'department.id_department')
-                ->groupBy('department.id_department')
-                ->get();
+            $count_dept = DB::table('leaves','employee','department')
+                    ->select(DB::raw('count(employee.id_employee) as total'), 'department.id_department','department.name')
+                    ->join('employee', 'leaves.id_employee', '=', 'employee.id_employee')
+                    ->join('department', 'employee.id_department', '=', 'department.id_department')
+                    ->groupBy('department.id_department')
+                    ->get();
 
-        $count_posit = DB::table('leaves','employee','position')
-                ->select(DB::raw('count(employee.id_position) as total_posit'),'position.name')
-                ->join('employee','leaves.id_employee','=','employee.id_employee')
-                ->join('position','employee.id_position','=','position.id_position')
-                ->groupBy('position.id_position')
-                ->get();
+            $count_posit = DB::table('leaves','employee','position')
+                    ->select(DB::raw('count(employee.id_position) as total_posit'),'position.name')
+                    ->join('employee','leaves.id_employee','=','employee.id_employee')
+                    ->join('position','employee.id_position','=','position.id_position')
+                    ->groupBy('position.id_position')
+                    ->get();
 
-        $count_type_leaves = DB::table('leaves','leaves_type')
-                ->select(DB::raw('count(leaves.id_leaves_type) as total_type_leaves'),'leaves_type.leaves_name')
-                // ->select(DB::raw('count(leaves.id_leaves_format) as total_format_leaves'),'leaves_format.name')
-                ->join('leaves_type','leaves.id_leaves_type','=','leaves_type.id_leaves_type')
-                // ->join('leaves_format','leaves_format.id_leaves_format','=','leaves_format.id_leaves_format')
-                ->groupBy('leaves_type.id_leaves_type')
-                ->get();
+            $count_type_leaves = DB::table('leaves','leaves_type')
+                    ->select(DB::raw('count(leaves.id_leaves_type) as total_type_leaves'),'leaves_type.leaves_name')
+                    // ->select(DB::raw('count(leaves.id_leaves_format) as total_format_leaves'),'leaves_format.name')
+                    ->join('leaves_type','leaves.id_leaves_type','=','leaves_type.id_leaves_type')
+                    // ->join('leaves_format','leaves_format.id_leaves_format','=','leaves_format.id_leaves_format')
+                    ->groupBy('leaves_type.id_leaves_type')
+                    ->get();
 
-        $count_format_leaves = DB::table('leaves','leaves_format')
-                ->select(DB::raw('count(leaves.id_leaves_format) as total_format_leaves'),'leaves_format.name')
-                ->join('leaves_format','leaves.id_leaves_format','=','leaves_format.id_leaves_format')
-                ->groupBy('leaves_format.id_leaves_format')
-                ->get();
-
-        // sd($count_format_leaves);
+            $count_format_leaves = DB::table('leaves','leaves_format')
+                    ->select(DB::raw('count(leaves.id_leaves_format) as total_format_leaves'),'leaves_format.name')
+                    ->join('leaves_format','leaves.id_leaves_format','=','leaves_format.id_leaves_format')
+                    ->groupBy('leaves_format.id_leaves_format')
+                    ->get();
 
         }
-       
-//         $count_dept = 
-// SELECT count(employee.id_employee) as total_emp, department.id_department,department.name 
-// FROM leaves 
-// INNER JOIN employee ON leaves.id_employee = employee.id_employee 
-// INNER JOIN department ON employee.id_department = department.id_department 
-// GROUP BY department.id_department
-
-
-
-        //sd($count_dept->toArray());
-
-
-    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves'));
+     
+    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves','list_employee'));
     }
 
     public function reportEvaluation()

@@ -171,7 +171,7 @@ $(function(){
 	$('#department').on('change', function(){
 		msg_waiting();
 		var department = $(this).val();
-		alert(department);
+		// alert(department);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type : 'POST',

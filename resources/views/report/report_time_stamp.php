@@ -21,20 +21,11 @@
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
 								<?php endforeach ?>
 								</select>
-								<br>
-								<select class="form-control select2 select2-hidden-accessible hide list_name_employee " style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
-									<option value="">เลือกชื่อพนักงาน...</option>
-								</select>
+					
 							<?php }else{?> <!-- ไม่ใช่แผนก hr -->
 									<input type="text" style="border-radius: 5px;" readonly class="form-control hide"value="<?php echo $current_employee['id_department']?>" id="report-department">
 									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $department['name']?>">
-									<br>
-									<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
-									<option value="">เลือกชื่อพนักงาน...</option>
-									<?php foreach($list_employee as $list_employees):?>
-										<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?></option>
-									<?php endforeach ?>
-								</select>
+									
 							<?php }?>
 							</div>
 						</div>
@@ -45,6 +36,20 @@
 								<i class="fa fa-file-pdf-o"></i> Export to PDF
 							</a>
 						</div>
+					</div>
+					<div class="col-md-3"><br>
+						<select class="form-control select2 select2-hidden-accessible hide list_name_employee " style="width: 100%;border-radius: 5px;  margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="">เลือกชื่อพนักงาน...</option>
+								</select>
+						<?php if($current_employee['id_department'] != "hr0001"){?>
+							<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;  margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="">เลือกชื่อพนักงาน...</option>
+									<?php foreach($list_employee as $list_employees):?>
+										<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?></option>
+									<?php endforeach ?>
+								</select>
+						<?php }?>
+						
 					</div>
 				</div>
 				<div class="box-body">
