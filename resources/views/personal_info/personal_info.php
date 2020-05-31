@@ -11,7 +11,7 @@
                            <?php if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
                                 <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
                             <?php }else{?> <!-- ถ้าไม่มีรุป -->
-                                <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                                <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
                             <?php } ?>
                         </div>
 
@@ -69,13 +69,21 @@
                                     <button class="btn btn-info pull-center" type="submit">กลับสู่หน้าหลัก</button>
                                 </a>
                                 <a>
+                                    <button class="btn btn-primary pull-center" type="submit">แจ้งผู้ดูแลระบบ</button>
+                                </a>
+                                <?php if($current_employee['id_department'] != "hr0001"){?>
+                                <a>
                                     <button class="btn btn-warning pull-center amendment" data-id="<?php echo $current_employee['id_employee'] ?>" type="submit">แจ้งแก้ไขข้อมูล</button>
                                 </a>
+                                <?php }?>                
+
                             </div>
                         <?php endif ?>
                     </div>
                 </div>
             </div>
+
+            <?php if($current_employee['id_department'] != "hr0001"){?>
 
             <div class="col-md-6">
                 <div class="box box-danger">
@@ -116,6 +124,7 @@
                 </div>
             </div>
         </div>
+    <?php } ?>
     </div>
 </section>
 

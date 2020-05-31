@@ -139,7 +139,6 @@
 						<?php $count_assessor = $assessor->count();?>
 						<?php for ($i=0; $i < $count_assessor; $i++) { ?>
 							<?php if(!empty($assessor[$i]->employee->department)){?>
-							<tbody>
 								<tr>
 									<td><?php echo $assessor[$i]->id_assessor?></td>
 									<td style="color: blue; cursor:pointer; text-align: left;" class="name view-evaluation" data-id="<?php echo $assessor[$i]->employee->id_employee?>" data-id_topic="<?php echo $assessor[$i]->id_topic?>"><?php echo $assessor[$i]->employee->first_name;?> <?php echo $assessor[$i]->employee->last_name;?></td>
@@ -153,7 +152,6 @@
 									<td><?php echo $assessor[$i]->from_the_full_score;?></td>
 									<td><?php echo $assessor[$i]->percent;?>%</td>
 								</tr>
-							</tbody>
 							<?php $no++; ?>
 							<?php } ?>
 						<?php } ?>
