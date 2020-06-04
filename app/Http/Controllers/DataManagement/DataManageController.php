@@ -123,6 +123,21 @@ class DataManageController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_dump_emp]);
             break;
 
+            case 'uploadImage':
+                /*$id                     = $request->get('id');
+                sd($id);
+                $images                  = $request->file("file_picture");
+                if($_FILES['file_picture']['name'] != ''){
+                    $test = explode('.', $_FILES['file_picture']['name']);
+                    $extension = end($test);
+                    $name = $id_employee.'.'.$extension;
+                    $location = 'public/before_save_image/'.$name;
+                    move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+                }*/
+
+                return response()->json(['status'=> 'success','data'=> $form_dump_emp]);
+            break;
+
             default:
                 # code...
             break;
@@ -466,13 +481,13 @@ class DataManageController extends Controller
         $employee->save();
     }
 
-    public function postDeleteData($id_employee)
+    public function postDeleteData($id_employee) // หัวหน้า Hr กดลบหนักงาน
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-
-        $get_data_employee = Employee::with('statusemployee')->where('id_employee', $id_employee)->first();
+        //sd($current_employee->toArray());
+        $get_data_employee = Employee::with('statusemployee', 'department', 'position')->where('id_employee', $id_employee)->first();
         //sd($get_data_employee->toArray());
 
         if(!empty($get_data_employee))
@@ -483,7 +498,13 @@ class DataManageController extends Controller
             $date                                     = date('Y-m-d');
             $delete_employee                          = new RecoveryStatusEmployee;
             $delete_employee->id_employee             = $get_data_employee['id_employee'];
+            $delete_employee->first_name              = $get_data_employee['first_name'];
+            $delete_employee->last_name               = $get_data_employee['last_name'];
+            $delete_employee->department              = $get_data_employee->department['name'];
+            $delete_employee->position                = $get_data_employee->position['name'];
             $delete_employee->delete_by_id_employee   = $current_employee['id_employee'];
+            $delete_employee->delete_by_first_name    = $current_employee['first_name'];
+            $delete_employee->delete_by_last_name     = $current_employee['last_name'];
             $delete_employee->id_status               = 2;
             $delete_employee->date                    = $date;
             $delete_employee->save();
@@ -495,5 +516,18 @@ class DataManageController extends Controller
         {
             return['status' => 'failed','message' =>'Not found.'];
         }
+    }
+
+    public function uploadImage(Request $request){
+        $id_employee             = $request->get('id');
+        $images                  = $request->file("file_picture");
+        if($_FILES['file_picture']['name'] != ''){
+            $test = explode('.', $_FILES['file_picture']['name']);
+            $extension = end($test);
+            $name = $id_employee.'.'.$extension;
+            $location = 'public/before_save_image/'.$name;
+            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        }
+        return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="public/before_save_image/'.$name.'" class="upload-preview">']);
     }
 }

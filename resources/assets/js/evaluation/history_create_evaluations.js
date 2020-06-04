@@ -54,7 +54,7 @@ $(document).ready(function() {
         confirmButtonText: 'ใช่, ลบเดี่ยวนี้!'
     }).then((result) =>{
             if (result.value){
-                postDelete(url); 
+                postDelete(url);
             }
         })
     })
@@ -79,7 +79,7 @@ function postDelete(url)
             } else {
                 alert(result.message);
             }
-        },  
+        },
         error : function(errors){
             console.log(errors);
         }
