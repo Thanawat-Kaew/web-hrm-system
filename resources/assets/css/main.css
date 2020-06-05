@@ -117,3 +117,7 @@ tr>td{
     align-items: center;
     justify-content: center;
 }
+
+.anychart-credits-text,.anychart-credits-logo {
+	display: none;
+}

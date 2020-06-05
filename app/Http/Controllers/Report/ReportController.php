@@ -24,6 +24,8 @@ use App\Services\Company\Company;
 use App\Services\Forms\FormViewDataRequestLeaves;
 use App\Services\Forms\FormViewRequestLeaves;
 use App\Services\Forms\FormEditRequestLeaves;
+use App\Services\Forms\FormDataVisualization;
+use App\Services\Forms\FormShowDataVisualization;
 use App\Services\Request\RequestLeaves;
 use App\Services\Request\Status;
 use App\Services\TimeStamp\TimeStamp;
@@ -44,6 +46,47 @@ class ReportController extends Controller
     {
     	return $this->useTemplate('report.index');
     }
+
+    public function request_data_visualization(Request $request)
+    {
+        // d($request->all());
+        $select_format          = $request->get('select_format');
+        $request_department1    = $request->get('request_department1');
+        $id_employee            = $request->get('name_employee');
+        $request_department2    = $request->get('request_department2');
+        $list_topic_evals       = $request->get('list_topic_evals');
+
+        if ($select_format == '1') { //รายบุคคล
+            $request_data = Evaluation::with(['employee' => function ($q) use ($id_employee,$request_department1){
+                $q->where('id_employee',$id_employee);
+                $q->where('id_department',$request_department1);
+                $q->where('id_status','=','1');
+            }])->with('createevaluation')->where('id_assessor',$id_employee)->get();
+            // sd($request_data/*->toArray()*/);
+
+
+        }
+        if($select_format == '2'){ //รายแผนก
+
+            $request_data = Evaluation::with(['employee' => function ($w) use ($request_department2){
+                $w->where('id_department',$request_department2);
+                $w->where('id_status','=','1');
+            }])->where('id_topic',$list_topic_evals)->with('createevaluation')->get();
+            // sd($request_data->toArray());
+
+        }
+
+        $form_repo       = new FormShowDataVisualization;
+        $get_form_show_data_visual    = $form_repo->getFormShowDataVisualization($request_data,$select_format,$request_department2);
+            
+        return response()->json(['status'=> 'success','data'=> $get_form_show_data_visual]);
+        //return $this->useTemplate('report.data_visualization.data_visualization'/*,compact('request_data')*/);
+    }
+
+    // public function data_visualization_index()
+    // {
+    //     return $this->useTemplate('report.data_visualization.data_visualization');
+    // }
 
     public function reportTimeStamp()
     {
@@ -415,6 +458,17 @@ class ReportController extends Controller
                 $reciver       = Employee::where('id_employee', $id_employee)->first();
                 $form_repo     = new FormEmail;
                 $get_form      = $form_repo->getFormEmail($reciver);
+                return response()->json(['status'=> 'success','data'=> $get_form]);
+            break;
+
+            case 'getFormDataVisualization': // Form กรอกข้อมูลของ email
+            // sd($request->all());
+                $id_department  = $request->get('department');
+                $list_employee = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
+                $list_topic_eval = CreateEvaluation::where('confirm_send_create_evaluation','=','1')->get();
+                $department    = Department::all();
+                $form_repo     = new FormDataVisualization;
+                $get_form      = $form_repo->getFormDataVisualization($department,$list_employee, $list_topic_eval);
                 return response()->json(['status'=> 'success','data'=> $get_form]);
             break;
 

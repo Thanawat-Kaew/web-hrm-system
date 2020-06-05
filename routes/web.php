@@ -163,8 +163,11 @@ Route::group(['middleware' => ['login']], function(){
 	Route::post('/pdf/generatePDF_time_stamp/POST','PDFController@generatePDF_time_stamp')->name('report.pdf.pdf_time_stamp.post');
 	Route::get('/pdf/generatePDF_Eval','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.get');
 	Route::post('/pdf/generatePDF_Eval/POST','PDFController@generatePDF_evaluation')->name('report.pdf.pdf_evaluations.post');
+	Route::post('/report/report_evaluations/request','Report\ReportController@request_data_visualization')->name('report.request_data_visualization.post');
+	// Route::get('/report/report_evaluations/request','Report\ReportController@request_data_visualization')->name('report.data_visualization.data_visualization.get');
 
 	Route::get('/report/test', 'Report\ReportController@test')->name('report.test.get');
+	Route::get('/report/data_visualization/data_index', 'Report\ReportController@data_visualization_index')->name('report.data_visualization.data_visualization.get');
 	/***************************************************End Report*******************************************/
 
     /********************************************** Main ************************/
