@@ -726,6 +726,7 @@ class EvaluationController extends Controller
        // d($data);
         $evaluation                         = Evaluation::where('id_evaluation', $data['id_evaluation'])->first(); //ค้นหา id การประเมิน เพื่อจะเ update ผลรวม
         //d($evaluation->toArray());
+        $evaluation->id_assessment_person   = $current_employee['id_employee'];
         $evaluation->result_evaluation      = $data['total-evluation'];
         $evaluation->save();
 

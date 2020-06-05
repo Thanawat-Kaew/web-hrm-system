@@ -123,6 +123,21 @@ class DataManageController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_dump_emp]);
             break;
 
+            case 'uploadImage':
+                /*$id                     = $request->get('id');
+                sd($id);
+                $images                  = $request->file("file_picture");
+                if($_FILES['file_picture']['name'] != ''){
+                    $test = explode('.', $_FILES['file_picture']['name']);
+                    $extension = end($test);
+                    $name = $id_employee.'.'.$extension;
+                    $location = 'public/before_save_image/'.$name;
+                    move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+                }*/
+
+                return response()->json(['status'=> 'success','data'=> $form_dump_emp]);
+            break;
+
             default:
                 # code...
             break;
@@ -466,13 +481,13 @@ class DataManageController extends Controller
         $employee->save();
     }
 
-    public function postDeleteData($id_employee)
+    public function postDeleteData($id_employee) // หัวหน้า Hr กดลบหนักงาน
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
-
-        $get_data_employee = Employee::with('statusemployee')->where('id_employee', $id_employee)->first();
+        //sd($current_employee->toArray());
+        $get_data_employee = Employee::with('statusemployee', 'department', 'position')->where('id_employee', $id_employee)->first();
         //sd($get_data_employee->toArray());
 
         if(!empty($get_data_employee))
@@ -483,7 +498,13 @@ class DataManageController extends Controller
             $date                                     = date('Y-m-d');
             $delete_employee                          = new RecoveryStatusEmployee;
             $delete_employee->id_employee             = $get_data_employee['id_employee'];
+            $delete_employee->first_name              = $get_data_employee['first_name'];
+            $delete_employee->last_name               = $get_data_employee['last_name'];
+            $delete_employee->department              = $get_data_employee->department['name'];
+            $delete_employee->position                = $get_data_employee->position['name'];
             $delete_employee->delete_by_id_employee   = $current_employee['id_employee'];
+            $delete_employee->delete_by_first_name    = $current_employee['first_name'];
+            $delete_employee->delete_by_last_name     = $current_employee['last_name'];
             $delete_employee->id_status               = 2;
             $delete_employee->date                    = $date;
             $delete_employee->save();
@@ -496,4 +517,80 @@ class DataManageController extends Controller
             return['status' => 'failed','message' =>'Not found.'];
         }
     }
+
+    public function uploadImage(Request $request){
+        $id_employee             = $request->get('id');
+        $images                  = $request->file("file_picture");
+        //$end = {"jpg", "png", "jpeg", "gif"};
+       /* $allow = array("jpg", "jpeg", "gif", "png");
+        $location = 'public/before_save_image/'.$id_employee.'.'.;
+        sd($location);*/
+        /*$m = '/public/before_save_image/91.jkjik';
+        if(isset('/public/before_save_image/91.jepg')){
+            echo "มี";
+        }else{
+            echo "ไม่มี";
+        }exit();*/
+        /*if(in_array($location, $allow)){
+            echo "มี";
+        }else{
+            echo "ไม่มี";
+        }
+        exit();*/
+
+        /*$dir       = '/public/before_save_image/';
+        $files1 = scandir($dir);
+        $files2 = scandir($dir, 1);
+        print_r($files1);
+        print_r($files2);
+        exit();*/
+
+        /*$dir_path  = "public/before_save_image/";
+        $file_name;
+        if(is_dir($dir_path)){
+            //echo "มี";
+            $files = opendir($dir_path);
+            if($files){
+                while(($file_name == readdir($files)) !== FALSE){
+                    echo $file_name;
+                }
+            }
+        }else{
+
+        }*///exit();
+        //unlink('public/before_save_image/'.$id_employee;
+        /*$floder_path   = 'public/before_save_image';
+        $name_image    = 'public/before_save_image/91.png';
+        $files = glob($floder_path.'/*');
+        if(in_array($name_image, $files)){
+            echo "มี";
+        }else{
+            echo "ไม่มี";
+        }
+        sd($files);*/
+
+        if($_FILES['file_picture']['name'] != ''){
+            $test = explode('.', $_FILES['file_picture']['name']);
+            $extension = end($test);
+            $name = $id_employee.'.'.$extension;
+            /*if(('/public/before_save_image/'.$name) != NULL){
+                unlink('public/before_save_image/'.$name);
+            }*/
+            $floder_path   = 'public/before_save_image';
+            $name_image    = 'public/before_save_image/'.$name;
+            $files         = glob($floder_path.'/*');
+            if(in_array($name_image, $files)){
+                unlink('public/before_save_image/'.$name);
+                //echo "ลบ";
+            }
+            $location = 'public/before_save_image/'.$name;
+            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        }
+        //unlink('public/before_save_image/91.jpg');
+
+        return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="/public/before_save_image/'.$name.'" class="upload-preview" style="width: 50px; height: 50px;" >']);
+        /*return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="'.$location.'" class="upload-preview" style="width: 50px; height: 50px;" >']);*/
+    }
 }
+
+//<img src="/public/image/93.jpg" class="user-image img-circle" alt="User Image" style="width: 120px; height: 120px;">

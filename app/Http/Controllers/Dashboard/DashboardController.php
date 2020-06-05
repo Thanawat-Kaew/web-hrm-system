@@ -41,9 +41,7 @@ class DashboardController extends Controller
 		$get_date_now = date("Y-m-d");
 		$get_time_now = '09:00:00';
         $get_count_emp  = Employee::where('id_status','1')->get();
-        $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
-
-        $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมด
+        $get_count_timestamp = TimeStamp::where('date',$get_date_now)->count(); //มาทำงานทั้งหมดของวัน
 
         $get_count_timestamp_late = TimeStamp::where('date',$get_date_now)->where('time_in','>',$get_time_now)->count(); //มาทำงานสาย
         $get_count_timestamp_on_time = TimeStamp::where('date',$get_date_now)->where('time_in','<=',$get_time_now)->count(); //มาทำงานตรงเวลา
@@ -54,7 +52,49 @@ class DashboardController extends Controller
 
         $group_age = DB::table('employee')->where('id_status','1')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->get();
 
-    	return $this->useTemplate('dashboard.dashboard',compact('department','get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_leave','get_count_dept','get_date_now','group_age'));
+
+        //Leaves summary
+        $count_dept = DB::table('leaves','employee','department')
+                ->select(DB::raw('count(employee.id_employee) as total'), 'department.id_department','department.name')
+                ->join('employee', 'leaves.id_employee', '=', 'employee.id_employee')
+                ->join('department', 'employee.id_department', '=', 'department.id_department')
+                ->groupBy('department.id_department')
+                ->get();
+
+        $count_posit = DB::table('leaves','employee','position')
+                ->select(DB::raw('count(employee.id_position) as total_posit'),'position.name')
+                ->join('employee','leaves.id_employee','=','employee.id_employee')
+                ->join('position','employee.id_position','=','position.id_position')
+                ->groupBy('position.id_position')
+                ->get();
+
+        $count_type_leaves = DB::table('leaves','leaves_type')
+                ->select(DB::raw('count(leaves.id_leaves_type) as total_type_leaves'),'leaves_type.leaves_name')
+                ->join('leaves_type','leaves.id_leaves_type','=','leaves_type.id_leaves_type')
+                ->groupBy('leaves_type.id_leaves_type')
+                ->get();
+
+        $count_format_leaves = DB::table('leaves','leaves_format')
+                ->select(DB::raw('count(leaves.id_leaves_format) as total_format_leaves'),'leaves_format.name')
+                ->join('leaves_format','leaves.id_leaves_format','=','leaves_format.id_leaves_format')
+                ->groupBy('leaves_format.id_leaves_format')
+                ->get();
+        //End Leaves Summary
+
+        //Timastamp Summary
+            $count_dept_timestamp = DB::table('time_stamp','employee','department')
+                ->select(DB::raw('count(employee.id_employee) as total'), 'department.id_department','department.name')
+                ->join('employee', 'time_stamp.id_employee', '=', 'employee.id_employee')
+                ->join('department', 'employee.id_department', '=', 'department.id_department')
+                ->groupBy('department.id_department')
+                ->get();
+            $count_come_timestamp = TimeStamp::where('time_in','<=',$get_time_now)->count();//มาทำงานทันเวลา
+            $count_late_timestamp = TimeStamp::where('time_in','>',$get_time_now)->count();//มาทำงานสาย
+            $count_not_timestamp = TimeStamp::where('time_in','=',NULL)->count();//ขาด
+            $count_timestamp_all = TimeStamp::count(); //มาทำงานทั้งหมด
+        //End Timestamp Summary
+
+    	return $this->useTemplate('dashboard.dashboard',compact('department','get_count_emp','get_count_timestamp','get_count_timestamp_late','get_count_timestamp_on_time','get_count_leave','get_count_dept','get_date_now','group_age','count_dept','count_posit','count_type_leaves','count_format_leaves','count_dept_timestamp','count_come_timestamp','count_timestamp_all','count_late_timestamp','count_not_timestamp'));
     }
 
     public function ajaxCenter(Request $request)
@@ -134,7 +174,7 @@ class DashboardController extends Controller
 
                     $group_age = DB::table('employee','department')->select(DB::raw('CEIL(DATEDIFF(NOW(), DATE(date_of_birth))/365) as age'))->where('id_department',$department)->get();
                 } else {
-                    
+
                     $get_count_emp  = Employee::where('id_status','1')->get();
                     $get_count_timestamp = TimeStamp::where('date',$get_date_now)
                                                     ->count(); //มาทำงานทั้งหมด

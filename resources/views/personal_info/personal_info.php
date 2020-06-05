@@ -11,7 +11,7 @@
                            <?php if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
                                 <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
                             <?php }else{?> <!-- ถ้าไม่มีรุป -->
-                                <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
+                                <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
                             <?php } ?>
                         </div>
 
@@ -69,13 +69,21 @@
                                     <button class="btn btn-info pull-center" type="submit">กลับสู่หน้าหลัก</button>
                                 </a>
                                 <a>
+                                    <button class="btn btn-primary pull-center send-email" type="submit" data-id="<?php echo $current_employee['id_employee'] ?>">แจ้งผู้ดูแลระบบ</button>
+                                </a>
+                                <?php if($current_employee['id_department'] != "hr0001"){?>
+                                <a>
                                     <button class="btn btn-warning pull-center amendment" data-id="<?php echo $current_employee['id_employee'] ?>" type="submit">แจ้งแก้ไขข้อมูล</button>
                                 </a>
+                                <?php }?>
+
                             </div>
                         <?php endif ?>
                     </div>
                 </div>
             </div>
+
+            <?php if($current_employee['id_department'] != "hr0001"){?>
 
             <div class="col-md-6">
                 <div class="box box-danger">
@@ -116,6 +124,7 @@
                 </div>
             </div>
         </div>
+    <?php } ?>
     </div>
 </section>
 
@@ -123,6 +132,7 @@
 <div id="ajax-center-url" data-url="<?php echo route('personal_info.ajax_center.post')?>"></div>
 <div id="edit-data-employee" data-url="<?php echo route('personal_info.edit_data_employee.post')?>"></div>
 <div id="update-edit-data-employee" data-url="<?php echo route('personal_info.update_edit_data_employee.post')?>"></div>
+<div id="send_email" data-url="<?php echo route('evaluation.send_email.post')?>"></div>
 <!-- get ใช้กับ ดึงข้อมูลมา ส่วน post ใช้กับ บันทึกข้อมูล -->
 <?php echo csrf_field()?>
 
