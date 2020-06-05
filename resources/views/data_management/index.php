@@ -119,4 +119,5 @@
 <div id="edit-employee-url" data-url="<?php echo route('data_manage.edit_employee.post')?>"></div>
 <div id="dump-employee-url" data-url="<?php echo route('data_manage.dump_emp.get')?>"></div>
 <div id="dump-employee-url" data-url="<?php echo route('data_manage.dump_emp.post')?>"></div>
+<div id="upload-image-url" data-url="<?php echo route('data_manage.upload_image.post')?>"></div>
 <?php echo csrf_field()?>

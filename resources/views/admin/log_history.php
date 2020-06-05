@@ -18,9 +18,10 @@
 									<tr>
 										<th>ID</th>
 										<th>Name</th>
+										<th>Lastname</th>
 										<th>Department</th>
 										<th>Position</th>
-										<th>Deleted By</th>
+										<th>Deleted By name</th>
 										<th>Date</th>
 										<th></th>
 									</tr>
@@ -31,10 +32,11 @@
 										<?php $date = date('d-m-Y', strtotime($employee[$i]->date));?>
 									<tr>
 										<th><?php echo $employee[$i]->id_employee?></th>
-										<td><?php echo $employee[$i]->employee->first_name?> <?php echo $employee[$i]->employee->last_name?></td>
-										<td><?php echo $employee[$i]->employee->department->name?></td>
-										<td><?php echo $employee[$i]->employee->position->name?></td>
-										<td><?php echo $count_first_name[$i]?> <?php echo $count_last_name[$i]?></td>
+										<td><?php echo $employee[$i]->first_name?></td>
+										<td><?php echo $employee[$i]->last_name?></td>
+										<td><?php echo $employee[$i]->department?></td>
+										<td><?php echo $employee[$i]->position?></td>
+										<td><?php echo $employee[$i]->delete_by_first_name?> <?php echo $employee[$i]->delete_by_last_name?></td>
 										<td><?php echo $date;?></td>
 										<td>
 											<?php if($employee[$i]->id_status == 1){?>

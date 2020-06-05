@@ -73,20 +73,20 @@ class AdminController extends Controller
     {
         $employee      = RecoveryStatusEmployee::with('employee', 'employee.position', 'employee.department')->where('id_status', "!=", 2)->get();
         //sd($employee->toArray());
-        $array_delete_by  = array();
+        /*$array_delete_by  = array();
         foreach ($employee as $value){
             $array_delete_by[] = $value->delete_by_id_employee; // for loop เพื่อเก็บ id คนที่ลบ
-        }
+        }*/
 
-        $count_employee = $employee->count();
-        $count_first_name       = [];
+        //$count_employee = $employee->count();
+        /*$count_first_name       = [];
         $count_last_name        = [];
         for($i=0; $i<$count_employee; $i++){
             $delete_by          = Employee::where('id_employee', $array_delete_by[$i])->first();
             $count_first_name[] = $delete_by->first_name;
             $count_last_name[]  = $delete_by->last_name;
-        }
-        return $this->useTemplate('admin.log_history', compact('employee', 'count_first_name', 'count_last_name'));
+        }*/
+        return $this->useTemplate('admin.log_history', compact('employee'));
     }
 
     public function admin_emergency_mode()
@@ -371,7 +371,7 @@ class AdminController extends Controller
         return json_encode(['status' => 'failed_fied_err', 'message' => "errors"]);
     }
 
-    public function confirmDeleteEmployee(Request $request)
+    public function confirmDeleteEmployee(Request $request) // ยืนยันการลบหนักงานคนนี้
     {
         if(\Session::has('current_admin')){
             $current_admin = \Session::get('current_admin');
@@ -451,7 +451,7 @@ class AdminController extends Controller
         $find_id->delete(); // ลบใน table employee
     }
 
-    public function cancelDeleteEmployee(Request $request)
+    public function cancelDeleteEmployee(Request $request) //ยกเลิกการลบพนักงานคนนี้
     {
         if(\Session::has('current_admin')){
             $current_admin = \Session::get('current_admin');

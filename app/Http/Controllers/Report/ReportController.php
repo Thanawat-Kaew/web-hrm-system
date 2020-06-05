@@ -134,8 +134,8 @@ class ReportController extends Controller
                         ->get();
             $list_employee  = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
             $department     = Department::where('id_department', $id_department)->first(); //ชื่อแผนก
-            
-                         
+
+
         }else{
             $datas = Leaves::with(['employee' => function ($q) use ($id_employee){
                             $q->with('department');
@@ -172,8 +172,8 @@ class ReportController extends Controller
                     ->get();
 
         }
-     
-    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves','list_employee'));
+    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves'));
+
     }
 
     public function reportEvaluation()
@@ -213,27 +213,27 @@ class ReportController extends Controller
 
         $array_assessment = array();
         $array_id_topic   = array();
-        foreach ($assessor as $value){ /*วน loop*/
-                $array_assessment[] = $value->id_assessment_person; /* เก็บ id ผู้ประเมิน*/
-                $array_id_topic[]   = $value->id_topic; /*เก็บ id หัวเรื่อง*/
+        foreach ($assessor as $value){ //วน loop
+                $array_assessment[] = $value->id_assessment_person; //เก็บ id ผู้ประเมิน
+                $array_id_topic[]   = $value->id_topic; //เก็บ id หัวเรื่อง
         }
 
-        $count_assessment       = count($array_assessment); /*ทำการนับจำนวนผู้ประเมิน*/
-        $count_first_name       = [];
-        $count_last_name        = [];
+        $count_assessment       = count($array_assessment); //ทำการนับจำนวนผู้ประเมิน
+        //$count_first_name       = [];
+        //$count_last_name        = [];
         $count_name_evaluation  = [];
         for($i=0; $i<$count_assessment; $i++){
-            $assessment         = Employee::where('id_employee', $array_assessment[$i])->first();/*หา id ผู้ประเมิน*/
-            $count_first_name[] = $assessment->first_name; /*เอาชื่อมา*/
-            $count_last_name[]  = $assessment->last_name; /*เอานามสกุลมา*/
-            $name_evaluation    = CreateEvaluation::where('id_topic', $array_id_topic[$i])->first(); /*หา id หัวเรื่อง*/
-            $count_name_evaluation[] = $name_evaluation->topic_name; /*เอาชื่อมา*/
+            $assessment         = Employee::where('id_employee', $array_assessment[$i])->first();//หา id ผู้ประเมิน
+            //$count_first_name[] = $assessment->first_name; //เอาชื่อมา
+            //$count_last_name[]  = $assessment->last_name; //เอานามสกุลมา
+            $name_evaluation    = CreateEvaluation::where('id_topic', $array_id_topic[$i])->first(); //หา id หัวเรื่อง
+            $count_name_evaluation[] = $name_evaluation->topic_name; //เอาชื่อมา
         }
 
         // sd($count_name_evaluation);
         $topic_name  = CreateEvaluation::where('status', 1)->get();
         // sd($topic_name->toArray());
-    	return $this->useTemplate('report.report_evaluations', compact('assessor', 'count_first_name', 'count_last_name', 'count_name_evaluation', 'department', 'topic_name', 'current_employee', 'list_employee'));
+    	return $this->useTemplate('report.report_evaluations', compact('assessor', 'count_name_evaluation', 'department', 'topic_name', 'current_employee', 'list_employee'));
     }
 
     public function reportOverview()
@@ -338,7 +338,7 @@ class ReportController extends Controller
 
                     if (!empty($id_employee_select)) {
                         $emp_leaves = $emp_leaves->where('id_employee', $id_employee_select);
-                        
+
                     }
 
                     if(!empty($leaves_type)){

@@ -112,7 +112,8 @@ $(document).ready(function(){
 		window.open('/pdf/generatePDF_time_stamp?department='+department+'&start_date='+start_date+'&end_date='+end_date+"&start_time="+start_time+"&end_time="+end_time+"&id_employee="+id_employee,'_blank');
 	})
 
-	$('.name_employee').on('click' , function(){
+	//$('.name_employee').on('click' , function(){
+	$('#myTable').on("click",'.name_employee',function(){
 		msg_waiting();
 		var id_employee = $(this).data('id');
 		sendEmail(id_employee);

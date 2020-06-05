@@ -120,7 +120,8 @@ $(document).ready(function(){
 		window.open('/pdf/generatePDF_Eval?department='+department+'&topic_name='+topic_name+'&start_date='+start_date+"&end_date="+end_date+"&start_number="+start_number+"&end_number="+end_number+"&id_employee="+id_employee,'_blank');
 	})
 
-	$('.view-evaluation').click(function(){
+	//$('.view-evaluation').click(function(){
+	$('#myTable').on("click",'.view-evaluation',function(){
 		msg_waiting();
 		//alert('55');
 		var id_employee     = $(this).data('id');

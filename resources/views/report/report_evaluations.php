@@ -148,7 +148,7 @@
 								<th>ชื่อ-สกุล</th>
 								<th>แผนก</th>
 								<th>วันที่ประเมิน</th>
-								<th>ผู้ประเมิน</th>
+								<!-- <th>ผู้ประเมิน</th> -->
 								<th>หัวข้อการประเมิน</th>
 								<th>รหัสแบบประเมิน</th>
 								<th>คะแนนการประเมิน</th>
@@ -164,9 +164,7 @@
 									<td><?php echo $assessor[$i]->id_assessor?></td>
 									<td style="color: blue; cursor:pointer; text-align: left;" class="name view-evaluation" data-id="<?php echo $assessor[$i]->employee->id_employee?>" data-id_topic="<?php echo $assessor[$i]->id_topic?>"><?php echo $assessor[$i]->employee->first_name;?> <?php echo $assessor[$i]->employee->last_name;?></td>
 									<td><?php echo $assessor[$i]->employee->department->name?></td>
-									<!-- <td><?php //echo $assessor[$i]->employee->position->name?></td> -->
 									<td><?php echo $assessor[$i]->date?></td>
-									<td><?php echo $count_first_name[$no];?> <?php echo $count_last_name[$no];?></td>
 									<td><?php echo $count_name_evaluation[$no];?></td>
 									<td><?php echo $assessor[$i]->id_topic?></td>
 									<td><?php echo $assessor[$i]->result_evaluation;?></td>
