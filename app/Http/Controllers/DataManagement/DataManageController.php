@@ -521,13 +521,76 @@ class DataManageController extends Controller
     public function uploadImage(Request $request){
         $id_employee             = $request->get('id');
         $images                  = $request->file("file_picture");
+        //$end = {"jpg", "png", "jpeg", "gif"};
+       /* $allow = array("jpg", "jpeg", "gif", "png");
+        $location = 'public/before_save_image/'.$id_employee.'.'.;
+        sd($location);*/
+        /*$m = '/public/before_save_image/91.jkjik';
+        if(isset('/public/before_save_image/91.jepg')){
+            echo "มี";
+        }else{
+            echo "ไม่มี";
+        }exit();*/
+        /*if(in_array($location, $allow)){
+            echo "มี";
+        }else{
+            echo "ไม่มี";
+        }
+        exit();*/
+
+        /*$dir       = '/public/before_save_image/';
+        $files1 = scandir($dir);
+        $files2 = scandir($dir, 1);
+        print_r($files1);
+        print_r($files2);
+        exit();*/
+
+        /*$dir_path  = "public/before_save_image/";
+        $file_name;
+        if(is_dir($dir_path)){
+            //echo "มี";
+            $files = opendir($dir_path);
+            if($files){
+                while(($file_name == readdir($files)) !== FALSE){
+                    echo $file_name;
+                }
+            }
+        }else{
+
+        }*///exit();
+        //unlink('public/before_save_image/'.$id_employee;
+        /*$floder_path   = 'public/before_save_image';
+        $name_image    = 'public/before_save_image/91.png';
+        $files = glob($floder_path.'/*');
+        if(in_array($name_image, $files)){
+            echo "มี";
+        }else{
+            echo "ไม่มี";
+        }
+        sd($files);*/
+
         if($_FILES['file_picture']['name'] != ''){
             $test = explode('.', $_FILES['file_picture']['name']);
             $extension = end($test);
             $name = $id_employee.'.'.$extension;
+            /*if(('/public/before_save_image/'.$name) != NULL){
+                unlink('public/before_save_image/'.$name);
+            }*/
+            $floder_path   = 'public/before_save_image';
+            $name_image    = 'public/before_save_image/'.$name;
+            $files         = glob($floder_path.'/*');
+            if(in_array($name_image, $files)){
+                unlink('public/before_save_image/'.$name);
+                //echo "ลบ";
+            }
             $location = 'public/before_save_image/'.$name;
             move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
         }
-        return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="public/before_save_image/'.$name.'" class="upload-preview">']);
+        //unlink('public/before_save_image/91.jpg');
+
+        return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="/public/before_save_image/'.$name.'" class="upload-preview" style="width: 50px; height: 50px;" >']);
+        /*return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="'.$location.'" class="upload-preview" style="width: 50px; height: 50px;" >']);*/
     }
 }
+
+//<img src="/public/image/93.jpg" class="user-image img-circle" alt="User Image" style="width: 120px; height: 120px;">

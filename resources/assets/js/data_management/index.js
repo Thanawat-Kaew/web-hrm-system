@@ -80,6 +80,7 @@ $(function(){
 								console.log(id);
 								form_data.append('file_picture', file_picture);
 								form_data.append('id', id);
+								$("#targetLayer").empty();
 								$.ajax({
 									headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 									type : 'POST',
@@ -89,7 +90,7 @@ $(function(){
 									url  : $('#upload-image-url').data('url'),
 									data : form_data,
 									success:function(result){
-										$("#upload-image-url").html(result);
+										$("#targetLayer").html(result.data);
 									},
 									error : function(errors){
 										msg_close();

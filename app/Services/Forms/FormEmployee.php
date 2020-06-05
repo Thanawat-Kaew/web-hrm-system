@@ -17,6 +17,7 @@ class FormEmployee
                             $form .= '<div class="form-group">';
                             $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
                                 $form .= '<input class="" type="file" name="picture" id="inputfilepicture" value="'.((!empty($employee['image']) ? $employee['image'] : '')).'" multiple="multiple">';
+                                $form .= '<br><div id="targetLayer">No Image</div>';
                                 $form .= '<br><input type="button" value="Upload image" class="upload_image">';
                          $form .= '</div>';
                      $form .= '</div>';
