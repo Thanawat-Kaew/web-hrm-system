@@ -16,16 +16,24 @@ class FormEmployee
                         $form .= '<div class="profile-picture">';
                             $form .= '<div class="form-group">';
                             $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
-                                $form .= '<input class="" type="file" name="picture" id="inputfilepicture" value="'.((!empty($employee['image']) ? $employee['image'] : '')).'" multiple="multiple">';
-                                $form .= '<br><div id="targetLayer">No Image</div>';
+                                $form .= '<input class="" type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
+                            if(!empty($employee['image'])){
+                                $form .= '<br><div id="targetLayer" align="center">';
+                                    $form .= '<img class="image-preview" src="/public/image/'.$employee['image'].'" class="upload-preview" style="width: 120px; height: 120px;" >';
+                                $form .= '</div>';
+                            }else{
+                                $form .= '<br><div id="targetLayer" align="center" >No Image</div>';
+                            }
                                 $form .= '<br><input type="button" value="Upload image" class="upload_image">';
                          $form .= '</div>';
                      $form .= '</div>';
                     }else{
-                    $form .= '<div class="profile-picture">';
+                    $form .= '<div class="pradd-emp-departmentofile-picture">';
                         $form .= '<div class="form-group">';
                         $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
                             $form .= '<input class="required" type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
+                            $form .= '<br><div id="targetLayer" align="center" >No Image</div>';
+                            $form .= '<br><input type="button" value="Upload image" class="upload_image">';
                         $form .= '</div>';
                      $form .= '</div>';
                      $form .= '<label class="text-error" id="inputfilepicture-text-error"></label>';

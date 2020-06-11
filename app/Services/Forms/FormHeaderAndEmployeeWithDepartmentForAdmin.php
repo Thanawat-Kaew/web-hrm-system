@@ -15,7 +15,11 @@ class FormHeaderAndEmployeeWithDepartmentForAdmin
                 $form_head .='<div class="widget-user-header">';
                 $form_head .='<!-- /.widget-user-image -->';
                 $form_head .='<div class="group-image" align="center" valign="center">';
-                $form_head .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
+                if(!empty($value['image'])){ // กรณีมีรูปภาพ
+                    $form_head .='<img class="image-preview" src="/public/image/'.$value['image'].'" class="upload-preview" style="width: 120px; height: 120px;" >';
+                }else{
+                    $form_head .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
+                }
                 $form_head .='</div>';
                 $form_head .='<div class="about-employee" id="header">';
                 $form_head .='<p id="header_id">รหัส  : <span>'.$value["id_employee"].'</span></p>';
@@ -45,7 +49,11 @@ class FormHeaderAndEmployeeWithDepartmentForAdmin
                 $form_emp .='<div class="widget-user-header">';
                 $form_emp .='<!-- /.widget-user-image -->';
                 $form_emp .='<div class="group-image" align="center" valign="center">';
-                $form_emp .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
+                if(!empty($value['image'])){// กรณีมีรูปภาพ
+                    $form_emp .='<img class="image-preview" src="/public/image/'.$value['image'].'" class="upload-preview" style="width: 120px; height: 120px;" >';
+                }else{
+                    $form_emp .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';
+                }
                 $form_emp .='</div>';
                 $form_emp .='<div class="about-employee" id="employee">';
                 $form_emp .='<p>รหัส  : <span>'.$value['id_employee'].'</span></p>';

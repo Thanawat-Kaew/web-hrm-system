@@ -42,6 +42,31 @@ $('.add-header').on('click', '.add-header-form', function(){
 		success: function (result) {
 			var title = "<h4 style='color: red;'>เพิ่มหัวหน้าแผนก <small> | Add Header</small></h4>"
 			showDialog(result.data,title);
+			$('.upload_image').click(function(){
+				var form_data       = new FormData();
+				var file_picture   	= $('#inputfilepicture').prop('files')[0];
+				console.log(file_picture);
+				form_data.append('file_picture', file_picture);
+				$("#targetLayer").empty();
+				$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					cache       : false,
+					contentType : false,
+					processData : false,
+					url  : $('#upload-image-url').data('url'),
+					data : form_data,
+					success:function(result){
+						//console.log(result);
+						//console.log(result.data);
+						$("#targetLayer").html(result.data);
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});
+			});
 		},
 		error : function(errors)
 		{
@@ -53,7 +78,7 @@ $('.add-header').on('click', '.add-header-form', function(){
 $('#department').on('change', function(){ // dropdown เปลั้ยนแผนก
 	msg_waiting();
 	var department = $(this).val();
-	console.log(department);
+	//console.log(department);
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
@@ -111,6 +136,31 @@ $('#header, #employee').on('click', '.manage-employee', function(){
 							showDialog(result.data,title);
 							msg_close();
 								//console.log(id);
+								$('.upload_image').click(function(){
+									var form_data       = new FormData();
+									var file_picture   	= $('#inputfilepicture').prop('files')[0];
+									console.log(file_picture);
+									form_data.append('file_picture', file_picture);
+									$("#targetLayer").empty();
+									$.ajax({
+										headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+										type : 'POST',
+										cache       : false,
+										contentType : false,
+										processData : false,
+										url  : $('#upload-image-url').data('url'),
+										data : form_data,
+										success:function(result){
+											//console.log(result);
+											//console.log(result.data);
+											$("#targetLayer").html(result.data);
+										},
+										error : function(errors){
+											msg_close();
+											console.log(errors);
+										}
+									});
+								});
 							},
 							error : function(errors)
 							{
@@ -215,6 +265,7 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 
 	})
 	box.on('shown.bs.modal', function(){
+		$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 		msg_close();
 		$('body').addClass('modal-open'); //scroll mouse
 		if(oldValue !== ""){
@@ -277,24 +328,45 @@ function addHeader(form, title){
 }
 
 function saveAddHeader(form, title, oldValue,not_match){
+	var form_data       = new FormData();
+	//var id_employee     = $('#id_employee').val();
+	var file_picture   	= $('#inputfilepicture').prop('files')[0];
+	var department 		= $('#add-header-department').val();
+	var position 		= $('#position').val();
+	var fname 			= $('#fname').val();
+	var lname 			= $('#lname').val();
+	var email      		= $('#email').val();
+	var password 		= $('#confirm_password').val();
+	var address 		= $('#address').val();
+	var gender 			= $('#gender').val();
+	var tel 			= $('#tel').val();
+	var date_of_birth 	= $('#date_of_birth').val();
+	var education 		= $('#education').val();
+	var salary 			= $('#salary').val();
+
+	//form_data.append('id_employee', id_employee);
+	form_data.append('file_picture', file_picture);
+	form_data.append('department', department);
+	form_data.append('position', position);
+	form_data.append('fname', fname);
+	form_data.append('lname', lname);
+	form_data.append('email', email);
+	form_data.append('password', password);
+	form_data.append('address', address);
+	form_data.append('gender', gender);
+	form_data.append('date_of_birth', date_of_birth);
+	form_data.append('tel', tel);
+	form_data.append('education', education);
+	form_data.append('salary', salary);
+
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
+		cache       : false,
+		contentType : false,
+		processData : false,
 		url  : $('#add-header-url').data('url'),
-		data : {
-			department 	: $('#add-header-department').val(),
-			position 	: $('#position').val(),
-			fname 		: $('#fname').val(),
-			lname 		: $('#lname').val(),
-			email      	: $('#email').val(),
-			password 	: $('#confirm_password').val(),
-			address 	: $('#address').val(),
-			gender 		: $('#gender').val(),
-			tel 		: $('#tel').val(),
-			age 		: $('#age').val(),
-			education 	: $('#education').val(),
-			salary 		: $('#salary').val(),
-		},
+		data : form_data,
 		success: function(response){
 			var data_resp = jQuery.parseJSON(response);
 			if(data_resp.status == "success"){
@@ -343,15 +415,28 @@ function editHeaderAndEmployee(form, title){ // แก้ไขตำแหน�
 }
 
 function saveEditHeaderAndEmployee(oldValue){
+	var form_data       = new FormData();
+	var file_picture   	= $('#inputfilepicture').prop('files')[0];
+	var	id_employee 	= $('#id_employee').val();
+	var	department 		= $('#add-emp-department').val();
+	var	position 		= $('#position').val();
+
+	form_data.append('file_picture', file_picture);
+	form_data.append('id_employee', id_employee);
+	form_data.append('department', department);
+	form_data.append('position', position);
 	$.ajax({
 		headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 		type : 'POST',
+		cache       : false,
+		contentType : false,
+		processData : false,
 		url  : $('#edit-header-and-employee-url').data('url'),
-		data : {
+		data : form_data,/*{
 			id_employee : $('#id_employee').val(),
 			department 	: $('#add-emp-department').val(),
 			position 	: $('#position').val(),
-		},
+		},*/
 		success: function(response){
 			if(response.status == "failed"){
 				Swal.fire(

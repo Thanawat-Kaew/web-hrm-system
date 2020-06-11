@@ -42,7 +42,7 @@ class TimeStampController extends Controller
                 return response()->json(['status'=> 'failed','data'=> 'ขออภัย คุณไม่มีสิทธ์ในการเข้าถึงฟังก์ชันนี้']);
             }
         }else{
-            
+
             return response()->json(['status'=> 'emergency','data'=> 'กรณี "สภาวะสถานการณ์ไม่ปกติ" ']);
         }
     }
@@ -311,7 +311,8 @@ class TimeStampController extends Controller
 
         } else {
             $requesttimestamp =  isset($employee->timestamp_hasone->requesttimestamp) ? $employee->timestamp_hasone->requesttimestamp : [];
-            $requesttimestamp = $requesttimestamp->where('id_employee', $current_employee['id_employee'])->where('status', '!=', 3);
+            $requesttimestamp = $requesttimestamp->where('id_employee', $current_employee['id_employee'])->where('status', '!=', 3)->where('status', '!=', 1);
+            /*$requesttimestamp = $requesttimestamp->where('id_employee', $current_employee['id_employee'])->where('status', '!=', 3);*/
             //sd($requesttimestamp->toArray());
             $errors = [];
             foreach ($array_time as $key => $time) {

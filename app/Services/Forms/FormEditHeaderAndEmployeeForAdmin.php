@@ -12,8 +12,16 @@ class FormEditHeaderAndEmployeeForAdmin
                 $form .= '<input type="hidden" value="'.$employee['id_employee'].'" id="id_employee">';
                     $form .= '<div class="profile-picture">';
                         $form .= '<div class="form-group">';
-                            $form .= '<label for="exampleInputFile">เพิ่มรูปถ่าย</label>';
-                            $form .= '<input type="file" id="exampleInputFile" value="ssss">';
+                            $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
+                            $form .= '<input type="file" id="inputfilepicture" value="">';
+                        if(!empty($employee['image'])){
+                            $form .= '<br><div id="targetLayer" align="center">';
+                                $form .= '<img class="image-preview" src="/public/image/'.$employee['image'].'" class="upload-preview" style="width: 120px; height: 120px;" >';
+                            $form .= '</div>';
+                        }else{
+                            $form .= '<br><div id="targetLayer" align="center" >No Image</div>';
+                        }
+                            $form .= '<br><input type="button" value="Upload image" class="upload_image">';
                         $form .= '</div>';
                      $form .= '</div>';
                     $form .= 'รหัสพนักงาน';
