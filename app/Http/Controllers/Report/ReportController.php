@@ -66,27 +66,49 @@ class ReportController extends Controller
 
 
         }
-        if($select_format == '2'){ //รายแผนก
+        // if($select_format == '2'){ //รายแผนก
 
-            $request_data = Evaluation::with(['employee' => function ($w) use ($request_department2){
-                $w->where('id_department',$request_department2);
-                $w->where('id_status','=','1');
-            }])->where('id_topic',$list_topic_evals)->with('createevaluation')->get();
+        //     $request_data = Evaluation::with(['employee' => function ($w) use ($request_department2){
+        //         $w->with('department');
+        //         $w->where('id_department',$request_department2);
+        //         $w->where('id_status','=','1');
+        //     }])->where('id_topic',$list_topic_evals)->with('createevaluation')->get();
+        //     // sd($request_data->toArray());
+
+        //     // $a = $request_data->where('percent','=','100')->count();
+        //     // sd($a);
+
+        //     // $request_data = DB::table('evaluation','createevaluation','employee')
+        //     //     ->select(DB::raw('count(evaluation.id_assessor) as total_assessor'),'evaluation.id_topic')
+        //     //     ->join('employee','evaluation.id_assessor','=','employee.id_employee')
+        //     //     // ->join('department','employee.id_department','=','department.id_department')
+        //     //     ->where('id_topic', '167')
+        //     //     ->groupBy('evaluation.id_topic')
+        //     //     ->get();
+
+        //     // sd($request_data->toArray());
+
+        // }
+        if($select_format == '3'){ //รายบริษัท
+            $request_data = Evaluation::with('createevaluation')->get();
+
+                //   $request_data = DB::table('evaluation','createevaluation')
+                // ->select(DB::raw('count(evaluation.id_assessor) as total_assessor'),'evaluation.id_topic')
+                // ->join('createevaluation','evaluation.id_topic','=','createevaluation.id_topic')
+                // // ->where('id_topic', '167')
+                // ->groupBy('evaluation.id_topic')
+                // ->get();
             // sd($request_data->toArray());
 
         }
+
 
         $form_repo       = new FormShowDataVisualization;
         $get_form_show_data_visual    = $form_repo->getFormShowDataVisualization($request_data,$select_format,$request_department2);
             
         return response()->json(['status'=> 'success','data'=> $get_form_show_data_visual]);
-        //return $this->useTemplate('report.data_visualization.data_visualization'/*,compact('request_data')*/);
+        
     }
-
-    // public function data_visualization_index()
-    // {
-    //     return $this->useTemplate('report.data_visualization.data_visualization');
-    // }
 
     public function reportTimeStamp()
     {

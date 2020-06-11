@@ -50,7 +50,7 @@
 										<td style="text-align: left;"><?php echo $leave->leaves_type->leaves_name ?></td>
 										<td><?php echo $leave->total_leave ?></td>
 										<td style="text-align: left;"><?php echo $leave->reason ?></td>
-										<td style="font-size: 9px;"><span class="label label-primary"><?php echo ($leave->leaves_status->name == "not_allowed") ? "Rejected" : ucfirst($leave->leaves_status->name) ?></span></td>
+										<td style="font-size: 14px;"><span class="label label-primary"><?php echo ($leave->leaves_status->name == "not_allowed") ? "Rejected" : ucfirst($leave->leaves_status->name) ?></span></td>
 									</tr>
 								<?php endif?>
 							<?php endforeach?>

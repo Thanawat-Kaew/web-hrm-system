@@ -168,7 +168,6 @@ Route::group(['middleware' => ['login']], function(){
 	// Route::get('/report/report_evaluations/request','Report\ReportController@request_data_visualization')->name('report.data_visualization.data_visualization.get');
 
 	Route::get('/report/test', 'Report\ReportController@test')->name('report.test.get');
-	Route::get('/report/data_visualization/data_index', 'Report\ReportController@data_visualization_index')->name('report.data_visualization.data_visualization.get');
 	/***************************************************End Report*******************************************/
 
     /********************************************** Main ************************/

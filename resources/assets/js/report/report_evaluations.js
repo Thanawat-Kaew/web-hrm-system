@@ -226,21 +226,25 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 			$('.list_name_employee').removeClass('required');
 		});
 
-		$('#one_department').on('ifChecked', function(event){
-			$('.one_department').removeClass('hide');
-			$('.report_department1').addClass('required');
-			$('.list_topic_evals').addClass('required');
-		}).on('ifUnchecked', function(event){
-			$('.one_department').addClass('hide');
-			$('.report_department1').removeClass('required');
-			$('.list_topic_evals').removeClass('required');
+		// $('#one_department').on('ifChecked', function(event){
+		// 	$('.one_department').removeClass('hide');
+		// 	$('.report_department1').addClass('required');
+		// 	$('.list_topic_evals').addClass('required');
+		// }).on('ifUnchecked', function(event){
+		// 	$('.one_department').addClass('hide');
+		// 	$('.report_department1').removeClass('required');
+		// 	$('.list_topic_evals').removeClass('required');
 
-		});
+		// });
 
 		$('#one_company').on('ifChecked', function(event){
 			$('.one_company').removeClass('hide');
+			//$('.list_topic_evals').addClass('required');
+
 		}).on('ifUnchecked', function(event){
 			$('.one_company').addClass('hide');
+			//$('.list_topic_evals').removeClass('required');
+
 		});
 
 		$('body').addClass('modal-open');
@@ -364,7 +368,7 @@ function requestDataVisualization(form, title, oldValue,select_format,request_de
 		success: function(result){
 			if(result.status == "success"){
 				var box = bootbox.dialog({
-						title: '<h4 style="font-size : 16px;"> Graph</h4>',
+						title: '<h4 style="font-size : 16px;"> Data Visualizations</h4>',
 						message: result.data,
 						size: 'large',
 						onEscape: true,

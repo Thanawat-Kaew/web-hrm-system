@@ -19,11 +19,11 @@ class FormDataVisualization
 									$form .='</label>&nbsp&nbsp';
 									$form .='<label class="text-error" id="one_person-text-error">';
 									$form .='</label>';
-									$form .='<label class="group-display">';
-										$form .='<input type="radio" name="format_visualization" id="one_department" value="2" class="flat-red one_department"> รายแผนก';
-									$form .='</label>&nbsp&nbsp';
-									$form .='<label class="text-error" id="one_department-text-error">';
-									$form .='</label>';
+									// $form .='<label class="group-display">';
+									// 	$form .='<input type="radio" name="format_visualization" id="one_department" value="2" class="flat-red one_department"> รายแผนก';
+									// $form .='</label>&nbsp&nbsp';
+									// $form .='<label class="text-error" id="one_department-text-error">';
+									// $form .='</label>';
 									$form .='<label class="group-display">';
 										$form .='<input type="radio" name="format_visualization" id="one_company" value="3" class="flat-red one_company"> รายบริษัท';
 									$form .='</label>&nbsp&nbsp';
@@ -60,39 +60,54 @@ class FormDataVisualization
 									$form .='</div>';
 								$form .='</div>';
 							$form .='</div>';
-							$form .='<div class="one_department hide">';
-								$form .='<label>กรุณาเลือกแผนก</label>';
-								$form .='<div class="form-group">';
-									$form .='<div class="col-md-9">';
-										$form .='<select class="form-control select2 select2-hidden-accessible choice_department report_department1" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report_department1">';
-											$form .='<option value="">เลือกแผนก...</option>';
-											foreach($department as $departments){
-											$form .='<option value="'.$departments["id_department"].'">'.$departments["name"].'</option>';
-											} 
-										$form .='</select>';
-										$form .='<label class="text-error" id="report_department1-text-error">';
-										$form .='</label>';
-									$form .='</div>';
-									$form .='<div class="col-md-3">';
-										$form .='<div class="form-group">';
-											$form .='<div class="form-group" data-select2-id="13">';
-												$form .='<select class="form-control list_topic_evals select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_topic_evals">';
-											$form .='<option value="">เลือกหัวข้อแบบประเมิน...</option>';
+							// $form .='<div class="one_department hide">';
+							// 	$form .='<label>กรุณาเลือกแผนก</label>';
+							// 	$form .='<div class="form-group">';
+							// 		$form .='<div class="col-md-9">';
+							// 			$form .='<select class="form-control select2 select2-hidden-accessible choice_department report_department1" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report_department1">';
+							// 				$form .='<option value="">เลือกแผนก...</option>';
+							// 				foreach($department as $departments){
+							// 				$form .='<option value="'.$departments["id_department"].'">'.$departments["name"].'</option>';
+							// 				} 
+							// 			$form .='</select>';
+							// 			$form .='<label class="text-error" id="report_department1-text-error">';
+							// 			$form .='</label>';
+							// 		$form .='</div>';
+							// 		$form .='<div class="col-md-3">';
+							// 			$form .='<div class="form-group">';
+							// 				$form .='<div class="form-group" data-select2-id="13">';
+							// 					$form .='<select class="form-control list_topic_evals select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_topic_evals">';
+							// 				$form .='<option value="">เลือกหัวข้อแบบประเมิน...</option>';
 
-												foreach ($list_topic_eval as $list_topic_evals) {
-													$form .='<option value="'.$list_topic_evals->id_topic.'">'.$list_topic_evals->topic_name.'</option>';
-												}
-												$form .='</select>';
-										$form .='<label class="text-error" id="list_topic_evals-text-error">';
-											$form .='</div>';
-										$form .='</div>';
-									$form .='</div>';
-								$form .='</div>';
-							$form .='</div>';
+							// 					foreach ($list_topic_eval as $list_topic_evals) {
+							// 						$form .='<option value="'.$list_topic_evals->id_topic.'">'.$list_topic_evals->topic_name.'</option>';
+							// 					}
+							// 					$form .='</select>';
+							// 			$form .='<label class="text-error" id="list_topic_evals-text-error">';
+							// 				$form .='</div>';
+							// 			$form .='</div>';
+							// 		$form .='</div>';
+							// 	$form .='</div>';
+							// $form .='</div>';
 							$form .='<div class="one_company hide">';
+								// $form .='<label>กรุณาเลือกหัวข้อแบบประเมิน</label>';
+
 								$form .='<div class="form-group">';
 									$form .='<div class="col-md-9">';
-										$form .='<label>Let go!</label>';
+								$form .='<h3>Let go!</h3>';
+
+										// $form .='<div class="form-group">';
+										// 	$form .='<div class="form-group" data-select2-id="13">';
+										// 		$form .='<select class="form-control list_topic_evals2 select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_topic_evals2">';
+										// 	$form .='<option value="">เลือกหัวข้อแบบประเมิน...</option>';
+
+										// 		foreach ($list_topic_eval as $list_topic_evals) {
+										// 			$form .='<option value="'.$list_topic_evals->id_topic.'">'.$list_topic_evals->topic_name.'</option>';
+										// 		}
+										// 		$form .='</select>';
+										// $form .='<label class="text-error" id="list_topic_evals2-text-error">';
+										// 	$form .='</div>';
+										// $form .='</div>';
 									$form .='</div>';
 								$form .='</div>';
 							$form .='</div>';
