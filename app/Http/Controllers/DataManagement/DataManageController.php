@@ -20,7 +20,7 @@ use App\Services\Request\RequestChangeData;
 use App\Services\Employee\StatusEmployee;
 use App\Services\Admin\RecoveryStatusEmployee;
 use App\Services\Employee\EmployeeObject;
-
+use App\Services\UploadImage\UploadImage;
 class DataManageController extends Controller
 {
 	public function index()
@@ -519,15 +519,47 @@ class DataManageController extends Controller
     }
 
     public function uploadImage(Request $request){
-        $id_employee             = $request->get('id');
+       /* $id_last = Employee::orderBy('id_employee', 'desc')->first();
+        sd($id_last->toArray());*/
+        /*$id_employee             = $request->has('id') ? $request->get('id') : '';
+        sd($id_employee);*/
         $images                  = $request->file("file_picture");
-        if($_FILES['file_picture']['name'] != ''){
+        /*if(('/public/before_save_image/'.$name) != NULL){
+                unlink('public/before_save_image/'.$name);
+            }*/
+        /*$floder_path   = 'public/before_save_image';
+        $name_image    = 'public/before_save_image/'.$name;
+        $files         = glob($floder_path.'/*');
+        if(in_array($name_image, $files)){
+            unlink('public/before_save_image/'.$name);
+            //echo "ลบ";
+        }*/
+        /*if($_FILES['file_picture']['name'] != ''){ // old
             $test = explode('.', $_FILES['file_picture']['name']);
             $extension = end($test);
             $name = $id_employee.'.'.$extension;
             $location = 'public/before_save_image/'.$name;
             move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+            //d("name 1".$name);
+        }*/
+        if($_FILES['file_picture']['name'] != ''){ //new
+            $name = $_FILES['file_picture']['name'];
+            $location = 'public/before_save_image/'.$name;
+            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
         }
-        return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="public/before_save_image/'.$name.'" class="upload-preview">']);
+        /*$virify_id_upload           = UploadImage::where('id_employee', $id_employee)->first();
+        if(empty($virify_id_upload)){ // กรณีอัปโหลดครั้งแรก
+            $upload_image               = new UploadImage();
+            $upload_image->id_employee  = $id_employee;
+            $upload_image->image        = $name;
+            $upload_image->save();
+        }else{
+            $upload_image               = UploadImage::where('id_employee', $id_employee)->first();
+            $upload_image->image        = $name;
+            $upload_image->save();
+        }*/
+        return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="/public/before_save_image/'.$name.'" class="upload-preview" style="width: 120px; height: 120px;" >']);
+
+        //return response()->json(['status'=> 'success','data'=> ''.$test.'']); //new
     }
 }

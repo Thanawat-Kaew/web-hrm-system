@@ -198,6 +198,7 @@ Route::group(['middleware' => ['login']], function(){
 
 	Route::post('/admin/admin_main/log/confirm', 'Admin\AdminController@confirmDeleteEmployee')->name('admin.confirm-delete-employee.post'); // confirm-delete-employee
 	Route::post('/admin/admin_main/log/cancel', 'Admin\AdminController@cancelDeleteEmployee')->name('admin.cancel-delete-employee.post'); // cancel-delete-employee
+	Route::post('/admin/add_header/upload_image', 'Admin\AdminController@uploadImageForAdmin')->name('admin.upload_image.post');// อัปโหลดรุปภาพสำหรับ admin
 	// **************************************End Admin****************************************/
 
 	/*Route::get('/pdf/generatePDF_leave','PDFController@generatePDF_leave')->name('report.pdf.pdf_leave.get');

@@ -49,4 +49,5 @@
 <div id="ajax-center-url" data-url="<?php echo route('admin.ajax_center.post')?>"></div>
 <div id="add-header-url" data-url="<?php echo route('admin.add_header.post')?>"></div>
 <div id="edit-header-and-employee-url" data-url="<?php echo route('admin.edit_header_and_employee.post')?>"></div>
+<div id="upload-image-url" data-url="<?php echo route('admin.upload_image.post')?>"></div>
 <?php echo csrf_field()?>

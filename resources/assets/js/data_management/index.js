@@ -77,9 +77,10 @@ $(function(){
 								var form_data       = new FormData();
 								var file_picture   	= $('#inputfilepicture').prop('files')[0];
 								//console.log(file_picture);
-								console.log(id);
+								//console.log(id);
 								form_data.append('file_picture', file_picture);
 								form_data.append('id', id);
+								$("#targetLayer").empty();
 								$.ajax({
 									headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 									type : 'POST',
@@ -89,7 +90,9 @@ $(function(){
 									url  : $('#upload-image-url').data('url'),
 									data : form_data,
 									success:function(result){
-										$("#upload-image-url").html(result);
+										console.log(result.data);
+										$("#targetLayer").html(result.data);
+										//$("#targetLayer").append('<img class="image-preview" src="/public/before_save_image/'+result.data+'" class="upload-preview" style="width: 120px; height: 120px;" >');
 									},
 									error : function(errors){
 										msg_close();
@@ -183,6 +186,29 @@ $(function(){
 			success: function (result) {
 				var title = "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>"
 				showDialog(result.data,title);
+				$('.upload_image').click(function(){
+					var form_data       = new FormData();
+					var file_picture   	= $('#inputfilepicture').prop('files')[0];
+					form_data.append('file_picture', file_picture);
+					$("#targetLayer").empty();
+					$.ajax({
+						headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+						type : 'POST',
+						cache       : false,
+						contentType : false,
+						processData : false,
+						url  : $('#upload-image-url').data('url'),
+						data : form_data,
+						success:function(result){
+							console.log(result.data);
+							$("#targetLayer").html(result.data);
+						},
+						error : function(errors){
+							msg_close();
+							console.log(errors);
+						}
+					});
+				});
 			},
 			error : function(errors)
 			{

@@ -69,13 +69,13 @@
                                     <button class="btn btn-info pull-center" type="submit">กลับสู่หน้าหลัก</button>
                                 </a>
                                 <a>
-                                    <button class="btn btn-primary pull-center" type="submit">แจ้งผู้ดูแลระบบ</button>
+                                    <button class="btn btn-primary pull-center send-email" type="submit" data-id="<?php echo $current_employee['id_employee'] ?>">แจ้งผู้ดูแลระบบ</button>
                                 </a>
                                 <?php if($current_employee['id_department'] != "hr0001"){?>
                                 <a>
                                     <button class="btn btn-warning pull-center amendment" data-id="<?php echo $current_employee['id_employee'] ?>" type="submit">แจ้งแก้ไขข้อมูล</button>
                                 </a>
-                                <?php }?>                
+                                <?php }?>
 
                             </div>
                         <?php endif ?>
@@ -132,6 +132,7 @@
 <div id="ajax-center-url" data-url="<?php echo route('personal_info.ajax_center.post')?>"></div>
 <div id="edit-data-employee" data-url="<?php echo route('personal_info.edit_data_employee.post')?>"></div>
 <div id="update-edit-data-employee" data-url="<?php echo route('personal_info.update_edit_data_employee.post')?>"></div>
+<div id="send_email" data-url="<?php echo route('evaluation.send_email.post')?>"></div>
 <!-- get ใช้กับ ดึงข้อมูลมา ส่วน post ใช้กับ บันทึกข้อมูล -->
 <?php echo csrf_field()?>
 

@@ -15,6 +15,8 @@ use App\Services\Forms\FormEditAgainPersonalInfo;
 use App\Services\Request\RequestChangeData;
 use App\Services\Education\Education;
 use App\Services\TimeStamp\TimeStamp;
+use App\Services\Forms\FormEmail;
+use Illuminate\Support\Facades\Mail;
 
 class EmployeeController extends Controller
 {
@@ -93,6 +95,14 @@ class EmployeeController extends Controller
                 $form_repo              = new FormEditAgainPersonalInfo;
                 $form_amendment_emp     = $form_repo->getEditAgain($emp_department, $emp_position ,$employee, $position, $department, $emp_education, $education);
                 return response()->json(['status'=> 'success','data'=> $form_amendment_emp]);
+            break;
+
+            case 'getFormEmail': // Form กรอกข้อมูลของ email
+                $id_employee   = $request->get('id_employee');
+                $reciver       = Employee::where('id_employee', $id_employee)->first();
+                $form_repo     = new FormEmail;
+                $get_form      = $form_repo->getFormEmail($reciver);
+                return response()->json(['status'=> 'success','data'=> $get_form]);
             break;
 
             default:
@@ -192,4 +202,6 @@ class EmployeeController extends Controller
             return['status' => 'failed','message' =>'Not found.'];
         }
     }
+
+
 }
