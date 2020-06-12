@@ -4,7 +4,9 @@ $(document).ready(function(){
     	$(this).alert('close');
 	});
 
-	$('.post-confirm-send-create-evaluation').click(function(){  // กด อนุมัติ
+	$('#myTable').dataTable();
+
+	$('.table').on('click','.post-confirm-send-create-evaluation',function(){	
 		// alert("confirm");
 		var id = $(this).data('id');
 		Swal.fire({
@@ -41,7 +43,7 @@ $(document).ready(function(){
 	// $('.add-evaluation').on('click', function() {
 	// 	createNewEvaluation();
 	// })
-	$('.btn-remove-topic').click(function(){
+	$('.table').on('click','.btn-remove-topic',function(){	
 		//alert("55");
 		var url = $(this).data('href');
 		Swal.fire(

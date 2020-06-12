@@ -10,21 +10,21 @@
 			<div class="col-md-8" style="padding-right: 5px; padding-left: 5px;">
 				<div class="row">
 					<div class="col-md-12 btn-group dropup pull-right ">
-						<button style="width: 20%;" type="button" name="add-leave" class='btn btn-success dropdown-toggle pull-right add-leave'><i class="fa fa-plus"></i> New Record
+						<button type="button" name="add-leave" class='btn btn-success dropdown-toggle pull-right add-leave'><i class="fa fa-plus"></i> New Record
 						</button>
 						<a href="<?php echo route('leave.leave_history.get');?>">
-							<button style="width: 20%;" href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
+							<button href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
 							</button>
 						</a>
 						<?php if($current_employee->id_department == "hr0001"):?>
 							<?php if($current_employee['id_position'] == 2):?>
 						<a href="<?php echo route("leave.set_holiday.get")?>">
-							<button style="width: 20%;" href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
+							<button href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
 							</button>
 						</a>
 					<?php endif?>
 					<?php endif?>
-						<button style="width: 20%;" type="button" name="view_holiday" class='btn btn-danger dropdown-toggle pull-right view_holiday'><i class="fa fa-calendar-times-o"></i> ดูวันหยุดประจำปี
+						<button type="button" name="view_holiday" class='btn btn-danger dropdown-toggle pull-right view_holiday'><i class="fa fa-calendar-times-o"></i> ดูวันหยุดประจำปี
 						</button>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 								<tr>
 									<th style="width: 5%;">#</th>
 									<th style="width: 30%;">วันที่ลา</th>
-									<th style="width: 13%;">ประเภทการลา</th>
+									<th style="width: 13%;">ประเภท</th>
 									<th style="width: 12%;">จำนวน (ชม.)</th>
 									<th>เหตุผล</th>
 									<th style="width: 10%;">สถานะ</th>
@@ -46,10 +46,10 @@
 								<?php if($leave->status_leave == 1): ?>
 									<tr>
 										<td><?php echo $count++ ;?></td>
-										<td><?php echo $leave->start_leave ." ถึง ".$leave->end_leave ?></td>
+										<td><?php echo $leave->start_leave ." <label> ถึง </label> ".$leave->end_leave ?></td>
 										<td style="text-align: left;"><?php echo $leave->leaves_type->leaves_name ?></td>
 										<td><?php echo $leave->total_leave ?></td>
-										<td style="text-align: left;"><?php echo $leave->reason ?></td>
+										<td style="text-align: left; word-break: break-word;"><?php echo $leave->reason ?></td>
 										<td style="font-size: 14px;"><span class="label label-primary"><?php echo ($leave->leaves_status->name == "not_allowed") ? "Rejected" : ucfirst($leave->leaves_status->name) ?></span></td>
 									</tr>
 								<?php endif?>

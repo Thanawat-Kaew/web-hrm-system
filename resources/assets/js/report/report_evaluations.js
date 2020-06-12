@@ -56,7 +56,7 @@ $(document).ready(function(){
 	$('#btn-search').on('click', function(){
 		// alert("ok");
 		//msg_waiting();
-		var department    = $('#report_department').val();
+		var department    = $('#report-department').val();
 		var topic_name    = $('#report-topic-name').val();
 		var id_employee   = $('#name_employee').val();
 		var start_date    = $('#select_start_date').val();
@@ -108,7 +108,7 @@ $(document).ready(function(){
 	});
 
 	$('.genPDF_evaluation').click(function(){
-		var department    = $('#report_department').val();
+		var department    = $('#report-department').val();
 		var topic_name    = $('#report-topic-name').val();
 		var start_date    = $('#select_start_date').val();
 		var end_date      = $('#select_end_date').val();
@@ -189,7 +189,7 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 	var box = bootbox.dialog({ 
 		title: title,
 		message: form,
-		size: 'large',
+		size: 'xlarge',
 		onEscape: true,
 		backdrop: 'static',
 		buttons: {

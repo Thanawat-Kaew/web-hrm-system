@@ -39,7 +39,6 @@
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>
 							<?php $no = 0;?>
 							<?php foreach($create_evaluation as $value):?>
 							<?php $no++; ?>
@@ -68,7 +67,6 @@
 								</td>
 							</tr>
 							<?php endforeach ?>
-						</tbody>
 					</table>
 				</div>
 			</div>

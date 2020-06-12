@@ -1,6 +1,7 @@
 $(function(){
-	// $('#mydatatables').DataTable();
-	$('.view-data-request-time-stamp').click(function(){
+	$('#myTable').dataTable();
+
+	$('.table').on('click','.view-data-request-time-stamp',function(){
 		msg_waiting()
 		var	id = $(this).data('id');
 		//console.log(id);
@@ -40,7 +41,8 @@ $(function(){
 	});
 
 	msg_waiting()
-	$('.btn-confirm-data-request-time-stamp').click(function(){  // กด อนุมัติ
+
+	$('.table').on('click','.btn-confirm-data-request-time-stamp',function(){
 		//alert("confirm");
 		var id = $(this).data('id');
 
@@ -75,7 +77,9 @@ $(function(){
 			})
 		})
 
-	$('.btn-cancel-data-request-time-stamp').click(function(){  // กดปฏิเสธ
+	$('.table').on('click','.btn-cancel-data-request-time-stamp',function(){
+	
+	// $('.btn-cancel-data-request-time-stamp').click(function(){  // กดปฏิเสธ
 		var id = $(this).data('id');
 		//alert(id);
 		Swal.fire({

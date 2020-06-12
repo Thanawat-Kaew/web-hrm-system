@@ -10,7 +10,7 @@
 			<div class="box box-danger">
 				<div class="box-header">
 					รายการคำร้อง
-					<div class="box-tools">
+					<!-- <div class="box-tools">
 						<div class="input-group input-group-sm" style="width: 150px;">
 							<input type="text" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
 
@@ -18,11 +18,11 @@
 								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="box-body table-responsive no-padding">
-					<table id="mydatatables" class="table table-hover table-striped table-bordered">
+					<table id="myTable" class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -40,8 +40,7 @@
 							$date  = explode(" ", $value['created_at']);
 							$created_date = $date[0];
 							?>
-							<tbody>
-								<tr>
+								<tr class="aa">
 									<td><?php echo $count?></td>
 									<td><?php echo $value->employee['first_name']?> <?php echo $value->employee['last_name']?></td>
 									<td><?php echo $value['id_employee']?></td>
@@ -60,7 +59,6 @@
 									</span>
 								</td>
 							</tr>
-						</tbody>
 					<?php endforeach?>
 				</table>
 			</div>

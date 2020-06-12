@@ -3,6 +3,12 @@
 		การลา |
 		<small> Leave</small>
 	</h3>
+	<div class="btn-group pull-right">
+		<a href="<?php echo route("leave.leave.get")?>">
+			<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+			</button>
+		</a>
+	</div>
 </section>
 <section class="content">
 	<div class="row">

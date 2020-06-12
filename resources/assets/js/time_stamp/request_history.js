@@ -1,7 +1,9 @@
 $(document).ready(function(){
 
-	$('.view-request-timestamp').click(function(){
-		var	id = $(this).data('id');
+	$('#myTable').dataTable();
+
+	$('.table').on('click','.view-request-timestamp',function(){	
+			var	id = $(this).data('id');
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type: 'POST',
@@ -35,7 +37,7 @@ $(document).ready(function(){
 		})
 	});
 
-	$('.edit-data-request-timestamp').click(function(){
+	$('.table').on('click','.edit-data-request-timestamp',function(){	
 		//alert("edit");
 		var	id = $(this).data('id');
 		$.ajax({
@@ -55,8 +57,7 @@ $(document).ready(function(){
 		})
 	});
 
-	$('.delete-data').on("click", function()
-	{
+	$('.table').on('click','.delete-data',function(){	
 		var url=$(this).data('href');
 		Swal.fire(
 		{

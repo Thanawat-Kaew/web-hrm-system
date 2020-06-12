@@ -97,11 +97,11 @@ tr>td{
 }
 
 #myTable_length, #myTable_info {
-	margin-left: 30px !important;
+	margin-left: 20px !important;
 }
 
 #myTable_paginate, #myTable_filter{
-	margin-right: 30px !important;
+	margin-right: 20px !important;
 }
 
 .btn-trash:hover {

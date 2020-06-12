@@ -144,7 +144,7 @@ class FormShowDataVisualization
 					    // // sd($value2->toArray());  
 		       //    	} 
 
-					$form .='<div id="content_one_department" style="height: 500px"></div>';
+					$form .='<div id="content_one_department" style="height: 550px"></div>';
 					  	$form .='<script>';
 					      	$form .='anychart.onDocumentReady(function () {';
 					        	$form .='var dataSet = anychart.data.set([';

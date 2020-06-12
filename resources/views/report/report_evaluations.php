@@ -21,6 +21,12 @@
 	<h3>
 		การประเมิน |
 		<small> Evaluations</small>
+		<div class="btn-group pull-right" style="margin-left: 5px;">
+			<a href="<?php echo route("report.index.get")?>">
+				<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+				</button>
+			</a>
+		</div>
 		<?php if($current_employee['id_department'] == "hr0001"){?>
 			<button class="btn btn-warning pull-right data_visualization" type="submit" style="color: black;"><i class="fa fa-line-chart fa-lg"></i> Data Visualization</button>
 		<?php } ?>

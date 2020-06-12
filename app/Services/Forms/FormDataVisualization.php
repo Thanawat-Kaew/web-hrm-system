@@ -8,8 +8,8 @@ class FormDataVisualization
 		
 		$form ='<div class="row">';
 			$form .='<div class="col-md-12">';
-				$form .='<div class="box box-danger">';
-					$form .='<div class="box-body">';
+				// $form .='<div class="box box-danger">';
+				// 	$form .='<div class="box-body">';
 						$form .='<div class="box-body table-responsive no-padding">';
 							$form .='<label>เลือกรูปแบบ</label>';
 							$form .='<div class="form-group">';
@@ -34,7 +34,7 @@ class FormDataVisualization
 							$form .='<div class="one_person hide select_dept">';
 								$form .='<label>กรุณาเลือกแผนก</label>';
 								$form .='<div class="form-group">';
-									$form .='<div class="col-md-9">';
+									$form .='<div class="col-md-8">';
 										$form .='<select class="form-control select2 select2-hidden-accessible choice_department report_department" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report_department">';
 											$form .='<option value="">เลือกแผนก...</option>';
 											foreach($department as $departments){
@@ -44,7 +44,7 @@ class FormDataVisualization
 										$form .='<label class="text-error" id="report_department-text-error">';
 										$form .='</label>';
 									$form .='</div>';
-									$form .='<div class="col-md-3">';
+									$form .='<div class="col-md-4">';
 										$form .='<div class="form-group">';
 											$form .='<div class="form-group" data-select2-id="13">';
 												$form .='<select class="form-control select2 select2-hidden-accessible list_name_employee name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_name_employee">';
@@ -112,8 +112,8 @@ class FormDataVisualization
 								$form .='</div>';
 							$form .='</div>';
 						$form .='</div>';
-					$form .='</div>';
-				$form .='</div>';
+				// 	$form .='</div>';
+				// $form .='</div>';
 			$form .='</div>';
 		$form .='</div>';
 

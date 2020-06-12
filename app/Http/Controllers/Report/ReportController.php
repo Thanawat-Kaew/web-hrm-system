@@ -194,7 +194,7 @@ class ReportController extends Controller
                     ->get();
 
         }
-    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves'));
+    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves','list_employee'));
 
     }
 
@@ -358,9 +358,8 @@ class ReportController extends Controller
                         $emp_leaves = $emp_leaves->with('employee.department');
                     }
 
-                    if (!empty($id_employee_select)) {
+                    if(!empty($id_employee_select)) {
                         $emp_leaves = $emp_leaves->where('id_employee', $id_employee_select);
-
                     }
 
                     if(!empty($leaves_type)){
@@ -397,7 +396,6 @@ class ReportController extends Controller
                 $start_number        = $request->get('start_number');
                 $end_number          = $request->get('end_number');
 
-
                 $emp_evaluation     = Evaluation::with('employee.position','resultevaluation', 'createevaluation');
                 if(!empty($department)){
                     $emp_evaluation =   $emp_evaluation->with(['employee.department' => function($q) use($department){
@@ -433,7 +431,7 @@ class ReportController extends Controller
                     $emp_evaluation = $emp_evaluation->orderBy('percent', 'desc');
                 }
                 $emp_evaluation = $emp_evaluation->orderBy('id_assessor', 'asc')->get();
-
+// sd($emp_evaluation->toArray());
                 $array_assessment = array();
                 $array_id_topic   = array();
                 foreach ($emp_evaluation as $value){
