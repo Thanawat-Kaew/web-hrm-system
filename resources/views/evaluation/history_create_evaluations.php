@@ -2,6 +2,12 @@
 	<h3>
 		ประวัติการสร้างแบบประเมิน |
 		<small> History Created Evaluations.</small>
+		<div class="btn-group pull-right">
+			<a href="<?php echo route("evaluation.index.get")?>">
+				<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+				</button>
+			</a>
+		</div>
 	</h3>
 </section>
 <style type="text/css">
@@ -16,14 +22,6 @@
 </style>
 <section class="content">
 	<div class="row">
-		<div class="col-md-12">
-			<div class="btn-group pull-right">
-				<a href="<?php echo route("evaluation.index.get")?>">
-					<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
-					</button>
-				</a>
-			</div>
-		</div>
 		<div class="col-xs-12">
 			<div class="box box-info"><br>
 				<div class="box-body table-responsive no-padding">
