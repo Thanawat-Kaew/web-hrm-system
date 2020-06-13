@@ -7,22 +7,9 @@
 <section class="content">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="box box-danger">
-				<div class="box-header">
-					รายการคำร้อง
-					<div class="box-tools">
-						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
-
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-
+			<div class="box box-danger"><br>
 				<div class="box-body table-responsive no-padding">
-					<table id="mydatatables" class="table table-hover table-striped table-bordered">
+					<table id="myTable" class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -41,7 +28,6 @@
 							$date  = explode(" ", $value['created_at']);
 							$created_date = $date[0]; ?>
 							<?php if(\Session::has('current_employee')) :?>
-								<tbody>
 									<tr>
 										<?php $current_employee = \Session::get('current_employee') ?>
 										<td><?php echo $count?></td>
@@ -64,22 +50,8 @@
 										</span>
 									</td>
 								</tr>
-							</tbody>
 						<?php endif ?>
 					<?php endforeach?>
-
-					<tfoot>
-						<tr>
-							<th>#</th>
-							<th>ชื่อ-สกุล</th>
-							<th>วันที่ดำเนินการ</th>
-							<th>ประเภทการลา</th>
-							<th>จำนวน (วัน)</th>
-							<th>รายละเอียด</th>
-							<th style="width: 20px"></th>
-							<th>สถานะ</th>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
 		</div>

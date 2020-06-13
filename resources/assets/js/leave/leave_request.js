@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
-    $('.view-data-request-leaves').click(function(){
+    $('#myTable').dataTable();
 
+    $('.table').on('click', '.view-data-request-leaves', function(){
 		msg_waiting()
 		var	id = $(this).data('id');
 
@@ -23,8 +24,7 @@ $(document).ready(function(){
 		})
     });
 
-    $('.btn-confirm-data-request-leave').click(function(){  //อนุมัติ
-
+    $('.table').on('click', '.btn-confirm-data-request-leave', function(){
         var id = $(this).data('id');
 
         Swal.fire({
@@ -57,8 +57,7 @@ $(document).ready(function(){
         })
     })
 
-    $('.btn-cancel-data-request-leave').click(function(){  // ปฏิเสธ
-
+    $('.table').on('click', '.btn-cancel-data-request-leave', function(){
         var id = $(this).data('id');
 
         Swal.fire({

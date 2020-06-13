@@ -331,8 +331,16 @@ function formSendEmail(form, title)
 	}
 }
 
-function sendEmail(form, title)
-{
+function sendEmail(form, title){
+	Swal.fire({
+		title: '<i class="fa fa-spinner fa-spin" style="font-size:30px"></i>',
+		html: '<h3> กำลังส่ง รอสักครู่...</h3>',
+		showConfirmButton: false,
+		allowOutsideClick: false,
+		customClass: 'swal-wide',
+		timer: 5000,
+	})
+
 	var name_sender   = $('#name_sender').val();
 	var email_sender  = $('#email_sender').val();
 	var name_reciver  = $('#name_reciver').val();
@@ -353,6 +361,7 @@ function sendEmail(form, title)
 					'details'		: details
 		},
 		success: function (response) {
+			msg_close();
 			var data_resp = jQuery.parseJSON(response);
 			console.log(data_resp);
 			if(data_resp.status == "success"){
