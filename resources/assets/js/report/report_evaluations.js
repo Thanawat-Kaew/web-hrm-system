@@ -388,6 +388,7 @@ function requestDataVisualization(form, title, oldValue,select_format,request_de
 					
 				})
 			}
+
         },
         error: function(errors){
         	console.log(errors);

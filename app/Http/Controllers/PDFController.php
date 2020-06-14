@@ -125,7 +125,7 @@ class PDFController extends Controller
 
 		$department          = $request->has('department') ? $request->get('department') : '';
         $topic_name          = $request->has('topic_name') ? $request->get('topic_name') : ''; // ส่งค่ามาเป็น id_topic
-        $id_employee         = $request->has('id_employee') ? $request->get('id_employee') : '';
+        $id_employee         = $request->has('id_employee') ? '' : $request->get('id_employee');
         $start_date          = $request->get('start_date');
         $new_start_date      = date("Y-m-d", strtotime($start_date));
         $end_date            = $request->get('end_date');
