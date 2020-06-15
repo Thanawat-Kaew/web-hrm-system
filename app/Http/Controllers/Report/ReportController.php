@@ -24,6 +24,8 @@ use App\Services\Company\Company;
 use App\Services\Forms\FormViewDataRequestLeaves;
 use App\Services\Forms\FormViewRequestLeaves;
 use App\Services\Forms\FormEditRequestLeaves;
+use App\Services\Forms\FormDataVisualization;
+use App\Services\Forms\FormShowDataVisualization;
 use App\Services\Request\RequestLeaves;
 use App\Services\Request\Status;
 use App\Services\TimeStamp\TimeStamp;
@@ -43,6 +45,69 @@ class ReportController extends Controller
 	public function index()
     {
     	return $this->useTemplate('report.index');
+    }
+
+    public function request_data_visualization(Request $request)
+    {
+        // d($request->all());
+        $select_format          = $request->get('select_format');
+        $request_department1    = $request->get('request_department1');
+        $id_employee            = $request->get('name_employee');
+        $request_department2    = $request->get('request_department2');
+        $list_topic_evals       = $request->get('list_topic_evals');
+
+        if ($select_format == '1') { //รายบุคคล
+            $request_data = Evaluation::with(['employee' => function ($q) use ($id_employee,$request_department1){
+                $q->where('id_employee',$id_employee);
+                $q->where('id_department',$request_department1);
+                $q->where('id_status','=','1');
+            }])->with('createevaluation')->where('id_assessor',$id_employee)->get();
+            // sd($request_data/*->toArray()*/);
+
+
+        }
+        // if($select_format == '2'){ //รายแผนก
+
+        //     $request_data = Evaluation::with(['employee' => function ($w) use ($request_department2){
+        //         $w->with('department');
+        //         $w->where('id_department',$request_department2);
+        //         $w->where('id_status','=','1');
+        //     }])->where('id_topic',$list_topic_evals)->with('createevaluation')->get();
+        //     // sd($request_data->toArray());
+
+        //     // $a = $request_data->where('percent','=','100')->count();
+        //     // sd($a);
+
+        //     // $request_data = DB::table('evaluation','createevaluation','employee')
+        //     //     ->select(DB::raw('count(evaluation.id_assessor) as total_assessor'),'evaluation.id_topic')
+        //     //     ->join('employee','evaluation.id_assessor','=','employee.id_employee')
+        //     //     // ->join('department','employee.id_department','=','department.id_department')
+        //     //     ->where('id_topic', '167')
+        //     //     ->groupBy('evaluation.id_topic')
+        //     //     ->get();
+
+        //     // sd($request_data->toArray());
+
+        // }
+        if($select_format == '3'){ //รายบริษัท
+            $request_data = Evaluation::with('createevaluation')->get();
+
+                //   $request_data = DB::table('evaluation','createevaluation')
+                // ->select(DB::raw('count(evaluation.id_assessor) as total_assessor'),'evaluation.id_topic')
+                // ->join('createevaluation','evaluation.id_topic','=','createevaluation.id_topic')
+                // // ->where('id_topic', '167')
+                // ->groupBy('evaluation.id_topic')
+                // ->get();
+            // sd($request_data->toArray());
+
+        }
+
+
+        $form_repo       = new FormShowDataVisualization;
+        $get_form_show_data_visual    = $form_repo->getFormShowDataVisualization($request_data,$select_format,$request_department2);
+            
+        return response()->json(['status'=> 'success','data'=> $get_form_show_data_visual]);
+        
     }
 
     public function reportTimeStamp()
@@ -129,7 +194,7 @@ class ReportController extends Controller
                     ->get();
 
         }
-    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves'));
+    	return $this->useTemplate('report.report_leave',compact('datas','department','leaves_type','leaves_format','current_employee','count_dept','count_posit','count_type_leaves','count_format_leaves','list_employee'));
 
     }
 
@@ -293,9 +358,8 @@ class ReportController extends Controller
                         $emp_leaves = $emp_leaves->with('employee.department');
                     }
 
-                    if (!empty($id_employee_select)) {
+                    if(!empty($id_employee_select)) {
                         $emp_leaves = $emp_leaves->where('id_employee', $id_employee_select);
-
                     }
 
                     if(!empty($leaves_type)){
@@ -332,7 +396,6 @@ class ReportController extends Controller
                 $start_number        = $request->get('start_number');
                 $end_number          = $request->get('end_number');
 
-
                 $emp_evaluation     = Evaluation::with('employee.position','resultevaluation', 'createevaluation');
                 if(!empty($department)){
                     $emp_evaluation =   $emp_evaluation->with(['employee.department' => function($q) use($department){
@@ -368,7 +431,7 @@ class ReportController extends Controller
                     $emp_evaluation = $emp_evaluation->orderBy('percent', 'desc');
                 }
                 $emp_evaluation = $emp_evaluation->orderBy('id_assessor', 'asc')->get();
-
+// sd($emp_evaluation->toArray());
                 $array_assessment = array();
                 $array_id_topic   = array();
                 foreach ($emp_evaluation as $value){
@@ -415,6 +478,17 @@ class ReportController extends Controller
                 $reciver       = Employee::where('id_employee', $id_employee)->first();
                 $form_repo     = new FormEmail;
                 $get_form      = $form_repo->getFormEmail($reciver);
+                return response()->json(['status'=> 'success','data'=> $get_form]);
+            break;
+
+            case 'getFormDataVisualization': // Form กรอกข้อมูลของ email
+            // sd($request->all());
+                $id_department  = $request->get('department');
+                $list_employee = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
+                $list_topic_eval = CreateEvaluation::where('confirm_send_create_evaluation','=','1')->get();
+                $department    = Department::all();
+                $form_repo     = new FormDataVisualization;
+                $get_form      = $form_repo->getFormDataVisualization($department,$list_employee, $list_topic_eval);
                 return response()->json(['status'=> 'success','data'=> $get_form]);
             break;
 

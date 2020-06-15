@@ -3,25 +3,20 @@
 		ประวัติการขอลงเวลาย้อนหลัง |
 		<small> History of past time requests</small>
 	</h3>
+	<div class="btn-group pull-right">
+		<a href="<?php echo route("time_stamp.index.get")?>">
+			<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+			</button>
+		</a>
+	</div>
 </section>
 <section class="content">
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="box box-info">
-				<div class="box-header">
-					<h4 class="box-title">ประวัติการขอลงเวลาย้อนหลัง</h4>
-					<div class="box-tools">
-						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
-
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="box box-info"><br>
 				<div class="box-body table-responsive no-padding">
-					<table class="table table-hover">
+					<table class="table table-hover" id="myTable">
+						<thead>
 							<tr>
 								<th>วันที่</th>
 								<th>ประเภท</th>
@@ -30,6 +25,7 @@
 								<th>สถานะ</th>
 								<th></th>
 							</tr>
+						</thead>
 						<?php foreach($request as $value) :
 							  $date  = explode(" ", $value['created_at']);
 							  $created_date = $date[0];
@@ -62,9 +58,7 @@
 						<?php endforeach ?>
 					</table>
 				</div>
-				<!-- /.box-body -->
 			</div>
-			<!-- /.box -->
 		</div>
 	</div>
 </section>

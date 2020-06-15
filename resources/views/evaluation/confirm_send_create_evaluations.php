@@ -53,15 +53,6 @@
 			<div class="box box-info">
 				<div class="box-header">
 					<h4 class="box-title">ส่งแบบประเมิน</h4>
-					<div class="box-tools">
-						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อ">
-
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-							</div>
-						</div>
-					</div>
 				</div>
 				<div class="box-body table-responsive no-padding">
 					<table id="myTable" class="table table-hover">
@@ -76,12 +67,12 @@
 							<th>แก้ไข</th>
 							<th>ลบ</th>
 						</tr>
+					</thead>
 						<?php if(!empty($evaluations)):?>
 							<?php foreach($evaluations as $evaluation): //sd($evaluation->toArray());
 							$year = explode('-', $evaluation->years);
 								//sd($year[0]);
 							?>
-							<tbody>
 								<tr class="row-create-evaluation">
 								<td><?php echo sprintf("%06d", $evaluation->id_topic); ?></td>
 								<td><?php echo $year[0]?></td>
@@ -107,7 +98,6 @@
 									</a>
 								</td>
 							</tr>
-							</tbody>
 						<?php endforeach?>
 					<?php endif?>
 				</table>

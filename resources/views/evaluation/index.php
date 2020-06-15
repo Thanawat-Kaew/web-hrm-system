@@ -54,23 +54,25 @@
 				<?php //echo $department ;?>
 				<div class="box-body table-responsive no-padding">
 					<table id="myTable" class="table table-hover">
-						<tr>
-							<th>รหัสแบบประเมิน</th>
-							<!-- <th>ประจำปี</th> -->
-							<th>ชื่อแบบประเมิน</th>
-							<th>วันที่สร้าง</th>
-							<th>วันที่เปิดการประเมิน</th>
-							<th>วันที่สิ้นสุดการประเมิน</th>
-							<th>เหลือพนักงานที่ต้องประเมิน</th>
-							<th>ประเมิน</th>
-							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-							<th>กำหนดเวลา</th>
-							<?php endif ?>
-							<th>ดูแบบประเมิน</th>
-							<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
-								<th>ลบ</th>
-							<?php endif ?>
-						</tr>
+						<thead>
+							<tr>
+								<th>รหัสแบบประเมิน</th>
+								<!-- <th>ประจำปี</th> -->
+								<th>ชื่อแบบประเมิน</th>
+								<th>วันที่สร้าง</th>
+								<th>วันที่เปิดการประเมิน</th>
+								<th>วันที่สิ้นสุดการประเมิน</th>
+								<th>เหลือพนักงานที่ต้องประเมิน</th>
+								<th>ประเมิน</th>
+								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
+								<th>กำหนดเวลา</th>
+								<?php endif ?>
+								<th>ดูแบบประเมิน</th>
+								<?php if($current_employee->id_position == 2 && $current_employee->id_department == "hr0001" ):?>
+									<th>ลบ</th>
+								<?php endif ?>
+							</tr>
+						</thead>
 						<?php if(!empty($evaluations)):?>
 							<?php
 								$no = 0;

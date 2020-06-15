@@ -22,12 +22,18 @@
 							<button class="btn btn-info" style="margin-right: 15px;">ดูผลคะแนน</button>
 						</a>
 					</div>
+					<div class="btn-group pull-right" style="margin-right: 5px;">
+						<a href="<?php echo route("evaluation.index.get")?>">
+							<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+							</button>
+						</a>
+					</div>
 				</div>
 			<?php endif ?>
 			<div class="box box-info box_name_emp">
-				<div class="box-body">
+				<div class="box-body table-responsive">
 					<table class="table table-bordered table-hover" id="myTable">
-						<tbody>
+						<thead>
 							<tr>
 								<th style="width: 10px">รหัสพนักงาน</th>
 								<th style="text-align: left;">ชื่อ-สกุล</th>
@@ -35,6 +41,7 @@
 								<th>ดู</th>
 								<th>แก้ไข</th>
 							</tr>
+						</thead>
 							<?php $count_list_name = $list_name->count();?> <!-- นับจำนวนพนักงาน -->
 							<?php for($i=0; $i<$count_list_name; $i++){?>
 								<tr>
@@ -73,7 +80,6 @@
 						<?php } ?>
 					</tr>
 				<?php } ?>
-			</tbody>
 		</table>
 	</div>
 </div>

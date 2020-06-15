@@ -97,4 +97,9 @@ class Employee extends Model
     {
         return $this->hasMany("App\Services\Admin\RecoveryStatusEmployee", 'id_employee', 'id_employee');
     }
+
+    public function uploadimage()
+    {
+        return $this->hasOne("App\Services\UploadImage\UploadImage", 'id_employee', 'id_employee');
+    }
 }

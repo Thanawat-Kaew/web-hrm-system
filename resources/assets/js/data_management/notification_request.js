@@ -1,12 +1,14 @@
 $(document).ready(function(){
 
+	$('#myTable').dataTable();
+
     $('#myInput').keyup(function(){
         search_data_tbl();
     })
 })
 
 $(function(){
-	$('.view-data-request').click(function(){
+    $('.table').on('click', '.view-data-request', function(){
 		msg_waiting()
 		var	id = $(this).data('id');
 		//console.log(id)
@@ -45,7 +47,7 @@ $(function(){
 	})
 
 	msg_waiting()
-	$('.btn-confirm-data-request').click(function(){
+    $('.table').on('click', '.btn-confirm-data-request', function(){
 		//alert("confirm");
 		var id = $(this).data('id');
 		console.log(id);
@@ -81,7 +83,7 @@ $(function(){
 			})
 	})
 
-	$('.btn-cancel-data-request').click(function(){
+    $('.table').on('click', '.btn-cancel-data-request', function(){
 		var id = $(this).data('id');
 		Swal.fire({
 			title: 'คุณแน่ใจหรือไม่?',

@@ -5,7 +5,9 @@ $(document).ready(function() {
     	$(this).alert('close');
 	});
 
-	$('.view-evaluation').click(function(){
+	$('#myTable').dataTable();
+
+	$('#myTable').on('click','.view-evaluation',function(){
 		msg_waiting();
 		//alert('555');
 		var id_employee = $(this).data('id');

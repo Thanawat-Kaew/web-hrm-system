@@ -185,6 +185,7 @@ class AdminController extends Controller
 
     public function editHeaderAndEmployee(Request $request)
     {  // แก้ไขตำแหน่ง
+        $images          = $request->file("file_picture");
         $id_employee     = $request->get('id_employee'); // id ของหัวหน้าหรือหนักงาน
         $id_department   = $request->get('department');
         $id_position     = $request->get('position'); // 1 คือ พนักงาน // 2 คือ หัวหน้า
@@ -230,6 +231,16 @@ class AdminController extends Controller
                     $employee_menu->save();
                 }
             }
+            if(!empty($images)){
+                if($_FILES['file_picture']['name'] != ''){  // ตรวจสอบไฟล์รูปภาพ
+                    $test = explode('.', $_FILES['file_picture']['name']); //แยกชื่อ
+                    $extension = end($test); // นามสกุลไฟล์
+                    $name = $employee->id_employee.'.'.$extension;
+                    $location = 'public/image/'.$name;
+                    move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+                }
+                $employee->image            = $name;
+            }
             $employee->save();
         }else if($id_position == 2){ //แก้ไขตำแหน่งเป็นหัวหน้า
             $verify_header   = Employee::where('id_department', $id_department)->where('id_position', 2)->get();
@@ -266,13 +277,25 @@ class AdminController extends Controller
                         $employee_menu->save();
                     }
                 }
+                if(!empty($images)){
+                    if($_FILES['file_picture']['name'] != ''){  // ตรวจสอบไฟล์รูปภาพ
+                        $test = explode('.', $_FILES['file_picture']['name']); //แยกชื่อ
+                        $extension = end($test); // นามสกุลไฟล์
+                        $name = $employee->id_employee.'.'.$extension;
+                        $location = 'public/image/'.$name;
+                        move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+                    }
+                    $employee->image            = $name;
+                }
                 $employee->save();
             }
         }
     }
     public function addHeader(Request $request)  // เพิ่มหัวหน้า
     {
+        $images                  = $request->file("file_picture");
         $id_department           = $request->get('department');
+        //sd($id_department);
         $id_position             = $request->get('position');
         $first_name              = $request->get('fname');
         $last_name               = $request->get('lname');
@@ -281,7 +304,7 @@ class AdminController extends Controller
         $address                 = $request->get('address');
         $gender                  = $request->get('gender');
         $tel                     = $request->get('tel');
-        $age                     = $request->get('age');
+        $date_of_birth           = $request->get('date_of_birth');
         $education               = $request->get('education');
         $salary                  = $request->get('salary');
 
@@ -307,7 +330,9 @@ class AdminController extends Controller
         // save data to database
         $employee                = new Employee();
         $employee->id_department = $id_department;
-        $employee->id_position   = $id_position ;
+        //sd($employee->id_department);
+        $employee->id_position   = $id_position;
+        //sd($employee->id_position);
         $employee->first_name    = $first_name;
         $employee->last_name     = $last_name;
         $employee->email         = $email;
@@ -315,22 +340,26 @@ class AdminController extends Controller
         $employee->address       = $address;
         $employee->gender        = $gender;
         $employee->tel           = $tel;
-        $employee->age           = $age;
+        $employee->date_of_birth = $date_of_birth;
         $employee->id_education  = $education;
         $employee->salary        = $salary;
 
         $array_general_department  = [];
         $general_department = Department::where('id_department', '!=', 'hr0001')->get();
+        //sd($general_department->toArray());
         foreach ($general_department as $value) {
             $array_general_department[] = $value['id_department'];
         }
+        //sd($array_general_department);
         $humen_department   = Department::where('id_department', 'hr0001')->first();
 
         if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "2"){
             $employee->id_role = 2; // header_general
+            echo "2";
         }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "2"){
             $employee->id_role = 4; // header_hr
-        }
+            echo "4";
+        }//exit();
         $employee->save();
 
         $find_email  = Employee::where('email', $email)->first();
@@ -342,6 +371,18 @@ class AdminController extends Controller
             $employee_menu->permission      = '["read", "write"]';
             $employee_menu->save();
         }
+
+        $find_id_employee        = Employee::where('email', $email)->first();
+        $id_employee             = $find_id_employee['id_employee'];
+        if($_FILES['file_picture']['name'] != ''){
+            $test = explode('.', $_FILES['file_picture']['name']);
+            $extension = end($test);
+            $name = $id_employee.'.'.$extension;
+            $location = 'public/image/'.$name;
+            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        }
+        $find_id_employee->image = $name;
+        $find_id_employee->save();
         return json_encode(['status' => 'success', 'message' => 'success']);
     }
 
@@ -464,5 +505,15 @@ class AdminController extends Controller
         $find_id_employee            = Employee::where('id_employee', $find_id_recovery['id_employee'])->first();
         $find_id_employee->id_status = 1;
         $find_id_employee->save();
+    }
+
+    public function uploadImageForAdmin(Request $request){
+        $images                  = $request->file("file_picture");
+        if($_FILES['file_picture']['name'] != ''){ //new
+            $name = $_FILES['file_picture']['name'];
+            $location = 'public/before_save_image/'.$name;
+            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        }
+        return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="/public/before_save_image/'.$name.'" class="upload-preview" style="width: 120px; height: 120px;" >']);
     }
 }

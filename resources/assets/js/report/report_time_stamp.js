@@ -104,10 +104,12 @@ $(document).ready(function(){
 		var department  = $('#report-department').val();
 		var start_date  = $('#select_start_date').val();
 		var end_date    = $('#select_end_date').val();
-		var start_time  = $('#select_start_time').val()
+		var start_time  = $('#select_start_time').val();
 		var end_time    = $('#select_end_time').val();
+		var id_employee = $('#name_employee').val();
 
-		window.open('/pdf/generatePDF_time_stamp?department='+department+'&start_date='+start_date+'&end_date='+end_date+"&start_time="+start_time+"&end_time="+end_time,'_blank');
+
+		window.open('/pdf/generatePDF_time_stamp?department='+department+'&start_date='+start_date+'&end_date='+end_date+"&start_time="+start_time+"&end_time="+end_time+"&id_employee="+id_employee,'_blank');
 	})
 
 	//$('.name_employee').on('click' , function(){

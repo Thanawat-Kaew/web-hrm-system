@@ -27,7 +27,7 @@ $(document).ready(function() {
 								'id_department'    : id_department
 							},
 							success: function (result) {
-								var title = "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_gmail.jpg'> <img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_email.png'> <img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_hotmail.png'> <img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_outlook.png'></h4>"
+								var title = "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_gmail.jpg'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_email.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_hotmail.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_outlook.png'></h4>"
 								showDialog(result.data,title);
 							},
 							error : function(errors){
@@ -52,7 +52,7 @@ function showDialog(form,title, oldValue='', errors='')
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
-		size: 'large',
+		size: 'xlarge',
 		onEscape: true,
 		backdrop: 'static',
 		buttons: {
@@ -60,7 +60,7 @@ function showDialog(form,title, oldValue='', errors='')
 				label: 'ส่ง',
 				className: 'btn-info',
 				callback: function(){
-					if (title == "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_gmail.jpg'> <img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_email.png'> <img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_hotmail.png'> <img class='pull-right' style='width:50px; height:50px;' src='/public/image/icon_outlook.png'></h4>") {
+					if (title == "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_gmail.jpg'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_email.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_hotmail.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_outlook.png'></h4>") {
 						formSendEmail(form, title);
 					}
 				}

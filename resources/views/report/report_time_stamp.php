@@ -2,6 +2,12 @@
 	<h3>
 		การบันทึกเวลา |
 		<small> Time Sheets</small>
+		<div class="btn-group pull-right">
+			<a href="<?php echo route("report.index.get")?>">
+				<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+				</button>
+			</a>
+		</div>
 	</h3>
 </section>
 <section class="content">
@@ -38,15 +44,19 @@
 						</div>
 					</div>
 					<div class="col-md-3"><br>
-						<select class="form-control select2 select2-hidden-accessible hide list_name_employee " style="width: 100%;border-radius: 5px;  margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+						<!-- <select class="form-control select2 select2-hidden-accessible hide list_name_employee " style="width: 100%;border-radius: 5px;  margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
 									<option value="">เลือกชื่อพนักงาน...</option>
-								</select>
+								</select> -->
 						<?php if($current_employee['id_department'] != "hr0001"){?>
 							<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;  margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
 									<option value="">เลือกชื่อพนักงาน...</option>
 									<?php foreach($list_employee as $list_employees):?>
 										<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?></option>
 									<?php endforeach ?>
+								</select>
+						<?php }else{ ?>
+							<select class="form-control select2 select2-hidden-accessible hide list_name_employee " style="width: 100%;border-radius: 5px;  margin-top: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<option value="">เลือกชื่อพนักงาน...</option>
 								</select>
 						<?php }?>
 						

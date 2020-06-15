@@ -1,7 +1,35 @@
+<head>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+  <style type="text/css">
+
+      html,
+      body,
+      #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    
+</style>
+</head>
 <section class="content-header">
 	<h3>
 		การประเมิน |
 		<small> Evaluations</small>
+		<div class="btn-group pull-right" style="margin-left: 5px;">
+			<a href="<?php echo route("report.index.get")?>">
+				<button type="button" name="back-page" class='btn btn-success dropdown-toggle'><i class="fa fa-reply"></i> กลับ
+				</button>
+			</a>
+		</div>
+		<?php if($current_employee['id_department'] == "hr0001"){?>
+			<button class="btn btn-warning pull-right data_visualization" type="submit" style="color: black;"><i class="fa fa-line-chart fa-lg"></i> Data Visualization</button>
+		<?php } ?>
 	</h3>
 </section>
 <section class="content">
@@ -14,13 +42,13 @@
 							<label>Department</label>
 							<div class="form-group" data-select2-id="13">
 								<?php if($current_employee['id_department'] == "hr0001"){?>
-								<select class="form-control select2 select2-hidden-accessible choice_department" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
-									<option value="">เลือกแผนก...</option>
-									<?php foreach($department as $departments):?>
-									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
-									<?php endforeach ?>
-								</select>
-								<?php }else{?><!-- ไม่ใช่แผนก hr -->
+									<select class="form-control select2 select2-hidden-accessible choice_department" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-department">
+										<option value="">เลือกแผนก...</option>
+										<?php foreach($department as $departments):?>
+											<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
+										<?php endforeach ?>
+									</select>
+									<?php }else{?><!-- ไม่ใช่แผนก hr -->
 									<input type="text" style="border-radius: 5px;" class="form-control"value="<?php echo $department['name']?>" readonly>
 									<input type="text" style="border-radius: 5px;" class="form-control hide"value="<?php echo $current_employee['id_department']?>" id="report-department" readonly>
 								<?php }?>
@@ -34,7 +62,7 @@
 								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="report-topic-name">
 									<option value="">เลือกชื่อแบบประเมิน...</option>
 									<?php foreach($topic_name as $topic_names):?>
-									<option value="<?php echo $topic_names['id_topic']?>"><?php echo $topic_names['topic_name']?></option>
+										<option value="<?php echo $topic_names['id_topic']?>"><?php echo $topic_names['topic_name']?></option>
 									<?php endforeach ?>
 								</select>
 							</div>
@@ -47,85 +75,84 @@
 							</a>
 						</div>
 					</div>
-				<?php if($current_employee['id_department'] == "hr0001"){?>
-					<div class="col-md-3 hide div_list_name_employee">
-						<div class="form-group">
-							<label>รายชื่อพนักงาน</label>
-							<div class="form-group" data-select2-id="13">
-								<select class="form-control select2 select2-hidden-accessible hide list_name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
-								</select>
+					<?php if($current_employee['id_department'] == "hr0001"){?>
+						<div class="col-md-3 hide div_list_name_employee">
+							<div class="form-group">
+								<label>รายชื่อพนักงาน</label>
+								<div class="form-group" data-select2-id="13">
+									<select class="form-control select2 select2-hidden-accessible hide list_name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									</select>
+								</div>
 							</div>
 						</div>
-					</div>
-				<?php }else if($current_employee['id_department'] != "hr0001"){?> <!-- ไม่ใช่แผนก hr -->
-					<div class="col-md-3">
-						<div class="form-group">
-							<label>รายชื่อพนักงาน</label>
-							<div class="form-group" data-select2-id="13">
-								<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
-									<option value="">เลือกลายชื่อพนักงาน...</option>
-									<?php foreach($list_employee as $list_employees):?>
-									<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?>
-									</option>
+						<?php }else if($current_employee['id_department'] != "hr0001"){?> <!-- ไม่ใช่แผนก hr -->
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>รายชื่อพนักงาน</label>
+								<div class="form-group" data-select2-id="13">
+									<select class="form-control select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+										<option value="">เลือกลายชื่อพนักงาน...</option>
+										<?php foreach($list_employee as $list_employees):?>
+											<option value="<?php echo $list_employees->id_employee?>"><?php echo $list_employees->first_name?> <?php echo $list_employees->last_name?>
+										</option>
 									<?php endforeach ?>
 								</select>
 							</div>
 						</div>
 					</div>
 				<?php }?>
+			</div>
+			<div class="box-body">
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>เรื่มวันที่</label>
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" readonly class="form-control datepicker" id="select_start_date" placeholder="เลือกวันที่..." style="background-color: white">
+						</div>
+					</div>
 				</div>
-				<div class="box-body">
-					<div class="col-md-3">
+				<div class="col-md-3">
+					<div class="form-group">
+						<label>ถึงวันที่</label>
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" readonly class="form-control datepicker" id="select_end_date" placeholder="เลือกวันที่..." style="background-color: white">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6" style="border-style: double; border-radius: 5px; border-color: red;">
+					<div class="col-md-6">
 						<div class="form-group">
-							<label>เรื่มวันที่</label>
-							<div class="input-group date">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" readonly class="form-control datepicker" id="select_start_date" placeholder="เลือกวันที่..." style="background-color: white">
-							</div>
+							<label>ช่วงผลการประเมิน</label>
+							<input type="text" class="form-control" id="start_number" placeholder="เริ่ม" style="background-color: white; border-radius: 5px;">
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-6">
 						<div class="form-group">
-							<label>ถึงวันที่</label>
-							<div class="input-group date">
-								<div class="input-group-addon">
-									<i class="fa fa-calendar"></i>
-								</div>
-								<input type="text" readonly class="form-control datepicker" id="select_end_date" placeholder="เลือกวันที่..." style="background-color: white">
-							</div>
+							<label> </label>
+							<input type="text" class="form-control" id="end_number" placeholder="ถึง" style="background-color: white; border-radius: 5px;">
 						</div>
 					</div>
-					<div class="col-md-6" style="border-style: double; border-radius: 5px; border-color: red;">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>ช่วงผลการประเมิน</label>
-								<input type="text" class="form-control" id="start_number" placeholder="เริ่ม" style="background-color: white; border-radius: 5px;">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label> </label>
-								<input type="text" class="form-control" id="end_number" placeholder="ถึง" style="background-color: white; border-radius: 5px;">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12" style="margin-top: 10px;">
-						<button id="btn-search" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Search</button>
-					</div>
+				</div>
+				<div class="col-md-12" style="margin-top: 10px;">
+					<button id="btn-search" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Search</button>
 				</div>
 			</div>
-			<div class="box box-info"><br>
-				<div class="box-body table-responsive no-padding">
-					<div class="row" id="data-evaluation">
+		</div>
+		<div class="box box-info"><br>
+			<div class="box-body table-responsive no-padding">
+				<div class="row" id="data-evaluation">
 					<table class="table table-hover" id="myTable">
 						<thead>
 							<tr>
 								<th>ID</th>
 								<th>ชื่อ-สกุล</th>
 								<th>แผนก</th>
-								<!-- <th>ต่ำแหน่ง</th> -->
 								<th>วันที่ประเมิน</th>
 								<!-- <th>ผู้ประเมิน</th> -->
 								<th>หัวข้อการประเมิน</th>
@@ -150,18 +177,19 @@
 									<td><?php echo $assessor[$i]->from_the_full_score;?></td>
 									<td><?php echo $assessor[$i]->percent;?>%</td>
 								</tr>
-							<?php $no++; ?>
+								<?php $no++; ?>
 							<?php } ?>
 						<?php } ?>
 					</table>
-					</div>
 				</div>
-				<!-- /.box-body -->
 			</div>
-			<!-- /.box -->
+			<!-- /.box-body -->
 		</div>
+		<!-- /.box -->
 	</div>
+</div>
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('report.ajax_center.post')?>"></div>
 <div id="ajax-center-url-pdf" data-url="<?php echo route('report.pdf.pdf_evaluations.post')?>"></div>
+<div id="request-data-visualization" data-url="<?php echo route('report.request_data_visualization.post')?>"></div>
 <?php echo csrf_field()?>

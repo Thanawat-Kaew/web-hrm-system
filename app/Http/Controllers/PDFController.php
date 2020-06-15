@@ -119,217 +119,61 @@ class PDFController extends Controller
 
 	public function generatePDF_evaluation(Request $request)
 	{      
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
 
-		date_default_timezone_set('Asia/Bangkok');
 		$department          = $request->has('department') ? $request->get('department') : '';
         $topic_name          = $request->has('topic_name') ? $request->get('topic_name') : ''; // ส่งค่ามาเป็น id_topic
+        $id_employee         = $request->has('id_employee') ? '' : $request->get('id_employee');
         $start_date          = $request->get('start_date');
         $new_start_date      = date("Y-m-d", strtotime($start_date));
         $end_date            = $request->get('end_date');
         $new_end_date        = date("Y-m-d", strtotime($end_date));
         $start_number        = $request->get('start_number');
         $end_number          = $request->get('end_number');
-        $getDate 			 = date("Y-m-d");
-		$getTime			 = date("h:i:sa");
+        $getDate            = date("Y-m-d");
+        $getTime            = date("h:i:sa");
 
-        // $name_evaluation    = CreateEvaluation::where('id_topic', $topic_name)->get();
-        // sd($name_evaluation);
         $topic_names  = CreateEvaluation::where('status', 1)->where('id_topic',$topic_name)->get();
-        // sd($topic_names->toArray());
-
-        if(empty($department)){// กรณีเลือกทุกแผนก
-            if(empty($topic_name)){ // กรณีเลือกทุกหัวข้อ
-                if(empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "1";
-                    $emp_evaluation = Evaluation::with('employee')->orderBy('id_assessor', 'asc')->get();
-                }else if(empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "2";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '<=', $end_number)->orderBy('percent', 'asc')->get();
-                }else if(empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "3";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '>=', $start_number)->orderBy('percent', 'asc')->get();
-                }else if(empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "4";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '<=', $new_end_date)->orderBy('id_assessor', 'asc')->get();
-                    //sd($emp_evaluation->toArray());
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "5";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->orderBy('id_assessor', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "6";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '>=', $end_number)->orderBy('id_assessor', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "7";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '<=', $start_number)->orderBy('id_assessor', 'asc')->get();
-                }elseif(!empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "8";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->orderBy('id_assessor', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "9";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '>=', $end_number)->orderBy('id_assessor', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "10";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '<=', $start_number)->orderBy('id_assessor', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && !empty($end_number)){
-                    //echo "11";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->whereBetween('percent', [$start_number, $end_number])->orderBy('id_assessor', 'asc')->get();
+        $emp_evaluation     = Evaluation::with('employee.position','resultevaluation', 'createevaluation');
+          if(!empty($department)){
+                    $emp_evaluation =   $emp_evaluation->with(['employee.department' => function($q) use($department){
+                        $q->where('id_department', $department);
+                    }]);
+                } else{
+                    $emp_evaluation = $emp_evaluation->with('employee.department');
                 }
-            }else{ // กรณีระบุหัวเรื่องการประเมิน
-                if(empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "1";
-                    $emp_evaluation = Evaluation::with('employee')->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "2";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '<=', $end_number)->orderBy('percent', 'asc')->where('id_topic', $topic_name)->get();
-                }else if(empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "3";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '>=', $start_number)->where('id_topic', $topic_name)->orderBy('percent', 'asc')->get();
-                }else if(empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "4";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '<=', $new_end_date)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "5";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "6";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '>=', $end_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "7";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->where('date', '>=', $new_start_date)->where('percent', '<=', $start_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }elseif(!empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "8";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "9";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '>=', $end_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "10";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '<=', $start_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && !empty($end_number)){
-                    //echo "11";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')->whereBetween('date', [$new_start_date,$new_end_date])->whereBetween('percent', [$start_number, $end_number])->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }
-            }
-        }else{ // กรณีเลือกแผนก
-            if(empty($topic_name)){ // กรณีเลือกทุกหัวข้อ
-                if(empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    $emp_evaluation = Evaluation::with('employee')
-                                    ->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->orderBy('date', 'asc')->get();
 
-                }else if(empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "2";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('percent', '<=', $end_number)->orderBy('percent', 'asc')->get();
-
-                }else if(empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "3";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('percent', '>=', $start_number)->orderBy('percent', 'asc')->get();
-
-                }else if(empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "4";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '<=', $new_end_date)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "5";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '>=', $new_start_date)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "6";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '>=', $new_start_date)->where('percent', '>=', $end_number)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "7";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '>=', $new_start_date)->where('percent', '<=', $start_number)->orderBy('date', 'asc')->get();
-                }elseif(!empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "8";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "9";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '>=', $end_number)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "10";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '<=', $start_number)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && !empty($end_number)){
-                    //echo "11";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->whereBetween('percent', [$start_number, $end_number])->orderBy('date', 'asc')->get();
+                if(!empty($topic_name)){
+                    $emp_evaluation = $emp_evaluation->where('id_topic', $topic_name);
                 }
-            }else{ // กรณีระบุหัวเรื่องการประเมิน
-                if(empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "1";
-                    $emp_evaluation = Evaluation::with('employee')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "2";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->where('percent', '<=', $end_number)->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "3";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('percent', '>=', $start_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "4";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '<=', $new_end_date)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "5";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '>=', $new_start_date)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "6";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '>=', $new_start_date)->where('percent', '>=', $end_number)->where('id_topic', $topic_name)->orderBy('date', 'desc')->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "7";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->where('date', '>=', $new_start_date)->where('percent', '<=', $start_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && empty($start_number) && empty($end_number)){
-                    //echo "8";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && empty($start_number) && !empty($end_number)){
-                    //echo "9";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '>=', $end_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && empty($end_number)){
-                    //echo "10";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->where('percent', '<=', $start_number)->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
-                }else if(!empty($start_date) && !empty($end_date) && !empty($start_number) && !empty($end_number)){
-                    //echo "11";
-                    $emp_evaluation = Evaluation::with('employee', 'employee.position', 'resultevaluation', 'createevaluation')->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                    }])->whereBetween('date', [$new_start_date,$new_end_date])->whereBetween('percent', [$start_number, $end_number])->where('id_topic', $topic_name)->orderBy('date', 'asc')->get();
+
+                if(!empty($id_employee)){
+                    $emp_evaluation = $emp_evaluation->where('id_assessor', $id_employee);
                 }
-            }
-        }
+
+                if(!empty($start_date)){
+                    $emp_evaluation = $emp_evaluation->where('date', '>=', $new_start_date);
+                }
+
+                if(!empty($end_date)){
+                    $emp_evaluation = $emp_evaluation->where('date', '<=', $new_end_date);
+                }
+
+                if(!empty($start_number)){
+                    $emp_evaluation = $emp_evaluation->where('percent', '>=', $start_number);
+                    $emp_evaluation = $emp_evaluation->orderBy('percent', 'desc');
+                }
+
+                if(!empty($end_number)){
+                    $emp_evaluation = $emp_evaluation->where('percent', '<=', $end_number);
+                    $emp_evaluation = $emp_evaluation->orderBy('percent', 'desc');
+                }
+                $emp_evaluation = $emp_evaluation->orderBy('id_assessor', 'asc')->get();
+
+ // $emp_evaluation1     = Evaluation::with('employee.position','resultevaluation', 'createevaluation','employee.department')->get();
+// sd( $emp_evaluation->toArray());
 
 
         $array_assessment = array();
@@ -338,7 +182,6 @@ class PDFController extends Controller
             $array_assessment[] = $value->id_assessment_person;
             $array_id_topic[]   = $value->id_topic;
         }
-
         $count_assessment       = count($array_assessment);
         $count_first_name       = [];
         $count_last_name        = [];
@@ -426,130 +269,53 @@ class PDFController extends Controller
 	public function generatePDF_time_stamp(Request $request)
 	{
 		date_default_timezone_set('Asia/Bangkok');
-		$department        	= $request->has('department') ? $request->get('department') : '';
-        $start_date        	= $request->get('start_date');
-        $new_start_date    	= date("Y-m-d", strtotime($start_date));
-        $end_date          	= $request->get('end_date');
-        $new_end_date      	= date("Y-m-d", strtotime($end_date));
-        $start_time        	= $request->get('start_time');
-        $new_start_time    	= date("H:i:s", strtotime($start_time));
-        $end_time          	= $request->get('end_time');
-        $new_end_time      	= date("H:i:s", strtotime($end_time));
-        $getDate 			= date("Y-m-d");
-		$getTime			= date("h:i:sa");
+        $department          = $request->has('department') ? $request->get('department') : '';
+        $id_employee         = $request->get('id_employee');
+        $start_date          = $request->get('start_date');
+        $new_start_date      = date("Y-m-d", strtotime($start_date));
+        $end_date            = $request->get('end_date');
+        $new_end_date        = date("Y-m-d", strtotime($end_date));
+        $start_time          = $request->get('start_time');
+        $new_start_time      = date("H:i:s", strtotime($start_time));
+        $end_time            = $request->get('end_time');
+        $new_end_time        = date("H:i:s", strtotime($end_time));
+        $getDate            = date("Y-m-d");
+        $getTime            = date("h:i:sa");
+        $get_department_name = Department::where('id_department',$department)->get();
 
-        if(empty($department)){
-            if(!empty($start_date) && !empty($end_date) && !empty($start_time) && !empty($end_time) ){ // ใส่ค่าทั้ง 4 ช่อง
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
+        $emp_timestamp     = TimeStamp::with('employee.position');
 
-            }else if(!empty($start_date) && !empty($end_date) && !empty($start_time)){
-               $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date) && !empty($end_date) && !empty($end_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date) && !empty($end_date)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->whereBetween('date', [$new_start_date,$new_end_date])->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date) && !empty($start_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '>=', $new_start_date)->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date) && !empty($end_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '>=', $new_start_date)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($end_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('time_out', '<=', $new_end_time)->orderBy('time_out', 'asc')->get();
-
-            }else if(!empty($start_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('time_in', '>=', $new_start_time)->orderBy('time_in', 'asc')->get();
-
-            }else if(!empty($end_date)){
-                //echo "3";
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '<=', $new_end_date)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->where('date', '>=', $new_start_date)->orderBy('date', 'asc')->get();
-
-            }else{
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
-            }
-            //$emp_timestamp   = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
-        }else{ 
-            if(!empty($start_date) && !empty($end_date) && !empty($start_time) && !empty($end_time) ){ // ใส่ค่าทั้ง 4 ช่อง
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                                ->with(['employee.department' => function($q) use($department){
-                                                        $q->where('id_department', $department);}])
-                                                ->whereBetween('date', [$new_start_date,$new_end_date])
-                                                ->where('time_in', '>=', $new_start_time)
-                                                ->where('time_out', '<', $new_end_time)
-                                                ->orderBy('date', 'asc')
-                                                ->get();
-
-            }else if(!empty($start_date) && !empty($end_date) && !empty($start_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
+        if(!empty($department)){
+            $emp_timestamp =   $emp_timestamp->with(['employee.department' => function($q) use($department){
                 $q->where('id_department', $department);
-                }])->whereBetween('date', [$new_start_date,$new_end_date])->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
-               
-            }else if(!empty($start_date) && !empty($end_date) && !empty($end_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
-                $q->where('id_department', $department);
-                }])->whereBetween('date', [$new_start_date,$new_end_date])->where('time_out', '<=', $new_end_time)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date) && !empty($end_date)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
-                $q->where('id_department', $department);
-                }])->whereBetween('date', [$new_start_date,$new_end_date])->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date) && !empty($start_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
-                $q->where('id_department', $department);
-                }])->where('date', '>=', $new_start_date)->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($start_date) && !empty($end_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
-                $q->where('id_department', $department);
-                }])->where('date', '>=', $new_start_date)->where('time_out', '<', $new_end_time)->orderBy('date', 'asc')->get();
-
-            }else if(!empty($end_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
-                $q->where('id_department', $department);
-                }])->where('time_out', '<', $new_end_time)->orderBy('date', 'desc')->get();
-
-            }else if(!empty($start_time)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
-                $q->where('id_department', $department);
-                }])->where('time_in', '>=', $new_start_time)->orderBy('date', 'asc')->get();
-                //echo "4";
-            }else if(!empty($end_date)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                ->with(['employee.department' => function($q) use($department){
-                $q->where('id_department', $department);
-                }])->where('date', '<=', $new_end_date)->orderBy('date', 'desc')->get();
-
-            }else if(!empty($start_date)){
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                        ->with(['employee.department' => function($q) use($department){
-                                            $q->where('id_department', $department);
-                                        }])->where('date', '>=', $new_start_date)->orderBy('date', 'desc')->get();
-
-            }else{
-                $emp_timestamp   = TimeStamp::with('employee', 'employee.position')
-                                    ->with(['employee.department' => function($q) use($department){
-                                        $q->where('id_department', $department);
-                                        }])
-                                    ->orderBy('date', 'desc')->get();
-             
-            }
+            }]);
+        } else{
+            $emp_timestamp = $emp_timestamp->with('employee.department');
         }
 
-        $get_department_name = Department::where('id_department',$department)->get();
+        if(!empty($id_employee)){
+            $emp_timestamp = $emp_timestamp->where('id_employee', $id_employee);
+        }
+
+        if(!empty($start_date)){
+            $emp_timestamp = $emp_timestamp->where('date', '>=', $new_start_date);
+        }
+
+        if(!empty($end_date)){
+            $emp_timestamp = $emp_timestamp->where('date', '<=', $new_end_date);
+        }
+
+        if(!empty($start_time)){
+            $emp_timestamp = $emp_timestamp->where('time_in', '>=', $new_start_time);
+        }
+
+        if(!empty($end_time)){
+            $emp_timestamp = $emp_timestamp->where('time_out', '<=', $new_end_time);
+        }
+
+        $emp_timestamp = $emp_timestamp->orderBy('date', 'asc');
+        $emp_timestamp = $emp_timestamp->get();
+
 
 		$pdf = PDF::loadView('report.pdf.pdf_time_stamp', compact('emp_timestamp','department','start_date','new_start_date','end_date','new_end_date','start_time','new_start_time','end_time','new_end_time','getDate','getTime','get_department_name'));
 

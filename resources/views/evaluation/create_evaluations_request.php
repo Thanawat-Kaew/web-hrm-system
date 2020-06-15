@@ -7,20 +7,7 @@
 <section class="content">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="box box-danger">
-				<div class="box-header">
-					รายการขออนุมัติ
-					<div class="box-tools">
-						<div class="input-group input-group-sm" style="width: 150px;">
-							<input type="text" id="myInput" name="table_search" class="form-control pull-right" placeholder="ค้นหาชื่อแบบประเมิน" style="width: auto;">
-
-							<div class="input-group-btn">
-								<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-
+			<div class="box box-danger"><br>
 				<div class="box-body table-responsive no-padding">
 					<table id="myTable" class="table table-hover table-striped table-bordered">
 						<thead>
@@ -37,7 +24,6 @@
 							</tr>
 						</thead>
 
-						<tbody>
 							<?php $no = 0;?>
 							<?php foreach($evaluations as $value):?>
 							<?php $no++;?>
@@ -66,7 +52,6 @@
 								</td>
 							</tr>
 							<?php endforeach ?>
-						</tbody>
 					</table>
 				</div>
 			</div>

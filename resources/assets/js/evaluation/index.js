@@ -5,6 +5,8 @@ $(document).ready(function(){
     	$(this).alert('close');
 	});
 
+	$('#myTable').DataTable();
+
 	$('.assessment').click(function(){
 		/*var id = $(this).data('id');
 		//console.log(id);
@@ -27,7 +29,6 @@ $(document).ready(function(){
 	});
 
 	$('#myTable').on('click','.view-create-evaluation',function(){
-
 		var id = $(this).data('id_view');
 
 		$.ajax({
@@ -46,7 +47,7 @@ $(document).ready(function(){
         })
 	})
 
-	$('.post-confirm-send-create-evaluation').click(function(){  // กด อนุมัติ
+	$('.table').on('click','.post-confirm-send-create-evaluation',function(){
 		// alert("confirm");
 		var id = $(this).data('id');
 		Swal.fire({
@@ -109,7 +110,7 @@ $(document).ready(function(){
 		})
 	})*/
 
-	$('.btn-remove-topic').click(function(){
+	$('.table').on('click','.btn-remove-topic',function(){	
 		var url = $(this).data('href');
 		Swal.fire(
 		{
@@ -172,8 +173,8 @@ $(document).ready(function(){
 	})
 
 	$('.start_date, .end_date').datepicker({format: "yyyy-mm-dd"});
-
-	$('.set_time').click(function(){
+	
+	$('.table').on('click','.set_time',function(){	
 		var id_topic = $(this).data('id_topic');
 		//console.log(id_topic);
 		 $.ajax({
