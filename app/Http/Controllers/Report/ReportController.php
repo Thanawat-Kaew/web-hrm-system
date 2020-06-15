@@ -49,12 +49,12 @@ class ReportController extends Controller
 
     public function request_data_visualization(Request $request)
     {
-        // d($request->all());
+        // sd($request->all());
         $select_format          = $request->get('select_format');
         $request_department1    = $request->get('request_department1');
         $id_employee            = $request->get('name_employee');
         $request_department2    = $request->get('request_department2');
-        $list_topic_evals       = $request->get('list_topic_evals');
+        $list_topic_evals2       = $request->get('list_topic_evals2');
 
         if ($select_format == '1') { //รายบุคคล
             $request_data = Evaluation::with(['employee' => function ($q) use ($id_employee,$request_department1){
@@ -90,7 +90,7 @@ class ReportController extends Controller
 
         // }
         if($select_format == '3'){ //รายบริษัท
-            $request_data = Evaluation::with('createevaluation')->get();
+            $request_data = Evaluation::where('id_topic',$list_topic_evals2)->with('createevaluation')->get();
 
                 //   $request_data = DB::table('evaluation','createevaluation')
                 // ->select(DB::raw('count(evaluation.id_assessor) as total_assessor'),'evaluation.id_topic')

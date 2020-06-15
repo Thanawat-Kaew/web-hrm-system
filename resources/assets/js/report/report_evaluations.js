@@ -239,11 +239,11 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		$('#one_company').on('ifChecked', function(event){
 			$('.one_company').removeClass('hide');
-			//$('.list_topic_evals').addClass('required');
+			$('.list_topic_evals2').addClass('required');
 
 		}).on('ifUnchecked', function(event){
 			$('.one_company').addClass('hide');
-			//$('.list_topic_evals').removeClass('required');
+			$('.list_topic_evals2').removeClass('required');
 
 		});
 
@@ -316,7 +316,7 @@ function sendRequest(form, title){
 	var request_department1 = $('#report_department').val();
 	var name_employee  		= $('#list_name_employee').val();
 	var request_department2 = $('#report_department1').val();
-	var list_topic_evals 	= $('#list_topic_evals').val();
+	var list_topic_evals2 	= $('#list_topic_evals2').val();
 
 	// if (request_department1 != "") {
 	// 	if (name_employee == "") {
@@ -349,11 +349,11 @@ function sendRequest(form, title){
     if(count > 0) {
     	showDialog(form, title, oldValue,oldCheck);
     } else {
-    	requestDataVisualization(form, title, oldValue,select_format,request_department1,name_employee,request_department2,list_topic_evals);
+    	requestDataVisualization(form, title, oldValue,select_format,request_department1,name_employee,request_department2,list_topic_evals2);
     }
 }
 
-function requestDataVisualization(form, title, oldValue,select_format,request_department1,name_employee,request_department2,list_topic_evals){
+function requestDataVisualization(form, title, oldValue,select_format,request_department1,name_employee,request_department2,list_topic_evals2){
 	$.ajax({
 		headers : {'X-CSRF-TOKEN': $('input[name=_token').attr('value')},
 		type    : 'POST',
@@ -363,7 +363,7 @@ function requestDataVisualization(form, title, oldValue,select_format,request_de
 			request_department1 : request_department1,
 			name_employee      	: name_employee,
 			request_department2	: request_department2,
-			list_topic_evals	: list_topic_evals
+			list_topic_evals2	: list_topic_evals2
 		},
 		success: function(result){
 			if(result.status == "success"){
