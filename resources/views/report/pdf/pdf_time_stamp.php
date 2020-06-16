@@ -93,7 +93,7 @@
 </script>
 
 <h1 style="font-size: 50px;">TIME-STAMP REPORT 
-	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?>  <?php //echo $getTime ?></p>
+	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?> | <?php echo $getTime ?></p>
 </h1>
 <hr>
 <h4 style="font-size: 20px;">Department : 

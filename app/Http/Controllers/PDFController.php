@@ -40,6 +40,8 @@ class PDFController extends Controller
         date_default_timezone_set('Asia/Bangkok');
         $id_departments     = $request->get('id_department');
         $getDate            = date("Y-m-d");
+        $getTime            = date("h:i:s");
+
 
         if ($id_departments == "") {
             $employee       = Employee::with('department','position','education')
@@ -53,7 +55,7 @@ class PDFController extends Controller
                                             ->with('department')
                                             ->get();
 
-            $pdf            = PDF::loadView('data_management.dump_emp',compact('employee','id_departments','get_count_dept','getDate'));
+            $pdf            = PDF::loadView('data_management.dump_emp',compact('employee','id_departments','get_count_dept','getDate','getTime'));
 
         return $pdf->stream("dump_emp_all.pdf");
 
@@ -77,7 +79,7 @@ class PDFController extends Controller
                                             ->with('department')
                                             ->get();
 
-            $pdf             = PDF::loadView('data_management.dump_emp',compact('employee','employee_all','id_departments','get_count_dept','getDate'));
+            $pdf             = PDF::loadView('data_management.dump_emp',compact('employee','employee_all','id_departments','get_count_dept','getDate','getTime'));
 
         return $pdf->stream("dump_emp.pdf");
         }
@@ -91,6 +93,8 @@ class PDFController extends Controller
 
         date_default_timezone_set('Asia/Bangkok');
         $getDate            = date("Y-m-d");
+        $getTime            = date("h:i:s");
+
 
         $name_department    = Department::with('employee')
                                             ->where('id_department', $current_employee['id_department'])
@@ -112,7 +116,7 @@ class PDFController extends Controller
 
         $get_topic_detail   = CreateEvaluation::where('id_topic',$id_topic_)->first();
 
-        $pdf                = PDF::loadView('evaluation.view_score',compact('getDate','emp_evaluation','list_name','id_topic', 'count_array_list_name', 'keep_array_list_name','evaluations','get_topic_detail','current_employee','name_department'));
+        $pdf                = PDF::loadView('evaluation.view_score',compact('getDate','emp_evaluation','list_name','id_topic', 'count_array_list_name', 'keep_array_list_name','evaluations','get_topic_detail','current_employee','name_department','getTime'));
 
         return $pdf->stream("view_score.pdf");
     }
@@ -122,6 +126,7 @@ class PDFController extends Controller
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
+        date_default_timezone_set('Asia/Bangkok');
 
 		$department          = $request->has('department') ? $request->get('department') : '';
         $topic_name          = $request->has('topic_name') ? $request->get('topic_name') : ''; // ส่งค่ามาเป็น id_topic
@@ -133,7 +138,7 @@ class PDFController extends Controller
         $start_number        = $request->get('start_number');
         $end_number          = $request->get('end_number');
         $getDate            = date("Y-m-d");
-        $getTime            = date("h:i:sa");
+        $getTime            = date("h:i:s");
 
         $topic_names  = CreateEvaluation::where('status', 1)->where('id_topic',$topic_name)->get();
         $emp_evaluation     = Evaluation::with('employee.position','resultevaluation', 'createevaluation');
@@ -219,7 +224,7 @@ class PDFController extends Controller
 		$end_date           = $request->get('end_date');
 		$new_end_date       = date("Y-m-d", strtotime($end_date));
 		$getDate 			= date("Y-m-d");
-		$getTime			= date("h:i:sa");
+		$getTime			= date("h:i:s");
         $id_employee_select = $request->get('id_employee');
 
 		$emp_leaves   	= Leaves::with('employee.position');
@@ -280,7 +285,7 @@ class PDFController extends Controller
         $end_time            = $request->get('end_time');
         $new_end_time        = date("H:i:s", strtotime($end_time));
         $getDate            = date("Y-m-d");
-        $getTime            = date("h:i:sa");
+        $getTime            = date("h:i:s");
         $get_department_name = Department::where('id_department',$department)->get();
 
         $emp_timestamp     = TimeStamp::with('employee.position');
