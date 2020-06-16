@@ -27,11 +27,11 @@
 									<option value="<?php echo $departments['id_department']?>"><?php echo $departments['name']?></option>
 								<?php endforeach ?>
 								</select>
-					
+
 							<?php }else{?> <!-- ไม่ใช่แผนก hr -->
 									<input type="text" style="border-radius: 5px;" readonly class="form-control hide"value="<?php echo $current_employee['id_department']?>" id="report-department">
 									<input type="text" style="border-radius: 5px;" readonly class="form-control"value="<?php echo $department['name']?>">
-									
+
 							<?php }?>
 							</div>
 						</div>
@@ -59,7 +59,7 @@
 									<option value="">เลือกชื่อพนักงาน...</option>
 								</select>
 						<?php }?>
-						
+
 					</div>
 				</div>
 				<div class="box-body">

@@ -61,6 +61,7 @@ $(document).ready(function(){
 		var end_date    = $('#select_end_date').val();
 		var start_time  = $('#select_start_time').val();
 		var id_employee = $('#name_employee').val();
+		//console.log(id_employee);
 		var end_time    = $('#select_end_time').val();
 		console.log("department  ="+department);
 		console.log('start_date  ='+start_date);

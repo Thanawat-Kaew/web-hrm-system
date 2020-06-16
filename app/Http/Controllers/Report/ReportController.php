@@ -277,7 +277,9 @@ class ReportController extends Controller
         switch ($method) {
             case 'getFormTimestampWhenChangeDepartment':
                 $department          = $request->has('department') ? $request->get('department') : '';
+                //sd($department);
                 $id_employee         = $request->get('id_employee');
+                //sd($id_employee);
                 $start_date          = $request->get('start_date');
                 $new_start_date      = date("Y-m-d", strtotime($start_date));
                 $end_date            = $request->get('end_date');

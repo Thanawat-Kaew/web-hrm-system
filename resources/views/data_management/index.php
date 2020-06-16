@@ -44,7 +44,7 @@
                         <!-- /.widget-user-image -->
                         <div class="group-image" align="center" valign="center">
                             <?php if(!empty($header->image)){?> <!-- ถ้ามีรูป  -->
-                            <img src="/public/image/<?php echo $header->image?>" class="user-image img-circle" alt="User Image" style="width: 128px; height: 128px;">
+                            <img src="/public/image/<?php echo $header->image."?t=".time()?>" class="user-image img-circle" alt="User Image" style="width: 128px; height: 128px;">
                             <?php /*echo "มีรูป";*/ ?>
                             <?php }else{?> <!-- ถ้าไม่มีรุป -->
                             <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
@@ -85,7 +85,7 @@
                                 <!-- /.widget-user-image -->
                                 <div class="group-image" align="center" valign="center">
                                     <?php if(!empty($value->image)){?> <!-- ถ้ามีรูป  -->
-                                    <img src="/public/image/<?php echo $value->image ?>" class="user-image img-circle" alt="User Image" style="width: 120px; height: 120px;">
+                                    <img src="/public/image/<?php echo $value->image."?t=".time() ?>" class="user-image img-circle" alt="User Image" style="width: 120px; height: 120px;">
                                     <?php }else{?> <!-- ถ้าไม่มีรุป -->
                                     <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
                                 <?php } ?>
