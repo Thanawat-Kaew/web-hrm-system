@@ -369,6 +369,7 @@ function saveAddHeader(form, title, oldValue,not_match){
 		data : form_data,
 		success: function(response){
 			var data_resp = jQuery.parseJSON(response);
+			console.log(data_resp)
 			if(data_resp.status == "success"){
 				Swal.fire(
 				{
@@ -382,6 +383,15 @@ function saveAddHeader(form, title, oldValue,not_match){
 					window.location.reload();
 
 				})
+			}else if(data_resp.status == "failed_add"){
+				Swal.fire(
+				{
+					//result.message1, result.message2,'warning'
+					title: "ไม่สามารถเพิ่มหัวหน้าแผนกนี้ได้เนื่องจากแผนกนี้มีหัวหน้าอยู่แล้ว",
+					type: 'failed',
+					showCancelButton: false,
+					confirmButtonText: 'ปิด'
+				});
 			}else{
 				showDialog(form, title, oldValue,not_match, data_resp.message);
 			}

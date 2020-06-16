@@ -16,7 +16,7 @@ class FormChangeDepartment
                 $form_head .='<!-- /.widget-user-image -->';
                 $form_head .='<div class="group-image" align="center" valign="center">';
                 if(!empty($value->image)){
-                    $form_head .='<img src="/public/image/'.$value->image.'">';
+                    $form_head .='<img src="/public/image/'.$value->image.'"?t="'.'time()">';
                     $form_head .='</div>';
                 }else{
                     $form_head .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
@@ -52,7 +52,7 @@ class FormChangeDepartment
                 $form_emp .='<!-- /.widget-user-image -->';
                 $form_emp .='<div class="group-image" align="center" valign="center">';
                 if(!empty($value->image)){
-                    $form_emp .='<img src="/public/image/'.$value->image.'">';
+                    $form_emp .='<img src="/public/image/'.$value->image.'"?t="'.'time()">';
                     $form_emp .='</div>';
                 }else{
                     $form_emp .='<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg">';

@@ -244,9 +244,25 @@ class AdminController extends Controller
             $employee->save();
         }else if($id_position == 2){ //แก้ไขตำแหน่งเป็นหัวหน้า
             $verify_header   = Employee::where('id_department', $id_department)->where('id_position', 2)->get();
+            //$verify_header   = Employee::where('id_department', $id_department)->where('id_position', 2)->first();
+            //sd($verify_header[0]->id_employee);
             $count_header    = $verify_header->count();
             if($count_header == 1){ //แสดงว่ามีหัวหน้าอยู่แล้ว ให้หัวหน้ามีได้แค่แผนกละ 1 คน
-                return ['status' => 'failed'];
+                if($id_employee == $verify_header[0]->id_employee){ // กรณีหัวหน้าแผนกแก้ไขรูปภาพ
+                    $employee               = Employee::find($id_employee);
+                    if(!empty($images)){
+                        if($_FILES['file_picture']['name'] != ''){  // ตรวจสอบไฟล์รูปภาพ
+                            $test = explode('.', $_FILES['file_picture']['name']); //แยกชื่อ
+                            $extension = end($test); // นามสกุลไฟล์
+                            $name = $employee->id_employee.'.'.$extension;
+                            $location = 'public/image/'.$name;
+                            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+                        }
+                        $employee->image            = $name;
+                    }
+                }else{
+                    return ['status' => 'failed'];
+                }
             }else{ // ยังไม่มีหัวหน้าที่แผนก
                 $employee               = Employee::find($id_employee);
                 $employee->id_position  = $id_position;
@@ -323,6 +339,7 @@ class AdminController extends Controller
         $count_header    = $verify_header->count();
         //sd($count_header);
         if($count_header == 1){ //แสดงว่ามีหัวหน้าอยู่แล้ว ให้หัวหน้ามีได้แค่แผนกละ 1 คน
+
            $error_department =   ["add-header-department" => "ไม่สามารถเพิ่มหัวหน้าแผนกนี้ได้เนื่องจากแผนกนี้มีหัวหน้าอยู่แล้ว"];
             return json_encode(['status' => 'failed_add', 'message' => $error_department]);
         }

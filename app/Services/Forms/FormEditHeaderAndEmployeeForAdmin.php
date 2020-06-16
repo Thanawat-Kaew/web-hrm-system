@@ -16,7 +16,7 @@ class FormEditHeaderAndEmployeeForAdmin
                             $form .= '<input type="file" id="inputfilepicture" value="">';
                         if(!empty($employee['image'])){
                             $form .= '<br><div id="targetLayer" align="center">';
-                                $form .= '<img class="image-preview" src="/public/image/'.$employee['image'].'" class="upload-preview" style="width: 120px; height: 120px;" >';
+                                $form .= '<img class="image-preview" src="/public/image/'.$employee['image'].'"?t="'.'time()" class="upload-preview" style="width: 120px; height: 120px;" >';
                             $form .= '</div>';
                         }else{
                             $form .= '<br><div id="targetLayer" align="center" >No Image</div>';
