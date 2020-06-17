@@ -116,7 +116,6 @@ $(document).ready(function(){
 		var end_number    = $('#end_number').val();
 		var id_employee   = $('#name_employee').val();
 
-
 		window.open('/pdf/generatePDF_Eval?department='+department+'&topic_name='+topic_name+'&start_date='+start_date+"&end_date="+end_date+"&start_number="+start_number+"&end_number="+end_number+"&id_employee="+id_employee,'_blank');
 	})
 
