@@ -101,7 +101,7 @@ class FormDataVisualization
 										$form .='<div class="form-group">';
 											$form .='<div class="form-group" data-select2-id="13">';
 												$form .='<select class="form-control list_topic_evals2 select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_topic_evals2">';
-											$form .='<option value=" ">เลือกหัวข้อแบบประเมิน...</option>';
+											$form .='<option value="">เลือกหัวข้อแบบประเมิน...</option>';
 
 												foreach ($list_topic_eval as $list_topic_evals) {
 													$form .='<option value="'.$list_topic_evals->id_topic.'">'.$list_topic_evals->topic_name.'</option>';
