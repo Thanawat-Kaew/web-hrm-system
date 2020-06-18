@@ -7,7 +7,8 @@ $(document).ready(function() {
 
 	$('#myTable').dataTable();
 
-	$('#myTable').on('click','.view-evaluation',function(){
+	// $('#myTable').on('click','.view-evaluation',function(){
+	$('.view-evaluation').click(function(){
 		msg_waiting();
 		alert('555');
 		var id_employee = $(this).data('id');
