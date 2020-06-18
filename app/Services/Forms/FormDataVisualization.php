@@ -47,7 +47,7 @@ class FormDataVisualization
 									$form .='<div class="col-md-4">';
 										$form .='<div class="form-group">';
 											$form .='<div class="form-group" data-select2-id="13">';
-												$form .='<select class="form-control select2 select2-hidden-accessible list_name_employee name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_name_employee">';
+												$form .='<select class="form-control select2 select2-hidden-accessible list_name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_name_employee">';
 											$form .='<option value="">เลือกแผนกก่อน...</option>';
 
 												foreach ($list_employee as $list_employees) {
@@ -92,6 +92,8 @@ class FormDataVisualization
 							$form .='<div class="one_company hide">';
 								// $form .='<label>กรุณาเลือกหัวข้อแบบประเมิน</label>';
 
+
+
 								$form .='<div class="form-group">';
 									$form .='<div class="col-md-9">';
 								$form .='<h3>กรุณาเลือกหัวข้อแบบประเมิน</h3>';
@@ -99,7 +101,7 @@ class FormDataVisualization
 										$form .='<div class="form-group">';
 											$form .='<div class="form-group" data-select2-id="13">';
 												$form .='<select class="form-control list_topic_evals2 select2 select2-hidden-accessible" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_topic_evals2">';
-											$form .='<option value="">เลือกหัวข้อแบบประเมิน...</option>';
+											$form .='<option value=" ">เลือกหัวข้อแบบประเมิน...</option>';
 
 												foreach ($list_topic_eval as $list_topic_evals) {
 													$form .='<option value="'.$list_topic_evals->id_topic.'">'.$list_topic_evals->topic_name.'</option>';
@@ -112,6 +114,8 @@ class FormDataVisualization
 								$form .='</div>';
 							$form .='</div>';
 						$form .='</div>';
+
+
 				// 	$form .='</div>';
 				// $form .='</div>';
 			$form .='</div>';
