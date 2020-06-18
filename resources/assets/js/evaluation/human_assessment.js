@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 	$('#myTable').on('click','.view-evaluation',function(){
 		msg_waiting();
-		//alert('555');
+		alert('555');
 		var id_employee = $(this).data('id');
 		var id_topic    = $(this).data('id_topic');
 		$.ajax({
