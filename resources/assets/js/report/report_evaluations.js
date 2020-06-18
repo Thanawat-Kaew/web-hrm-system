@@ -185,7 +185,7 @@ $(document).ready(function(){
 });
 
 function showDialog(form,title,oldValue='',oldCheck='',errors=''){
-	var box = bootbox.dialog({ 
+	var box = bootbox.dialog({
 		title: title,
 		message: form,
 		size: 'xlarge',
@@ -205,7 +205,7 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 				callback: function(){
 				}
 			}
-		}   
+		}
 	})
 
 	box.on("shown.bs.modal", function() {
@@ -279,7 +279,8 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 
 		$('.choice_department').change(function(){
 			var get_name_emp = $(this).val();
-			$('.name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
+			//console.log(get_name_emp);
+			//$('.name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
 
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
@@ -293,6 +294,7 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 					if(result.data !== ""){
 						$('.list_name_employee').removeClass('hide');
 						var list_data = result.data;
+						//console.log(list_data);
 						jQuery.each(list_data, function(k, v){
 							var name    = v.first_name+" "+v.last_name;
 							var id_name = v.id_employee;
@@ -330,6 +332,7 @@ function sendRequest(form, title){
     	var name = $(this).attr('id');
     	oldValue[name]= $(this).val();
     	if ($(this).val() =="") {
+    		console.log(name);
     		count++
     		$(this).css({"border" : "1px solid red"});
     	} else {
@@ -383,8 +386,8 @@ function requestDataVisualization(form, title, oldValue,select_format,request_de
 					})
 				msg_close();
 				box.on('shown.bs.modal', function(){
-					
-					
+
+
 				})
 			}
 

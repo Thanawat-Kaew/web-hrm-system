@@ -7,6 +7,10 @@ $(document).ready(function(){
 
 	$('#myTable').DataTable();
 
+	/*$('#myTable').DataTable( {
+        stateSave: true
+    });*/
+
 	$('.assessment').click(function(){
 		/*var id = $(this).data('id');
 		//console.log(id);
@@ -110,7 +114,7 @@ $(document).ready(function(){
 		})
 	})*/
 
-	$('.table').on('click','.btn-remove-topic',function(){	
+	$('.table').on('click','.btn-remove-topic',function(){
 		var url = $(this).data('href');
 		Swal.fire(
 		{
@@ -173,8 +177,8 @@ $(document).ready(function(){
 	})
 
 	$('.start_date, .end_date').datepicker({format: "yyyy-mm-dd"});
-	
-	$('.table').on('click','.set_time',function(){	
+
+	$('.table').on('click','.set_time',function(){
 		var id_topic = $(this).data('id_topic');
 		//console.log(id_topic);
 		 $.ajax({
