@@ -131,7 +131,7 @@
 				<td><?php echo $value2->id_assessor ?></td>
 				<td><?php echo $value2->from_the_full_score ?></td>
 				<td><?php echo $value2->result_evaluation ?></td>
-				<td style="color: red;"><?php echo ($value2->result_evaluation*100)/$value2->from_the_full_score ?>%</td>
+				<td style="color: red;"><?php echo round(($value2->result_evaluation*100)/$value2->from_the_full_score,2) ?>%</td>
 			</tr>
 			<?php endforeach ?>
 		</tbody>
