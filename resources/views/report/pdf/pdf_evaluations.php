@@ -93,7 +93,7 @@
 </script>
 
 <h1 style="font-size: 50px;">EVALUATION REPORT 
-	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?>  <?php //echo $getTime ?></p>
+	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?> | <?php echo $getTime ?></p>
 </h1>
 <hr>
 
@@ -122,7 +122,7 @@
 				<th>Department</th>
 				<th>Position</th>
 				<th>วันที่ประเมิน</th>
-				<th>ผู้ประเมิน</th>
+				<!-- <th>ผู้ประเมิน</th> -->
 				<th>หัวข้อการประเมิน</th>
 				<th>คะแนนการประเมิน</th>
 				<th>จากคะแนนเต็ม</th>
@@ -151,9 +151,9 @@
 				<td>
 					<?php echo $emp_evaluation[$i]->date ?>
 				</td>
-				<td style=" text-align: left; padding: 2px;">
-					<?php echo $count_first_name[$no] ?> <?php echo $count_last_name[$no] ?>
-				</td>
+				<!-- <td style=" text-align: left; padding: 2px;">
+					<?php //echo $count_first_name[$no] ?> <?php //echo $count_last_name[$no] ?>
+				</td> -->
 				<td style=" text-align: left; padding: 2px;">
 					<?php echo $count_name_evaluation[$no] ?>
 				</td>

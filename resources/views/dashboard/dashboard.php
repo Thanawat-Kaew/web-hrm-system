@@ -306,7 +306,7 @@
 				</div>
 			</div>
 			
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<div class="box box-warning">
 					<div class="box-header with-border">
 						<h3 class="box-title">พนักงานทั้งหมด/แผนก</h3>
@@ -314,7 +314,7 @@
 					<div class="box-body no-padding">
 						<div class="row">
 							<div class="col-md-12 col-xs-12">
-								<div id="container_deptp" style="height: 300px;"></div>
+								<div id="container_deptp" style="height: 400px;"></div>
 								<script type="text/javascript">
 									anychart.onDocumentReady(function () {
 										var chart = anychart.pie([
@@ -326,7 +326,7 @@
 										chart.title('Employees by Departments')
 										.radius('45%')
 										.innerRadius('40%');
-										chart.labels().fontSize(14);
+										chart.labels().fontSize(18);
 										chart.container('container_deptp');
 										chart.draw();
 									});
@@ -337,7 +337,7 @@
 				</div>
 			</div>
 
-			<div class="col-md-6">
+			<!-- <div class="col-md-6">
 				<div class="box box-warning">
 					<div class="box-header with-border">
 						<h3 class="box-title">สรุปการลงเวลาทำงานทั้งหมด</h3>
@@ -387,10 +387,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			</div> -->
+		<!-- </div> -->
 
-		<div class="col-md-12">
+	<!-- 	<div class="col-md-12">
 			<div class="box box-warning">
 				<div class="box-header with-border">
 					<h3 class="box-title">สรุปการลาทั้งหมด</h3>
@@ -476,7 +476,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </section>
 <div id="ajax-center-url" data-url="<?php echo route('dashboard.ajax_center.post')?>"></div>

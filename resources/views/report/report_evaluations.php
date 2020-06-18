@@ -75,8 +75,8 @@
 							</a>
 						</div>
 					</div>
-					<?php if($current_employee['id_department'] == "hr0001"){?>
-						<div class="col-md-3 hide div_list_name_employee">
+					<?php //if($current_employee['id_department'] == "hr0001"){?>
+						<!-- <div class="col-md-3 hide div_list_name_employee">
 							<div class="form-group">
 								<label>รายชื่อพนักงาน</label>
 								<div class="form-group" data-select2-id="13">
@@ -84,8 +84,8 @@
 									</select>
 								</div>
 							</div>
-						</div>
-						<?php }else if($current_employee['id_department'] != "hr0001"){?> <!-- ไม่ใช่แผนก hr -->
+						</div> -->
+						<?php if($current_employee['id_department'] != "hr0001"){?> <!-- ไม่ใช่แผนก hr -->
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>รายชื่อพนักงาน</label>
@@ -100,6 +100,17 @@
 							</div>
 						</div>
 					</div>
+				<?php }else {?>
+					<div class="col-md-3 hide div_list_name_employee">
+							<div class="form-group">
+								<label>รายชื่อพนักงาน</label>
+								<div class="form-group" data-select2-id="13">
+									<select class="form-control select2 select2-hidden-accessible hide list_name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						</div>
 				<?php }?>
 			</div>
 			<div class="box-body">

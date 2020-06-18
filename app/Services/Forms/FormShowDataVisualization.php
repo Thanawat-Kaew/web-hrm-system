@@ -22,7 +22,7 @@ class FormShowDataVisualization
 					        $form .='chart.title("กราฟสรุปผลแสดงช่วงค่าคะแนน/รายบุคคล");';
 					        $form .='chart.yAxis().title("Percentage of result");';
 					        $form .='var logScale = anychart.scales.log();';
-					        $form .='logScale.minimum(1).maximum(1000);';
+					        $form .='logScale.minimum(1).maximum(100);';
 					        $form .='chart.yScale(logScale);';
 					        $form .='var dataSet = anychart.data.set([';
 					        foreach ($request_data as $value) {
@@ -36,7 +36,7 @@ class FormShowDataVisualization
 
 					        	$form .='series.name("'.$value->employee->first_name.' '.$value->employee->last_name.'");';
 					    	}
-					        $form .='series.labels().enabled(true).anchor("left-bottom").padding(5);';
+					        $form .='series.labels().enabled(true).anchor("bottom-left").padding(5);';
 					        $form .='series.markers(true);';
 					        $form .='chart.legend().enabled(true).fontSize(13).padding([0, 0, 20, 0]);';
 					        $form .='chart.container("content_one_person");';

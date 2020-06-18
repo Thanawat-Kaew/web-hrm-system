@@ -94,12 +94,12 @@
 
 <?php if ($id_departments == "") {?>
 	<h1 style="font-size: 50px;">All employees 
-		<p style="font-size: 16px; text-align: right;"> Exported Date : <?php echo $getDate ?></p>
+		<p style="font-size: 16px; text-align: right;"> Exported : <?php echo $getDate ?> | <?php echo $getTime ?></p>
 	</h1>
 <?php } ?>
 <?php if ($id_departments != "") {?>
 	<h1 style="font-size: 50px;">employees 
-		<p style="font-size: 16px; text-align: right;"> Exported Date : <?php echo $getDate ?></p>
+		<p style="font-size: 16px; text-align: right;"> Exported : <?php echo $getDate ?> | <?php echo $getTime ?></p>
 	</h1>
 <?php } ?>
 <hr>
