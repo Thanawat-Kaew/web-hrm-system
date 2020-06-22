@@ -37,7 +37,10 @@ class FormShowDataVisualization
 						        $form .='chart.yAxis().labels().format("{%Value}{groupsSeparator: }");';
 						        $form .='chart.tooltip().positionMode("point");';
 						        $form .='chart.interactivity().hoverMode("by-x");';
-						        $form .='chart.xAxis().title("Evaluations.");';
+						        foreach ($request_data as $value2) {
+
+						        	$form .='chart.xAxis().title("คุณ '.$value2->employee->first_name.' '.$value2->employee->last_name.'");';
+						    	}
 						        $form .='chart.yAxis().title("Percentage of result.");';
 						        $form .='chart.container("content_one_person");';
 						        $form .='chart.draw();';
