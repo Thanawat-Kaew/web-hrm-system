@@ -124,7 +124,6 @@
 		</thead>
 		<?php $n = 1;?>
 		<tbody>
-			<?php sd($emp_evaluation->toArray());?>
 			<?php foreach ($emp_evaluation as $value2 ) :?>
 			<tr>
 				<td><?php echo $n++ ?></td>
