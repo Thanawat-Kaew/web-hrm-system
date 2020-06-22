@@ -8,7 +8,9 @@ $(document).ready(function(){
 	//console.log(hello(5));
 
 	$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 
 	$('.timePicker1').on('click', function(){

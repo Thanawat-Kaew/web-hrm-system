@@ -38,7 +38,9 @@ $(document).ready(function(){
 		})
 	})
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 	$('#myTable').on("click",'.delete-data', function(){
 		var url=$(this).data('href');

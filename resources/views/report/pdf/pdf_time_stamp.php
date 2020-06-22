@@ -152,14 +152,16 @@
 				<?php echo (!empty($emp_timestamp[$i]->time_out) ? $emp_timestamp[$i]->time_out : '-');?>
 			</td>
 			<?php
-			$start 	= strtotime($emp_timestamp[$i]->time_in);
-			$end    = strtotime($emp_timestamp[$i]->time_out);
-			if(!empty($end)){
-				$total_hour = intval(($end - $start)/3600);
-				$mins = (int)(($end - $start) / 60);
-			}?>
-			<td style="color: green;"><?php echo (!empty($total_hour) ? $total_hour : '-')?>
-		</td>
+									$start 	= strtotime($emp_timestamp[$i]->time_in);
+									$end    = strtotime($emp_timestamp[$i]->time_out);
+									if(!empty($start) && !empty($end)){
+										$total_hour = intval(($end - $start)/3600);
+										$mins = (int)(($end - $start) / 60);
+								?>
+									<td style="color: red"><?php echo $total_hour?></td>
+								<?php }else{ ?>
+									<td style="color: red">-</td>
+								<?php } ?>
 	</tr>
 <?php } ?>
 <?php } ?> 

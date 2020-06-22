@@ -16,7 +16,9 @@ $(document).ready(function(){
 	})
 
 
-    $('#example').DataTable();
+    $('#example').DataTable({
+		stateSave : true
+	});
 
 	$('.time-clock').on('click', '.time_stamp', function(){ //Time Clock
 		msg_waiting()

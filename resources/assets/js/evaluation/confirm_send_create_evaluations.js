@@ -4,7 +4,9 @@ $(document).ready(function(){
     	$(this).alert('close');
 	});
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 	$('.table').on('click','.post-confirm-send-create-evaluation',function(){	
 		// alert("confirm");

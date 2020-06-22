@@ -1,5 +1,7 @@
 $(function(){
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 	$('.table').on('click','.view-data-request-time-stamp',function(){
 		msg_waiting()

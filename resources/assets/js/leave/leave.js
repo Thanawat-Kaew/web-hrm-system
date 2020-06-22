@@ -20,7 +20,9 @@ $(document).ready(function(){
         search_data_tbl();
     })
 
-    $('#myTable').dataTable();
+    $('#myTable').dataTable({
+        stateSave : true
+    });
 
     $('.view_holiday').on('click',function(){
         $.ajax({

@@ -92,8 +92,6 @@ class FormDataVisualization
 							$form .='<div class="one_company hide">';
 								// $form .='<label>กรุณาเลือกหัวข้อแบบประเมิน</label>';
 
-
-
 								$form .='<div class="form-group">';
 									$form .='<div class="col-md-9">';
 								$form .='<h3>กรุณาเลือกหัวข้อแบบประเมิน</h3>';

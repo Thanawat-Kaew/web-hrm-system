@@ -1,6 +1,8 @@
 $(document).ready(function() {
 
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+        stateSave : true
+    });
 
     $(".content").on('click',".btn-remove-topic", function(){ // ลบการประเมิน
         var id = $(this).data('id');
