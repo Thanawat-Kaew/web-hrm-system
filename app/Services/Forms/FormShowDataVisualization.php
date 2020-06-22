@@ -54,7 +54,7 @@ class FormShowDataVisualization
 						$form .='anychart.onDocumentReady(function () {';
 					        $form .='var chartData = {';
 					          $form .='title: "กราฟสรุปผลแสดงช่วงค่าคะแนน/รายบริษัท",';
-					          $form .='header: ["#", "0-39%", "40-59", "60-79%", "80-100%"],';
+					          $form .='header: ["#", "0-39%", "40-59%", "60-79%", "80-100%"],';
 					          $form .='rows: [';
 
 										foreach ($request_data as $value3) {
