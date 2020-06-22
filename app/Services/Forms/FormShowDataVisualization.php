@@ -90,6 +90,7 @@ class FormShowDataVisualization
 					          $form .='.offsetY(5)';
 					          $form .='.titleFormat("{%X}")';
 					          $form .='.format("{%SeriesName} : {%Value}{groupsSeparator: }");';
+					        $form .='chart.maxPointWidth("10%");';
 					        $form .='chart.container("content_one_department");';
 					        $form .='chart.draw();';
 					    $form .='});';

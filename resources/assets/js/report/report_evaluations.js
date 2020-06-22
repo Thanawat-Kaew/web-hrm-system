@@ -10,7 +10,9 @@ $(document).ready(function(){
 		getTimePicker($(this));
 	});
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 
 	$('.choice_department').change(function(){

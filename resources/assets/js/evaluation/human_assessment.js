@@ -5,7 +5,9 @@ $(document).ready(function() {
     	$(this).alert('close');
 	});
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 	// $('#myTable').on('click','.view-evaluation',function(){
 	$('.view-evaluation').click(function(){

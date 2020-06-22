@@ -1,5 +1,4 @@
 $(function(){
-
 	$('.list_emp').on('click',function(){
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
@@ -232,8 +231,10 @@ $(function(){
 			success:function(result){
 				if(result.data !== ""){
 					//console.log(result.data.form_emp);
-					$('#employee').html(result.data.form_emp);
+
+				    $('#employee').html(result.data.form_emp);
 					$('#header').html(result.data.form_head);
+
 					msg_close();
 				}
 			},
@@ -429,6 +430,8 @@ function editEmployee(form, title){
 		showDialog(form, title, oldValue,not_match);
 	}else{
 		if(count > 0) {
+			var not_match = false;
+
 			showDialog(form, title, oldValue,not_match);
 		}else{
 			if(password == confirm_password) {

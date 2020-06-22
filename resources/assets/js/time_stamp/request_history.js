@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 	$('.table').on('click','.view-request-timestamp',function(){	
 			var	id = $(this).data('id');

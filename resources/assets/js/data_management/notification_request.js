@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
     $('#myInput').keyup(function(){
         search_data_tbl();
