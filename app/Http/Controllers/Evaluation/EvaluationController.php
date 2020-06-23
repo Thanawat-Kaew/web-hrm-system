@@ -120,9 +120,44 @@ class EvaluationController extends Controller
 
     public function check_count_eval_emp() //หน้าเช็คว่าหัวหน้าประเมินพนักงานครบทุกคนหรือยัง
     {
-        $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
-        //sd($topic_data->toArray());
-        return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
+        session_start();
+        if(isset($_SESSION['status'])){ // กรณ๊เลือกแผนก
+            if(isset($_SESSION["get_session_topic"])){
+                $current_topic = $_SESSION["get_session_topic"];
+                $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
+                $department = Department::all();
+                $count_department    = $department->count(); // นับจำนวน department ว่ามีเท่าไร
+
+                    $employee = [];
+                    for($i=0; $i<$count_department; $i++){
+                        $employee[]         = Employee::with('department')->where('id_department', $department[$i]->id_department)->where('id_position', 1)->where('id_status', 1)->get(); // เก็บข้อมูลพนักงานแยกเป็นแผนก // เก๋บเฉพาะลูกน้อง
+                    }
+
+                    $count_by_department    = []; // เก็บจำนวนคนที่ประเมินแล้วแยกตามแผนก
+                    $count_emp              = 0;// นับพนักงานที่ประเมินแล้วตามหัวเรื่องนั้นๆ
+                    $emp_evaluation         = Evaluation::with('employee')
+                                            ->where('id_topic', $current_topic)
+                                            ->get();
+                    //sd($emp_evaluation->toArray());
+                    $count_emp_evaluation   = $emp_evaluation->count(); // นับจำนวนพนักงานที่ตรงกับหัวเรื่องประเมิน
+                    for($i=0; $i<$count_department; $i++){ // for loop ตามจำนวน แผนก
+                        for($j=0; $j<$count_emp_evaluation; $j++){ // for loop ตามจำนวนพนักงานที่ประเมินแล้วและหัวข้อตรงกับ current_topic
+                            if($emp_evaluation[$j]->employee->id_department == $department[$i]->id_department){
+                                $count_emp = $count_emp + 1; // ถ้า แผนกตรงกันก็ให้บวก+1 ไปเรื่อยๆตามจำนวนที่ตรงกัน
+                                $count_by_department["$i"] = $count_emp;  // แล้วเก็บจำนวนแยกตามแผนก
+                            }
+                        }
+                        $count_emp = 0; // reset ทุกครั่งที่เปลี่ยนแผนก
+                    }
+                return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data', 'current_topic', 'department', 'count_by_department', 'employee'));
+            }else{
+                $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
+                return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
+            }
+        }else{
+            $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
+            return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
+        }
     }
 
     public function postConfirmSendCreateEvaluation(Request $request) // เครื่องหมายติ๊กถูก
@@ -823,6 +858,21 @@ class EvaluationController extends Controller
     public function ajaxCenter(Request $request)
     {
     	$method = $request->get('method');
+
+        $get_session_topic = $request->has('id_topic') ? $request->get('id_topic') : '';
+        session_start();
+        if(!empty($get_session_topic)){ // ถ้าเลือกแผนกจะส่งรหัสแผนก
+            $_SESSION["get_session_topic"] = $get_session_topic;
+            $current_topic = $_SESSION["get_session_topic"];
+            $_SESSION['status'] = 1;
+            $status = $_SESSION['status'];
+        }else{
+            //$_SESSION["get_session_topic"] = $get_session_topic;
+            $current_topic = $get_session_topic;
+            $status =   1;
+            $_SESSION['status'] = $status;
+        }
+        //$_SESSION["get_session_topic"];
         switch ($method) {
             case 'getFormEvaluation':
 
@@ -962,7 +1012,8 @@ class EvaluationController extends Controller
 
                 $form_repo           = new FormCheckCountEvaluationEmployee; // ชื่อ page
                 $get_form_view_eva   = $form_repo->getFormCheckCountEvaluationEmployee($department, $employee, $count_by_department); // ชื่อ function ใน page
-                return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
+                //sd($current_topic);
+                return response()->json(['status'=> 'success','data'=> $get_form_view_eva, 'current_topic' => $current_topic]);
                 break;
 
             case 'getFormEmail': // Form กรอกข้อมูลของ email
@@ -973,6 +1024,7 @@ class EvaluationController extends Controller
                 $form_repo     = new FormEmail;
                 $get_form      = $form_repo->getFormEmail($reciver);
                 return response()->json(['status'=> 'success','data'=> $get_form]);
+                //return response()->json(['status'=> 'success','data'=> $get_form, 'current_topic' => $current_topic]);
                 break;
 
             default:

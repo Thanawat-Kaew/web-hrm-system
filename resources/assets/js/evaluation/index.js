@@ -5,11 +5,11 @@ $(document).ready(function(){
     	$(this).alert('close');
 	});
 
-	$('#myTable').DataTable();
+	//$('#myTable').DataTable();
 
-	/*$('#myTable').DataTable( {
+	$('#myTable').DataTable({
         stateSave: true
-    });*/
+    });
 
 	$('.assessment').click(function(){
 		/*var id = $(this).data('id');

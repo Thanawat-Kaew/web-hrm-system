@@ -40,12 +40,14 @@ $('.add-header').on('click', '.add-header-form', function(){
 		url: $('#ajax-center-url').data('url'),
 		data: {method : 'getFormAddHeader'},
 		success: function (result) {
+			//console.log(result.current_department);
+			var current_department = result.current_department;
 			var title = "<h4 style='color: red;'>เพิ่มหัวหน้าแผนก <small> | Add Header</small></h4>"
-			showDialog(result.data,title);
+			showDialog(result.data,title, current_department);
 			$('.upload_image').click(function(){
 				var form_data       = new FormData();
 				var file_picture   	= $('#inputfilepicture').prop('files')[0];
-				console.log(file_picture);
+				//console.log(file_picture);
 				form_data.append('file_picture', file_picture);
 				$("#targetLayer").empty();
 				$.ajax({
@@ -112,6 +114,8 @@ $('#header, #employee').on('click', '.manage-employee', function(){
 			'employee_id' : id
 		},
 		success: function (result) {
+			//console.log(result.current_department);
+			var current_department = result.current_department;
 			var box = bootbox.dialog({
 				title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
 				message: result.data,
@@ -132,14 +136,15 @@ $('#header, #employee').on('click', '.manage-employee', function(){
 							'id'     : id
 						},
 						success: function (result) {
+							//console.log(current_department);
 							var title = "<h4 style='color: red;'>แก้ไขข้อมูลหัวหน้าและพนักงาน<small> | Edit HeaderAndEmployee</small></h4>"
-							showDialog(result.data,title);
+							showDialog(result.data,title,current_department);
 							msg_close();
 								//console.log(id);
 								$('.upload_image').click(function(){
 									var form_data       = new FormData();
 									var file_picture   	= $('#inputfilepicture').prop('files')[0];
-									console.log(file_picture);
+									//console.log(file_picture);
 									form_data.append('file_picture', file_picture);
 									$("#targetLayer").empty();
 									$.ajax({
@@ -236,7 +241,7 @@ $('#header, #employee').on('click', '.manage-employee', function(){
 	})
 })
 
-function showDialog(form,title, oldValue='',not_match, errors=''){
+function showDialog(form,title,current_department, oldValue='',not_match, errors=''){
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
@@ -249,9 +254,9 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 				className: 'btn-info',
 				callback: function(){
 					if (title == "<h4 style='color: red;'>เพิ่มหัวหน้าแผนก <small> | Add Header</small></h4>") {
-						addHeader(form, title);
+						addHeader(form, title, current_department);
 					}else if(title == "<h4 style='color: red;'>แก้ไขข้อมูลหัวหน้าและพนักงาน<small> | Edit HeaderAndEmployee</small></h4>"){
-						editHeaderAndEmployee(form, title);
+						editHeaderAndEmployee(form, title,current_department);
 					}
 				}
 			},
@@ -265,6 +270,35 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 
 	})
 	box.on('shown.bs.modal', function(){
+
+		$('.upload_image').click(function(){
+			var form_data       = new FormData();
+			var file_picture   	= $('#inputfilepicture').prop('files')[0];
+			//console.log(file_picture);
+			form_data.append('file_picture', file_picture);
+			$("#targetLayer").empty();
+			$.ajax({
+				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+				type : 'POST',
+				cache       : false,
+				contentType : false,
+				processData : false,
+				url  : $('#upload-image-url').data('url'),
+				data : form_data,
+				success:function(result){
+					//console.log(result);
+					//console.log(result.data);
+					$("#targetLayer").html(result.data);
+				},
+				error : function(errors){
+					msg_close();
+					console.log(errors);
+				}
+			});
+		});
+
+
+
 		$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 		msg_close();
 		$('body').addClass('modal-open'); //scroll mouse
@@ -278,7 +312,7 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 				}
 			});
 		}
-
+		//console.log(not_match);
 		if(not_match){
 			$('#confirm_password-text-error').html("Please try password again").show();
 		}else{
@@ -295,7 +329,7 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 	})
 };
 
-function addHeader(form, title){
+function addHeader(form, title, current_department){
 	msg_waiting();
 	var count 			 = 0;
 	var oldValue 		 = {};
@@ -315,19 +349,25 @@ function addHeader(form, title){
 	// check match password
 	var not_match = true;
 	if(password != confirm_password) {
-		showDialog(form, title, oldValue,not_match);
+		//alert("1");
+		showDialog(form, title, current_department, oldValue,not_match);
 	}else{
 		if(count > 0) {
-			showDialog(form, title, oldValue,not_match);
+			var not_match = false;
+			//console.log("addHeader = "+not_match);
+			//alert("2");
+			showDialog(form, title, current_department, oldValue,not_match);
 		}else{
 			if(password == confirm_password) {
-				saveAddHeader(form, title, oldValue,not_match);
+				//alert("3");
+				saveAddHeader(form, title, current_department, oldValue,not_match);
 			}
 		}
 	}
 }
 
-function saveAddHeader(form, title, oldValue,not_match){
+function saveAddHeader(form, title, current_department, oldValue,not_match){
+	var current_department = current_department;
 	var form_data       = new FormData();
 	//var id_employee     = $('#id_employee').val();
 	var file_picture   	= $('#inputfilepicture').prop('files')[0];
@@ -367,11 +407,13 @@ function saveAddHeader(form, title, oldValue,not_match){
 		processData : false,
 		url  : $('#add-header-url').data('url'),
 		data : form_data,
-		success: function(response){
-			var data_resp = jQuery.parseJSON(response);
-			console.log(data_resp)
-			if(data_resp.status == "success"){
-				Swal.fire(
+		success: function(s){
+			//console.log(response.status);
+			var data_resp = jQuery.parseJSON(s);
+			alert(data_resp.status);
+			console.log(data_resp.status);
+			if(data_resp.status == "ok"){
+				/*Swal.fire(
 				{
 					title: 'คุณเพิ่มรายการนี้เรียบร้อย',
 					type: 'success',
@@ -380,10 +422,33 @@ function saveAddHeader(form, title, oldValue,not_match){
 
 				}).then((response) =>{
 
+
+				})*/
 					window.location.reload();
 
-				})
+				$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					url  : $('#ajax-center-url').data('url'),
+					data : {
+						'method' : 'getFormHeaderAndEmployeeWithDepartmentForAdmin',
+						'department': current_department
+					},
+					success:function(result){
+						if(result.data !== ""){
+							$('#employee').html(result.data.form_emp);
+							$('#header').html(result.data.form_head);
+							msg_close();
+						}
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});
+
 			}else if(data_resp.status == "failed_add"){
+				console.log(data_resp.message)
 				Swal.fire(
 				{
 					//result.message1, result.message2,'warning'
@@ -393,17 +458,21 @@ function saveAddHeader(form, title, oldValue,not_match){
 					confirmButtonText: 'ปิด'
 				});
 			}else{
-				showDialog(form, title, oldValue,not_match, data_resp.message);
+				console.log(data_resp.message)
+				alert("email ซ้ำ");
+				//showDialog(form, title, current_department,oldValue,not_match, response.message);
 			}
 		},
 		error: function(error){
+			//console.log(response);
+			console.log(error);
 			alert('Data not save');
 			msg_close();
 		}
 	});
 }
 
-function editHeaderAndEmployee(form, title){ // แก้ไขตำแหน่งของหัวหน้าหรือหนักงาน
+function editHeaderAndEmployee(form, title, current_department){ // แก้ไขตำแหน่งของหัวหน้าหรือหนักงาน
 	msg_waiting();
 	var count 			 = 0;
 	var oldValue 		 = {};
@@ -420,11 +489,12 @@ function editHeaderAndEmployee(form, title){ // แก้ไขตำแหน�
 	if(count > 0) {
 		showDialog(form, title, oldValue,not_match);
 	}else{
-		saveEditHeaderAndEmployee(oldValue);
+		saveEditHeaderAndEmployee(oldValue, current_department);
 	}
 }
 
-function saveEditHeaderAndEmployee(oldValue){
+function saveEditHeaderAndEmployee(oldValue, current_department){
+	var current_department = current_department;
 	var form_data       = new FormData();
 	var file_picture   	= $('#inputfilepicture').prop('files')[0];
 	var	id_employee 	= $('#id_employee').val();
@@ -470,6 +540,29 @@ function saveEditHeaderAndEmployee(oldValue){
 					window.location.reload();
 
 				})
+
+
+				$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					url  : $('#ajax-center-url').data('url'),
+					data : {
+						'method' : 'getFormHeaderAndEmployeeWithDepartmentForAdmin',
+						'department': current_department
+					},
+					success:function(result){
+						if(result.data !== ""){
+							$('#employee').html(result.data.form_emp);
+							$('#header').html(result.data.form_head);
+							msg_close();
+						}
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});
+
 			}
 			console.log(response);
 		},

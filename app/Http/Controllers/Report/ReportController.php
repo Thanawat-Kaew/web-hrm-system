@@ -44,6 +44,19 @@ class ReportController extends Controller
 {
 	public function index()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            //d($_SESSION['status']);
+            if(isset($_SESSION["get_session_dep"])){
+                //d($_SESSION["get_session_dep"]);
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                //d($_SESSION["get_session_topic"]);
+                unset($_SESSION["get_session_topic"]);
+            }
+            //session_destroy();
+        }//exit();
     	return $this->useTemplate('report.index');
     }
 
@@ -105,9 +118,9 @@ class ReportController extends Controller
 
         $form_repo       = new FormShowDataVisualization;
         $get_form_show_data_visual    = $form_repo->getFormShowDataVisualization($request_data,$select_format,$request_department2);
-            
+
         return response()->json(['status'=> 'success','data'=> $get_form_show_data_visual]);
-        
+
     }
 
     public function reportTimeStamp()

@@ -25,23 +25,75 @@ class DataManageController extends Controller
 {
 	public function index()
 	{
+        session_start();
         $department      = Department::all();
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
-            $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->where('id_position', 2)->first();
-            //sd($header->toArray());
-            $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
         }
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                $dept = $_SESSION["get_session_dep"];
+                $header     = Employee::with('department')->where('id_department', $dept)->where('id_status', 1)->where('id_position', 2)->first();
+
+                $employee     = Employee::with('department')->where('id_department', $dept)->where('id_status', 1)->get();
+            }else{
+                $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->where('id_position', 2)->first();
+                $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
+            }
+        $department_pdf = Department::all();
+        return $this->useTemplate('data_management.index', compact('department', 'employee', 'header','department_pdf', 'dept'));
+        }else{
+            $header     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->where('id_position', 2)->first();
+            $employee     = Employee::with('department')->where('id_department', $current_employee['id_department'])->where('id_status', 1)->get();
         $department_pdf = Department::all();
         return $this->useTemplate('data_management.index', compact('department', 'employee', 'header','department_pdf'));
+        }
     }
 
     public function ajaxCenter(Request $request)
     {
-    	$method = $request->get('method');
+    	$method          = $request->get('method');
+        $get_session_dep = $request->has('department') ? $request->get('department') : '' ;
+
+        session_start();
+        /*if(empty($get_session_dep)){
+            if(isset($_SESSION["get_session_dep"])){
+                //$_SESSION["get_session_dep"] = $_SESSION["get_session_dep"];
+                $current_department = $_SESSION["get_session_dep"];
+            }else{
+                //unset($_SESSION["get_session_dep"]);
+                $current_department = 0;
+            }
+            //$current_department = 0;
+        }else{
+            unset($_SESSION["get_session_dep"]);
+            $_SESSION["get_session_dep"] = $get_session_dep;
+            $current_department = $_SESSION["get_session_dep"];
+        }*/
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+
+        if(!empty($get_session_dep)){
+            $_SESSION["get_session_dep"] = $get_session_dep;
+            $current_department = $_SESSION["get_session_dep"];
+            $_SESSION['status'] = 1;
+            $status = $_SESSION['status'];
+        }else{
+            if(isset($_SESSION["get_session_dep"])){
+                $current_department = $_SESSION["get_session_dep"];
+                $status =   1;
+                $_SESSION['status'] = $status;
+            }else{
+                $current_department = $current_employee['id_department'];
+               // $_SESSION["get_session_dep"] = $current_employee['id_department'];
+                $status =   0;
+                $_SESSION['status'] = $status;
+            }
+        }
+        //sd($current_department);
         switch ($method) {
             case 'getFormAddEmployee':
-
                 $department     = Department::all();
                 //sd($current_employee['id_employee']);
                 $position       = Position::where('id_position', 1)->first();
@@ -50,11 +102,13 @@ class DataManageController extends Controller
                 //sd($education->toArray());
                 $form_repo      = new FormEmployee;
                 $form_add_emp   = $form_repo->getFormEmployee($department,$position,$education);
-                return response()->json(['status'=> 'success','data'=> $form_add_emp]);
+                //return response()->json(['status'=> 'success','data'=> $form_add_emp]);
+                return response()->json(['status'=> 'success','data'=> $form_add_emp, 'current_department' => $current_department]);
             break;
             case 'getFormEmployeeWithDepartment':
                     $department = $request->get('department');
-                    //sd($department); // en0001
+                    //sd($current_department);
+                    //sd($department);
                     $employee   = Employee::where('id_department', $department)->where('id_status', 1)->get();
                     $form_repo      = new FormChangeDepartment;
                     $get_form_emp   = $form_repo->getFormChangeDepartment($employee);
@@ -66,19 +120,30 @@ class DataManageController extends Controller
                 $get_data_employee = Employee::with('position', 'department')->where('id_employee', $employee_id)->first();
                 $form_repo          = new FormManageData;
                 $form_manage_data   = $form_repo->getManageData($get_data_employee);
-                return response()->json(['status'=> 'success','data'=> $form_manage_data]);
+               /* if(!empty($current_department)){
+                    return response()->json(['status'=> 'success','data'=> $form_manage_data , 'one' => $current_department]);
+                }else{
+                     return response()->json(['status'=> 'success','data'=> $form_manage_data, 'one' => $current_employee['id_department']]);
+                }*/
+                /*if(!empty($current_department)){
+                    return response()->json(['status'=> 'success','data'=> $form_manage_data, 'current_department' => $current_department]);
+                }else{
+                    return response()->json(['status'=> 'success','data'=> $form_manage_data]);
+                }*/
+                /*if($status == 1){*/
+                return response()->json(['status'=> 'success','data'=> $form_manage_data, 'current_department' => $current_department]);
+                /*}else{
+                    return response()->json(['status'=> 'success','data'=> $form_manage_data]);
+                }*/
+
                 break;
 
             case 'getFormEditEmployee': // แก้ไขหัวหน้าและพนักงาน หัวหน้า hr เป็นคนแก้ไข
                 $id             = $request->get('id');
                 $employee    = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
-                //sd($id);
-                //sd($employee->position['name']);
-                //sd($employee->toArray());
                 $department     = Department::all();
                 //$position       = Position::all();
                 $position       = Position::where('id_position', $employee['id_position'])->first();
-                //sd($position->name);
                 $education       = Education::all();
                 $form_repo      = new FormEmployee;
                 $form_edit_emp   = $form_repo->getFormEmployee($department,$position, $education, $employee);
@@ -142,12 +207,15 @@ class DataManageController extends Controller
                 # code...
             break;
         }
+    //session_destroy();
     }
+
 
     public function addEmployee(Request $request)
     {
         // get value from ajax function saveAddEmployee(oldValue)
         $images                  = $request->file("file_picture");
+        //sd($images);
         $id_department           = $request->get('department');
         $id_position             = $request->get('position');
         $first_name              = $request->get('fname');
@@ -240,16 +308,48 @@ class DataManageController extends Controller
 
         $find_id_employee        = Employee::where('email', $email)->first();
         $id_employee             = $find_id_employee['id_employee'];
-        if($_FILES['file_picture']['name'] != ''){
-            $test = explode('.', $_FILES['file_picture']['name']);
-            $extension = end($test);
-            $name = $id_employee.'.'.$extension;
-            $location = 'public/image/'.$name;
-            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        if(!empty($images)){
+            if($_FILES['file_picture']['name'] != ''){
+                $test = explode('.', $_FILES['file_picture']['name']);
+                $extension = end($test);
+                $name = $id_employee.'.'.$extension;
+                $location = 'public/image/'.$name;
+                move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+            }
+            $find_id_employee->image = $name;
         }
-        $find_id_employee->image = $name;
         $find_id_employee->save();
-        return json_encode(['status' => 'success', 'message' => 'success']);
+        //return json_encode(['status' => 'success', 'message' => 'success']);
+
+
+        /*$form_emp ='';
+        $form_emp .='<div class="col-md-3 col-sm-2">';
+            $form_emp .='<div class="box box-widget widget-user-2">';
+                $form_emp .='<div class="widget-user-header">';
+                $form_emp .='<!-- /.widget-user-image -->';
+                    $form_emp .='<div class="group-image employee_image'.$id_employee.'" align="center" valign="center">';
+                        $form_emp .='<img src="/public/image/'.$name.'"?t="'.'time()">';
+                    $form_emp .='</div>';
+                    $form_emp .='<div class="about-employee" id="employee">';
+                        $form_emp .='<p>รหัส  : <span>'.$id_employee.'</span></p>';
+                        $form_emp .='<p>ชื่อ   : <span>'.$first_name." ".$last_name.'</span></p>';
+                    $form_emp .='</div>';
+                $form_emp .='</div>';
+                $form_emp .='<div class="box-footer no-padding">';
+                    $form_emp .='<ul class="nav nav-stacked">';
+                        $form_emp .='<li class="manage-employee" data-form_id="'.$id_employee.'" data-form_position="'.$id_position.'" data-form_department="'.$id_department.'">';
+                            $form_emp .='<a style="margin: 5px border: 1px; color : #F76608;">';
+                                $form_emp .='<center>';
+                                    $form_emp .='<i class="fa fa-cog"></i> Manage Data';
+                                $form_emp .='</center>';
+                            $form_emp .='</a>';
+                        $form_emp .='</li>';
+                    $form_emp .='</ul>';
+                $form_emp .='</div>';
+            $form_emp .='</div>';
+        $form_emp .='</div>';
+
+        return json_encode(['status' => 'success', 'data' => $form_emp]);*/
     }
 
     public function notificationRequest()
@@ -479,6 +579,25 @@ class DataManageController extends Controller
             }
         }
         $employee->save();
+        if(!empty($images)){
+            if($id_position == '2'){
+                //echo "header";
+                return json_encode(['status' => 'success', 'message' => $name, 'position' => 'header', 'id_employee' => $id_employee]);
+            }else if($id_position == '1'){
+                //echo "employee";
+                return json_encode(['status' => 'success', 'message' => $name, 'position' => 'employee', 'id_employee' => $id_employee]);
+            }
+        }else{
+            if($id_position == '2'){
+                //echo "header";
+                return json_encode(['status' => 'success', 'position' => 'header', 'id_employee' => $id_employee]);
+            }else if($id_position == '1'){
+                //echo "employee";
+                return json_encode(['status' => 'success', 'position' => 'employee', 'id_employee' => $id_employee]);
+            }
+        }
+
+        //exit();
     }
 
     public function postDeleteData($id_employee) // หัวหน้า Hr กดลบหนักงาน
