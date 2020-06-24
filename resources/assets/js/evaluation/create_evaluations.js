@@ -136,12 +136,40 @@ function sendData(){
 	jQuery.each($('.percent'),function(){
 		check_percent += parseInt($(this).val());
 	});
-	//console.log(check_percent);
+	console.log(check_percent);
 
 	if(check_percent > 100){
 		Swal.fire('Fail', 'กรุณาอย่าใส่ค่า percent ของทุกตอนรวมกันไม่เกิน 100%','warning');
+		if(count > 0) {
+			if(oldValue !== ""){
+				$.each(oldValue, function(key, value) {
+					//console.log('#'+key+'-text-error');
+					$('#'+key).val(value);
+					if(value == "") {
+						$('#'+key + "-text-error").html("* Required").show();
+					} else {
+						$('#'+key + "-text-error").html("").hide();
+					}
+				});
+			}
+
+		}
 	}else if(check_percent < 100){
 		Swal.fire('Fail', 'กรุณาใส่ค่า percent ของทุกตอนรวมกันต้องเท่ากับ 100%','warning');
+		if(count > 0) {
+			if(oldValue !== ""){
+				$.each(oldValue, function(key, value) {
+					//console.log('#'+key+'-text-error');
+					$('#'+key).val(value);
+					if(value == "") {
+						$('#'+key + "-text-error").html("* Required").show();
+					} else {
+						$('#'+key + "-text-error").html("").hide();
+					}
+				});
+			}
+
+		}
 	}else if(check_percent == 100){
 		if(count > 0) {
 			if(oldValue !== ""){

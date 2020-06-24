@@ -78,7 +78,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>หน่วยงาน / Unit.</h4>
-							<input type="text" class="form-control assess_organization input_box" readonly value="Bookkaza Co.,Ltd">
+							<input type="text" class="form-control assess_organization input_box" readonly value="Test Co.,Ltd">
 						</div>
 					</div>
 				</div>

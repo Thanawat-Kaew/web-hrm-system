@@ -17,7 +17,7 @@ $(document).ready(function(){
 
 	$('.choice_department').change(function(){
 		var name_department = $(this).val();
-		$('.list_name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
+		$('.list_name_employee1').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
 		//console.log(name_department);
 		//$('.name_employee').empty();
 		if(name_department != ""){
@@ -32,12 +32,12 @@ $(document).ready(function(){
 				success:function(result){
 					if(result.data !== ""){
 						$('.div_list_name_employee').removeClass('hide');
-						$('.list_name_employee').removeClass('hide');
+						$('.list_name_employee1').removeClass('hide');
 						var list_data = result.data;
 						jQuery.each(list_data, function(k, v){
 							var name    = v.first_name+" "+v.last_name;
 							var id_name = v.id_employee;
-							$('.list_name_employee').append('<option value="'+id_name+'">'+name+'</option>');
+							$('.list_name_employee1').append('<option value="'+id_name+'">'+name+'</option>');
 
 						});
 					}

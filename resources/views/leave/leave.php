@@ -10,16 +10,16 @@
 			<div class="col-md-8" style="padding-right: 5px; padding-left: 5px;">
 				<div class="row">
 					<div class="col-md-12 btn-group dropup pull-right ">
-						<button type="button" name="add-leave" class='btn btn-success dropdown-toggle pull-right add-leave'><i class="fa fa-plus"></i> New Record
+						<button type="button" name="add-leave" class='btn btn-success dropdown-toggle pull-right add-leave'><i class="fa fa-plus"></i> เพิ่มรายการ
 						</button>
 						<a href="<?php echo route('leave.leave_history.get');?>">
-							<button href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> History
+							<button href="" type="button" name="view-history" class='btn btn-warning pull-right dropdown-toggle view-history'><i class="fa fa-history"></i> ประวัติ
 							</button>
 						</a>
 						<?php if($current_employee->id_department == "hr0001"):?>
 							<?php if($current_employee['id_position'] == 2):?>
 						<a href="<?php echo route("leave.set_holiday.get")?>">
-							<button href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> Set Holiday
+							<button href="" type="button" name="set-holiday" class='btn btn-info pull-right dropdown-toggle set-holidays'><i class="fa fa-calendar-plus-o"></i> ตั้งค่าวันหยุด
 							</button>
 						</a>
 					<?php endif?>
