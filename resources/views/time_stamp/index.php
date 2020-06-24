@@ -87,6 +87,13 @@
 									<td><?php echo $value->employee['first_name']?> <?php echo $value->employee['last_name']?></td>
 									<td><?php echo $value['date']?></td>
 									<td><?php echo empty($value['time_in']) ? (!empty($time_in)  ? "<span class='text-warning'>".$time_in->request_time  : "").'</span>' : $value['time_in']  ?></td>
+									<?php echo "1";?>
+									<?php d($value['time_in']);?>
+									<?php
+										if(isset($time_in->request_time)){
+											d($time_in->request_time);
+										}
+									?>
 									<td><?php echo empty($value['break_out']) ? (!empty($break_out) ? "<span class='text-warning'>".$break_out->request_time  : "").'</span>' : $value['break_out']   ?></td>
 									<td><?php echo empty($value['break_in']) ? (!empty($break_in) ? "<span class='text-warning'>".$break_in->request_time  : "").'</span>' : $value['break_in']  ?></td>
 									<td><?php echo empty($value['time_out']) ? (!empty($time_out) ? "<span class='text-warning'>".$time_out->request_time  : "").'</span>' : $value['time_out']  ?></td>

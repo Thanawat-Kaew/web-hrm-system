@@ -14,7 +14,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<label>ชื่อแบบการประเมิน </label>
-						<input type="text" name="name-evaluation-<?php echo $edit_evaluation['id_topic'] ?>" class="form-control" value="<?php echo $edit_evaluation['topic_name'] ?>" >
+						<input type="text" name="name-evaluation-<?php echo $edit_evaluation['id_topic'] ?>" class="form-control required" value="<?php echo $edit_evaluation['topic_name'] ?>" >
                         <input type="hidden" name="input-assess_fullname" class="form-control" value="<?php echo $edit_evaluation['topic_name'] ?>" >
 						<label class="text-error name-evaluation-<?php echo $edit_evaluation['id_topic'] ?>-text-error" id="name-evaluation-<?php echo $edit_evaluation['id_topic']; ?>-text-error"></label>
 						<br>
@@ -48,7 +48,7 @@
 				<button type="button" class="btn btn-info pull-right add-part"><i class="glyphicon glyphicon-plus"></i> เพิ่มตอน</button>
 			</div>
 		</div><br><br>
-        <!-- <?php //if($edit_evaluation->parts->count() > 0){ ?> -->
+        <?php if($edit_evaluation->parts->count() > 0){ ?>
     		<?php foreach ($edit_evaluation->parts as  $value) {
     				//sd($value->toArray());
                     //sd($value->question->count());
@@ -119,12 +119,16 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
+            <input type="hidden" name="" id="check_parts" class="check_parts" value="not empty">
+        <?php }else{?>
+            <input type="hidden" name="" id="check_parts" class="check_parts" value="empty">
         <?php } ?>
-		<div class="row" id="group-part">
-			<div class="col-md-12 new-part">
+            <div class="row" id="group-part">
+                 <div class="col-md-12 new-part">
 
-			</div>
-		</div>
+                 </div>
+            </div>
 		<div class="pull-right">
 			<div class="btn-group">
 				<button type="button" class='btn btn-success btn-save'> บันทึก

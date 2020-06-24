@@ -461,7 +461,10 @@ class EvaluationController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $id_topic                = $id;
+        //sd($id_topic);
         $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
+        //sd($view_create_evaluation->toArray());
+        //sd($view_create_evaluation->toArray());
         return view('evaluation.view_create_evaluations_for_index', compact('view_create_evaluation'));
     }
 
@@ -713,7 +716,7 @@ class EvaluationController extends Controller
         $evaluation->date                   = date("Y-m-d");
         $evaluation->save();
 
-        $find_id_evaluation                 = Evaluation::where('id_assessor', $data['id_assessor_person'])->where('id_assessment_person', $current_employee->id_employee)->where('result_evaluation', $data['total-evluation'])->where('date', date("Y-m-d"))->first();
+        $find_id_evaluation                 = Evaluation::where('id_assessor', $data['id_assessor_person'])->where('id_assessment_person', $current_employee->id_employee)->where('result_evaluation', $data['total-evluation'])->where('date', date("Y-m-d"))->where('id_topic', $data['id_topic'])->first();
         //sd($find_id_evaluation['id_evaluation']);
 
         for($i=0; $i<$data['total-part']; $i++){

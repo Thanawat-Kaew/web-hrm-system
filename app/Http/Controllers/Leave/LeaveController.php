@@ -45,10 +45,10 @@ class LeaveController extends Controller
 
                             // sd($datas->toArray());
         $leaves_type = Company::with('leaves_requirements', 'leaves_requirements.leaves_type')->first();
-        $get_status  = Status::all(); 
+        $get_status  = Status::all();
         $leaves_require     = $leaves_type->leaves_requirements;
         $leaves             = $datas->leaves;
-        
+
         $history_leave = [];
         foreach ($leaves_require as $key => $type) {
             // sd($type->toArray());
@@ -60,7 +60,7 @@ class LeaveController extends Controller
                 $history_leave[$type->id_leaves_type]['leave'][$status->id]['id'] = $status->id;
                 $history_leave[$type->id_leaves_type]['leave'][$status->id]['name'] = $status->name;
                 $history_leave[$type->id_leaves_type]['leave'][$status->id]['total'] = $count_leave/8;
-                
+
             }
             // d($count_leave);
         }
@@ -75,7 +75,7 @@ class LeaveController extends Controller
         //                                         ->where('id_department', $current_employee['id_department'])
         //                                         ->first();
                                                 // d($header->toArray());
-                                                
+
         // $leaves_info    = $header->leaves;
         // $company_info   = !empty($company->info)? json_decode($company->info): [];
         // $leaves_info    = $company_info->leaves_info;
@@ -87,7 +87,7 @@ class LeaveController extends Controller
         // $leaves_require = LeavesRequirements::with('leaves_type')->where('id_leaves_type',$ddd)->get();
         // sd($leaves_require->toArray());
 
-        
+
         return $this->useTemplate('leave.leave' ,compact('current_employee','leaves_require', 'history_leave', 'leaves'));
     }
 
@@ -114,7 +114,7 @@ class LeaveController extends Controller
                             ->where('approvers', $current_employee['id_employee'])
                             ->orderBy('id_leave', 'desc')
                             ->get();
-       
+
         return $this->useTemplate('leave.leave_request',compact('request'));
     }
 
@@ -134,7 +134,7 @@ class LeaveController extends Controller
         if(\Session::has('current_employee')){
                     $current_employee   = \Session::get('current_employee');
         }
-        
+
         $set_year                   = $request->get('set_year');
         $set_holiday_day            = $request->get('set_holiday_day');
         $check_stop_compensation    = $request->get('check_stop_compensation');
@@ -151,10 +151,10 @@ class LeaveController extends Controller
         $request_set_holiday                            = new DetailDayOffYear;
         $request_set_holiday->id_day_off_year           = $set_holiday_day;
         $request_set_holiday->compensate                = $check_stop_compensation;
-        $request_set_holiday->date                      = $set_date; 
+        $request_set_holiday->date                      = $set_date;
         $request_set_holiday->year                      = $set_year;
         $request_set_holiday->save();
-        
+
         return json_encode(['status' => 'success', 'message' => "success"]);
 
     }
@@ -213,7 +213,7 @@ class LeaveController extends Controller
 
             break;
 
-            case 'getViewRequestLeaves': 
+            case 'getViewRequestLeaves':
 
                 if(\Session::has('current_employee')){
                     $current_employee   = \Session::get('current_employee');
@@ -285,7 +285,7 @@ class LeaveController extends Controller
                 return response()->json(['status'=> 'success','data'=> $form_view_holiday]);
 
             break;
-            
+
             default:
                 # code...
             break;
@@ -335,17 +335,17 @@ class LeaveController extends Controller
         } else{
             $check_holiday = 1;
         }
-        
+
             if ($check_holiday) {
                 return json_encode(['status' => 'failed', 'message' => "errors"]);
-                
-            }      
+
+            }
 
         // SWITCH CASE
         if ($format_leaves == 1 ) {
 
             $leaves_check_full_day = Leaves::with('employee')
-                                            ->where('id_employee',$current_employee['id_employee'])   
+                                            ->where('id_employee',$current_employee['id_employee'])
                                             ->where('start_leave','<=',$start_date_f)
                                             ->where('end_leave','>=',$end_date_f)
                                             ->get();
@@ -356,13 +356,13 @@ class LeaveController extends Controller
 
                 $request_leave                          = new Leaves; // case ลาเต็มวัน
                 $request_leave->id_employee             = $current_employee['id_employee'];
-                $request_leave->id_leaves_type          = $leave_type; 
-                $request_leave->id_leaves_format        = $format_leaves; 
-                $request_leave->start_leave             = $start_date_f;    
+                $request_leave->id_leaves_type          = $leave_type;
+                $request_leave->id_leaves_format        = $format_leaves;
+                $request_leave->start_leave             = $start_date_f;
                 $request_leave->end_leave               = $end_date_f;
                 $request_leave->start_time              = $start_time_f;
                 $request_leave->end_time                = $end_time_f;
-                $request_leave->reason                  = $reason_leave;  
+                $request_leave->reason                  = $reason_leave;
                 $request_leave->approvers               = $approvers;
                 $request_leave->status_leave            = 2;
                 $request_leave->total_leave             = $total_leaves_f;
@@ -401,9 +401,9 @@ class LeaveController extends Controller
 
                         $request_leave                          = new Leaves; // case ลาครึ่งวัน
                         $request_leave->id_employee             = $current_employee['id_employee'];
-                        $request_leave->id_leaves_type          = $leave_type; 
-                        $request_leave->id_leaves_format        = $format_leaves; 
-                        $request_leave->start_leave             = $half_date;   
+                        $request_leave->id_leaves_type          = $leave_type;
+                        $request_leave->id_leaves_format        = $format_leaves;
+                        $request_leave->start_leave             = $half_date;
                         $request_leave->end_leave               = $half_date;
 
                         if ($format_leave_m_a == 1) {
@@ -414,7 +414,7 @@ class LeaveController extends Controller
                             $request_leave->end_time            = $end_time_h_a;
                         }
 
-                        $request_leave->reason                  = $reason_leave;  
+                        $request_leave->reason                  = $reason_leave;
                         $request_leave->approvers               = $approvers;
                         $request_leave->status_leave            = 2;
                         $request_leave->total_leave             = $total_leaves_m_a;
@@ -429,9 +429,9 @@ class LeaveController extends Controller
 
                     $request_leave                          = new Leaves; // case ลาครึ่งวัน
                     $request_leave->id_employee             = $current_employee['id_employee'];
-                    $request_leave->id_leaves_type          = $leave_type; 
-                    $request_leave->id_leaves_format        = $format_leaves; 
-                    $request_leave->start_leave             = $half_date;   
+                    $request_leave->id_leaves_type          = $leave_type;
+                    $request_leave->id_leaves_format        = $format_leaves;
+                    $request_leave->start_leave             = $half_date;
                     $request_leave->end_leave               = $half_date;
 
                     if ($format_leave_m_a == 1) {
@@ -442,7 +442,7 @@ class LeaveController extends Controller
                         $request_leave->end_time            = $end_time_h_a;
                     }
 
-                    $request_leave->reason                  = $reason_leave;  
+                    $request_leave->reason                  = $reason_leave;
                     $request_leave->approvers               = $approvers;
                     $request_leave->status_leave            = 2;
                     $request_leave->total_leave             = $total_leaves_m_a;
@@ -454,7 +454,7 @@ class LeaveController extends Controller
 
         } else if ($format_leaves == 3 ){
 
-            $leaves_check_hour    = Employee::with(['leaves' => function($q) 
+            $leaves_check_hour    = Employee::with(['leaves' => function($q)
                                                 use($hour_date,$start_time_hour,$end_time_hour){
                                                     $q->where('start_leave','<=',$hour_date);
                                                     $q->where('end_leave','>=',$hour_date);
@@ -471,13 +471,13 @@ class LeaveController extends Controller
 
                 $request_leave                          = new Leaves; // case ลาราย ชม.
                 $request_leave->id_employee             = $current_employee['id_employee'];
-                $request_leave->id_leaves_type          = $leave_type; 
-                $request_leave->id_leaves_format        = $format_leaves; 
-                $request_leave->start_leave             = $hour_date;   
+                $request_leave->id_leaves_type          = $leave_type;
+                $request_leave->id_leaves_format        = $format_leaves;
+                $request_leave->start_leave             = $hour_date;
                 $request_leave->end_leave               = $hour_date;
                 $request_leave->start_time              = $start_time_hour;
                 $request_leave->end_time                = $end_time_hour;
-                $request_leave->reason                  = $reason_leave;  
+                $request_leave->reason                  = $reason_leave;
                 $request_leave->approvers               = $approvers;
                 $request_leave->status_leave            = 2;
                 $request_leave->total_leave             = $total_leaves_hour;
@@ -486,7 +486,7 @@ class LeaveController extends Controller
                 return json_encode(['status' => 'success', 'message' => "success"]);
             }
         }
-    
+
 
     public function confirmDataRequestLeave(Request $request)  // อนุมัติ
     {
@@ -511,10 +511,11 @@ class LeaveController extends Controller
 
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
+            $id_employee = $current_employee['id_employee'];
         }
 
         $id                         = $request->get('id');
-        $id_leave_type              = $request->get('leave_type'); 
+        $id_leave_type              = $request->get('leave_type');
         $format_leave_three_time    = $request->get('format_leave_three_time');
         $format_range               = $request->get('format_range');
         $start_date_full            = $request->get('start_date_full');
@@ -532,32 +533,110 @@ class LeaveController extends Controller
         $reason_leave               = $request->get('reason_leave');
         $approvers                  = $request->get('approvers');
 
-        $val_df_full                = $request->get('val_df_full');                 
-        $val_df_half                = $request->get('val_df_half');                 
-        $val_df_hour                = $request->get('val_df_hour'); 
+        $val_df_full                = $request->get('val_df_full');
+        $val_df_half                = $request->get('val_df_half');
+        $val_df_hour                = $request->get('val_df_hour');
+
+        $check_data_from_database   = Leaves::with('employee')->where('id_leave', $id)->first();
+        //sd($check_data_form_database->toArray());
+        if($format_leave_three_time == 1){
+            echo "ลาเต็มวัน"."<br>";
+            if($check_data_from_database->start_leave == $start_date_full &&
+                $check_data_from_database->start_leave == $end_date_full){
+                echo "วันที่เท่ากัน"."<br>";
+                if($check_data_from_database->reason == $reason_leave){
+                    echo "เหตุผลเท่ากัน";
+                }else{
+                    $request_leave                          = Leaves::find($id);
+                    $request_leave->reason                  = $reason_leave;
+                    $request_leave->save();
+                    echo "เหตุผลไม่เท่ากัน";
+
+                }
+            }else{
+                echo "วันที่ไม่เท่ากัน"."<br>";
+                $check_start_date_from_database = Leaves::with(['employee' => function($q) use($id_employee){
+                                                    $q->where('id_employee', $id_employee);
+                                                }])
+                                                ->where('id_leave', '!=', $id)
+                                                ->where('start_leave', $start_date_full)
+                                                ->where('status_leave', '!=', 3)
+                                                ->get();
+                                                    //sd($check_start_date_from_database->toArray());
+                $check_end_date_from_database = Leaves::with(['employee' => function($q) use($id_employee){
+                                                    $q->where('id_employee', $id_employee);
+                                                }])
+                                                ->where('id_leave', '!=', $id)
+                                                ->where('end_leave', $end_date_full)
+                                                ->where('status_leave', '!=', 3)
+                                                ->get();
+                if($check_start_date_from_database->count() > 0){
+                    echo "Start_date ซ้ำ"."<br>";
+                    $start_date = 0;
+                }else{
+                    echo "Start_date ไม่ซ้ำ"."<br>";
+                    $start_date = 1;
+                }
+                if($check_end_date_from_database->count() > 0){
+                    echo "End_date ซ้ำ"."<br>";
+                    $end_date = 0;
+                }else{
+                    echo "End_date ไม่ซ้ำ"."<br>";
+                    $end_date = 1;
+                }
+                echo "StartDate ".$start_date."<br>";
+                echo "EndDate   ".$end_date."<br>";
+                if($start_date == 1 && $end_date == 1){
+                    echo "ไปค้นหาในฐานข้อมูลแล้ววันที่เริ่มต้นและวันที่สิ้นสุดไม่ซ้ำกับของตัวเองที่เคยลงไป"."<br>";
+                    $request_leave                          = Leaves::find($id);
+                    $request_leave->start_leave              = $start_date_full;
+                    $request_leave->end_leave                = $end_date_full;
+                    $request_leave->save();
+                    if($check_data_from_database->reason == $reason_leave){
+                        echo "เหตุผลเท่ากัน";
+                    }else{
+                        $request_leave                          = Leaves::find($id);
+                        $request_leave->reason                  = $reason_leave;
+                        $request_leave->save();
+                        echo "เหตุผลไม่เท่ากัน";
+                    }
+                }
+
+
+            }
+        }else if($format_leave_three_time == 2){
+            echo "ลาครึ่งวัน"."<br>";
+        }else if($format_leave_three_time == 3){
+            echo "ลารายชั่วโมง"."<br>";
+        }
+        exit();
+
+
+
+
 
         // SWITCH CASE
         if ($format_leave_three_time == 1 ) {
 
             $leaves_check_full_day = Leaves::with('employee')
-                                            ->where('id_employee',$current_employee['id_employee'])   
-                                            ->where('start_leave','<=',$start_date_f)
-                                            ->where('end_leave','>=',$end_date_f)
+                                            ->where('id_employee',$current_employee['id_employee'])
+                                            ->where('start_leave','<=',$start_date_full)
+                                            ->where('end_leave','>=',$end_date_full)
                                             ->get();
 
             if (count($leaves_check_full_day) != 0 ) {
                 return json_encode(['status' => 'failed', 'message' => "errors"]);
             }
 
-                $request_leave                          = Leaves::find($id); 
+                $request_leave                          = Leaves::find($id);
                 $request_leave->id_employee             = $current_employee['id_employee'];
-                $request_leave->id_leaves_type          = $id_leave_type; 
-                $request_leave->id_leaves_format        = $format_leave_three_time; 
-                $request_leave->start_leave             = $start_date_full;    
+                $request_leave->id_leaves_type          = $id_leave_type;
+                $request_leave->id_leaves_format        = $format_leave_three_time;
+                $request_leave->start_leave             = $start_date_full;
                 $request_leave->end_leave               = $end_date_full;
                 $request_leave->start_time              = $start_time_full;
                 $request_leave->end_time                = $end_time_full;
-                $request_leave->reason                  = $reason_leave;  
+                $request_leave->reason                  = $reason_leave;
                 $request_leave->approvers               = $approvers;
                 $request_leave->status_leave            = 2;
                 $request_leave->total_leave             = $val_df_full;
@@ -596,11 +675,11 @@ class LeaveController extends Controller
                     }
                     if ($check_error == 0 ) {
 
-                        $request_leave                          = Leaves::find($id); 
+                        $request_leave                          = Leaves::find($id);
                         $request_leave->id_employee             = $current_employee['id_employee'];
-                        $request_leave->id_leaves_type          = $id_leave_type; 
-                        $request_leave->id_leaves_format        = $format_leave_three_time; 
-                        $request_leave->start_leave             = $half_date;   
+                        $request_leave->id_leaves_type          = $id_leave_type;
+                        $request_leave->id_leaves_format        = $format_leave_three_time;
+                        $request_leave->start_leave             = $half_date;
                         $request_leave->end_leave               = $half_date;
 
                         if ($format_range == 1) {
@@ -611,7 +690,7 @@ class LeaveController extends Controller
                             $request_leave->end_time            = $end_time_afternoon;
                         }
 
-                        $request_leave->reason                  = $reason_leave;  
+                        $request_leave->reason                  = $reason_leave;
                         $request_leave->approvers               = $approvers;
                         $request_leave->status_leave            = 2;
                         $request_leave->total_leave             = $val_df_half;
@@ -624,11 +703,11 @@ class LeaveController extends Controller
 
                 } else {
 
-                    $request_leave                          = Leaves::find($id); 
+                    $request_leave                          = Leaves::find($id);
                     $request_leave->id_employee             = $current_employee['id_employee'];
-                    $request_leave->id_leaves_type          = $id_leave_type; 
-                    $request_leave->id_leaves_format        = $format_leave_three_time; 
-                    $request_leave->start_leave             = $half_date;   
+                    $request_leave->id_leaves_type          = $id_leave_type;
+                    $request_leave->id_leaves_format        = $format_leave_three_time;
+                    $request_leave->start_leave             = $half_date;
                     $request_leave->end_leave               = $half_date;
 
                     if ($format_range == 1) {
@@ -639,7 +718,7 @@ class LeaveController extends Controller
                         $request_leave->end_time            = $end_time_afternoon;
                     }
 
-                    $request_leave->reason                  = $reason_leave;  
+                    $request_leave->reason                  = $reason_leave;
                     $request_leave->approvers               = $approvers;
                     $request_leave->status_leave            = 2;
                     $request_leave->total_leave             = $val_df_half;
@@ -651,7 +730,7 @@ class LeaveController extends Controller
 
         } else if ($format_leave_three_time == 3 ){
 
-            $leaves_check_hour    = Employee::with(['leaves' => function($q) 
+            $leaves_check_hour    = Employee::with(['leaves' => function($q)
                                                 use($hour_date,$start_time_hour,$end_time_hour){
                                                     $q->where('start_leave','<=',$hour_date);
                                                     $q->where('end_leave','>=',$hour_date);
@@ -668,13 +747,13 @@ class LeaveController extends Controller
 
                 $request_leave                          = Leaves::find($id);
                 $request_leave->id_employee             = $current_employee['id_employee'];
-                $request_leave->id_leaves_type          = $id_leave_type; 
-                $request_leave->id_leaves_format        = $format_leave_three_time; 
-                $request_leave->start_leave             = $hour_date;   
+                $request_leave->id_leaves_type          = $id_leave_type;
+                $request_leave->id_leaves_format        = $format_leave_three_time;
+                $request_leave->start_leave             = $hour_date;
                 $request_leave->end_leave               = $hour_date;
                 $request_leave->start_time              = $start_time_hour;
                 $request_leave->end_time                = $end_time_hour;
-                $request_leave->reason                  = $reason_leave;  
+                $request_leave->reason                  = $reason_leave;
                 $request_leave->approvers               = $approvers;
                 $request_leave->status_leave            = 2;
                 $request_leave->total_leave             = $val_df_hour;
