@@ -537,33 +537,73 @@ class LeaveController extends Controller
         $val_df_hour                = $request->get('val_df_hour'); 
 
         // SWITCH CASE
-        if ($format_leave_three_time == 1 ) {
-
-            $leaves_check_full_day = Leaves::with('employee')
-                                            ->where('id_employee',$current_employee['id_employee'])   
-                                            ->where('start_leave','<=',$start_date_f)
-                                            ->where('end_leave','>=',$end_date_f)
-                                            ->get();
-
-            if (count($leaves_check_full_day) != 0 ) {
-                return json_encode(['status' => 'failed', 'message' => "errors"]);
+        $check_data_from_database   = Leaves::with('employee')->where('id_leave', $id)->first();
+        //sd($check_data_form_database->toArray());
+        if($format_leave_three_time == 1){
+            echo "ลาเต็มวัน"."<br>";
+            if($check_data_from_database->start_leave == $start_date_full &&
+                $check_data_from_database->start_leave == $end_date_full){
+                echo "วันที่เท่ากัน"."<br>";
+                if($check_data_from_database->reason == $reason_leave){
+                    echo "เหตุผลเท่ากัน";
+                }else{
+                    $request_leave                          = Leaves::find($id);
+                    $request_leave->reason                  = $reason_leave;
+                    $request_leave->save();
+                    echo "เหตุผลไม่เท่ากัน";
+                }
+            }else{
+                echo "วันที่ไม่เท่ากัน"."<br>";
+                $check_start_date_from_database = Leaves::with(['employee' => function($q) use($id_employee){
+                                                    $q->where('id_employee', $id_employee);
+                                                }])
+                                                ->where('id_leave', '!=', $id)
+                                                ->where('start_leave', $start_date_full)
+                                                ->where('status_leave', '!=', 3)
+                                                ->get();
+                $check_end_date_from_database = Leaves::with(['employee' => function($q) use($id_employee){
+                                                    $q->where('id_employee', $id_employee);}])
+                                                ->where('id_leave', '!=', $id)
+                                                ->where('end_leave', $end_date_full)
+                                                ->where('status_leave', '!=', 3)
+                                                ->get();
+                if($check_start_date_from_database->count() > 0){
+                    echo "Start_date ซ้ำ"."<br>";
+                    $start_date = 0;
+                }else{
+                    echo "Start_date ไม่ซ้ำ"."<br>";
+                    $start_date = 1;
+                }
+                if($check_end_date_from_database->count() > 0){
+                    echo "End_date ซ้ำ"."<br>";
+                    $end_date = 0;
+                }else{
+                    echo "End_date ไม่ซ้ำ"."<br>";
+                    $end_date = 1;
+                }
+                echo "StartDate ".$start_date."<br>";
+                echo "EndDate   ".$end_date."<br>";
+                if($start_date == 1 && $end_date == 1){
+                    echo "ไปค้นหาในฐานข้อมูลแล้ววันที่เริ่มต้นและวันที่สิ้นสุดไม่ซ้ำกับของตัวเองที่เคยลงไป"."<br>";
+                    $request_leave                          = Leaves::find($id);
+                    $request_leave->start_leave              = $start_date_full;
+                    $request_leave->end_leave                = $end_date_full;
+                    $request_leave->save();
+                    if($check_data_from_database->reason == $reason_leave){
+                        echo "เหตุผลเท่ากัน";
+                    }else{
+                        $request_leave                          = Leaves::find($id);
+                        $request_leave->reason                  = $reason_leave;
+                        $request_leave->save();
+                        echo "เหตุผลไม่เท่ากัน";
+                    }
+                }
             }
-
-                $request_leave                          = Leaves::find($id); 
-                $request_leave->id_employee             = $current_employee['id_employee'];
-                $request_leave->id_leaves_type          = $id_leave_type; 
-                $request_leave->id_leaves_format        = $format_leave_three_time; 
-                $request_leave->start_leave             = $start_date_full;    
-                $request_leave->end_leave               = $end_date_full;
-                $request_leave->start_time              = $start_time_full;
-                $request_leave->end_time                = $end_time_full;
-                $request_leave->reason                  = $reason_leave;  
-                $request_leave->approvers               = $approvers;
-                $request_leave->status_leave            = 2;
-                $request_leave->total_leave             = $val_df_full;
-                $request_leave->save();
-
-                return json_encode(['status' => 'success', 'message' => "success"]);
+        // }else if($format_leave_three_time == 2){
+        //     echo "ลาครึ่งวัน"."<br>";
+        // }else if($format_leave_three_time == 3){
+        //     echo "ลารายชั่วโมง"."<br>";
+        // }
 
         } else if($format_leave_three_time == 2 ){
 
