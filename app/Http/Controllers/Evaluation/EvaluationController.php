@@ -171,8 +171,12 @@ class EvaluationController extends Controller
         if($current_employee['id_position'] == 2){
             $find_id_topic->status                         = 1;
             $find_id_topic->confirm_send_create_evaluation = 1;
+        }else{
+            $find_id_topic->status                         = 2;
+            $find_id_topic->confirm_send_create_evaluation = 1;
         }
-        $find_id_topic->confirm_send_create_evaluation     = 1;
+        $find_id_topic->first_name                         = $current_employee['first_name'];
+        $find_id_topic->last_name                          = $current_employee['last_name'];
         $find_id_topic->save();
 
     }
@@ -183,6 +187,7 @@ class EvaluationController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $evaluations = CreateEvaluation::with('employee', 'parts')->where('confirm_send_create_evaluation', 1)->get();
+        //sd($evaluations->toArray());
         return $this->useTemplate('evaluation.create_evaluations_request', compact('evaluations'));
     }
 
@@ -209,6 +214,10 @@ class EvaluationController extends Controller
         if(!empty($id_new_evaluation)){
             return $this->useTemplate('evaluation.create_evaluations', compact('id_new_evaluation', 'check_data', 'answer_type'));
         }
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        //sd($current_employee);
 
         $obj_emp                     = new EmployeeObject;
         $employee_id                 = $obj_emp->getIdEmployee();

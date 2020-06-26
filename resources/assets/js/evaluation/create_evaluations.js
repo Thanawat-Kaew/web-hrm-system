@@ -46,6 +46,7 @@ $(document).ready(function() {
 				'</div>'+
 		'</div>'+
 		'<label class="text-error name-question-'+id_evaluation+"-"+chapter+"-"+ new_order_question +'-text-error" id="name-question-'+id_evaluation+"-"+chapter+"-"+ new_order_question +'-text-error"></label></div>');
+
 	})
 
 	/*$("#group-part").on('click',".btn-remove-part", function(){ // ลบตอน

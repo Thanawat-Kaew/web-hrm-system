@@ -11,7 +11,7 @@ class FormEditRequestTimeStamp
                     $form_new_time_clock .= '<i class="fa fa-calendar"></i>';
                 $form_new_time_clock .= '</div>';
                 $form_new_time_clock .= '<input type="hidden" id="id-edit-request-timestamp" value="'.(!empty($data) ? $data['id'] : '').'" >';
-                $form_new_time_clock .= '<input type="text"  value="'.$data['request_date'].'"  placeholder="เลือกวันที่..."  class="form-control datepicker required" id="edit-date-request-timestamp">';
+                $form_new_time_clock .= '<input type="text"  value="'.$data['request_date'].'"  placeholder="เลือกวันที่..."  class="form-control datepicker required" disabled id="edit-date-request-timestamp">';
             $form_new_time_clock .= '</div>';
             $form_new_time_clock .= '<label class="text-error" id="edit-date-request-timestamp-text-error"></label><br>';
 

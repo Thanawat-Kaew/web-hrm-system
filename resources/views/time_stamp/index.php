@@ -78,25 +78,69 @@
 							<?php if($value->id_employee == $id_employee ){?>
 								<tr>
 									<?php
-										$time_in 	= $value->requesttimestamp->where('request_type', 'time_in')->first();
-										$time_out 	= $value->requesttimestamp->where('request_type', 'time_out')->first();
-										$break_in 	= $value->requesttimestamp->where('request_type', 'break_in')->first();
-										$break_out 	= $value->requesttimestamp->where('request_type', 'break_out')->first();
+										$time_in 	= $value->requesttimestamp->where('request_type', 'time_in')->where('status', 2)->first();
+										$time_out 	= $value->requesttimestamp->where('request_type', 'time_out')->where('status', 2)->first();
+										$break_in 	= $value->requesttimestamp->where('request_type', 'break_in')->where('status', 2)->first();
+										$break_out 	= $value->requesttimestamp->where('request_type', 'break_out')->where('status', 2)->first();
 	// d($time_in->request_time);sd('sdfsdfsdf');
 									?>
-									<td><?php echo $value->employee['first_name']?> <?php echo $value->employee['last_name']?></td>
-									<td><?php echo $value['date']?></td>
-									<td><?php echo empty($value['time_in']) ? (!empty($time_in)  ? "<span class='text-warning'>".$time_in->request_time  : "").'</span>' : $value['time_in']  ?></td>
-									<?php echo "1";?>
-									<?php d($value['time_in']);?>
-									<?php
-										if(isset($time_in->request_time)){
-											d($time_in->request_time);
-										}
-									?>
-									<td><?php echo empty($value['break_out']) ? (!empty($break_out) ? "<span class='text-warning'>".$break_out->request_time  : "").'</span>' : $value['break_out']   ?></td>
-									<td><?php echo empty($value['break_in']) ? (!empty($break_in) ? "<span class='text-warning'>".$break_in->request_time  : "").'</span>' : $value['break_in']  ?></td>
-									<td><?php echo empty($value['time_out']) ? (!empty($time_out) ? "<span class='text-warning'>".$time_out->request_time  : "").'</span>' : $value['time_out']  ?></td>
+									<td>
+										<?php echo $value->employee['first_name']?> <?php echo $value->employee['last_name']?>
+									</td>
+									<td>
+										<?php echo $value['date']?>
+									</td>
+
+								<?php if(isset($time_in->request_time)){?> <!-- กรณีมีวันที่ร้องขอลงเวลาย้อนหลังแล้วยังอยู่ในสถานะรอ -->
+									<td>
+										<?php echo "<span class='text-warning'>".$time_in->request_time.'</span>' ?>
+									</td>
+								<?php }else{?>
+									<td>
+										<?php echo !empty($value['time_in']) ? $value['time_in'] : ""?>
+									</td>
+								<?php } ?>
+
+								<?php if(isset($break_out->request_time)){?> <!-- กรณีมีวันที่ร้องขอลงเวลาย้อนหลังแล้วยังอยู่ในสถานะรอ -->
+									<td>
+										<?php echo "<span class='text-warning'>".$break_out->request_time.'</span>' ?>
+									</td>
+								<?php }else{?>
+									<td>
+										<?php echo !empty($value['break_out']) ? $value['break_out'] : ""?>
+									</td>
+								<?php } ?>
+
+								<?php if(isset($break_in->request_time)){?> <!-- กรณีมีวันที่ร้องขอลงเวลาย้อนหลังแล้วยังอยู่ในสถานะรอ -->
+									<td>
+										<?php echo "<span class='text-warning'>".$break_in->request_time.'</span>' ?>
+									</td>
+								<?php }else{?>
+									<td>
+										<?php echo !empty($value['break_in']) ? $value['break_in'] : ""?>
+									</td>
+								<?php } ?>
+
+								<?php if(isset($time_out->request_time)){?> <!-- กรณีมีวันที่ร้องขอลงเวลาย้อนหลังแล้วยังอยู่ในสถานะรอ -->
+									<td>
+										<?php echo "<span class='text-warning'>".$time_out->request_time.'</span>' ?>
+									</td>
+								<?php }else{?>
+									<td>
+										<?php echo !empty($value['time_out']) ? $value['time_out'] : ""?>
+									</td>
+								<?php } ?>
+
+									<!-- <td>
+										<?php //echo empty($value['break_out']) ? (!empty($break_out) ? "<span class='text-warning'>".$break_out->request_time  : "").'</span>' : $value['break_out']   ?>
+
+									</td>
+									<td>
+										<?php //echo empty($value['break_in']) ? (!empty($break_in) ? "<span class='text-warning'>".$break_in->request_time  : "").'</span>' : $value['break_in']  ?>
+									</td>
+									<td>
+										<?php //echo empty($value['time_out']) ? (!empty($time_out) ? "<span class='text-warning'>".$time_out->request_time  : "").'</span>' : $value['time_out']  ?>
+									</td> -->
 								</tr>
 							<?php }?>
 						<?php } ?>
