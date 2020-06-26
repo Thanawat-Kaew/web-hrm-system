@@ -139,6 +139,7 @@ function sendData(){
 	});
 	console.log(check_percent);
 
+
 	var check_parts = $('.check_parts').val();
 	console.log(check_parts);
 	if(check_parts == "empty"){

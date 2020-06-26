@@ -78,7 +78,7 @@
 					<div class="col-md-12">
 						<div class="form-group">
 							<h4>หน่วยงาน / Unit.</h4>
-							<input type="text" class="form-control assess_organization input_box" readonly value="Bookkaza Co.,Ltd">
+							<input type="text" class="form-control assess_organization input_box" readonly value="Test Co.,Ltd">
 						</div>
 					</div>
 				</div>
@@ -113,21 +113,20 @@
 						  	</div>
 						  	<?php if(!empty($data_evaluation->id_answer_format)){?> <!-- กรณีเป็นมีรุปแบบคำตอบ -->
 						  	<table class="table table-bordered table-condensed" id="type_one">
-
-						  		<tr>
-						  			<th>ข้อที่
-						  				<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
-						  				<input type="hidden" name="count-question-<?php echo $i;?>" value="<?php echo $count_question;?>">
-						  				<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
-						  			</th>
-						  			<th>(<?php echo $data_evaluation->parts[$i]->percent;?>%)</th>
-						  			<?php echo $count_answerdeatils;?>
-						  			<input type="hidden" name="percent-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->percent;?>">
-						  			<?php for($ad=0; $ad<$count_answerdeatils; $ad++){?> <!-- check จำนวนรูปแบบคำตอบ -->
-						  			<th><?php echo $data_evaluation->answerformat->answerdetails[$ad]->description;?><br><?php echo $data_evaluation->answerformat->answerdetails[$ad]->value;?></th>
-						  		<?php } ?>
-						  		<th>รวม</th>
-						  	</tr>
+								<tr>
+									<th>ข้อที่
+										<input type="hidden" name="total-question" value="<?php echo $count_question;?>">
+										<input type="hidden" name="count-question-<?php echo $i;?>" value="<?php echo $count_question;?>">
+										<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
+									</th>
+									<th>(<?php echo $data_evaluation->parts[$i]->percent;?>%)</th>
+									<?php echo $count_answerdeatils;?>
+									<input type="hidden" name="percent-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->percent;?>">
+									<?php for($ad=0; $ad<$count_answerdeatils; $ad++){?> <!-- check จำนวนรูปแบบคำตอบ -->
+										<th><?php echo $data_evaluation->answerformat->answerdetails[$ad]->description;?><br><?php echo $data_evaluation->answerformat->answerdetails[$ad]->value;?></th>
+									<?php } ?>
+									<th>รวม</th>
+								</tr>
 								<?php for($j=0; $j < $count_question; $j++){ // j = question
 									$question_no = $j+1;
 									?>

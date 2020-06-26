@@ -133,17 +133,7 @@ function checkData(){
 			})
 		}
 	}else{
-		// alert("success");
-		// document.getElementById("save-evaluation").submit();
-		// var id_topic1 = $('#get_id_topic').val();
-
-		// alert(id_topic1);
-		// Swal.fire({
-		// 	type: 'success',
-		// 	title: 'Data has been saved',
-		// 	showConfirmButton: false,
-		// 	timer: 1500
-		// }).then((result) => {
+		
 		document.getElementById("save-evaluation").submit();
 	}
 }

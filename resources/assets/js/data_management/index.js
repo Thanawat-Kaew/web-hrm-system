@@ -237,8 +237,10 @@ $(function(){
 			success:function(result){
 				if(result.data !== ""){
 					//console.log(result.data.form_emp);
-					$('#employee').html(result.data.form_emp);
+
+				    $('#employee').html(result.data.form_emp);
 					$('#header').html(result.data.form_head);
+
 					msg_close();
 				}
 			},

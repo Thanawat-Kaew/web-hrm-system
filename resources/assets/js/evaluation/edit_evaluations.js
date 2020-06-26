@@ -182,8 +182,8 @@ function sendData(){
 				});
 			}
 		}else{
+
 			document.getElementById("save-evaluation").submit();
-			// window.location.href = "/evaluation";
 		}
 	}
 	//}*/

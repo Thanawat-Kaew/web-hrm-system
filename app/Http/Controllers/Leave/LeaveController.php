@@ -610,40 +610,6 @@ class LeaveController extends Controller
             echo "ลารายชั่วโมง"."<br>";
         }
         exit();
-
-
-
-
-
-        // SWITCH CASE
-        if ($format_leave_three_time == 1 ) {
-
-            $leaves_check_full_day = Leaves::with('employee')
-                                            ->where('id_employee',$current_employee['id_employee'])
-                                            ->where('start_leave','<=',$start_date_full)
-                                            ->where('end_leave','>=',$end_date_full)
-                                            ->get();
-
-            if (count($leaves_check_full_day) != 0 ) {
-                return json_encode(['status' => 'failed', 'message' => "errors"]);
-            }
-
-                $request_leave                          = Leaves::find($id);
-                $request_leave->id_employee             = $current_employee['id_employee'];
-                $request_leave->id_leaves_type          = $id_leave_type;
-                $request_leave->id_leaves_format        = $format_leave_three_time;
-                $request_leave->start_leave             = $start_date_full;
-                $request_leave->end_leave               = $end_date_full;
-                $request_leave->start_time              = $start_time_full;
-                $request_leave->end_time                = $end_time_full;
-                $request_leave->reason                  = $reason_leave;
-                $request_leave->approvers               = $approvers;
-                $request_leave->status_leave            = 2;
-                $request_leave->total_leave             = $val_df_full;
-                $request_leave->save();
-
-                return json_encode(['status' => 'success', 'message' => "success"]);
-
         } else if($format_leave_three_time == 2 ){
 
             $leaves_check_half    = Employee::with(['leaves' => function($q) use($half_date){

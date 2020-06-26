@@ -19,7 +19,7 @@
 								<th>ประจำปี</th>
 								<th>วันที่สร้าง</th>
 								<th>รายละเอียด</th>
-								<th style="width: 20px"></th>
+								<th style="width: 80px"></th>
 								<th>สถานะ</th>
 							</tr>
 						</thead>

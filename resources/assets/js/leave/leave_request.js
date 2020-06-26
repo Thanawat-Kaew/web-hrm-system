@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-    $('#myTable').dataTable();
+    $('#myTable').dataTable({
+        stateSave : true
+    });
 
     $('.table').on('click', '.view-data-request-leaves', function(){
 		msg_waiting()

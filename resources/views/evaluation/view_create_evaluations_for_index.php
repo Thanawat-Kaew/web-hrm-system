@@ -36,6 +36,7 @@
 				<h2 class="topic">รหัสแบบประเมินที่ : <?php echo sprintf("%06d", $view_create_evaluation['id_topic']) ?></h2>
 			</div>
 			<div class="container">
+				
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
 						<div class="row">

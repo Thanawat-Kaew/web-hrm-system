@@ -74,8 +74,8 @@ class ReportController extends Controller
                 $q->where('id_employee',$id_employee);
                 $q->where('id_department',$request_department1);
                 $q->where('id_status','=','1');
-            }])->with('createevaluation')->where('id_assessor',$id_employee)->get();
-            // sd($request_data/*->toArray()*/);
+            }])->with('createevaluation')->where('id_assessor',$id_employee)->orderBy('id_evaluation','desc')->get();
+            // sd($request_data->toArray());
 
 
         }

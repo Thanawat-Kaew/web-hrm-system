@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
     $('.table').on('click', '.btn-confrim', function(){
 		//alert("confirm");

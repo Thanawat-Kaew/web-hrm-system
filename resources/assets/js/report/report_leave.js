@@ -2,7 +2,9 @@ msg_waiting()
 
 	$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 
-	$('#myTable').dataTable();
+	$('#myTable').dataTable({
+		stateSave : true
+	});
 
 	$('.timePicker1').on('click', function(){
 		getTimePicker($(this));

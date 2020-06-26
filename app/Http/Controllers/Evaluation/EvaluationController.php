@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Mail;
 
 class EvaluationController extends Controller
 {
-	public function index()
+    public function index()
     {
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
@@ -715,15 +715,21 @@ class EvaluationController extends Controller
         //sd($current_employee->id_employee);
         $from_the_full_score                = 0;
         $data                               = $request->all();
-        //sd($data);
+        // d($data);
 
         $evaluation                         = new Evaluation;
         $evaluation->id_topic               = $data['id_topic'];
         $evaluation->id_assessor            = $data['id_assessor_person'];
+        // d($evaluation->id_assessor);
         $evaluation->id_assessment_person   = $current_employee->id_employee;
+        // d($evaluation->id_assessment_person);
+
         $evaluation->result_evaluation      = $data['total-evluation'];
+        // d($evaluation->result_evaluation);
         $evaluation->date                   = date("Y-m-d");
+        // sd($evaluation->date);
         $evaluation->save();
+
 
         $find_id_evaluation                 = Evaluation::where('id_assessor', $data['id_assessor_person'])->where('id_assessment_person', $current_employee->id_employee)->where('result_evaluation', $data['total-evluation'])->where('date', date("Y-m-d"))->where('id_topic', $data['id_topic'])->first();
         //sd($find_id_evaluation['id_evaluation']);
@@ -739,9 +745,9 @@ class EvaluationController extends Controller
                 $result_evaluation->status          = 1;
                 $result_evaluation->save();
                 $from_the_full_score++;
+
             }
         }
-
         $find_answer_format                 = CreateEvaluation::with('answerformat', 'answerformat.answerdetails')
                                             ->where('id_topic', $data['id_topic'])
                                             ->first(); // ค้นหาจำนวนรุปแบบคำตอบชองหัวข้อการประเมินนี้
@@ -758,7 +764,6 @@ class EvaluationController extends Controller
 
         \Session::flash('message', 'ทำการประเมินคุณ '.$data['input-assess_fullname'].' เรียบร้อยแล้ว');
         return redirect()->route('evaluation.human_assessment.get', $data['id_topic']);
-        // return view('evaluation.view_create_evaluations', compact('view_create_evaluation'));
 
     }
 
@@ -824,7 +829,7 @@ class EvaluationController extends Controller
         $find_evaluation->percent             = ($data['total-evluation'] * 100) / ($from_the_full_score * $count_answer_format);
         $find_evaluation->save();
 
-        //sd($evaluations);
+        // sd($fine_evaluations);
         //sd($no);
         //$result_evaluation->
          \Session::flash('message', 'ทำการแก้ไขการประเมินคุณ '.$data['input-assess_fullname']. ' เรียบร้อยแล้ว');
@@ -869,6 +874,7 @@ class EvaluationController extends Controller
 
     public function ajaxCenter(Request $request)
     {
+
     	$method = $request->get('method');
 
         $get_session_topic = $request->has('id_topic') ? $request->get('id_topic') : '';
@@ -885,6 +891,7 @@ class EvaluationController extends Controller
             $_SESSION['status'] = $status;
         }
         //$_SESSION["get_session_topic"];
+
         switch ($method) {
             case 'getFormEvaluation':
 
@@ -902,7 +909,7 @@ class EvaluationController extends Controller
                 $part->chapter   = $total_parts+1;
                 $part->save();
 
-				$form_evaluation = $form_repo->getFormEvaluation($id_evaluation, $part, $answer_type);
+                $form_evaluation = $form_repo->getFormEvaluation($id_evaluation, $part, $answer_type);
 
                 return response()->json(['status'=> 'success','data'=> $form_evaluation]);
                 break;

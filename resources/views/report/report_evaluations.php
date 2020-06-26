@@ -105,7 +105,7 @@
 							<div class="form-group">
 								<label>รายชื่อพนักงาน</label>
 								<div class="form-group" data-select2-id="13">
-									<select class="form-control select2 select2-hidden-accessible hide list_name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
+									<select class="form-control select2 select2-hidden-accessible hide list_name_employee1" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="name_employee">
 										<option value=""></option>
 									</select>
 								</div>

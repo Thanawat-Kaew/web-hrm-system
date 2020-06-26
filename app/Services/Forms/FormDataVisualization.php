@@ -47,7 +47,7 @@ class FormDataVisualization
 									$form .='<div class="col-md-4">';
 										$form .='<div class="form-group">';
 											$form .='<div class="form-group" data-select2-id="13">';
-												$form .='<select class="form-control select2 select2-hidden-accessible list_name_employee name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_name_employee">';
+												$form .='<select class="form-control select2 select2-hidden-accessible list_name_employee" style="width: 100%;border-radius: 5px;" data-select2-id="9" tabindex="-1" aria-hidden="true" id="list_name_employee">';
 											$form .='<option value="">เลือกแผนกก่อน...</option>';
 
 												foreach ($list_employee as $list_employees) {
@@ -112,6 +112,8 @@ class FormDataVisualization
 								$form .='</div>';
 							$form .='</div>';
 						$form .='</div>';
+
+
 				// 	$form .='</div>';
 				// $form .='</div>';
 			$form .='</div>';
