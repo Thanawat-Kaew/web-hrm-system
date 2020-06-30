@@ -28,7 +28,10 @@ $(function(){
 				box.on('shown.bs.modal', function(){
 					$('#departments_pdf').on('change', function(event) {
 						var id_department = $(this).val();
-						window.open('/data_manage/dump_employee_pdf?id_department='+id_department,'_blank');
+						if (id_department != '1') {
+							window.open('/data_manage/dump_employee_pdf?id_department='+id_department,'_blank');
+
+						}
 					});
 				});
 			},
