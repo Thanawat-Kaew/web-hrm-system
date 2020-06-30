@@ -318,6 +318,7 @@ class PDFController extends Controller
         }
 
         $emp_timestamp = $emp_timestamp->orderBy('date', 'asc');
+        // $emp_timestamp = $emp_timestamp->limit(20);
         $emp_timestamp = $emp_timestamp->get();
 
 

@@ -122,11 +122,11 @@ class ReportController extends Controller
             $timestamp      = TimeStamp::with('employee', 'employee.position')
                             ->with(['employee.department' => function($q) use($id_department){
                                 $q->where('id_department', $id_department);
-                            }])->orderBy('date', 'desc')->get(); //รายชื่อพนักงานที่ลงเวลา
+                            }])->orderBy('date', 'desc')->limit(10)->get(); //รายชื่อพนักงานที่ลงเวลา
             $list_employee  = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
         }else{
             $department      = Department::all();
-            $timestamp       = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
+            $timestamp       = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->limit(10)->get();
         }
     	return $this->useTemplate('report.report_time_stamp', compact('department', 'timestamp', 'current_employee', 'list_employee'));
     }
@@ -152,7 +152,7 @@ class ReportController extends Controller
             $datas = Leaves::with(['employee' => function ($q) use ($id_department){
                             $q->with('department')->where('id_department', $id_department);
                             $q->with('position');}])
-                        ->with('leaves_type')
+                        ->with('leaves_type')->limit(100)
                         ->get();
             $list_employee  = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
             $department     = Department::where('id_department', $id_department)->first(); //ชื่อแผนก
@@ -213,7 +213,7 @@ class ReportController extends Controller
                                 $q->where('id_department', $id_department);
                             }])
                             ->orderBy('id_assessor', 'asc')
-                            ->orderBy('id_topic', 'desc')
+                            ->orderBy('id_topic', 'desc')->limit(10)
                             ->get();
 
             //$id_department  = $current_employee['id_department'];
@@ -228,7 +228,7 @@ class ReportController extends Controller
         }else{
             $department  = Department::all(); /*เลือกเอาชื่อมาทุกแผนก*/
             $assessor    = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')
-                        ->orderBy('id_assessor', 'asc')->orderBy('id_topic', 'desc')->get();
+                        ->orderBy('id_assessor', 'asc')->orderBy('id_topic', 'desc')->limit(10)->get();
             /*เชื่อม Database ตั้งเงื่อนไขว่า เรียง id จากน้อยไปมาก และเรียงจาก id_topic จากมากไปน้อย*/
         }
 
