@@ -487,7 +487,7 @@ class ReportController extends Controller
             // sd($request->all());
                 $id_department  = $request->get('department');
                 $list_employee = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
-                $list_topic_eval = CreateEvaluation::where('confirm_send_create_evaluation','=','1')->get();
+                $list_topic_eval = CreateEvaluation::where('confirm_send_create_evaluation','=','1')->where('status','1')->get();
                 $department    = Department::all();
                 $form_repo     = new FormDataVisualization;
                 $get_form      = $form_repo->getFormDataVisualization($department,$list_employee, $list_topic_eval);
