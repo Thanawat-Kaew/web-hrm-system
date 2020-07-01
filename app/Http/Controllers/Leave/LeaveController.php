@@ -26,6 +26,16 @@ class LeaveController extends Controller
 {
 	public function leave()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
@@ -106,6 +116,16 @@ class LeaveController extends Controller
 
     public function leave_request()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         if(\Session::has('current_employee')){
             $current_employee   = \Session::get('current_employee');
         }
@@ -610,7 +630,7 @@ class LeaveController extends Controller
             echo "ลารายชั่วโมง"."<br>";
         }
         exit();
-        } else if($format_leave_three_time == 2 ){
+        /*} else if($format_leave_three_time == 2 ){
 
             $leaves_check_half    = Employee::with(['leaves' => function($q) use($half_date){
                                                     $q->where('start_leave','<=',$half_date);
@@ -726,7 +746,7 @@ class LeaveController extends Controller
                 $request_leave->save();
 
                 return json_encode(['status' => 'success', 'message' => "success"]);
-        }
+        }*/
     }
 
     public function postDeleteLeaveHistory($id){

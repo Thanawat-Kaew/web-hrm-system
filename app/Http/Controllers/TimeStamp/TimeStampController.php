@@ -49,6 +49,18 @@ class TimeStampController extends Controller
 
 	public function index()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
+
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
@@ -69,6 +81,7 @@ class TimeStampController extends Controller
 
     public function request_history() //ดูประวัติการร้องขอ
     {
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
@@ -91,6 +104,16 @@ class TimeStampController extends Controller
 
     public function time_stamp_request() // หน้า confirm/cancel การลงวลาย้อนหลัง
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
@@ -501,10 +524,10 @@ class TimeStampController extends Controller
                     }
                 //}
             }else if(!empty($break_out)){
-                if(!empty($verify_timestamp['break_out'])){ // ถ้า timestamp มี break_out แล้ว
+                //if(!empty($verify_timestamp['break_out'])){ // ถ้า timestamp มี break_out แล้ว
                     //$error['b_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี break_out แล้ว"; //1
-                    return ['status' => 'failed_b_out_ts','message' => "failed"];
-                }else{
+                    //return ['status' => 'failed_b_out_ts','message' => "failed"];
+                //}else{
                     if($count_data !== 0){
                         if(in_array('break_out', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
                             if(in_array($id, $request_id)){
@@ -550,12 +573,12 @@ class TimeStampController extends Controller
                         return ['status' => 'success_breakout','message' => "success"];
 
                     }
-                }
+                //}
             }else if(!empty($break_in)){
-                if(!empty($verify_timestamp['break_in'])){ // ถ้า timestamp มี break_in แล้ว
+                //if(!empty($verify_timestamp['break_in'])){ // ถ้า timestamp มี break_in แล้ว
                     //$error['b_in'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี break_in แล้ว";
-                    return ['status' => 'failed_b_in_ts','message' => "failed"];
-                }else{
+                    //return ['status' => 'failed_b_in_ts','message' => "failed"];
+                //}else{
                     if($count_data !== 0){
                         if(in_array('break_in', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
                             if(in_array($id, $request_id)){
@@ -600,12 +623,12 @@ class TimeStampController extends Controller
                         $update->save();
                         return ['status' => 'success_breakin','message' => "success"];
                     }
-                }
+                //}
             }else if(!empty($time_out)){
-                if(!empty($verify_timestamp['time_out'])){ // ถ้า timestamp มี time_out แล้ว
+                //if(!empty($verify_timestamp['time_out'])){ // ถ้า timestamp มี time_out แล้ว
                     //$error['t_out'] = "ไม่สามารถแก้ไขได้ เพราะวันที่นี้มีใน timestamp และมี time_out แล้ว";
-                    return ['status' => 'failed_t_out_ts','message' => "failed"];
-                }else{
+                    //return ['status' => 'failed_t_out_ts','message' => "failed"];
+                //}else{
                     if($count_data !== 0){
                         if(in_array('time_out', $request_type)){ // วันที่ที่ร้องขอกับประเภทมีอยู่ใน request อยู่แล้ว
                             if(in_array($id, $request_id)){
@@ -650,7 +673,7 @@ class TimeStampController extends Controller
                         $update->save();
                         return ['status' => 'success_timeout','message' => "success"];
                     }
-                }
+                //}
             }
         }else{ // ไม่มีวันที่ใน timestamp
             if(!empty($time_in)){

@@ -120,7 +120,7 @@
 										<input type="hidden" name="total-part" value="<?php echo $count_part;?>">
 									</th>
 									<th>(<?php echo $data_evaluation->parts[$i]->percent;?>%)</th>
-									<?php echo $count_answerdeatils;?>
+									<?php //echo $count_answerdeatils;?>
 									<input type="hidden" name="percent-<?php echo $i;?>" value="<?php echo $data_evaluation->parts[$i]->percent;?>">
 									<?php for($ad=0; $ad<$count_answerdeatils; $ad++){?> <!-- check จำนวนรูปแบบคำตอบ -->
 										<th><?php echo $data_evaluation->answerformat->answerdetails[$ad]->description;?><br><?php echo $data_evaluation->answerformat->answerdetails[$ad]->value;?></th>

@@ -60,7 +60,7 @@
                             <?php /*echo "มีรูป";*/ ?>
                             <?php }else{?> <!-- ถ้าไม่มีรุป -->
                             <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-                            <?php echo "ไม่มีรูป";?>
+                            <?php //echo "ไม่มีรูป";?>
                         <?php } ?>
                     </div>
                     <div class="about-employee">

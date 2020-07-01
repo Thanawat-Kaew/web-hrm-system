@@ -28,6 +28,16 @@ class EvaluationController extends Controller
 {
     public function index()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
@@ -183,6 +193,16 @@ class EvaluationController extends Controller
 
     public function viewCreateEvaluationRequest() // หน้าการอนุมัติ/ไม่อนุมัติการประเมิน //หัวหน้า HR เท่านั้นที่เข้าได้
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }

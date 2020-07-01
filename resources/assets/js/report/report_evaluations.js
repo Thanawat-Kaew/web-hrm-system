@@ -282,7 +282,7 @@ function showDialog(form,title,oldValue='',oldCheck='',errors=''){
 		$('.choice_department').change(function(){
 			var get_name_emp = $(this).val();
 			//console.log(get_name_emp);
-			//$('.name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
+			$('.list_name_employee').empty().append('<option value="">กรุณาเลือกชื่อ...</option>');
 
 			$.ajax({
 				headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},

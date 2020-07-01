@@ -203,8 +203,8 @@ class FormEmployee
              $form .= '</div>';
             $form .= '<label class="text-error" id="tel-text-error"></label>';
 
-           if(!empty($employee)){
-$form .= '<div class="hidden">';
+           /*if(!empty($employee)){*/
+/*$form .= '<div class="hidden">';*/
              $form .= 'ตั้งรหัสผ่านเข้าสู่ระบบ';
             $form .= '<div class="input-group password_employee">';
                 $form .= '<div class="input-group-addon">';
@@ -218,11 +218,11 @@ $form .= '<div class="hidden">';
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-lock"></i>';
                  $form .= '</div>';
-                 $form .= '<input class="form-control"  type="text" value="'.((!empty($employee) ? $employee["password"] : '' )).'" id="confirm_password" placeholder="Confirm Password...">';
+                 $form .= '<input class="form-control required"  type="text" value="'.((!empty($employee) ? $employee["password"] : '' )).'" id="confirm_password" placeholder="Confirm Password...">';
              $form .= '</div><br>';
             $form .= '<label class="text-error" id="confirm_password-text-error"></label>';
-$form .= '</div>';
-            }else{
+/*$form .= '</div>';*/
+            /*}else{
                  $form .= 'ตั้งรหัสผ่านเข้าสู่ระบบ';
             $form .= '<div class="input-group password_employee">';
                 $form .= '<div class="input-group-addon">';
@@ -239,7 +239,7 @@ $form .= '</div>';
                  $form .= '<input class="form-control "  type="text" value="'.((!empty($employee) ? $employee["password"] : '' )).'" id="confirm_password" placeholder="Confirm Password...">';
              $form .= '</div><br>';
             $form .= '<label class="text-error" id="confirm_password-text-error"></label>';
-            }
+            }*/
 
          $form .= '</div>';
          $form .= '</div>';

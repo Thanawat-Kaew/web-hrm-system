@@ -354,6 +354,16 @@ class DataManageController extends Controller
 
     public function notificationRequest()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         $request = RequestChangeData::orderBy('id', 'desc')->get();
         //sd($request->toArray());
         return $this->useTemplate('data_management.notification_request', compact('request'));

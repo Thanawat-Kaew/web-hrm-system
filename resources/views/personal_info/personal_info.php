@@ -8,43 +8,42 @@
                         <?php $current_employee = \Session::get('current_employee') ?>
 
                         <div class="text-center">
-                           <?php if(!empty($current_employee->image)){?> <!-- ถ้ามีรูป  -->
-                                <img src="/public/image/<?php echo $current_employee->image ?>" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
+                           <?php if(!empty($employee->image)){?> <!-- ถ้ามีรูป  -->
+                                <img src="/public/image/<?php echo $employee->image."?t=".time()?>" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
                             <?php }else{?> <!-- ถ้าไม่มีรุป -->
                                 <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image" style="width: 160px; height: 160px;">
                             <?php } ?>
                         </div>
-
                         <div class="box-body">
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
                                         <td>รหัสพนักงาน</td>
-                                        <td><?php echo $current_employee['id_employee'] ?></td>
+                                        <td><?php echo $employee->id_employee ?></td>
                                     </tr>
                                     <tr>
                                         <td>ชื่อ - สกุล</td>
-                                        <td><?php echo $current_employee['first_name'] ?> <?php echo $current_employee['last_name'] ?></td>
+                                        <td><?php echo $employee->first_name ?> <?php echo $employee->last_name ?></td>
                                     </tr>
                                     <tr>
                                         <td>ตำแหน่ง</td>
-                                        <td><?php echo $name_position['name'] ?></td>
+                                        <td><?php echo $employee->position['name'] ?></td>
                                     </tr>
                                     <tr>
                                         <td>แผนก</td>
-                                        <td><?php echo $name_department['name'] ?></td>
+                                        <td><?php echo $employee->department['name'] ?></td>
                                     </tr>
                                     <tr>
                                         <td>อัตราเงินเดือน</td>
-                                        <td><?php echo $current_employee['salary'] ?></td>
+                                        <td><?php echo $employee->salary ?></td>
                                     </tr>
                                     <tr>
                                         <td>การศึกษา</td>
-                                        <td><?php echo $name_education['name'] ?></td>
+                                        <td><?php echo $employee->education['name'] ?></td>
                                     </tr>
                                     <tr>
                                         <td>เพศ</td>
-                                        <td><?php echo $current_employee['gender'] ?></td>
+                                        <td><?php echo $employee->gender ?></td>
                                     </tr>
                                     <tr>
                                         <td>อายุ</td>
@@ -52,15 +51,15 @@
                                     </tr>
                                     <tr>
                                         <td>ที่อยู่</td>
-                                        <td><?php echo $current_employee['address'] ?></td>
+                                        <td><?php echo $employee->address ?></td>
                                     </tr>
                                     <tr>
                                         <td>อีเมล์</td>
-                                        <td><?php echo $current_employee['email'] ?></td>
+                                        <td><?php echo $employee->email ?></td>
                                     </tr>
                                     <tr>
                                         <td>เบอร์โทรศัพท์</td>
-                                        <td><?php echo $current_employee['tel'] ?></td>
+                                        <td><?php echo $employee->tel ?></td>
                                     </tr>
                                 </tbody></table>
                             </div>

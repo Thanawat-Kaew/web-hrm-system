@@ -146,11 +146,13 @@ function sendData(){
 		//alert("กรุณาเพิ่มตอน EMpty")
 		if(check_percent == 0){
 			//alert("กรุณาเพิ่มตอน EMpty 00000");
-			alert("กรุณาเพิ่มตอน");
+			//alert("กรุณาเพิ่มตอน");
+			Swal.fire('Fail', 'กรุณาเพิ่มตอน','warning');
 		}else if(isNaN(check_percent)){
 			//alert("กรุณาเพิ่มตอน EMpty NaN");
 			//console.log("กรุณาใส่ค่า percent");
-			alert("กรุณาใส่ค่า percent");
+			//alert("กรุณาใส่ค่า percent");
+			Swal.fire('Fail', 'กรุณาใส่ค่า percent','warning');
 		}else{
 			if(check_percent > 100){
 			Swal.fire('Fail', 'กรุณาอย่าใส่ค่า percent ของทุกตอนรวมกันไม่เกิน 100%','warning');
@@ -207,7 +209,8 @@ function sendData(){
 	}else{
 		if(isNaN(check_percent)){
 			//console.log("กรูราใส่ค่า perecnt");
-			alert("กรุณาใส่ค่า perecnt");
+			//alert("กรุณาใส่ค่า perecnt");
+			Swal.fire('Fail', 'กรุณาใส่ค่า percent','warning');
 			if(count > 0) {
 				if(oldValue !== ""){
 					$.each(oldValue, function(key, value) {
