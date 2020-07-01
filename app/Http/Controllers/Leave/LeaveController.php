@@ -740,8 +740,9 @@ class LeaveController extends Controller
                 if($q == $b) {
 
                     if($check_data->start_time == $start_time_hour && $check_data->end_time == $end_time_hour){
-
-                        return json_encode(['status' => 'success', 'message' => "success"]);
+                        return json_encode(['status' => 'failed', 'message' => "errors"]);
+                        
+                        // return json_encode(['status' => 'success', 'message' => "success"]);
                     }else{
 
                         $request_leave                          = Leaves::find($id);
