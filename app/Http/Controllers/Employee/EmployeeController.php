@@ -22,6 +22,15 @@ class EmployeeController extends Controller
 {
 	public function personal_info() //หน้าแสดงข้อมูลส่วนตัว
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
     	//$current_id = Employee::with('position', 'department')->where('id_employee', $this->employee)->first();
         //return view('personal_info.personal_info', ['current_id' => $current_id]);
         if(\Session::has('current_employee')){
@@ -35,12 +44,14 @@ class EmployeeController extends Controller
             //sd($request_edit_data->toArray());
     	}
         //sd($current_employee->toArray());
-        $date_of_birth  = $current_employee->date_of_birth; // วันเกิดจากฐานข้อมูล
+        $employee       = Employee::with('position', 'department', 'education')->where('id_employee', $current_employee['id_employee'])->first();
+        //sd($employee->toArray());
+        $date_of_birth  = $employee->date_of_birth; // วันเกิดจากฐานข้อมูล
         $str            = strtotime(date('Y-m-d')) - (strtotime($date_of_birth)); //นำมาลบกับวันที่ปัจจุบัน
         $day            = floor($str/3600/24); // แปลงเป็นวัน
         $age            = number_format($day / 365); // แปลงเป็นอายุ
         // sd($age);
-        return $this->useTemplate('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data', 'name_education', 'age'));
+        return $this->useTemplate('personal_info.personal_info', compact('name_position', 'name_department', 'request_edit_data', 'name_education', 'age', 'employee'));
     }
 
     public function ajaxCenter(Request $request)

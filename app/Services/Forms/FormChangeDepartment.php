@@ -14,9 +14,9 @@ class FormChangeDepartment
                 $form_head .='<div class="box box-widget widget-user-2">';
                 $form_head .='<div class="widget-user-header">';
                 $form_head .='<!-- /.widget-user-image -->';
-                $form_head .='<div class="group-image" align="center" valign="center">';
+                $form_head .='<div class="group-image header_image'.$value["id_employee"].'" align="center" valign="center">';
                 if(!empty($value->image)){
-                    $form_head .='<img src="/public/image/'.$value->image.'"?t="'.'time()">';
+                    $form_head .='<img src="/public/image/'.$value->image.'?t='.'time()">';
                     $form_head .='</div>';
                 }else{
                     $form_head .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
@@ -46,11 +46,11 @@ class FormChangeDepartment
         foreach($employee as $key => $value) {
             //d($value->toArray());
             if($value['id_position'] == 1) {
-                $form_emp .='<div class="col-md-3 col-sm-2 ">';
+                $form_emp .='<div class="col-md-3 col-sm-2">';
                 $form_emp .='<div class="box box-widget widget-user-2">';
                 $form_emp .='<div class="widget-user-header">';
                 $form_emp .='<!-- /.widget-user-image -->';
-                $form_emp .='<div class="group-image" align="center" valign="center">';
+                $form_emp .='<div class="group-image employee_image'.$value->id_employee.'" align="center" valign="center">';
                 if(!empty($value->image)){
                     $form_emp .='<img src="/public/image/'.$value->image.'"?t="'.'time()">';
                     $form_emp .='</div>';

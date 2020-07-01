@@ -48,36 +48,49 @@
 										<br>
 									</div>
 								</div>
+								<?php if(!empty($view_create_evaluation->answerformat)){?>
 								<div class="panel panel-default">
 									<div class="panel-body">
 									<label>รูปแบบคำตอบ</label>
 										<input type="text" name="name-question" id="type-question" class="form-control" value="<?php echo $view_create_evaluation->answerformat->answer_format_name ?>" readonly>
 									</div>
 								</div>
+							<?php }else{ ?>
+								<div class="panel panel-default">
+									<div class="panel-body">
+									<label>รูปแบบคำตอบ</label>
+										<input type="text" name="name-question" id="type-question" class="form-control" value="" readonly>
+									</div>
+								</div>
+							<?php } ?>
 							</div>
 						</div>
 						<br>
-						<?php foreach ($view_create_evaluation->parts as  $value) { ?>
-							<div class="new-part">
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<label>ชื่อตอน </label>
-										<input type="text" name="name-parts" class="form-control required" value="<?php echo $value['part_name']?>" readonly >
-										<br>
-										<label>คำถาม</label>
-										<?php foreach($value->question as $name_question ): ?>
-											<div class="control-group" style="margin-top:10px">
-												<input type="text" name="name-question" id="name-question" class="form-control" value="<?php echo $name_question['question_name'] ?>" readonly>
-											</div>
-											<div class="selected-question"></div>
-										<?php endforeach ?>
-										<br>
+						<?php if(!empty($view_create_evaluation->answerformat)){?>
+							<?php foreach ($view_create_evaluation->parts as  $value) { ?>
+								<div class="new-part">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<label>ชื่อตอน </label>
+											<input type="text" name="name-parts" class="form-control required" value="<?php echo $value['part_name']?>" readonly >
+											<br>
+											<label>คำถาม</label>
+											<?php foreach($value->question as $name_question ): ?>
+												<div class="control-group" style="margin-top:10px">
+													<input type="text" name="name-question" id="name-question" class="form-control" value="<?php echo $name_question['question_name'] ?>" readonly>
+												</div>
+												<div class="selected-question"></div>
+											<?php endforeach ?>
+											<br>
 
-										<label>เปอร์เซนต์คะแนน (%)</label>
-										<input type="number" name="percent" class="form-control required" value="<?php echo $value['percent'] ?>" readonly>
+											<label>เปอร์เซนต์คะแนน (%)</label>
+											<input type="number" name="percent" class="form-control required" value="<?php echo $value['percent'] ?>" readonly>
+										</div>
 									</div>
 								</div>
-							</div>
+							<?php } ?>
+						<?php }else{?>
+							<center><h1 style="color: white">ไม่มีตอน</h1></center>
 						<?php } ?>
 						<br><br>
 						<a href="<?php echo route(/*"evaluation.index.get"*/"evaluation.confirm_send_create_evaluations.get") ?>">

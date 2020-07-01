@@ -5,6 +5,7 @@ use App\Services\Employee\EmployeeObject;
 class FormEmployee
 {
 	public static function getFormEmployee($department, $position, $education, $employee=''){
+        //sd($employee->toArray());
         //sd($employee->image);
         /*ถ้า employee ไม่ว่างก็คือการแก้ไข */
         $form = '<div class="row">';
@@ -31,8 +32,11 @@ class FormEmployee
                     $form .= '<div class="pradd-emp-departmentofile-picture">';
                         $form .= '<div class="form-group">';
                         $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
-                            $form .= '<input class="required" type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
-                            $form .= '<br><div id="targetLayer" align="center" >No Image</div>';
+                            $form .= '<input class="" type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
+                            $form .= '<br><div id="targetLayer" align="center">';
+                            /*$form .= '<br><div id="targetLayer" align="center" >No Image</div>';*/
+                             $form .= '<img class="image-preview" src="/public/image/icon_pdf.png" class="upload-preview" style="width: 120px; height: 120px;" >';
+                             $form .= '</div>';
                             $form .= '<br><input type="button" value="Upload image" class="upload_image">';
                         $form .= '</div>';
                      $form .= '</div>';
@@ -198,7 +202,28 @@ class FormEmployee
                  $form .= '<input class="form-control required" type="number" value="'.((!empty($employee) ? $employee["tel"] : '' )).'" placeholder="023456789..." id="tel">';
              $form .= '</div>';
             $form .= '<label class="text-error" id="tel-text-error"></label>';
+
+           /*if(!empty($employee)){*/
+/*$form .= '<div class="hidden">';*/
              $form .= 'ตั้งรหัสผ่านเข้าสู่ระบบ';
+            $form .= '<div class="input-group password_employee">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-lock"></i>';
+                 $form .= '</div>';
+                 $form .= '<input class="form-control required"  type="text" value="'.((!empty($employee) ? $employee["password"] : '' )).'" placeholder="Password..." id="password">';
+             $form .= '</div>';
+            $form .= '<label class="text-error" id="password-text-error"></label>';
+             $form .= 'ยืนยันรหัสผ่านอีกครั้ง';
+            $form .= '<div class="input-group confirm_password">';
+                $form .= '<div class="input-group-addon">';
+                     $form .= '<i class="fa fa-lock"></i>';
+                 $form .= '</div>';
+                 $form .= '<input class="form-control required"  type="text" value="'.((!empty($employee) ? $employee["password"] : '' )).'" id="confirm_password" placeholder="Confirm Password...">';
+             $form .= '</div><br>';
+            $form .= '<label class="text-error" id="confirm_password-text-error"></label>';
+/*$form .= '</div>';*/
+            /*}else{
+                 $form .= 'ตั้งรหัสผ่านเข้าสู่ระบบ';
             $form .= '<div class="input-group password_employee">';
                 $form .= '<div class="input-group-addon">';
                      $form .= '<i class="fa fa-lock"></i>';
@@ -214,6 +239,8 @@ class FormEmployee
                  $form .= '<input class="form-control "  type="text" value="'.((!empty($employee) ? $employee["password"] : '' )).'" id="confirm_password" placeholder="Confirm Password...">';
              $form .= '</div><br>';
             $form .= '<label class="text-error" id="confirm_password-text-error"></label>';
+            }*/
+
          $form .= '</div>';
          $form .= '</div>';
          $form .= '</div>';

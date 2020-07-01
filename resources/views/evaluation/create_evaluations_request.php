@@ -30,7 +30,9 @@
 							<?php $year = explode('-', $value->years);?>
 							<tr>
 								<td><?php echo $no;?></td>
-								<td><?php echo $value->employee->first_name;?> <?php echo $value->employee->last_name;?></td>
+								<td>
+									<?php echo $value->first_name;?> <?php echo $value->last_name;?>
+								</td>
 								<td><?php echo sprintf("%06d", $value->id_topic);?></td>
 								<td><?php echo $value->topic_name;?></td>
 								<td><?php echo $year[0]?></td>

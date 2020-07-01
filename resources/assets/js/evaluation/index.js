@@ -6,12 +6,8 @@ $(document).ready(function(){
 	});
 
 	$('#myTable').DataTable({
-		stateSave : true
-	});
-
-	/*$('#myTable').DataTable( {
         stateSave: true
-    });*/
+    });
 
 	$('.assessment').click(function(){
 		/*var id = $(this).data('id');

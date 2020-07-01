@@ -39,8 +39,25 @@ class AdminController extends Controller
         if(\Session::has('current_admin')){
             $current_admin = \Session::get('current_admin');
         }
-        $department      = Department::all();
-        return $this->useTemplate('admin.add_header_emp', compact('department', 'current_admin'));
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                echo "one";
+                $dept = $_SESSION["get_session_dep"];
+                $header     = Employee::with('department')->where('id_department', $dept)->where('id_status', 1)->where('id_position', 2)->first();
+                $employee     = Employee::with('department')->where('id_department', $dept)->where('id_status', 1)->get();
+                $department      = Department::all();
+                return $this->useTemplate('admin.add_header_emp', compact('department', 'current_admin','header', 'employee', 'dept'));
+            }else{
+                echo "one_v2";
+                $department      = Department::all();
+                return $this->useTemplate('admin.add_header_emp', compact('department', 'current_admin'));
+            }
+        }else{
+            echo "two";
+            $department      = Department::all();
+            return $this->useTemplate('admin.add_header_emp', compact('department', 'current_admin'));
+        }
     }
 
     public function admin_add_department()
@@ -119,12 +136,39 @@ class AdminController extends Controller
     public function ajaxCenter(Request $request)
     {
         $method = $request->get('method');
+
+        $get_session_dep = $request->has('department') ? $request->get('department') : '' ;
+        //sd($get_session_dep);
+        session_start();
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+
+        if(!empty($get_session_dep)){ // ถ้าเลือกแผนกจะส่งรหัสแผนก
+            $_SESSION["get_session_dep"] = $get_session_dep;
+            $current_department = $_SESSION["get_session_dep"];
+            $_SESSION['status'] = 1;
+            $status = $_SESSION['status'];
+        }else{ // กรณีกด ManageMunu
+            if(isset($_SESSION["get_session_dep"])){
+                //$_SESSION["get_session_dep"] = $_SESSION["get_session_dep"];
+                $current_department = $_SESSION["get_session_dep"];
+                $status =   1;
+                $_SESSION['status'] = $status;
+            }else{
+                $current_department = $get_session_dep;
+                $status =   1;
+                $_SESSION['status'] = $status;
+            }
+        }
+        //d($current_department);
+           // exit();
         switch ($method) {
             case 'getDataPersonal':
                 $id             = $request->get('id');
                 $employee       = Employee::with('department')->with('position')->with('education')->where('id_employee', $id)->first();
                 $form_repo      = new FormDataPersonal;
-                $form_view_emp   = $form_repo->getDataPersonal( $employee);
+                $form_view_emp   = $form_repo->getDataPersonal($employee);
                 return response()->json(['status'=> 'success','data'=> $form_view_emp]);
             break;
 
@@ -153,7 +197,8 @@ class AdminController extends Controller
                 $get_data_employee = Employee::with('position', 'department')->where('id_employee', $employee_id)->first();
                 $form_repo          = new FormManageData;
                 $form_manage_data   = $form_repo->getManageData($get_data_employee, $current_admin);
-                return response()->json(['status'=> 'success','data'=> $form_manage_data]);
+                //return response()->json(['status'=> 'success','data'=> $form_manage_data]);
+                return response()->json(['status'=> 'success','data'=> $form_manage_data, 'current_department' => $current_department]);
             break;
 
             case 'getFormEditHeaderAndEmployeeForAdmin':
@@ -174,7 +219,9 @@ class AdminController extends Controller
                 $education      = Education::all();
                 $form_repo      = new FormAddHeader;
                 $form_add_emp   = $form_repo->getFormAddHeader($department,$position,$education);
-                return response()->json(['status'=> 'success','data'=> $form_add_emp]);
+                //return response()->json(['status'=> 'success','data'=> $form_add_emp]);
+                return response()->json(['status'=> 'success','data'=> $form_add_emp, 'current_department' => $current_department]);
+
             break;
 
             default:
@@ -189,7 +236,6 @@ class AdminController extends Controller
         $id_employee     = $request->get('id_employee'); // id ของหัวหน้าหรือหนักงาน
         $id_department   = $request->get('department');
         $id_position     = $request->get('position'); // 1 คือ พนักงาน // 2 คือ หัวหน้า
-
         $array_general_department  = [];
         $general_department = Department::where('id_department', '!=', 'hr0001')->get();
         foreach ($general_department as $value) {
@@ -255,11 +301,15 @@ class AdminController extends Controller
                             $test = explode('.', $_FILES['file_picture']['name']); //แยกชื่อ
                             $extension = end($test); // นามสกุลไฟล์
                             $name = $employee->id_employee.'.'.$extension;
+                    // sd($name);
+
                             $location = 'public/image/'.$name;
                             move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
                         }
                         $employee->image            = $name;
                     }
+            $employee->save();
+                    
                 }else{
                     return ['status' => 'failed'];
                 }
@@ -331,8 +381,10 @@ class AdminController extends Controller
         }
 
         if(in_array($email, $error)){ // check email ว่าซ้ำไหม
-            $error_email =   ["email" => "email ของคุณซ้ำกรุณากรอกemailใหม่"];
-            return json_encode(['status' => 'failed', 'message' => $error_email]);
+            //$error_email =   ["email" => "email ของคุณซ้ำกรุณากรอกemailใหม่"];
+            //return json_encode(['status' => 'failed', 'message' => $error_email]);
+            return json_encode(['status' => 'failed', 'message' => 'email ของคุณซ้ำกรุณากรอกemailใหม่']);
+            //return response()->json(['status' => 'failed', 'message' => $error_email]);
         }
 
         $verify_header   = Employee::where('id_department', $id_department)->where('id_position', 2)->get();
@@ -340,10 +392,12 @@ class AdminController extends Controller
         //sd($count_header);
         if($count_header == 1){ //แสดงว่ามีหัวหน้าอยู่แล้ว ให้หัวหน้ามีได้แค่แผนกละ 1 คน
 
-           $error_department =   ["add-header-department" => "ไม่สามารถเพิ่มหัวหน้าแผนกนี้ได้เนื่องจากแผนกนี้มีหัวหน้าอยู่แล้ว"];
-            return json_encode(['status' => 'failed_add', 'message' => $error_department]);
+           //$error_department =   ["add-header-department" => "ไม่สามารถเพิ่มหัวหน้าแผนกนี้ได้เนื่องจากแผนกนี้มีหัวหน้าอยู่แล้ว"];
+            //return json_encode(['status' => 'failed_add', 'message' => $error_department]);
+            return json_encode(['status' => 'failed_add', 'message' => 'ไม่สามารถเพิ่มหัวหน้าแผนกนี้ได้เนื่องจากแผนกนี้มีหัวหน้าอยู่แล้ว']);
+            //return response()->json(['status' => 'failed_add', 'message' => $error_department]);
         }
-
+        //return json_encode(['status' => 'ok', 'message' => 'ok ผ่าน']);
         // save data to database
         $employee                = new Employee();
         $employee->id_department = $id_department;
@@ -372,10 +426,10 @@ class AdminController extends Controller
 
         if(in_array($employee->id_department, $array_general_department) && $employee->id_position == "2"){
             $employee->id_role = 2; // header_general
-            echo "2";
+            //echo "2";
         }else if(($employee->id_department == $humen_department['id_department']) && $employee->id_position == "2"){
             $employee->id_role = 4; // header_hr
-            echo "4";
+            //echo "4";
         }//exit();
         $employee->save();
 
@@ -391,16 +445,20 @@ class AdminController extends Controller
 
         $find_id_employee        = Employee::where('email', $email)->first();
         $id_employee             = $find_id_employee['id_employee'];
-        if($_FILES['file_picture']['name'] != ''){
-            $test = explode('.', $_FILES['file_picture']['name']);
-            $extension = end($test);
-            $name = $id_employee.'.'.$extension;
-            $location = 'public/image/'.$name;
-            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+        if(!empty($images)){
+            if($_FILES['file_picture']['name'] != ''){
+                $test = explode('.', $_FILES['file_picture']['name']);
+                $extension = end($test);
+                $name = $id_employee.'.'.$extension;
+                $location = 'public/image/'.$name;
+                move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
+            }
+            $find_id_employee->image = $name;
         }
-        $find_id_employee->image = $name;
         $find_id_employee->save();
-        return json_encode(['status' => 'success', 'message' => 'success']);
+        return json_encode(['status' => 'ok', 'message' => 'ok ผ่าน']);
+        //return json_encode(['status' => 'success']);
+        //return response()->json(['status' => 'success', 'message' => 'success']);
     }
 
 

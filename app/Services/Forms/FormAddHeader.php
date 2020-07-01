@@ -12,8 +12,11 @@ class FormAddHeader
                     $form .= '<div class="profile-picture">';
                         $form .= '<div class="form-group">';
                             $form .= '<label for="inputfilepicture">เพิ่มรูปถ่าย</label>';
-                                $form .= '<input class="required" type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
-                                $form .= '<br><div id="targetLayer" align="center" >No Image</div>';
+                                $form .= '<input class="" type="file" name="picture" id="inputfilepicture" value="" multiple="multiple">';
+                                $form .= '<br><div id="targetLayer" align="center">';
+                            /*$form .= '<br><div id="targetLayer" align="center" >No Image</div>';*/
+                             $form .= '<img class="image-preview" src="/public/image/icon_pdf.png" class="upload-preview" style="width: 120px; height: 120px;" >';
+                             $form .= '</div>';
                                 $form .= '<br><input type="button" value="Upload image" class="upload_image">';
                          $form .= '</div>';
                      $form .= '</div>';
