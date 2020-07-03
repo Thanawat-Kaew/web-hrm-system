@@ -83,7 +83,7 @@
 			?>
 			<input type="hidden" name="" id="check_parts" class="check_parts" value="not empty">
 		<?php }else{
-				echo "เท่ากับ0";
+				//echo "เท่ากับ0";
 		?>
 			<input type="hidden" name="" id="check_parts" class="check_parts" value="empty">
 		<?php	}?>

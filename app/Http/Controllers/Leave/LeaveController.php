@@ -553,9 +553,9 @@ class LeaveController extends Controller
         $reason_leave               = $request->get('reason_leave');
         $approvers                  = $request->get('approvers');
 
-        $val_df_full                = $request->get('val_df_full');                 
-        $val_df_half                = $request->get('val_df_half');                 
-        $val_df_hour                = $request->get('val_df_hour'); 
+        $val_df_full                = $request->get('val_df_full');
+        $val_df_half                = $request->get('val_df_half');
+        $val_df_hour                = $request->get('val_df_hour');
         $id_employee                = $current_employee['id_employee'];
 
         $check_data   = Leaves::with('employee')->where('id_leave', $id)->first();
@@ -565,14 +565,14 @@ class LeaveController extends Controller
 
             if($check_data->start_leave == $start_date_full && $check_data->end_leave == $end_date_full && $check_data->start_leave == $end_date_full && $check_data->end_leave == $end_date_full){//วันที่เท่ากัน
                 if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
-                    
+
                     return json_encode(['status' => 'success', 'message' => "success"]);
                 }else{ //เหตุผลไม่เท่ากัน
 
                     $request_leave                          = Leaves::find($id);
                     $request_leave->reason                  = $reason_leave;
                     $request_leave->save();
-                    
+
                     return json_encode(['status' => 'success', 'message' => "success"]);
                 }
             }else{ //วันที่ไม่เท่ากัน
@@ -623,7 +623,7 @@ class LeaveController extends Controller
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }
                 }
-                
+
                 return json_encode(['status' => 'failed', 'message' => "errors"]);
             }
 
@@ -634,27 +634,27 @@ class LeaveController extends Controller
 
                 if ($check_data->start_time == $start_time_morning && $check_data->end_time == $end_time_morning) { //เวลาเช้าเท่า
                     if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
-                    
+
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }else{ //เหตุผลไม่เท่ากัน
 
                         $request_leave                          = Leaves::find($id);
                         $request_leave->reason                  = $reason_leave;
                         $request_leave->save();
-                        
+
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }
                 }else{ //เวลาบ่ายเท่า
 
                     if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
-                    
+
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }else{ //เหตุผลไม่เท่ากัน
 
                         $request_leave                          = Leaves::find($id);
                         $request_leave->reason                  = $reason_leave;
                         $request_leave->save();
-                        
+
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }
                 }
@@ -689,20 +689,20 @@ class LeaveController extends Controller
                         $request_leave->save();
 
                         if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
-                        
+
                             return json_encode(['status' => 'success', 'message' => "success"]);
                         }else{ //เหตุผลไม่เท่ากัน
 
                             $request_leave                          = Leaves::find($id);
                             $request_leave->reason                  = $reason_leave;
                             $request_leave->save();
-                            
+
                             return json_encode(['status' => 'success', 'message' => "success"]);
                         }
                     }
 
-                }else{ 
-                    if ($q > $b) { 
+                }else{
+                    if ($q > $b) {
 
                         return json_encode(['status' => 'failed', 'message' => "errors"]);
                     }else{
@@ -716,7 +716,7 @@ class LeaveController extends Controller
         } else if ($format_leave_three_time == 3 ){
 
             if ($check_data->start_leave == $hour_date && $check_data->end_leave == $hour_date) { //วันที่เท่ากัน
-                if ($check_data->start_time == $start_time_hour && $check_data->end_time == $end_time_hour && $check_data->start_time == $end_time_hour && $check_data->end_time == $end_time_hour) { //เวลาเช้าเท่า
+                if ($check_data->start_time == $start_time_hour && $check_data->end_time == $end_time_hour /*&& $check_data->start_time == $end_time_hour && $check_data->end_time == $end_time_hour*/) { //เวลาเช้าเท่า
                     if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
                         // echo "1";
                         return json_encode(['status' => 'success', 'message' => "success"]);
@@ -725,21 +725,21 @@ class LeaveController extends Controller
                         $request_leave                          = Leaves::find($id);
                         $request_leave->reason                  = $reason_leave;
                         $request_leave->save();
-                        
+
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }
-                }else{ //เวลาบ่ายเท่า
+                }else if($check_data->start_time == $end_time_hour && $check_data->end_time == $end_time_hour){ //เวลาบ่ายเท่า
                     if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
                         // echo "3";
-                        return json_encode(['status' => 'failed', 'message' => "errors"]);
-                        
-                        // return json_encode(['status' => 'success', 'message' => "success"]);
+                        // return json_encode(['status' => 'failed', 'message' => "errors"]);
+
+                        return json_encode(['status' => 'success', 'message' => "success"]);
                     }else{ //เหตุผลไม่เท่ากัน
                         // echo "4";
                         $request_leave                          = Leaves::find($id);
                         $request_leave->reason                  = $reason_leave;
                         $request_leave->save();
-                        
+
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }
                 }
@@ -782,13 +782,13 @@ class LeaveController extends Controller
                             $request_leave                          = Leaves::find($id);
                             $request_leave->reason                  = $reason_leave;
                             $request_leave->save();
-                            
+
                             return json_encode(['status' => 'success', 'message' => "success"]);
                         }
                     }
 
-                }else{ 
-                    if ($q > $b) { 
+                }else{
+                    if ($q > $b) {
                         // echo "9";
                         return json_encode(['status' => 'failed', 'message' => "errors"]);
                     }else{
@@ -798,7 +798,7 @@ class LeaveController extends Controller
                 }
             }
         }
-        
+
         return json_encode(['status' => 'failed', 'message' => "errors"]);
     }
 

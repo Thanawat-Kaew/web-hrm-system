@@ -42,19 +42,19 @@ class AdminController extends Controller
         session_start();
         if(isset($_SESSION['status'])){
             if(isset($_SESSION["get_session_dep"])){
-                echo "one";
+                //echo "one";
                 $dept = $_SESSION["get_session_dep"];
                 $header     = Employee::with('department')->where('id_department', $dept)->where('id_status', 1)->where('id_position', 2)->first();
                 $employee     = Employee::with('department')->where('id_department', $dept)->where('id_status', 1)->get();
                 $department      = Department::all();
                 return $this->useTemplate('admin.add_header_emp', compact('department', 'current_admin','header', 'employee', 'dept'));
             }else{
-                echo "one_v2";
+                //echo "one_v2";
                 $department      = Department::all();
                 return $this->useTemplate('admin.add_header_emp', compact('department', 'current_admin'));
             }
         }else{
-            echo "two";
+            //echo "two";
             $department      = Department::all();
             return $this->useTemplate('admin.add_header_emp', compact('department', 'current_admin'));
         }
@@ -183,7 +183,8 @@ class AdminController extends Controller
 
             case 'getFormHeaderAndEmployeeWithDepartmentForAdmin':
                 $department     = $request->get('department');
-                $employee       = Employee::where('id_department', $department)->get();
+                $employee       = Employee::where('id_department', $department)
+                                    ->where('id_status', 1)->get();
                 $form_repo      = new FormHeaderAndEmployeeWithDepartmentForAdmin;
                 $get_form_emp   = $form_repo->getFormHeaderAndEmployeeWithDepartmentForAdmin($employee);
                 return response()->json(['status'=> 'success','data'=> $get_form_emp]);
@@ -309,7 +310,7 @@ class AdminController extends Controller
                         $employee->image            = $name;
                     }
             $employee->save();
-                    
+
                 }else{
                     return ['status' => 'failed'];
                 }
