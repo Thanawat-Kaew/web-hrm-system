@@ -129,9 +129,9 @@
             <?php endif ?>
         <!-- </div> -->
         <?php endforeach ?>
-        <?php }else{ ?>
-            <h1>No Employee</h1>
-        <?php } ?>
+    <?php }else{ ?>
+        <h1>No Employee</h1>
+    <?php } ?>
     </div>
 </div>
 </div>

@@ -183,7 +183,8 @@ class AdminController extends Controller
 
             case 'getFormHeaderAndEmployeeWithDepartmentForAdmin':
                 $department     = $request->get('department');
-                $employee       = Employee::where('id_department', $department)->get();
+                $employee       = Employee::where('id_department', $department)
+                                    ->where('id_status', 1)->get();
                 $form_repo      = new FormHeaderAndEmployeeWithDepartmentForAdmin;
                 $get_form_emp   = $form_repo->getFormHeaderAndEmployeeWithDepartmentForAdmin($employee);
                 return response()->json(['status'=> 'success','data'=> $get_form_emp]);
@@ -309,7 +310,7 @@ class AdminController extends Controller
                         $employee->image            = $name;
                     }
             $employee->save();
-                    
+
                 }else{
                     return ['status' => 'failed'];
                 }

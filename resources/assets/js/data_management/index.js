@@ -239,7 +239,7 @@ $(function(){
 			},
 			success:function(result){
 				if(result.data !== ""){
-					//console.log(result.data.form_emp);
+					console.log(result.data.form_head);
 
 				    $('#employee').html(result.data.form_emp);
 					$('#header').html(result.data.form_head);
@@ -692,6 +692,27 @@ function postDelete(url){
 						window.location.reload();
 					}
 				})
+				/*$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					url  : $('#ajax-center-url').data('url'),
+					data : {
+						'method' : 'getFormEmployeeWithDepartment',
+						'department': current_department
+					},
+					success:function(result){
+						if(result.data !== ""){
+							//console.log(result.data.form_emp);
+							$('#employee').html(result.data.form_emp);
+							$('#header').html(result.data.form_head);
+							msg_close();
+						}
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});*/
 			}
 			else
 			{
