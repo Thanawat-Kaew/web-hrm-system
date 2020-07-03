@@ -50,6 +50,7 @@
     <hr>
     <div class="box-body show" id="group-employee">
         <div class="row" id="header">
+            <?php if(!empty($header)){ ?>
             <div class="col-md-3 col-sm-2">
                 <div class="box box-widget widget-user-2">
                     <div class="widget-user-header">
@@ -82,12 +83,16 @@
                 </div>
             </div>
         </div>
+        <?php }else{?>
+             <center><h4>No Header</h4></center>
+        <?php } ?>
     </div>
 
     <h4 class="box-title">พนักงาน</h4>
     <hr>
     <div class="box-body show group-employee" id="group-employee">
         <div class="row" id="employee">
+            <?php if(!empty($employee)){?>
             <?php //sd($employee->toArray())?>
             <?php foreach($employee as $key => $value): ?>
                 <!-- <div class="dept<?php //echo $employee['id_department'] ?>"> -->
@@ -124,6 +129,9 @@
             <?php endif ?>
         <!-- </div> -->
         <?php endforeach ?>
+        <?php }else{ ?>
+            <h1>No Employee</h1>
+        <?php } ?>
     </div>
 </div>
 </div>

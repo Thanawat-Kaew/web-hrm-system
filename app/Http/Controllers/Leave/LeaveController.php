@@ -716,7 +716,7 @@ class LeaveController extends Controller
         } else if ($format_leave_three_time == 3 ){
 
             if ($check_data->start_leave == $hour_date && $check_data->end_leave == $hour_date) { //วันที่เท่ากัน
-                if ($check_data->start_time == $start_time_hour && $check_data->end_time == $end_time_hour && $check_data->start_time == $end_time_hour && $check_data->end_time == $end_time_hour) { //เวลาเช้าเท่า
+                if ($check_data->start_time == $start_time_hour && $check_data->end_time == $end_time_hour /*&& $check_data->start_time == $end_time_hour && $check_data->end_time == $end_time_hour*/) { //เวลาเช้าเท่า
                     if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
                         // echo "1";
                         return json_encode(['status' => 'success', 'message' => "success"]);
@@ -728,12 +728,12 @@ class LeaveController extends Controller
                         
                         return json_encode(['status' => 'success', 'message' => "success"]);
                     }
-                }else{ //เวลาบ่ายเท่า
+                }else if($check_data->start_time == $end_time_hour && $check_data->end_time == $end_time_hour){ //เวลาบ่ายเท่า
                     if($check_data->reason == $reason_leave){ //เหตุผลเท่ากัน
                         // echo "3";
-                        return json_encode(['status' => 'failed', 'message' => "errors"]);
+                        // return json_encode(['status' => 'failed', 'message' => "errors"]);
                         
-                        // return json_encode(['status' => 'success', 'message' => "success"]);
+                        return json_encode(['status' => 'success', 'message' => "success"]);
                     }else{ //เหตุผลไม่เท่ากัน
                         // echo "4";
                         $request_leave                          = Leaves::find($id);

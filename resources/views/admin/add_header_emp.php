@@ -36,7 +36,7 @@
             </div>
         </div>
     </div>
-    	<h4 class="box-title show-data" style="margin-left: 5px;">หัวหน้าแผนก </h4>
+        <h4 class="box-title show-data" style="margin-left: 5px;">หัวหน้าแผนก </h4>
     <hr>
     <div class="box-body show" id="group-employee">
         <div class="row" id="header">

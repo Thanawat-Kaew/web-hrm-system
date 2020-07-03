@@ -7,9 +7,10 @@ class FormChangeDepartment
 	 public static function getFormChangeDepartment($employee){
       $form_head ='';
       $form_emp ='';
-
+      $count_header = 0;
             foreach ($employee as $key => $value) {
                if($value['id_position'] == 2) {
+                $count_header = 1;
                 $form_head .='<div class="col-md-3 col-sm-2 ">';
                 $form_head .='<div class="box box-widget widget-user-2">';
                 $form_head .='<div class="widget-user-header">';
@@ -41,6 +42,11 @@ class FormChangeDepartment
                 $form_head .='</div>';
                 $form_head .='</div>';
             }
+        }
+        if($count_header == 0){
+                    $form_head .= '<center>';
+                        $form_head .= '<h4>Not Header</h4>';
+                    $form_head .= '</center>';
         }
 
         foreach($employee as $key => $value) {
