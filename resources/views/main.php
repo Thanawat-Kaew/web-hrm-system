@@ -131,7 +131,7 @@
                                 <h5><?php echo $current_employee->first_name ?> <?php echo $current_employee->last_name ?></h5>
                                 <hr>
                                 <h4>HUMAN RESOURCE MANAGEMENT SYSTEM</h4>
-                                <h5>ระบบบริหารจัดการทรัพยากรบุคคล</h5>
+                                <h5>ระบบบริหารจัดการทรัพยากรบุคคล 555</h5>
 
                                 <button class="btn btn-default logout"><i class="fa fa-sign-out"></i> Logout</button>
                                 <!-- Notifications: style can be found in dropdown.less -->
@@ -200,3 +200,5 @@
 <!-- data -->
 <div id="logout-form" data-url="<?php echo route('logout.index.post') ?>"></div>
 <?php echo csrf_field() ?>
+
+
