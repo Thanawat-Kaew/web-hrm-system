@@ -67,12 +67,12 @@
 		}
 
 		h1,h2,h3,h4 {
-			line-height: 3pt;
+			line-height: 1pt;
 		}
 
 	</style>
 </head>
-<body style="margin-top: 50px;">
+<body style="margin-top: 40px;">
 	<script type="text/php">
 		if ( isset($pdf) ) {
 		// OLD 
@@ -93,7 +93,7 @@
 </script>
 
 <h1 style="font-size: 50px;">EVALUATION REPORT 
-	<p style="font-size: 16px; text-align: right;"> Reported Date : <?php echo $getDate ?> | <?php echo $getTime ?></p>
+	<p style="font-size: 14px; text-align: right;"> Reported Date : <?php echo $getDate ?> | <?php echo $getTime ?></p>
 </h1>
 <hr>
 

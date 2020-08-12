@@ -19,11 +19,23 @@
             <?php $current_employee = \Session::get('current_employee') ?>
             <?php if($current_employee['id_department'] == "hr0001") : ?>
                 <div class="col-sm-3 col-xs-12 pull-right input-group-sm">
+
+                <?php if(isset($dept)){?>
+                    <select class="form-control select2 " style="width: 100%; height: 45px; font-size: 18px; border-radius: 10px;" id="department" data-dependent="header">
+                        <?php foreach($department as $departments) : ?>
+                            <option value="<?php echo $departments['id_department']?>" <?php echo (($departments['id_department'] == $dept) ? 'selected' : '') ?> > <?php echo $departments['name']?> </option>
+                        <?php endforeach ?>
+                    </select>
+                <?php }else{ ?>
                     <select class="form-control select2 " style="width: 100%; height: 45px; font-size: 18px; border-radius: 10px;" id="department" data-dependent="header">
                         <?php foreach($department as $departments) : ?>
                             <option value="<?php echo $departments['id_department']?>" <?php echo (($departments['id_department'] == $current_employee['id_department']) ? 'selected' : '') ?> > <?php echo $departments['name']?> </option>
                         <?php endforeach ?>
                     </select>
+                <?php } ?>
+
+
+
                 </div>
                 <div class="form-group">
                     <div class="col-md-3 col-xs-12 pull-right add-employee">
@@ -38,17 +50,18 @@
     <hr>
     <div class="box-body show" id="group-employee">
         <div class="row" id="header">
+            <?php if(!empty($header)){ ?>
             <div class="col-md-3 col-sm-2">
                 <div class="box box-widget widget-user-2">
                     <div class="widget-user-header">
                         <!-- /.widget-user-image -->
-                        <div class="group-image" align="center" valign="center">
+                        <div class="group-image header_image<?php echo $header->id_employee?>" align="center" valign="center">
                             <?php if(!empty($header->image)){?> <!-- ถ้ามีรูป  -->
                             <img src="/public/image/<?php echo $header->image."?t=".time()?>" class="user-image img-circle" alt="User Image" style="width: 128px; height: 128px;">
                             <?php /*echo "มีรูป";*/ ?>
                             <?php }else{?> <!-- ถ้าไม่มีรุป -->
                             <img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image">
-                            <?php echo "ไม่มีรูป";?>
+                            <?php //echo "ไม่มีรูป";?>
                         <?php } ?>
                     </div>
                     <div class="about-employee">
@@ -70,20 +83,25 @@
                 </div>
             </div>
         </div>
+        <?php }else{?>
+             <center><h4>No Header</h4></center>
+        <?php } ?>
     </div>
 
     <h4 class="box-title">พนักงาน</h4>
     <hr>
     <div class="box-body show group-employee" id="group-employee">
         <div class="row" id="employee">
-            <?php foreach($employee as $key => $value):
-                if($value['id_position'] == 1) :
-                    ?>
-                    <div class="col-md-3 col-sm-2 ">
+            <?php if(!empty($employee)){?>
+            <?php //sd($employee->toArray())?>
+            <?php foreach($employee as $key => $value): ?>
+                <!-- <div class="dept<?php //echo $employee['id_department'] ?>"> -->
+            <?php if($value['id_position'] == 1) : ?>
+                    <div class="col-md-3 col-sm-2 ?>">
                         <div class="box box-widget widget-user-2">
                             <div class="widget-user-header">
                                 <!-- /.widget-user-image -->
-                                <div class="group-image" align="center" valign="center">
+                                <div class="group-image employee_image<?php echo $value->id_employee?>" align="center" valign="center">
                                     <?php if(!empty($value->image)){?> <!-- ถ้ามีรูป  -->
                                     <img src="/public/image/<?php echo $value->image."?t=".time() ?>" class="user-image img-circle" alt="User Image" style="width: 120px; height: 120px;">
                                     <?php }else{?> <!-- ถ้าไม่มีรุป -->
@@ -109,7 +127,11 @@
                     </div>
                 </div>
             <?php endif ?>
+        <!-- </div> -->
         <?php endforeach ?>
+    <?php }else{ ?>
+        <h1>No Employee</h1>
+    <?php } ?>
     </div>
 </div>
 </div>

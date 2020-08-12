@@ -28,7 +28,10 @@ $(function(){
 				box.on('shown.bs.modal', function(){
 					$('#departments_pdf').on('change', function(event) {
 						var id_department = $(this).val();
-						window.open('/data_manage/dump_employee_pdf?id_department='+id_department,'_blank');
+						if (id_department != '1') {
+							window.open('/data_manage/dump_employee_pdf?id_department='+id_department,'_blank');
+
+						}
 					});
 				});
 			},
@@ -49,6 +52,8 @@ $(function(){
 			'employee_id' : id
 		},
 		success: function (result) {
+			//console.log(result.one);
+			var current_department = result.current_department;
 			var box = bootbox.dialog({
 				title: '<h4 style="text-align: center; font-size : 16px;"> จัดการข้อมูล | Data Management</h4>',
 				message: result.data,
@@ -70,7 +75,7 @@ $(function(){
 						},
 						success: function (result) {
 							var title = "<h4 style='color: red;'>แก้ไขข้อมูลพนักงาน <small> | Edit Employee</small>"+id+"</h4>"
-							showDialog(result.data,title);
+							showDialog(result.data,title,current_department);
 							msg_close();
 							$('.upload_image').click(function(){
 								var form_data       = new FormData();
@@ -79,6 +84,7 @@ $(function(){
 								//console.log(id);
 								form_data.append('file_picture', file_picture);
 								form_data.append('id', id);
+								//$('.aaa').append().empty();
 								$("#targetLayer").empty();
 								$.ajax({
 									headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
@@ -183,9 +189,12 @@ $(function(){
 			url: $('#ajax-center-url').data('url'),
 			data: {method : 'getFormAddEmployee'},
 			success: function (result) {
+				var current_department = result.current_department;
+				//console.log(current_department);
 				var title = "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>"
-				showDialog(result.data,title);
-				$('.upload_image').click(function(){
+				showDialog(result.data,title,current_department);
+				/*$('.upload_image').click(function(){
+					//alert("55");
 					var form_data       = new FormData();
 					var file_picture   	= $('#inputfilepicture').prop('files')[0];
 					form_data.append('file_picture', file_picture);
@@ -199,7 +208,7 @@ $(function(){
 						url  : $('#upload-image-url').data('url'),
 						data : form_data,
 						success:function(result){
-							console.log(result.data);
+							//console.log(result.data);
 							$("#targetLayer").html(result.data);
 						},
 						error : function(errors){
@@ -207,7 +216,7 @@ $(function(){
 							console.log(errors);
 						}
 					});
-				});
+				});*/
 			},
 			error : function(errors)
 			{
@@ -230,7 +239,7 @@ $(function(){
 			},
 			success:function(result){
 				if(result.data !== ""){
-					//console.log(result.data.form_emp);
+					console.log(result.data.form_head);
 
 				    $('#employee').html(result.data.form_emp);
 					$('#header').html(result.data.form_head);
@@ -250,7 +259,14 @@ $(function(){
 	});
 });
 
-function showDialog(form,title, oldValue='',not_match, errors=''){
+function showDialog(form,title, current_department, oldValue='',not_match, errors=''){
+	//console.log(one);
+	//console.log(oldValue);
+	//console.log(current_department);
+	//console.log(errors);
+	/*$('.upload_image').click(function(){
+		alert("55");
+	});*/
 	var box = bootbox.dialog({
 		title: title,
 		message: form,
@@ -263,9 +279,9 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 				className: 'btn-info',
 				callback: function(){
 					if (title == "<h4 style='color: red;'>เพิ่มพนักงาน <small> | Add Employee</small></h4>") {
-						addEmployee(form, title);
+						addEmployee(form, title, current_department);
 					}else{
-						editEmployee(form, title);
+						editEmployee(form, title, current_department);
 					}
 				}
 			},
@@ -281,21 +297,70 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 	//console.log(confirm_password);
 	box.on('shown.bs.modal', function(){
 
+
+
+		$('.upload_image').click(function(){
+								var form_data       = new FormData();
+								var file_picture   	= $('#inputfilepicture').prop('files')[0];
+								//var id_employee     = $('')
+								//console.log(file_picture);
+								//console.log(id);
+								form_data.append('file_picture', file_picture);
+								//form_data.append('id', id);
+								//$('.aaa').append().empty();
+								$("#targetLayer").empty();
+								$.ajax({
+									headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+									type : 'POST',
+									cache       : false,
+									contentType : false,
+									processData : false,
+									url  : $('#upload-image-url').data('url'),
+									data : form_data,
+									success:function(result){
+										console.log(result.data);
+										$("#targetLayer").html(result.data);
+										//$("#targetLayer").append('<img class="image-preview" src="/public/before_save_image/'+result.data+'" class="upload-preview" style="width: 120px; height: 120px;" >');
+									},
+									error : function(errors){
+										msg_close();
+										console.log(errors);
+									}
+								});
+							});
+
+
+
+
+
 		$('.datepicker').datepicker({format: 'yyyy-mm-dd'});
 
 		msg_close();
 		$('body').addClass('modal-open'); //scroll mouse
 		if(oldValue !== ""){
+			//console.log(oldValue);
 			$.each(oldValue, function(key, value) {
-				$('#'+key).val(value);
-				if(value == "") {
-					$('#'+key + "-text-error").html("* Required").show();
-				} else {
-					$('#'+key + "-text-error").html("").hide();
-				}
+				//console.log($('#'+key).val(value));
+				/*var vvv = $('#'+key).val(value);
+				if(vvv != ""){*/
+					$('#'+key).val(value);
+					if(value == "") {
+						//console.log(key);
+						$('#'+key + "-text-error").html("* Required").show();
+					} else {
+						$('#'+key + "-text-error").html("").hide();
+					}
+				/*}else{
+					if(value == "") {
+						//console.log(key);
+						$('#'+key + "-text-error").html("* Required").show();
+					} else {
+						$('#'+key + "-text-error").html("").hide();
+					}
+				}*/
 			});
 		}
-
+		//console.log(not_match);
 		if(not_match){
 			$('#confirm_password-text-error').html("Please try password again").show();
 		}else{
@@ -310,8 +375,10 @@ function showDialog(form,title, oldValue='',not_match, errors=''){
 	})
 };
 
-function addEmployee(form, title){
+function addEmployee(form, title, current_department){
+	console.log(current_department);
 	msg_waiting();
+	//var current_department = current_department;
 	var count 			 = 0;
 	var oldValue 		 = {};
 	var password         = $('#password').val();
@@ -327,22 +394,27 @@ function addEmployee(form, title){
 		}
 	})
 
+	/*$('.upload_image').click(function(){
+		alert("55");
+	});*/
+
 	// check match password
 	var not_match = true;
 	if(password != confirm_password) {
-		showDialog(form, title, oldValue,not_match);
+		showDialog(form, title, current_department,oldValue,not_match);
 	}else{
 		if(count > 0) {
-			showDialog(form, title, oldValue,not_match);
+			var not_match = false;
+			showDialog(form, title, current_department,oldValue,not_match);
 		}else{
 			if(password == confirm_password) {
-				saveAddEmployee(form, title, oldValue,not_match);
+				saveAddEmployee(form, title, current_department,oldValue,not_match);
 			}
 		}
 	}
 }
 
-function saveAddEmployee(form, title, oldValue,not_match){
+function saveAddEmployee(form, title, current_department,oldValue,not_match){
 	var form_data = new FormData();
 
 	var file_picture   	= $('#inputfilepicture').prop('files')[0];
@@ -382,8 +454,9 @@ function saveAddEmployee(form, title, oldValue,not_match){
 		url  : $('#add-employee-url').data('url'),
 		data : 		form_data,
 		success: function(response){
-			var data_resp = jQuery.parseJSON(response);
-			if(data_resp.status == "success"){
+			/*var data_resp = jQuery.parseJSON(response);
+			//console.log(ata_resp)
+			if(data_resp.status == "success"){*/
 				Swal.fire(
 				{
 					title: 'คุณเพิ่มรายการนี้เรียบร้อย',
@@ -396,9 +469,32 @@ function saveAddEmployee(form, title, oldValue,not_match){
 					window.location.reload();
 
 				})
-			}else{
+				$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					url  : $('#ajax-center-url').data('url'),
+					data : {
+						'method' : 'getFormEmployeeWithDepartment',
+						'department': current_department
+					},
+					success:function(result){
+						if(result.data !== ""){
+							//console.log(result.data.form_emp);
+							$('#employee').html(result.data.form_emp);
+							$('#header').html(result.data.form_head);
+							msg_close();
+						}
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});
+				//$('#employee').append(data_resp.data);
+				//$('.dept'+department).append(data_resp.data);
+			/*}else{
 				showDialog(form, title, oldValue,not_match, data_resp.message);
-			}
+			}*/
 		},
 		error: function(error){
 			alert('Data not save');
@@ -407,14 +503,17 @@ function saveAddEmployee(form, title, oldValue,not_match){
 	});
 }
 
-function editEmployee(form, title){
+function editEmployee(form, title, current_department=''){
 	msg_waiting();
+	//console.log(one);
+	var current_department = current_department;
 	var count 			 = 0;
 	var oldValue 		 = {};
 	var password         = $('#password').val();
 	var confirm_password = $('#confirm_password').val();
 	jQuery.each($('.required'),function(){
 		var name = $(this).attr('id');
+		//console.log(name);
 		oldValue[name]= $(this).val();
 		if ($(this).val() =="") {
 			count++
@@ -427,21 +526,23 @@ function editEmployee(form, title){
 	// check match password
 	var not_match = true;
 	if(password != confirm_password) {
-		showDialog(form, title, oldValue,not_match);
+		showDialog(form, title,  current_department, oldValue,not_match);
 	}else{
 		if(count > 0) {
+			//console.log(name);
 			var not_match = false;
-
-			showDialog(form, title, oldValue,not_match);
+			showDialog(form, title,  current_department, oldValue,not_match);
 		}else{
 			if(password == confirm_password) {
-				saveEditEmployee(oldValue);
+				saveEditEmployee(oldValue, current_department);
 			}
 		}
 	}
 }
 
-function saveEditEmployee(oldValue){
+function saveEditEmployee(oldValue, current_department=''){
+	//console.log(current_department);
+	var current_department  = current_department;
 	var form_data       = new FormData();
 	var id_employee     = $('#id_employee').val();
 	var file_picture   	= $('#inputfilepicture').prop('files')[0];
@@ -482,7 +583,21 @@ function saveEditEmployee(oldValue){
 		url  : $('#edit-employee-url').data('url'),
 		data : form_data,
 		success: function(response){
-
+			/*var data_resp = jQuery.parseJSON(response);
+			//console.log(data_resp.name);
+			if(data_resp.message){
+				if(data_resp.position == 'header'){
+					//console.log('header');
+					$('.header_image'+id_employee).append().empty();
+					$('.header_image'+id_employee).append('<img src="/public/image/'+data_resp.message+'?t='+'time()"  style="width: 120px; height: 120px;" >');
+				}else if(data_resp.position == 'employee'){
+					//console.log('employee');
+					$('.employee_image'+id_employee).append().empty();
+					$('.employee_image'+id_employee).append('<img src="/public/image/'+data_resp.message+'?t='+'time()"  style="width: 120px; height: 120px;" >');
+				}
+			}else{
+				console.log("not change");
+			}*/
 			Swal.fire(
 			{
 				title: 'แก้ไขข้อมูลสำเร็จ',
@@ -494,7 +609,57 @@ function saveEditEmployee(oldValue){
 
 				window.location.reload();
 
+				/*$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					url  : $('#ajax-center-url').data('url'),
+					data : {
+						'method' : 'getFormEmployeeWithDepartment',
+						'department': one
+					},
+					success:function(result){
+						if(result.data !== ""){
+							//console.log(result.data.form_emp);
+							$('#employee').html(result.data.form_emp);
+							$('#header').html(result.data.form_head);
+							msg_close();
+						}
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});*/
+
 			})
+			/*if(current_department == 0){
+			//if(current_department){
+				window.location.reload();
+			}else{*/
+				//window.location.reload();
+				$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					url  : $('#ajax-center-url').data('url'),
+					data : {
+						'method' : 'getFormEmployeeWithDepartment',
+						'department': current_department
+					},
+					success:function(result){
+						if(result.data !== ""){
+							//console.log(result.data.form_emp);
+							$('#employee').html(result.data.form_emp);
+							$('#header').html(result.data.form_head);
+							msg_close();
+						}
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});
+				//window.location.reload();
+			//}
 		},
 		error: function(error){
 			alert('Data not save edit employee');
@@ -527,6 +692,27 @@ function postDelete(url){
 						window.location.reload();
 					}
 				})
+				/*$.ajax({
+					headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+					type : 'POST',
+					url  : $('#ajax-center-url').data('url'),
+					data : {
+						'method' : 'getFormEmployeeWithDepartment',
+						'department': current_department
+					},
+					success:function(result){
+						if(result.data !== ""){
+							//console.log(result.data.form_emp);
+							$('#employee').html(result.data.form_emp);
+							$('#header').html(result.data.form_head);
+							msg_close();
+						}
+					},
+					error : function(errors){
+						msg_close();
+						console.log(errors);
+					}
+				});*/
 			}
 			else
 			{

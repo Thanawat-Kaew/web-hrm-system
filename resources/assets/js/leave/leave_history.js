@@ -284,7 +284,7 @@ function editRequestLeave(form, title, oldValue,oldCheck){ // แก้ไข re
 
 		},
 		success: function(response){
-
+			// console.log(response)
             var data_resp = jQuery.parseJSON(response);
 
             if(data_resp.status == "success"){
@@ -292,7 +292,11 @@ function editRequestLeave(form, title, oldValue,oldCheck){ // แก้ไข re
                     title: 'บันทึกข้อมูลได้',
                     text: "",
                     type: 'success',
-                })
+                }).then((response) =>{
+
+					window.location.reload();
+
+				})
             }else if(data_resp.status == "failed"){
                 Swal.fire({
                     title: 'บันทึกข้อมูลไม่ได้',
@@ -300,6 +304,7 @@ function editRequestLeave(form, title, oldValue,oldCheck){ // แก้ไข re
                     type: 'error',
                 })
             }
+            
 		},
 		error: function(error){
 			// alert('Edit data not save to request time stamp');

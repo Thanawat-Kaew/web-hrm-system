@@ -44,6 +44,19 @@ class ReportController extends Controller
 {
 	public function index()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            //d($_SESSION['status']);
+            if(isset($_SESSION["get_session_dep"])){
+                //d($_SESSION["get_session_dep"]);
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                //d($_SESSION["get_session_topic"]);
+                unset($_SESSION["get_session_topic"]);
+            }
+            //session_destroy();
+        }//exit();
     	return $this->useTemplate('report.index');
     }
 
@@ -61,7 +74,7 @@ class ReportController extends Controller
                 $q->where('id_employee',$id_employee);
                 $q->where('id_department',$request_department1);
                 $q->where('id_status','=','1');
-            }])->with('createevaluation')->where('id_assessor',$id_employee)->orderBy('id_evaluation','desc')->get();
+            }])->with('createevaluation')->where('id_assessor',$id_employee)->orderBy('id_evaluation','asc')->get();
             // sd($request_data->toArray());
 
 
@@ -105,9 +118,9 @@ class ReportController extends Controller
 
         $form_repo       = new FormShowDataVisualization;
         $get_form_show_data_visual    = $form_repo->getFormShowDataVisualization($request_data,$select_format,$request_department2);
-            
+
         return response()->json(['status'=> 'success','data'=> $get_form_show_data_visual]);
-        
+
     }
 
     public function reportTimeStamp()
@@ -122,11 +135,11 @@ class ReportController extends Controller
             $timestamp      = TimeStamp::with('employee', 'employee.position')
                             ->with(['employee.department' => function($q) use($id_department){
                                 $q->where('id_department', $id_department);
-                            }])->orderBy('date', 'desc')->get(); //รายชื่อพนักงานที่ลงเวลา
+                            }])->orderBy('date', 'desc')->limit(10)->get(); //รายชื่อพนักงานที่ลงเวลา
             $list_employee  = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
         }else{
             $department      = Department::all();
-            $timestamp       = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->get();
+            $timestamp       = TimeStamp::with('employee', 'employee.department', 'employee.position')->orderBy('date', 'desc')->limit(10)->get();
         }
     	return $this->useTemplate('report.report_time_stamp', compact('department', 'timestamp', 'current_employee', 'list_employee'));
     }
@@ -152,7 +165,7 @@ class ReportController extends Controller
             $datas = Leaves::with(['employee' => function ($q) use ($id_department){
                             $q->with('department')->where('id_department', $id_department);
                             $q->with('position');}])
-                        ->with('leaves_type')
+                        ->with('leaves_type')->limit(100)
                         ->get();
             $list_employee  = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
             $department     = Department::where('id_department', $id_department)->first(); //ชื่อแผนก
@@ -213,7 +226,7 @@ class ReportController extends Controller
                                 $q->where('id_department', $id_department);
                             }])
                             ->orderBy('id_assessor', 'asc')
-                            ->orderBy('id_topic', 'desc')
+                            ->orderBy('id_topic', 'desc')->limit(10)
                             ->get();
 
             //$id_department  = $current_employee['id_department'];
@@ -228,7 +241,7 @@ class ReportController extends Controller
         }else{
             $department  = Department::all(); /*เลือกเอาชื่อมาทุกแผนก*/
             $assessor    = Evaluation::with('employee', 'employee.department', 'employee.position', 'resultevaluation', 'createevaluation')
-                        ->orderBy('id_assessor', 'asc')->orderBy('id_topic', 'desc')->get();
+                        ->orderBy('id_assessor', 'asc')->orderBy('id_topic', 'desc')->limit(10)->get();
             /*เชื่อม Database ตั้งเงื่อนไขว่า เรียง id จากน้อยไปมาก และเรียงจาก id_topic จากมากไปน้อย*/
         }
 
@@ -487,7 +500,7 @@ class ReportController extends Controller
             // sd($request->all());
                 $id_department  = $request->get('department');
                 $list_employee = Employee::where('id_department', $id_department)->get(); //รายชื่อพนักงานที่ตรงแผนก
-                $list_topic_eval = CreateEvaluation::where('confirm_send_create_evaluation','=','1')->get();
+                $list_topic_eval = CreateEvaluation::where('confirm_send_create_evaluation','=','1')->where('status','1')->get();
                 $department    = Department::all();
                 $form_repo     = new FormDataVisualization;
                 $get_form      = $form_repo->getFormDataVisualization($department,$list_employee, $list_topic_eval);

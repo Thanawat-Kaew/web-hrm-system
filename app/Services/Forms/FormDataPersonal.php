@@ -4,10 +4,17 @@ namespace App\Services\Forms;
 use App\Services\Employee\EmployeeObject;
 class FormDataPersonal
 {
-	 public static function getDataPersonal($employee, $age){
+	 public static function getDataPersonal($employee){
                  $form = '<div class="box-body">';
                  $form .= '<div class="text-center">';
-                     $form .= '<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image" style="width : 80px; height : 80px;">';
+                  if(!empty($employee->image)){
+                    $form .='<img src="/public/image/'.$employee->image.'?t='.'time()">';
+                   /* $form .='</div>';*/
+                }else{
+                    $form .='<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg">';
+                    /*$form .='</div>';*/
+                }
+                     /*$form .= '<img src="/resources/assets/theme/adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle" alt="User Image" style="width : 80px; height : 80px;">';*/
                  $form .= '</div>';
                  $form .= '<div class="box-body">';
                      $form .= '<table class="table table-bordered">';
@@ -42,10 +49,10 @@ class FormDataPersonal
                                  $form .= '<td>เพศ</td>';
                                  $form .= '<td>'. $employee['gender'].'</td>';
                              $form .= '</tr>';
-                             $form .= '<tr>';
+                             /*$form .= '<tr>';
                                  $form .= '<td>อายุ</td>';
                                  $form .= '<td>'.$age.' ปี</td>';
-                             $form .= '</tr>';
+                             $form .= '</tr>';*/
                              $form .= '<tr>';
                                  $form .= '<td>ที่อยู่</td>';
                                  $form .= '<td>'. $employee['address'].'</td>';

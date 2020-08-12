@@ -66,7 +66,7 @@ class LoginController extends Controller
                 Session::flash('fail', 'E-mail or Password is correct, Please try again.');
                 return view('auth.login');
             }
-            
+
         }else{
             Session::flash('required_data', 'E-mail or Password is required, Please try again.');
                 return view('auth.login');
@@ -78,6 +78,8 @@ class LoginController extends Controller
             // \Session::flush();
             \Session::forget(['current_employee','current_menu']);
             \Session::forget('current_menu');
+            session_start();
+            session_destroy();
             return view('auth.login');
     }
 
@@ -96,10 +98,12 @@ class LoginController extends Controller
         }
 
     }
-    
+
     public function logout_admin(){
         // \Session::flush();
         \Session::forget('current_admin');
+        session_start();
+        session_destroy();
         return view('auth.admin_login');
     }
 }

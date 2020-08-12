@@ -28,6 +28,16 @@ class EvaluationController extends Controller
 {
     public function index()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
@@ -120,9 +130,44 @@ class EvaluationController extends Controller
 
     public function check_count_eval_emp() //หน้าเช็คว่าหัวหน้าประเมินพนักงานครบทุกคนหรือยัง
     {
-        $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
-        //sd($topic_data->toArray());
-        return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
+        session_start();
+        if(isset($_SESSION['status'])){ // กรณ๊เลือกแผนก
+            if(isset($_SESSION["get_session_topic"])){
+                $current_topic = $_SESSION["get_session_topic"];
+                $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
+                $department = Department::all();
+                $count_department    = $department->count(); // นับจำนวน department ว่ามีเท่าไร
+
+                    $employee = [];
+                    for($i=0; $i<$count_department; $i++){
+                        $employee[]         = Employee::with('department')->where('id_department', $department[$i]->id_department)->where('id_position', 1)->where('id_status', 1)->get(); // เก็บข้อมูลพนักงานแยกเป็นแผนก // เก๋บเฉพาะลูกน้อง
+                    }
+
+                    $count_by_department    = []; // เก็บจำนวนคนที่ประเมินแล้วแยกตามแผนก
+                    $count_emp              = 0;// นับพนักงานที่ประเมินแล้วตามหัวเรื่องนั้นๆ
+                    $emp_evaluation         = Evaluation::with('employee')
+                                            ->where('id_topic', $current_topic)
+                                            ->get();
+                    //sd($emp_evaluation->toArray());
+                    $count_emp_evaluation   = $emp_evaluation->count(); // นับจำนวนพนักงานที่ตรงกับหัวเรื่องประเมิน
+                    for($i=0; $i<$count_department; $i++){ // for loop ตามจำนวน แผนก
+                        for($j=0; $j<$count_emp_evaluation; $j++){ // for loop ตามจำนวนพนักงานที่ประเมินแล้วและหัวข้อตรงกับ current_topic
+                            if($emp_evaluation[$j]->employee->id_department == $department[$i]->id_department){
+                                $count_emp = $count_emp + 1; // ถ้า แผนกตรงกันก็ให้บวก+1 ไปเรื่อยๆตามจำนวนที่ตรงกัน
+                                $count_by_department["$i"] = $count_emp;  // แล้วเก็บจำนวนแยกตามแผนก
+                            }
+                        }
+                        $count_emp = 0; // reset ทุกครั่งที่เปลี่ยนแผนก
+                    }
+                return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data', 'current_topic', 'department', 'count_by_department', 'employee'));
+            }else{
+                $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
+                return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
+            }
+        }else{
+            $topic_data  = CreateEvaluation::where('status', 1)->where('confirm_send_create_evaluation', 1)->get();
+            return $this->useTemplate('evaluation.check_count_evaluations_emp', compact('topic_data'));
+        }
     }
 
     public function postConfirmSendCreateEvaluation(Request $request) // เครื่องหมายติ๊กถูก
@@ -131,23 +176,41 @@ class EvaluationController extends Controller
             $current_employee   = \Session::get('current_employee');
         }
         $id                     = $request->get('id');
-        //sd($id);
+        // d($id);
         $find_id_topic          = CreateEvaluation::where('id_topic', $id)->first();
+        // d($find_id_topic->toArray());
+        // sd($current_employee['id_position']);
         if($current_employee['id_position'] == 2){
             $find_id_topic->status                         = 1;
             $find_id_topic->confirm_send_create_evaluation = 1;
+        }else{
+            // echo "string";
+            $find_id_topic->status                         = 2;
+            $find_id_topic->confirm_send_create_evaluation = 1;
         }
-        $find_id_topic->confirm_send_create_evaluation     = 1;
+        $find_id_topic->first_name                         = $current_employee['first_name'];
+        $find_id_topic->last_name                          = $current_employee['last_name'];
         $find_id_topic->save();
 
     }
 
     public function viewCreateEvaluationRequest() // หน้าการอนุมัติ/ไม่อนุมัติการประเมิน //หัวหน้า HR เท่านั้นที่เข้าได้
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
         $evaluations = CreateEvaluation::with('employee', 'parts')->where('confirm_send_create_evaluation', 1)->get();
+        //sd($evaluations->toArray());
         return $this->useTemplate('evaluation.create_evaluations_request', compact('evaluations'));
     }
 
@@ -174,6 +237,10 @@ class EvaluationController extends Controller
         if(!empty($id_new_evaluation)){
             return $this->useTemplate('evaluation.create_evaluations', compact('id_new_evaluation', 'check_data', 'answer_type'));
         }
+        if(\Session::has('current_employee')){
+            $current_employee = \Session::get('current_employee');
+        }
+        //sd($current_employee);
 
         $obj_emp                     = new EmployeeObject;
         $employee_id                 = $obj_emp->getIdEmployee();
@@ -426,7 +493,10 @@ class EvaluationController extends Controller
             $current_employee = \Session::get('current_employee');
         }
         $id_topic                = $id;
+        //sd($id_topic);
         $view_create_evaluation  = CreateEvaluation::with('parts', 'parts.question', 'answerformat')->where('id_topic', $id_topic )->first();
+        //sd($view_create_evaluation->toArray());
+        //sd($view_create_evaluation->toArray());
         return view('evaluation.view_create_evaluations_for_index', compact('view_create_evaluation'));
     }
 
@@ -683,8 +753,9 @@ class EvaluationController extends Controller
         // sd($evaluation->date);
         $evaluation->save();
 
-        $find_id_evaluation                 = Evaluation::where('id_assessor', $data['id_assessor_person'])->where('id_assessment_person', $current_employee->id_employee)->where('result_evaluation', $data['total-evluation'])->where('id_topic',$data['id_topic'])->where('date', date("Y-m-d"))->first();
-        // d($find_id_evaluation->toArray());
+
+        $find_id_evaluation                 = Evaluation::where('id_assessor', $data['id_assessor_person'])->where('id_assessment_person', $current_employee->id_employee)->where('result_evaluation', $data['total-evluation'])->where('date', date("Y-m-d"))->where('id_topic', $data['id_topic'])->first();
+        //sd($find_id_evaluation['id_evaluation']);
 
         for($i=0; $i<$data['total-part']; $i++){
             for($j=0; $j<$data['count-question-'.$i]; $j++){
@@ -826,7 +897,24 @@ class EvaluationController extends Controller
 
     public function ajaxCenter(Request $request)
     {
-        $method = $request->get('method');
+
+    	$method = $request->get('method');
+
+        $get_session_topic = $request->has('id_topic') ? $request->get('id_topic') : '';
+        session_start();
+        if(!empty($get_session_topic)){ // ถ้าเลือกแผนกจะส่งรหัสแผนก
+            $_SESSION["get_session_topic"] = $get_session_topic;
+            $current_topic = $_SESSION["get_session_topic"];
+            $_SESSION['status'] = 1;
+            $status = $_SESSION['status'];
+        }else{
+            //$_SESSION["get_session_topic"] = $get_session_topic;
+            $current_topic = $get_session_topic;
+            $status =   1;
+            $_SESSION['status'] = $status;
+        }
+        //$_SESSION["get_session_topic"];
+
         switch ($method) {
             case 'getFormEvaluation':
 
@@ -966,7 +1054,8 @@ class EvaluationController extends Controller
 
                 $form_repo           = new FormCheckCountEvaluationEmployee; // ชื่อ page
                 $get_form_view_eva   = $form_repo->getFormCheckCountEvaluationEmployee($department, $employee, $count_by_department); // ชื่อ function ใน page
-                return response()->json(['status'=> 'success','data'=> $get_form_view_eva]);
+                //sd($current_topic);
+                return response()->json(['status'=> 'success','data'=> $get_form_view_eva, 'current_topic' => $current_topic]);
                 break;
 
             case 'getFormEmail': // Form กรอกข้อมูลของ email
@@ -977,6 +1066,7 @@ class EvaluationController extends Controller
                 $form_repo     = new FormEmail;
                 $get_form      = $form_repo->getFormEmail($reciver);
                 return response()->json(['status'=> 'success','data'=> $get_form]);
+                //return response()->json(['status'=> 'success','data'=> $get_form, 'current_topic' => $current_topic]);
                 break;
 
             default:

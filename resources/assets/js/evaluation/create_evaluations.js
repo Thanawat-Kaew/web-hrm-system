@@ -46,6 +46,7 @@ $(document).ready(function() {
 				'</div>'+
 		'</div>'+
 		'<label class="text-error name-question-'+id_evaluation+"-"+chapter+"-"+ new_order_question +'-text-error" id="name-question-'+id_evaluation+"-"+chapter+"-"+ new_order_question +'-text-error"></label></div>');
+
 	})
 
 	/*$("#group-part").on('click',".btn-remove-part", function(){ // ลบตอน
@@ -138,55 +139,141 @@ function sendData(){
 	});
 	console.log(check_percent);
 
-	if(check_percent > 100){
-		Swal.fire('Fail', 'กรุณาอย่าใส่ค่า percent ของทุกตอนรวมกันไม่เกิน 100%','warning');
-		if(count > 0) {
-			if(oldValue !== ""){
-				$.each(oldValue, function(key, value) {
-					//console.log('#'+key+'-text-error');
-					$('#'+key).val(value);
-					if(value == "") {
-						$('#'+key + "-text-error").html("* Required").show();
-					} else {
-						$('#'+key + "-text-error").html("").hide();
-					}
-				});
-			}
 
-		}
-	}else if(check_percent < 100){
-		Swal.fire('Fail', 'กรุณาใส่ค่า percent ของทุกตอนรวมกันต้องเท่ากับ 100%','warning');
-		if(count > 0) {
-			if(oldValue !== ""){
-				$.each(oldValue, function(key, value) {
-					//console.log('#'+key+'-text-error');
-					$('#'+key).val(value);
-					if(value == "") {
-						$('#'+key + "-text-error").html("* Required").show();
-					} else {
-						$('#'+key + "-text-error").html("").hide();
-					}
-				});
-			}
-
-		}
-	}else if(check_percent == 100){
-		if(count > 0) {
-			if(oldValue !== ""){
-				$.each(oldValue, function(key, value) {
-					//console.log('#'+key+'-text-error');
-					$('#'+key).val(value);
-					if(value == "") {
-						$('#'+key + "-text-error").html("* Required").show();
-					} else {
-						$('#'+key + "-text-error").html("").hide();
-					}
-				});
-			}
-
+	var check_parts = $('.check_parts').val();
+	console.log(check_parts);
+	if(check_parts == "empty"){
+		//alert("กรุณาเพิ่มตอน EMpty")
+		if(check_percent == 0){
+			//alert("กรุณาเพิ่มตอน EMpty 00000");
+			//alert("กรุณาเพิ่มตอน");
+			Swal.fire('Fail', 'กรุณาเพิ่มตอน','warning');
+		}else if(isNaN(check_percent)){
+			//alert("กรุณาเพิ่มตอน EMpty NaN");
+			//console.log("กรุณาใส่ค่า percent");
+			//alert("กรุณาใส่ค่า percent");
+			Swal.fire('Fail', 'กรุณาใส่ค่า percent','warning');
 		}else{
-
-			document.getElementById("save-evaluation").submit();
+			if(check_percent > 100){
+			Swal.fire('Fail', 'กรุณาอย่าใส่ค่า percent ของทุกตอนรวมกันไม่เกิน 100%','warning');
+			if(count > 0) {
+				if(oldValue !== ""){
+					$.each(oldValue, function(key, value) {
+						$('#'+key).val(value);
+						if(value == "") {
+							$('#'+key + "-text-error").html("* Required").show();
+						} else {
+							$('#'+key + "-text-error").html("").hide();
+						}
+					});
+				}
+			}
+			}else if(check_percent < 100){
+				Swal.fire('Fail', 'กรุณาใส่ค่า percent ของทุกตอนรวมกันต้องเท่ากับ 100%','warning');
+				if(count > 0) {
+					if(oldValue !== ""){
+						$.each(oldValue, function(key, value) {
+							$('#'+key).val(value);
+							if(value == "") {
+								$('#'+key + "-text-error").html("* Required").show();
+							} else {
+								$('#'+key + "-text-error").html("").hide();
+							}
+						});
+					}
+				}
+			}else if(check_percent == 100){
+				if(count > 0) {
+					if(oldValue !== ""){
+						$.each(oldValue, function(key, value) {
+							$('#'+key).val(value);
+							if(value == "") {
+								$('#'+key + "-text-error").html("* Required").show();
+							} else {
+								$('#'+key + "-text-error").html("").hide();
+							}
+						});
+					}
+				}else{
+					// Swal.fire({
+					// 	type: 'success',
+					// 	title: 'Data has been saved',
+					// 	showConfirmButton: true,
+					// 	// timer: 1500
+					// }).then((result) => {
+					document.getElementById("save-evaluation").submit();
+				}
+			}
+		}
+		//alert("empty");
+	}else{
+		if(isNaN(check_percent)){
+			//console.log("กรูราใส่ค่า perecnt");
+			//alert("กรุณาใส่ค่า perecnt");
+			Swal.fire('Fail', 'กรุณาใส่ค่า percent','warning');
+			if(count > 0) {
+				if(oldValue !== ""){
+					$.each(oldValue, function(key, value) {
+						$('#'+key).val(value);
+						if(value == "") {
+							$('#'+key + "-text-error").html("* Required").show();
+						} else {
+							$('#'+key + "-text-error").html("").hide();
+						}
+					});
+				}
+			}
+		}else{
+			if(check_percent > 100){
+				Swal.fire('Fail', 'กรุณาอย่าใส่ค่า percent ของทุกตอนรวมกันไม่เกิน 100%','warning');
+				if(count > 0) {
+					if(oldValue !== ""){
+						$.each(oldValue, function(key, value) {
+							$('#'+key).val(value);
+							if(value == "") {
+								$('#'+key + "-text-error").html("* Required").show();
+							} else {
+								$('#'+key + "-text-error").html("").hide();
+							}
+						});
+					}
+				}
+			}else if(check_percent < 100){
+				Swal.fire('Fail', 'กรุณาใส่ค่า percent ของทุกตอนรวมกันต้องเท่ากับ 100%','warning');
+				if(count > 0) {
+					if(oldValue !== ""){
+						$.each(oldValue, function(key, value) {
+							$('#'+key).val(value);
+							if(value == "") {
+								$('#'+key + "-text-error").html("* Required").show();
+							} else {
+								$('#'+key + "-text-error").html("").hide();
+							}
+						});
+					}
+				}
+			}else if(check_percent == 100){
+				if(count > 0) {
+					if(oldValue !== ""){
+						$.each(oldValue, function(key, value) {
+							$('#'+key).val(value);
+							if(value == "") {
+								$('#'+key + "-text-error").html("* Required").show();
+							} else {
+								$('#'+key + "-text-error").html("").hide();
+							}
+						});
+					}
+				}else{
+					// Swal.fire({
+					// 	type: 'success',
+					// 	title: 'Data has been saved',
+					// 	showConfirmButton: true,
+					// 	// timer: 1500
+					// }).then((result) => {
+					document.getElementById("save-evaluation").submit();
+				}
+			}
 		}
 	}
 }

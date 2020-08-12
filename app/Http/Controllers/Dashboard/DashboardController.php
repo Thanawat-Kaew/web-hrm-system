@@ -37,6 +37,16 @@ class DashboardController extends Controller
 {
 	public function dashboard()
     {
+        session_start();
+        if(isset($_SESSION['status'])){
+            if(isset($_SESSION["get_session_dep"])){
+                unset($_SESSION["get_session_dep"]);
+            }
+            if(isset($_SESSION["get_session_topic"])){
+                unset($_SESSION["get_session_topic"]);
+            }
+        }
+
     	date_default_timezone_set('Asia/Bangkok');
 		$get_date_now = date("Y-m-d");
 		$get_time_now = '09:00:00';

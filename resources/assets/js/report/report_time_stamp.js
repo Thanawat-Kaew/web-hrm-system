@@ -1,4 +1,4 @@
-msg_waiting()
+// msg_waiting()
 
 //import {hello} from './index.js';
 import {showDialog} from '../evaluation/check_count_evaluations_emp.js';

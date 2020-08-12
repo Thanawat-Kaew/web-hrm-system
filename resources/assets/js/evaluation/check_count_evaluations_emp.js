@@ -1,9 +1,34 @@
 $(document).ready(function() {
 	msg_waiting()
 
+	$('.send_message').on('click', '.form_email', function(){
+		msg_waiting();
+		var current_topic = $('#current_topic').val();
+		var id_department = $(this).data('id_department');
+		$.ajax({
+			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+			type: 'POST',
+			url: $('#ajax-center-url').data('url'),
+			data: {method : 'getFormEmail',
+				'id_department'    : id_department
+			},
+			success: function (result) {
+				var title = "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_gmail.jpg'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_email.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_hotmail.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_outlook.png'></h4>"
+				showDialog(result.data,title, current_topic);
+			},
+			error : function(errors){
+				console.log(errors);
+			}
+		})
+	})
+
+
+
+
 	$('#topic_name').on('change', function(){ // dropdown เลือกหัวข้อการประเมิน
 		msg_waiting();
 		var id_topic = $(this).val();
+		//console.log(id_topic);
 		$.ajax({
 			headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
 			type : 'POST',
@@ -14,6 +39,8 @@ $(document).ready(function() {
 			},
 			success:function(result){
 				if(result.data !== ""){
+					var current_topic = result.current_topic;
+					console.log(current_topic);
 					$('#show_data').html(result.data.form);
 					msg_close();
 					$('.send_message').on('click', '.form_email', function(){
@@ -28,7 +55,7 @@ $(document).ready(function() {
 							},
 							success: function (result) {
 								var title = "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_gmail.jpg'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_email.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_hotmail.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_outlook.png'></h4>"
-								showDialog(result.data,title);
+								showDialog(result.data,title, current_topic);
 							},
 							error : function(errors){
 								console.log(errors);
@@ -47,7 +74,7 @@ $(document).ready(function() {
 
 });
 
-function showDialog(form,title, oldValue='', errors='')
+function showDialog(form,title,current_topic='', oldValue='', errors='')
 {
 	var box = bootbox.dialog({
 		title: title,
@@ -61,7 +88,7 @@ function showDialog(form,title, oldValue='', errors='')
 				className: 'btn-info',
 				callback: function(){
 					if (title == "<h4 style='color: red;'>แบบฟอร์มการส่งอีเมล์ <small> | Form E-mail Sender</small><img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_gmail.jpg'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_email.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_hotmail.png'> <img class='pull-right img_emails' style='width:50px; height:50px;' src='/public/image/icon_outlook.png'></h4>") {
-						formSendEmail(form, title);
+						formSendEmail(form, title, current_topic);
 					}
 				}
 			},
@@ -96,7 +123,7 @@ function showDialog(form,title, oldValue='', errors='')
 	})
 }
 
-function formSendEmail(form, title)
+function formSendEmail(form, title, current_topic)
 {
 	var count     = 0;
 	var oldValue  = {};
@@ -113,13 +140,13 @@ function formSendEmail(form, title)
 	});
 
 	if(count > 0){
-		showDialog(form, title, oldValue);
+		showDialog(form, title, current_topic, oldValue);
 	}else{
-		sendEmail(form, title);
+		sendEmail(form, title, current_topic);
 	}
 }
 
-function sendEmail(form, title)
+function sendEmail(form, title, current_topic)
 {
 	var name_sender   = $('#name_sender').val();
 	var email_sender  = $('#email_sender').val();
@@ -152,6 +179,32 @@ function sendEmail(form, title)
 					confirmButtonText: 'ปิด'
 				}).then((response) =>{
 					window.location.reload();
+					if(current_topic){
+					$.ajax({
+						headers: {'X-CSRF-TOKEN': $('input[name=_token]').attr('value')},
+						type : 'POST',
+						url  : $('#ajax-center-url').data('url'),
+						data : {
+							'method' : 'getFormCheckCountEvaluationEmployee',
+							'id_topic': current_topic
+						},
+						success:function(result){
+							if(result.data !== ""){
+								var current_topic = result.current_topic;
+								$('#show_data').html(result.data.form);
+								msg_close();
+								$('.send_message').on('click', '.form_email', function(){
+									msg_waiting();
+									var id_department = $(this).data('id_department');
+								})
+							}
+						},
+						error : function(errors){
+							msg_close();
+							console.log(errors);
+						}
+					});
+				}
 				})
 			}else{
 				showDialog(form, title, oldValue,not_match, data_resp.message);
