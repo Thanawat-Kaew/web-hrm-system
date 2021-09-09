@@ -91,7 +91,6 @@ class EmployeeController extends Controller
 
             case 'getEditAgain': // แก้ไขข้อมูลครั้งที่ 2
                 $id                = $request->get('id');
-                //sd($id);
                 $employee          = RequestChangeData::with('employee')->where('id', $id)->first();
                 //sd($employee['id']);
                 //sd($employee['created_at']);
