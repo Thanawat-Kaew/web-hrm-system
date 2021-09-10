@@ -74,30 +74,6 @@ class LeaveController extends Controller
             }
             // d($count_leave);
         }
-        // sd($history_leave);
-        // sd($leaves->toArray());
-        // sd($datas->leaves->where('id_leaves_type', '1')->count());
-        // $ggg = Leaves::groupBy('id_leaves_type')->get();
-        //               sd($ggg->toArray());
-        // $leaves_type    = LeavesType::all();
-        // $header         = Employee::with('company','leaves')
-        //                                         ->where('id_position', 2)
-        //                                         ->where('id_department', $current_employee['id_department'])
-        //                                         ->first();
-                                                // d($header->toArray());
-
-        // $leaves_info    = $header->leaves;
-        // $company_info   = !empty($company->info)? json_decode($company->info): [];
-        // $leaves_info    = $company_info->leaves_info;
-        // sd($leaves_info->toArray());
-        // $leaves_require = LeavesRequirements::all();
-        // $www = LeavesType::with('leaves_requirements')->get();
-         // sd($www->toArray());
-        // $ddd = $www->day_require;
-        // $leaves_require = LeavesRequirements::with('leaves_type')->where('id_leaves_type',$ddd)->get();
-        // sd($leaves_require->toArray());
-
-
         return $this->useTemplate('leave.leave' ,compact('current_employee','leaves_require', 'history_leave', 'leaves'));
     }
 
