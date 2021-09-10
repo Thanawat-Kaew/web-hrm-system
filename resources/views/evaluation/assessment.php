@@ -37,20 +37,6 @@
 					<div class="content-header">
 						<h3>ข้อมูล</h3>
 					</div>
-				<!-- <div class="info-box bg-yellow">
-					<span class="info-box-icon"><i class="fa fa-check-square-o"></i></span>
-					<div class="info-box-content">
-						<span class="info-box-text">จำนวนพนักงานทั้งหมด</span>
-						<span class="info-box-number">85</span>
-
-						<div class="progress">
-							<div class="progress-bar" style="width: 45%"></div>
-						</div>
-						<span class="progress-description">
-							ประเมินสำเร็จ 35  คิดเป็น 45%
-						</span>
-					</div>
-				</div> -->
 				<input type="hidden" name="datetime_of_evaluation" value="<?php echo $data_evaluation['years'];?>">
 				<div class="text-center">
 					<img src="/resources/assets/theme/adminlte/dist/img/user8-128x128.jpg" class="user-imaged img-circle" alt="User Image">
