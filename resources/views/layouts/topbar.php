@@ -110,22 +110,6 @@
             }
           }
           //sd($sum_confirm_create_evaluation);
-
-          /*$sum_confirm_create_evaluation   = 0;
-          $count_confirm_create_evaluation = $confirm_create_evaluation->count();
-          for($i=0; $i<$count_confirm_create_evaluation; $i++){
-            if($confirm_create_evaluation[$i]->createevaluation_hasmany->count() > 0){
-              $count_createevaluation = $confirm_create_evaluation[$i]->createevaluation_hasmany->count();
-              if($count_createevaluation > 1){
-                for($j=0; $j<$count_createevaluation; $j++){
-                  $sum_confirm_create_evaluation = $sum_confirm_create_evaluation + 1;
-                }
-              }else{
-                $sum_confirm_create_evaluation = $sum_confirm_create_evaluation + 1;
-              }
-            }
-          }
-          sd($sum_confirm_create_evaluation);*/
           if($current_employee['id_department'] == "hr0001"){
             $sum_request = $sum_request_change_data + $sum_request_time_stamp + $sum_request_leave + $sum_confirm_create_evaluation;
           }else{
