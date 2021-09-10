@@ -56,20 +56,7 @@ class DataManageController extends Controller
         $get_session_dep = $request->has('department') ? $request->get('department') : '' ;
 
         session_start();
-        /*if(empty($get_session_dep)){
-            if(isset($_SESSION["get_session_dep"])){
-                //$_SESSION["get_session_dep"] = $_SESSION["get_session_dep"];
-                $current_department = $_SESSION["get_session_dep"];
-            }else{
-                //unset($_SESSION["get_session_dep"]);
-                $current_department = 0;
-            }
-            //$current_department = 0;
-        }else{
-            unset($_SESSION["get_session_dep"]);
-            $_SESSION["get_session_dep"] = $get_session_dep;
-            $current_department = $_SESSION["get_session_dep"];
-        }*/
+       
         if(\Session::has('current_employee')){
             $current_employee = \Session::get('current_employee');
         }
@@ -120,22 +107,8 @@ class DataManageController extends Controller
                 $get_data_employee = Employee::with('position', 'department')->where('id_employee', $employee_id)->first();
                 $form_repo          = new FormManageData;
                 $form_manage_data   = $form_repo->getManageData($get_data_employee);
-               /* if(!empty($current_department)){
-                    return response()->json(['status'=> 'success','data'=> $form_manage_data , 'one' => $current_department]);
-                }else{
-                     return response()->json(['status'=> 'success','data'=> $form_manage_data, 'one' => $current_employee['id_department']]);
-                }*/
-                /*if(!empty($current_department)){
-                    return response()->json(['status'=> 'success','data'=> $form_manage_data, 'current_department' => $current_department]);
-                }else{
-                    return response()->json(['status'=> 'success','data'=> $form_manage_data]);
-                }*/
-                /*if($status == 1){*/
+               
                 return response()->json(['status'=> 'success','data'=> $form_manage_data, 'current_department' => $current_department]);
-                /*}else{
-                    return response()->json(['status'=> 'success','data'=> $form_manage_data]);
-                }*/
-
                 break;
 
             case 'getFormEditEmployee': // แก้ไขหัวหน้าและพนักงาน หัวหน้า hr เป็นคนแก้ไข
@@ -189,17 +162,6 @@ class DataManageController extends Controller
             break;
 
             case 'uploadImage':
-                /*$id                     = $request->get('id');
-                sd($id);
-                $images                  = $request->file("file_picture");
-                if($_FILES['file_picture']['name'] != ''){
-                    $test = explode('.', $_FILES['file_picture']['name']);
-                    $extension = end($test);
-                    $name = $id_employee.'.'.$extension;
-                    $location = 'public/before_save_image/'.$name;
-                    move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
-                }*/
-
                 return response()->json(['status'=> 'success','data'=> $form_dump_emp]);
             break;
 
@@ -319,37 +281,6 @@ class DataManageController extends Controller
             $find_id_employee->image = $name;
         }
         $find_id_employee->save();
-        //return json_encode(['status' => 'success', 'message' => 'success']);
-
-
-        /*$form_emp ='';
-        $form_emp .='<div class="col-md-3 col-sm-2">';
-            $form_emp .='<div class="box box-widget widget-user-2">';
-                $form_emp .='<div class="widget-user-header">';
-                $form_emp .='<!-- /.widget-user-image -->';
-                    $form_emp .='<div class="group-image employee_image'.$id_employee.'" align="center" valign="center">';
-                        $form_emp .='<img src="/public/image/'.$name.'"?t="'.'time()">';
-                    $form_emp .='</div>';
-                    $form_emp .='<div class="about-employee" id="employee">';
-                        $form_emp .='<p>รหัส  : <span>'.$id_employee.'</span></p>';
-                        $form_emp .='<p>ชื่อ   : <span>'.$first_name." ".$last_name.'</span></p>';
-                    $form_emp .='</div>';
-                $form_emp .='</div>';
-                $form_emp .='<div class="box-footer no-padding">';
-                    $form_emp .='<ul class="nav nav-stacked">';
-                        $form_emp .='<li class="manage-employee" data-form_id="'.$id_employee.'" data-form_position="'.$id_position.'" data-form_department="'.$id_department.'">';
-                            $form_emp .='<a style="margin: 5px border: 1px; color : #F76608;">';
-                                $form_emp .='<center>';
-                                    $form_emp .='<i class="fa fa-cog"></i> Manage Data';
-                                $form_emp .='</center>';
-                            $form_emp .='</a>';
-                        $form_emp .='</li>';
-                    $form_emp .='</ul>';
-                $form_emp .='</div>';
-            $form_emp .='</div>';
-        $form_emp .='</div>';
-
-        return json_encode(['status' => 'success', 'data' => $form_emp]);*/
     }
 
     public function notificationRequest()
@@ -648,45 +579,14 @@ class DataManageController extends Controller
     }
 
     public function uploadImage(Request $request){
-       /* $id_last = Employee::orderBy('id_employee', 'desc')->first();
-        sd($id_last->toArray());*/
-        /*$id_employee             = $request->has('id') ? $request->get('id') : '';
-        sd($id_employee);*/
         $images                  = $request->file("file_picture");
-        /*if(('/public/before_save_image/'.$name) != NULL){
-                unlink('public/before_save_image/'.$name);
-            }*/
-        /*$floder_path   = 'public/before_save_image';
-        $name_image    = 'public/before_save_image/'.$name;
-        $files         = glob($floder_path.'/*');
-        if(in_array($name_image, $files)){
-            unlink('public/before_save_image/'.$name);
-            //echo "ลบ";
-        }*/
-        /*if($_FILES['file_picture']['name'] != ''){ // old
-            $test = explode('.', $_FILES['file_picture']['name']);
-            $extension = end($test);
-            $name = $id_employee.'.'.$extension;
-            $location = 'public/before_save_image/'.$name;
-            move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
-            //d("name 1".$name);
-        }*/
+        
         if($_FILES['file_picture']['name'] != ''){ //new
             $name = $_FILES['file_picture']['name'];
             $location = 'public/before_save_image/'.$name;
             move_uploaded_file($_FILES['file_picture']['tmp_name'], $location);
         }
-        /*$virify_id_upload           = UploadImage::where('id_employee', $id_employee)->first();
-        if(empty($virify_id_upload)){ // กรณีอัปโหลดครั้งแรก
-            $upload_image               = new UploadImage();
-            $upload_image->id_employee  = $id_employee;
-            $upload_image->image        = $name;
-            $upload_image->save();
-        }else{
-            $upload_image               = UploadImage::where('id_employee', $id_employee)->first();
-            $upload_image->image        = $name;
-            $upload_image->save();
-        }*/
+       
         return response()->json(['status'=> 'success','data'=> '<img class="image-preview" src="/public/before_save_image/'.$name.'" class="upload-preview" style="width: 120px; height: 120px;" >']);
 
         //return response()->json(['status'=> 'success','data'=> ''.$test.'']); //new
